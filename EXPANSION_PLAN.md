@@ -641,6 +641,46 @@ Add snow-aware sprite selection for objects in snow climates.
    add this. Solution: clear text in the industry window showing radius (7 tiles),
    current object count, next threshold, and current boost level. See Phase 4.2.
 
+### Known Bugs
+
+**BUG: Scan area only covers south/east of industry, not north/west.**
+
+The 15x15 tile scan uses unsigned nibble offsets (0-15) for `nearby_tile_class`
+in FEAT_INDUSTRIES. Values 8-15 are intended to represent negative offsets
+(-8 to -1) via 4-bit signed interpretation, but in practice objects placed
+north/west of the industry are not detected — only south/east works.
+
+**Symptoms:**
+- Objects placed visually "below" (south/east) the industry are counted
+- Objects placed visually "above" (north/west) are NOT counted
+- Effective scan range appears to be ~14 tiles in one direction only
+
+**Investigation so far:**
+- NML uses `unsigned_tile_offset` (range 0..15) for FEAT_INDUSTRIES,
+  vs `signed_tile_offset` (range -8..7) for FEAT_INDUSTRYTILES
+- Both use identical encoding: `(y & 0xF) << 4 | (x & 0xF)`
+- OpenTTD source shows signed conversion happens when `grf_version >= 8`:
+  `if (signed_offsets && x >= 8) x -= 16;`
+- NML 0.8.1 should generate GRF version 8 (unverified in binary)
+- The parameter byte for `nearby_tile_class(9, 9)` should be 0x99,
+  which the game engine should interpret as offset (-7, -7)
+
+**Possible causes to investigate:**
+1. GRF version might not be 8 — verify in the compiled GRF binary
+2. JGRPP might handle the signed_offsets flag differently
+3. `this->tile` in the industry production callback might not be the
+   north tile, or might behave unexpectedly
+4. The unsigned nibble values 8-15 might map to positive offsets 8-15
+   (not -8 to -1) for FEAT_INDUSTRIES specifically
+
+**Possible fixes to try:**
+- Verify GRF version byte in the compiled .grf binary
+- Test with a minimal GRF that only checks `nearby_tile_class(15, 0)`
+  (should be offset -1,0) and see if a tile to the west is detected
+- If unsigned nibbles don't work: consider scanning from FEAT_INDUSTRYTILES
+  (which supports signed offsets and CAN write to industry perm storage)
+- As a workaround: accept south/east-only scan and adjust thresholds
+
 ### Still Open
 
 5. **Industry-specific objects count the same as everything else.**
