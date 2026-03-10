@@ -523,14 +523,58 @@ Objects check `nearby_tile_class` for adjacent industry tiles. If found, show
 
 Implementation: object graphics callback with two spritelayouts.
 
-### 4.2 Industry Window Text
+### 4.2 Industry Window Text — Expansion Info Display
 
-Update extra_text templates to display expansion level:
+Update extra_text templates to display expansion status:
 - `src/templates/extra_text_primary.pynml`
 - `src/templates/extra_text_secondary.pynml`
 
-Show: "Expansion: None / Low (+30%) / Medium (+70%) / High (+150%)"
-and "Expansion tiles: 15/20 (next tier)"
+**Problem:** There is no NewGRF mechanism to visually highlight a radius zone
+around an industry (no overlay, no catchment-style display). The player has
+no built-in way to see which tiles "count" toward expansion. Even JGRPP does
+not add any such feature.
+
+**Solution:** Clear, informative text in the industry window that tells the
+player everything they need to know:
+
+```
+Expansion radius: 7 tiles
+Expansion objects nearby: 12 / 20 (next: Medium +70%)
+Current boost: Low (+30%)
+```
+
+The text shows:
+1. **Radius** — constant reminder of the scan range (7 tiles from industry)
+2. **Current count / next threshold** — how many object tiles found, and how
+   many needed for the next tier
+3. **Current boost level** — what bonus is currently active
+
+For tiers at maximum level:
+```
+Expansion objects nearby: 45 / 40 (High +150%)
+Current boost: High (+150%)
+```
+
+When no expansion objects are present:
+```
+Expansion radius: 7 tiles
+Expansion objects nearby: 0 / 10 (next: Low +30%)
+```
+
+For secondary industries without expansion (penalty active):
+```
+Expansion radius: 7 tiles
+Expansion objects nearby: 0 / 10 (next: Normal 1.0x)
+Current output: Reduced (0.75x)
+```
+
+**Implementation:** Use temp registers to pass values to the string:
+- `0x100` — supply thresholds (existing)
+- `0x101` — expansion tile count (already added in spike)
+- `0x102` — next threshold value
+- `0x103` — current boost percentage
+
+The switch block selects the appropriate string based on current tier.
 
 **Strings in:** `src/lang/english.lng`
 
@@ -584,9 +628,22 @@ Add snow-aware sprite selection for objects in snow climates.
    This means ALL objects (AXIS+, other NewGRFs, base game lighthouses, etc.)
    count toward expansion. Accepted for MVP.
 
+3. ~~**JGRPP extra variables?**~~ **RESOLVED — no help.** JGRPP's NewGRF
+   additions (checked `newgrf-additions.html` and `newgrf-additions-nml.html`)
+   add object properties (`edge_foundation_mode`, `flood_resistant`,
+   `use_land_ground`, `map_tile_type`, `foundation_tile_slope`) but **no new
+   industry variables** for nearby tile inspection. No `nearby_tile_object_type`
+   for FEAT_INDUSTRIES. The limitation is the same in JGRPP and vanilla OpenTTD.
+
+4. ~~**How does the player know the expansion radius?**~~ **RESOLVED — industry
+   window text.** There is no NewGRF mechanism to visually highlight a zone
+   around an industry (no overlay, no catchment display). Even JGRPP does not
+   add this. Solution: clear text in the industry window showing radius (7 tiles),
+   current object count, next threshold, and current boost level. See Phase 4.2.
+
 ### Still Open
 
-3. **Industry-specific objects count the same as everything else.**
+5. **Industry-specific objects count the same as everything else.**
    Because the industry cannot distinguish object types, a "Coal Expansion"
    object has no mechanical advantage over a "Farm Expansion" object placed
    at a coal mine. Per-industry object sets exist only for UX/visual purposes.
@@ -594,23 +651,23 @@ Add snow-aware sprite selection for objects in snow climates.
    be explored (e.g. feature request to OpenTTD for `nearby_tile_object_type`
    on FEAT_INDUSTRIES).
 
-4. **Tertiary industries:** Not planned for expansion support. Confirm.
+6. **Tertiary industries:** Not planned for expansion support. Confirm.
 
-5. **Multiplier stacking with supplies:** For primary industries, does expansion
+7. **Multiplier stacking with supplies:** For primary industries, does expansion
    multiply ON TOP of the supply bonus, or independently? Current plan:
    they multiply together (supplies give base boost, expansion multiplies that).
 
-6. **Economy-aware object visibility:** The proposed `purchase` callback approach
+8. **Economy-aware object visibility:** The proposed `purchase` callback approach
    for hiding objects in wrong economies is unverified. Phase 0 spike should
    also test whether this callback works for FEAT_OBJECTS. If not, objects will
    be visible in all economies (cosmetic issue, not a blocker).
 
-7. **Object class grouping:** Each industry type has its own object class
+9. **Object class grouping:** Each industry type has its own object class
    (e.g. `"AXPC"` for coal). This means many categories in the Objects menu.
    Consider whether a simpler grouping (e.g. just `"AXPG"` generic + `"AXPE"`
    expansion) is better UX, given that all objects count the same anyway.
 
-8. **Other players' objects / griefing in multiplayer.** Since all objects
-   count, another player could place random objects near your industry to
-   give you a free boost (or clutter your area). This is a minor concern
-   for competitive multiplayer but irrelevant for single-player.
+10. **Other players' objects / griefing in multiplayer.** Since all objects
+    count, another player could place random objects near your industry to
+    give you a free boost (or clutter your area). This is a minor concern
+    for competitive multiplayer but irrelevant for single-player.

@@ -1702,6 +1702,8 @@ class IndustryPrimary(Industry):
                 "num_supplies_delivered_27",
                 # expansion system: count of nearby object tiles detected by 256-tick scan
                 "expansion_tile_count",
+                # expansion system: cached production multiplier (100 = no bonus, 130 = +30%, etc.)
+                "expansion_multiplier",
             ],
         )
 

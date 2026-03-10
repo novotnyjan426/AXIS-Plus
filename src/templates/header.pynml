@@ -77,6 +77,60 @@ grf {
 			};
 		}
 	}
+	param 10 {
+		expansion_threshold_low {
+			name: string(STR_PARAM_NAME_EXPANSION_THRESHOLD_LOW);
+			desc: string(STR_PARAM_DESC_EXPANSION_THRESHOLD);
+			def_value: 10;
+			min_value: 1;
+			max_value: 225;
+		}
+	}
+	param 11 {
+		expansion_threshold_medium {
+			name: string(STR_PARAM_NAME_EXPANSION_THRESHOLD_MEDIUM);
+			desc: string(STR_PARAM_DESC_EXPANSION_THRESHOLD);
+			def_value: 20;
+			min_value: 1;
+			max_value: 225;
+		}
+	}
+	param 12 {
+		expansion_threshold_high {
+			name: string(STR_PARAM_NAME_EXPANSION_THRESHOLD_HIGH);
+			desc: string(STR_PARAM_DESC_EXPANSION_THRESHOLD);
+			def_value: 40;
+			min_value: 1;
+			max_value: 225;
+		}
+	}
+	param 13 {
+		primary_expansion_bonus_low {
+			name: string(STR_PARAM_NAME_EXPANSION_BONUS_LOW);
+			desc: string(STR_PARAM_DESC_EXPANSION_BONUS);
+			def_value: 130;
+			min_value: 100;
+			max_value: 500;
+		}
+	}
+	param 14 {
+		primary_expansion_bonus_medium {
+			name: string(STR_PARAM_NAME_EXPANSION_BONUS_MEDIUM);
+			desc: string(STR_PARAM_DESC_EXPANSION_BONUS);
+			def_value: 170;
+			min_value: 100;
+			max_value: 500;
+		}
+	}
+	param 15 {
+		primary_expansion_bonus_high {
+			name: string(STR_PARAM_NAME_EXPANSION_BONUS_HIGH);
+			desc: string(STR_PARAM_DESC_EXPANSION_BONUS);
+			def_value: 250;
+			min_value: 100;
+			max_value: 500;
+		}
+	}
 }
 
 basecost {
@@ -90,6 +144,13 @@ if (param[6] == 0) { param[6] = 100; }
 if (param[7] == 0) { param[7] = 100; }
 if (param[8] == 0) { param[8] = 400; }
 if (param[9] == 0) { param[9] = 300; }
+<!--! Expansion parameter defaults (0 means uninitialized) -->
+if (param[10] == 0) { param[10] = 10; }
+if (param[11] == 0) { param[11] = 20; }
+if (param[12] == 0) { param[12] = 40; }
+if (param[13] == 0) { param[13] = 130; }
+if (param[14] == 0) { param[14] = 170; }
+if (param[15] == 0) { param[15] = 250; }
 
 <!--! disable the default industries -->
 disable_item(FEAT_INDUSTRIES, 0, 36);

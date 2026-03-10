@@ -178,12 +178,33 @@ switch(FEAT_INDUSTRIES, SELF, ${industry.id}_count_expansion_tiles,
     ${industry.id}_count_expansion_row_7;
 }
 
+<!--! Calculate expansion multiplier from tile count and GRF parameter thresholds -->
+switch(FEAT_INDUSTRIES, SELF, ${industry.id}_calculate_expansion_multiplier,
+    [
+        STORE_PERM_ALT(${get_perm_num("expansion_multiplier")},
+            (LOAD_PERM(${get_perm_num("expansion_tile_count")}) >= expansion_threshold_high)
+            ? primary_expansion_bonus_high
+            : (LOAD_PERM(${get_perm_num("expansion_tile_count")}) >= expansion_threshold_medium)
+            ? primary_expansion_bonus_medium
+            : (LOAD_PERM(${get_perm_num("expansion_tile_count")}) >= expansion_threshold_low)
+            ? primary_expansion_bonus_low
+            : 100
+        ),
+    ]) {
+    return 0;
+}
+
 switch(FEAT_INDUSTRIES, SELF, ${industry.id}_produce_256_ticks,
     [
         <!--! there is a good chance that the order of operations here introduces an obiwan on the 27 cycles
               but it _seems_ to work and I don't think it matters enough to figure it out with pen and paper -->
         ${industry.id}_count_expansion_tiles(),
+        ${industry.id}_calculate_expansion_multiplier(),
         ${industry.id}_produce_calculate_current_production_level(),
+        <!--! combine expansion multiplier with supply boost in TEMP(9) to avoid 32-bit overflow in produce formula
+              supply boost is already stored to perm current_supplies_prod_factor above, so overwriting TEMP(9) is safe
+              guard against uninitialized perm (0) by defaulting to 100 -->
+        STORE_TEMP((LOAD_TEMP(9) * max(LOAD_PERM(${get_perm_num("expansion_multiplier")}), 100)) / 100, 9),
         ${industry.id}_update_supplied_cycles_remaining_per_cargo(),
         ${industry.id}_produce_256_ticks_shift_supplies_delivered(),
     ]) {
