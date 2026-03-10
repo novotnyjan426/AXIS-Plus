@@ -1700,6 +1700,8 @@ class IndustryPrimary(Industry):
                 "num_supplies_delivered_25",
                 "num_supplies_delivered_26",
                 "num_supplies_delivered_27",
+                # expansion system: count of nearby object tiles detected by 256-tick scan
+                "expansion_tile_count",
             ],
         )
 
