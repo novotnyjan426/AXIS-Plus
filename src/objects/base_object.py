@@ -30,6 +30,16 @@ class ExpansionObject:
         # multi-tile mode: list of tile dicts for per-tile spritelayouts
         # each dict: {x, y, sprite: [x,y,w,h,xoff,yoff], buildings: [...]}
         self.tile_grid = kwargs.get("tile_grid", None)
+        # allow placement on water tiles
+        self.allow_on_water = kwargs.get("allow_on_water", False)
+
+    def get_flags(self):
+        flags = ["OBJ_FLAG_ANYTHING_REMOVE", "OBJ_FLAG_REMOVE_IS_INCOME"]
+        if self.has_animation():
+            flags.append("OBJ_FLAG_ANIMATED")
+        if self.allow_on_water:
+            flags.append("OBJ_FLAG_ON_WATER")
+        return "bitmask(" + ", ".join(flags) + ")"
 
     def has_custom_sprite(self):
         return self.sprite_file is not None and self.sprite_coords is not None
@@ -51,6 +61,18 @@ class ExpansionObject:
             val = (tile["y"] << 8) | tile["x"]
             result.append({**tile, "switch_val": val})
         return result
+
+    def preview_tile(self):
+        """Return the first tile with buildings for use as purchase preview."""
+        if not self.tile_grid:
+            return None
+        for tile in self.tile_grid:
+            if tile.get('buildings'):
+                return tile
+        for tile in self.tile_grid:
+            if tile.get('sprite'):
+                return tile
+        return self.tile_grid[0]
 
     def animation_frame_count(self):
         if self.animation_frames:

@@ -69,6 +69,43 @@ STR_OBJECT_BAUXITE_ORE_PILE                                                     
 STR_OBJECT_BAUXITE_CRANE                                                         :Bauxite Mine Crane
 STR_OBJECT_BAUXITE_BULLDOZER                                                     :Bauxite Mine Bulldozer
 STR_OBJECT_BAUXITE_PIT                                                           :Bauxite Open Pit
+STR_OBJECT_CLAY_PIT                                                              :Clay Open Pit
+STR_OBJECT_COPPER_HEADGEAR                                                       :Copper Mine Headgear
+STR_OBJECT_COPPER_CRUSHER                                                        :Copper Ore Crusher
+STR_OBJECT_COPPER_WINDING_HOUSE                                                  :Copper Mine Winding House
+STR_OBJECT_COPPER_BOILER_HOUSE                                                   :Copper Mine Boiler House
+STR_OBJECT_COPPER_EXIT_SHED                                                      :Copper Mine Exit Shed
+STR_OBJECT_COPPER_EXIT_TRESTLE                                                   :Copper Mine Exit Trestle
+STR_OBJECT_COPPER_ORE_TRUCK                                                      :Copper Ore Truck
+STR_OBJECT_COPPER_ORE_PILE                                                       :Copper Ore Pile
+STR_OBJECT_COPPER_ORE_PILE_ALT                                                   :Copper Ore Pile (alt)
+STR_OBJECT_CLASS_AGRICULTURE_EXPANSIONS                                          :  Agriculture Expansions
+STR_OBJECT_ARABLE_BARN                                                           :Farm Barn
+STR_OBJECT_ARABLE_FARM_CART                                                      :Farm Cart
+STR_OBJECT_ARABLE_FARMHOUSE                                                      :Farmhouse
+STR_OBJECT_ARABLE_GRANARY                                                        :Granary
+STR_OBJECT_ARABLE_GRAIN_SILO                                                     :Grain Silo
+STR_OBJECT_ARABLE_BARN_ALT                                                       :Farm Barn (alt)
+STR_OBJECT_ARABLE_FARM_CART_ALT                                                  :Farm Cart (alt)
+STR_OBJECT_ARABLE_FARMHOUSE_ALT                                                  :Farmhouse (alt)
+STR_OBJECT_ARABLE_GRANARY_ALT                                                    :Granary (alt)
+STR_OBJECT_ARABLE_GRAIN_SILO_ALT                                                :Grain Silo (alt)
+STR_OBJECT_FRUIT_HOUSE                                                           :Plantation House
+STR_OBJECT_FRUIT_SHED                                                            :Plantation Shed
+STR_OBJECT_FARM_BARN                                                             :Farm Barn
+STR_OBJECT_FARM_SILOS                                                            :Farm Silos
+STR_OBJECT_FARM_FARMHOUSE                                                        :Farmhouse
+STR_OBJECT_FARM_LARGE_BARN                                                       :Large Barn
+STR_OBJECT_FARM_EQUIPMENT                                                        :Farm Equipment
+STR_OBJECT_FARM_TOOLS                                                            :Farm Tools
+STR_OBJECT_FARM_PEN                                                              :Livestock Pen
+STR_OBJECT_FARM_VEHICLES                                                         :Farm Vehicles
+STR_OBJECT_CLASS_PORT_EXPANSIONS                                                 :  Port Expansions
+STR_OBJECT_PORT_WAREHOUSE                                                        :Port Warehouse
+STR_OBJECT_PORT_CRANE                                                            :Port Crane
+STR_OBJECT_PORT_CRATES                                                           :Cargo Crates
+STR_OBJECT_PORT_GOODS                                                            :Cargo Goods
+STR_OBJECT_PORT_PAD                                                              :Concrete Pad
 
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       :Extreme Classic
 STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC                                          :INCOMPLETE Boreal

@@ -36,3 +36,56 @@ bauxite_mine_expansion.ore_pile.register()
 bauxite_mine_expansion.crane.register()
 bauxite_mine_expansion.bulldozer.register()
 bauxite_mine_expansion.pit.register()
+
+# Clay Pit Expansions
+from objects import clay_pit_expansion
+clay_pit_expansion.pit.register()
+
+# Copper Mine Expansions
+from objects import copper_mine_expansion
+copper_mine_expansion.headgear.register()
+copper_mine_expansion.crusher.register()
+copper_mine_expansion.winding_house.register()
+copper_mine_expansion.boiler_house.register()
+copper_mine_expansion.exit_shed.register()
+copper_mine_expansion.exit_trestle.register()
+copper_mine_expansion.ore_truck.register()
+copper_mine_expansion.ore_pile_front.register()
+copper_mine_expansion.ore_pile_rear.register()
+
+# Agriculture Expansions — Arable Farm
+from objects import arable_farm_expansion
+arable_farm_expansion.barn.register()
+arable_farm_expansion.farm_cart.register()
+arable_farm_expansion.farmhouse.register()
+arable_farm_expansion.granary.register()
+arable_farm_expansion.grain_silo.register()
+arable_farm_expansion.barn_alt.register()
+arable_farm_expansion.farm_cart_alt.register()
+arable_farm_expansion.farmhouse_alt.register()
+arable_farm_expansion.granary_alt.register()
+arable_farm_expansion.grain_silo_alt.register()
+
+# Agriculture Expansions — Fruit Plantation
+from objects import fruit_plantation_expansion
+fruit_plantation_expansion.plantation_house.register()
+fruit_plantation_expansion.plantation_shed.register()
+
+# Agriculture Expansions — Mixed Farm
+from objects import farm_expansion
+farm_expansion.barn.register()
+farm_expansion.silos.register()
+farm_expansion.farmhouse.register()
+farm_expansion.large_barn.register()
+farm_expansion.equipment_yard.register()
+farm_expansion.farm_tools.register()
+farm_expansion.livestock_pen.register()
+farm_expansion.farm_vehicles.register()
+
+# Port Expansions
+from objects import port_expansion
+port_expansion.warehouse.register()
+port_expansion.crane.register()
+port_expansion.cargo_crates.register()
+port_expansion.cargo_goods.register()
+port_expansion.concrete_pad.register()

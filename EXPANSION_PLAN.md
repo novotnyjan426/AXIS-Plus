@@ -139,10 +139,10 @@ For `IndustrySecondary` (line ~1850), replace two existing `"unused"` slots:
 Using existing unused slots for secondary avoids breaking savegame register
 positions.
 
-### 1.3 Object Pipeline (Greenfield)
+### 1.3 Object Pipeline ✅ DONE
 
-The current build pipeline only handles cargos and industries. There is **no
-existing FEAT_OBJECTS path**. This is new subsystem work, not a small tweak.
+The object pipeline is fully operational. Template supports 5 rendering modes:
+plain, single sprite, multi-building, animated, and multi-tile grid.
 
 #### New files to create:
 
@@ -175,10 +175,15 @@ This requires:
 
 Add object registration alongside existing cargo/industry registration.
 
-#### Minimal object definition (Phase 1 MVP):
+#### Current object inventory:
 
-One 1x1 object using an existing AXIS sprite (e.g. supply_yard coal pile).
-No DWE import yet.
+- **Coal mine**: 6 objects (headframe, crusher, winding house, boiler house, ore truck, coal pile) — IDs 10-15 — economies: BASIC_TEMPERATE, BASIC_TROPIC, STEELTOWN
+- **Iron ore mine**: 9 objects (headgear, crusher, winding house, boiler house, exit shed, animated exit trestle, ore truck, ore pile front/rear) — IDs 20-28 — economies: BASIC_TEMPERATE, BASIC_TROPIC, STEELTOWN
+- **Bauxite mine**: 9 objects (silo, conveyor, crusher, pit conveyors A/B, ore pile, crane, bulldozer, 5x3 multi-tile open pit) — IDs 30-38 — economies: BASIC_TEMPERATE, STEELTOWN
+- **Clay pit**: 1 object (5x3 multi-tile open pit) — ID 40 — economies: BASIC_TEMPERATE, BASIC_TROPIC
+- **Copper mine**: 9 objects (animated headgear, crusher, winding house, boiler house, exit shed, animated exit trestle, ore truck, ore pile front/rear) — IDs 50-58 — economies: BASIC_TEMPERATE, STEELTOWN
+
+#### Original minimal object definition (Phase 1 MVP, now superseded):
 
 ```nml
 item(FEAT_OBJECTS, expansion_test_object, 0) {
@@ -400,10 +405,10 @@ industry counts toward expansion.
 | Group | Class ID | Industries | Status |
 |-------|----------|------------|--------|
 | **AXIS+ Expansions** | `"AXP+"` | Generic / test objects | Done |
-| **  Mine Expansions** | `"AXPM"` | 18 industries (see below) | Coal mine done |
-| **  Agriculture Expansions** | `"AXPA"` | 16 industries (see below) | TODO |
+| **  Mine Expansions** | `"AXPM"` | 18 industries (see below) | 5 done (coal, iron, bauxite, clay, copper) |
+| **  Agriculture Expansions** | `"AXPA"` | 16 industries (see below) | 3 done (arable_farm, fruit_plantation, farm) |
 | **  Oil Expansions** | `"AXPO"` | 2 industries | TODO |
-| **  Port Expansions** | `"AXPP"` | 4 industries | TODO |
+| **  Port Expansions** | `"AXPP"` | 4 industries | 1 done (port) |
 | **  Other Primary** | `"AXPX"` | 2 industries | TODO |
 | **  Secondary** | *(TBD)* | 73 industries (split TBD) | Future (Phase 2.2) |
 
@@ -411,15 +416,15 @@ Tertiary industries (shops, distributors) do **not** get expansion support.
 
 #### Mine Expansions (AXPM) — 18 industries
 
-coal_mine ✅, iron_ore_mine, bauxite_mine, copper_mine, clay_pit, quarry,
-limestone_mine, pyrite_mine, phosphate_mine, nitrate_mine, salt_mine,
+coal_mine ✅, iron_ore_mine ✅, bauxite_mine ✅, clay_pit ✅, copper_mine ✅,
+quarry, limestone_mine, pyrite_mine, phosphate_mine, nitrate_mine, salt_mine,
 salt_evaporator, soda_ash_mine, diamond_mine, manganese_mine, tar_sands_mine,
 dredging_site, trading_post
 
 #### Agriculture Expansions (AXPA) — 16 industries
 
-arable_farm, farm, dairy_farm, sheep_farm, ranch, orchard_piggery, vineyard,
-coffee_estate, fruit_plantation, rubber_plantation, forest, fish_farm,
+arable_farm ✅, farm ✅, dairy_farm, sheep_farm, ranch, orchard_piggery, vineyard,
+coffee_estate, fruit_plantation ✅, rubber_plantation, forest, fish_farm,
 seaweed_farm, herding_coop, peatlands, fishing_grounds
 
 #### Oil Expansions (AXPO) — 2 industries
@@ -428,7 +433,7 @@ oil_wells, oil_rig
 
 #### Port Expansions (AXPP) — 4 industries
 
-bulk_terminal, liquids_terminal, port, wharf
+bulk_terminal, liquids_terminal, port ✅, wharf
 
 #### Other Primary (AXPX) — 2 industries
 

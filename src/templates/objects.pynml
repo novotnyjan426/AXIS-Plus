@@ -40,6 +40,35 @@ spritelayout ${obj.id}_layout_t${tile['x']}_${tile['y']} {
 }
 </tal:tiles>
 
+<!--! Purchase preview: all tiles composited with isometric offsets -->
+spritelayout ${obj.id}_purchase_layout {
+    ground {
+        sprite: GROUNDSPRITE_NORMAL;
+    }
+    <tal:ptiles repeat="tile obj.tile_grid_items()">
+    <tal:poverlay condition="tile.get('sprite')">
+    building {
+        sprite: ${obj.id}_ground_t${tile['x']}_${tile['y']}(0);
+        xoffset: ${(tile['x'] - obj.size[0] // 2) * 16};
+        yoffset: ${(tile['y'] - obj.size[1] // 2) * 16};
+        zoffset: 0;
+        xextent: 16;
+        yextent: 16;
+        zextent: 1;
+    }
+    </tal:poverlay>
+    <tal:pbldgs repeat="bldg tile.get('buildings', [])">
+    building {
+        sprite: ${obj.id}_bldg_t${tile['x']}_${tile['y']}_${repeat.bldg.index}(0);
+        recolour_mode: RECOLOUR_REMAP;
+        palette: PALETTE_USE_DEFAULT;
+        xoffset: ${(tile['x'] - obj.size[0] // 2) * 16};
+        yoffset: ${(tile['y'] - obj.size[1] // 2) * 16};
+    }
+    </tal:pbldgs>
+    </tal:ptiles>
+}
+
 spritelayout ${obj.id}_layout_default {
     ground {
         sprite: ${obj.ground_sprite};
@@ -140,12 +169,7 @@ item(FEAT_OBJECTS, ${obj.id}, ${obj.numeric_id}) {
         introduction_date: ${obj.introduction_date};
         end_of_life_date: 0xFFFFFFFF;
         climates_available: ALL_CLIMATES;
-        <tal:flags_anim condition="obj.has_animation()">
-        object_flags: bitmask(OBJ_FLAG_ANYTHING_REMOVE, OBJ_FLAG_REMOVE_IS_INCOME, OBJ_FLAG_ANIMATED);
-        </tal:flags_anim>
-        <tal:flags_normal condition="python:not obj.has_animation()">
-        object_flags: bitmask(OBJ_FLAG_ANYTHING_REMOVE, OBJ_FLAG_REMOVE_IS_INCOME);
-        </tal:flags_normal>
+        object_flags: ${obj.get_flags()};
         height: ${obj.height};
         num_views: ${obj.views};
         <tal:anim condition="obj.has_animation()">
@@ -156,6 +180,7 @@ item(FEAT_OBJECTS, ${obj.id}, ${obj.numeric_id}) {
     }
     graphics {
         <tal:tiled_gfx condition="obj.has_tile_grid()">
+        purchase: ${obj.id}_purchase_layout;
         default: ${obj.id}_tile_switch;
         </tal:tiled_gfx>
         <tal:anim_gfx condition="python:obj.has_animation() and not obj.has_tile_grid()">
