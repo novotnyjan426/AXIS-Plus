@@ -42,8 +42,33 @@ STR_PARAM_VALUE_EXPANSION_COST_4                                                
 STR_PARAM_VALUE_EXPANSION_COST_5                                                 :5 - Very High (32x)
 STR_PARAM_VALUE_EXPANSION_COST_6                                                 :6 - Extreme (64x)
 
-STR_OBJECT_CLASS_AXIS_PLUS                                                       :AXIS+ Expansion
+STR_OBJECT_CLASS_AXIS_PLUS                                                       :AXIS+ Expansions
 STR_OBJECT_EXPANSION_TEST                                                        :Expansion Building (Test)
+STR_OBJECT_CLASS_MINE_EXPANSIONS                                                 :  Mine Expansions
+STR_OBJECT_COAL_HEADFRAME                                                        :Mine Headframe
+STR_OBJECT_COAL_BUILDING                                                         :Mine Building
+STR_OBJECT_COAL_PILE_SMALL                                                       :Coal Pile (small)
+STR_OBJECT_COAL_HEAP                                                             :Coal Heap
+STR_OBJECT_COAL_STORAGE                                                          :Coal Storage
+STR_OBJECT_COAL_EQUIPMENT                                                        :Mine Equipment
+STR_OBJECT_IRON_HEADGEAR                                                         :Iron Mine Headgear
+STR_OBJECT_IRON_CRUSHER                                                          :Iron Ore Crusher
+STR_OBJECT_IRON_WINDING_HOUSE                                                    :Iron Mine Winding House
+STR_OBJECT_IRON_BOILER_HOUSE                                                     :Iron Mine Boiler House
+STR_OBJECT_IRON_EXIT_SHED                                                        :Iron Mine Exit Shed
+STR_OBJECT_IRON_EXIT_TRESTLE                                                     :Iron Mine Exit Trestle
+STR_OBJECT_IRON_ORE_TRUCK                                                        :Iron Ore Truck
+STR_OBJECT_IRON_ORE_PILE                                                         :Iron Ore Pile
+STR_OBJECT_IRON_ORE_PILE_ALT                                                     :Iron Ore Pile (alt)
+STR_OBJECT_BAUXITE_SILO                                                          :Bauxite Silo
+STR_OBJECT_BAUXITE_CONVEYOR                                                      :Bauxite Conveyor
+STR_OBJECT_BAUXITE_CRUSHER                                                       :Bauxite Crusher
+STR_OBJECT_BAUXITE_PIT_CONVEYOR_A                                                :Bauxite Pit Conveyor
+STR_OBJECT_BAUXITE_PIT_CONVEYOR_B                                                :Bauxite Pit Conveyor (alt)
+STR_OBJECT_BAUXITE_ORE_PILE                                                      :Bauxite Ore Pile
+STR_OBJECT_BAUXITE_CRANE                                                         :Bauxite Mine Crane
+STR_OBJECT_BAUXITE_BULLDOZER                                                     :Bauxite Mine Bulldozer
+STR_OBJECT_BAUXITE_PIT                                                           :Bauxite Open Pit
 
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       :Extreme Classic
 STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC                                          :INCOMPLETE Boreal

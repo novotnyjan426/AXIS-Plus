@@ -387,30 +387,52 @@ Only after Phase 1+2 are working with the test object.
 
 ### 3.1 Object Categories & Structure
 
-Each industry type gets its **own dedicated object set**, plus there is one
-**generic set** usable near any industry. All are AXIS+ objects within one GRF.
+Objects are organized into groups by industry type. Each group appears as a
+separate category in the Objects menu. The class name uses leading spaces to
+create visual indentation under the top-level "AXIS+ Expansions" category.
 
-#### Object sets:
+All objects count the same for the expansion scanner (TILE_CLASS_OBJECTS).
+The grouping is purely for **player UX** — mechanically, any object near any
+industry counts toward expansion.
 
-| Object Set | Object Class | Example Objects | Works Near |
-|------------|-------------|-----------------|------------|
-| **Generic Industrial** | `"AXPG"` | Fences, concrete pads, pipes, clutter | Any industry |
-| **Coal Mine Expansion** | `"AXPC"` | Coal storage, pit equipment, conveyor | Coal mine only |
-| **Iron Mine Expansion** | `"AXPI"` | Ore crusher, rail loading, headframe | Iron ore mine only |
-| **Farm Expansion** | `"AXPF"` | Grain silo, barn, workshop | Farms only |
-| **Secondary Expansion** | `"AXPS"` | Warehouse, loading bay, chimney | Secondary industries |
-| *(more per industry)* | `"AXP?"` | *(TBD per industry type)* | *(specific industry)* |
+#### Object groups:
 
-Each object class appears as a **separate category** in the Objects menu,
-so the player can easily find the right expansion type.
+| Group | Class ID | Industries | Status |
+|-------|----------|------------|--------|
+| **AXIS+ Expansions** | `"AXP+"` | Generic / test objects | Done |
+| **  Mine Expansions** | `"AXPM"` | 18 industries (see below) | Coal mine done |
+| **  Agriculture Expansions** | `"AXPA"` | 16 industries (see below) | TODO |
+| **  Oil Expansions** | `"AXPO"` | 2 industries | TODO |
+| **  Port Expansions** | `"AXPP"` | 4 industries | TODO |
+| **  Other Primary** | `"AXPX"` | 2 industries | TODO |
+| **  Secondary** | *(TBD)* | 73 industries (split TBD) | Future (Phase 2.2) |
 
-#### Per-industry vs generic counting:
+Tertiary industries (shops, distributors) do **not** get expansion support.
 
-When scanning tiles, both generic AND industry-specific objects count toward
-the tile total. A coal mine counts:
-- Generic objects (`AXPG`) nearby → count toward total
-- Coal-specific objects (`AXPC`) nearby → count toward total
-- Farm objects (`AXPF`) nearby → **do NOT count** (wrong industry type)
+#### Mine Expansions (AXPM) — 18 industries
+
+coal_mine ✅, iron_ore_mine, bauxite_mine, copper_mine, clay_pit, quarry,
+limestone_mine, pyrite_mine, phosphate_mine, nitrate_mine, salt_mine,
+salt_evaporator, soda_ash_mine, diamond_mine, manganese_mine, tar_sands_mine,
+dredging_site, trading_post
+
+#### Agriculture Expansions (AXPA) — 16 industries
+
+arable_farm, farm, dairy_farm, sheep_farm, ranch, orchard_piggery, vineyard,
+coffee_estate, fruit_plantation, rubber_plantation, forest, fish_farm,
+seaweed_farm, herding_coop, peatlands, fishing_grounds
+
+#### Oil Expansions (AXPO) — 2 industries
+
+oil_wells, oil_rig
+
+#### Port Expansions (AXPP) — 4 industries
+
+bulk_terminal, liquids_terminal, port, wharf
+
+#### Other Primary (AXPX) — 2 industries
+
+cryo_plant, recycling_depot
 
 ### 3.2 Economy-Aware Object Visibility
 

@@ -4,11 +4,130 @@
 
 <tal:objects repeat="obj registered_objects">
 
-spritelayout ${obj.id}_spritelayout {
+<!--! Multi-tile mode: per-tile spritesets + spritelayouts + position switch -->
+<tal:tiled condition="obj.has_tile_grid()">
+<tal:tiles repeat="tile obj.tile_grid_items()">
+<!--! Ground overlay spriteset for tile ${tile['x']},${tile['y']} -->
+<tal:has_sprite condition="tile.get('sprite')">
+spriteset(${obj.id}_ground_t${tile['x']}_${tile['y']}, "${obj.sprite_file}") {
+    [${tile['sprite'][0]}, ${tile['sprite'][1]}, ${tile['sprite'][2]}, ${tile['sprite'][3]}, ${tile['sprite'][4]}, ${tile['sprite'][5]}]
+}
+</tal:has_sprite>
+<!--! Building spritesets for tile ${tile['x']},${tile['y']} -->
+<tal:bldg_spritesets repeat="bldg tile.get('buildings', [])">
+spriteset(${obj.id}_bldg_t${tile['x']}_${tile['y']}_${repeat.bldg.index}, "${obj.sprite_file}") {
+    [${bldg['coords'][0]}, ${bldg['coords'][1]}, ${bldg['coords'][2]}, ${bldg['coords'][3]}, ${bldg['coords'][4]}, ${bldg['coords'][5]}]
+}
+</tal:bldg_spritesets>
+
+spritelayout ${obj.id}_layout_t${tile['x']}_${tile['y']} {
     ground {
-        sprite: GROUNDSPRITE_CONCRETE;
+        sprite: GROUNDSPRITE_NORMAL;
+    }
+    <tal:overlay condition="tile.get('sprite')">
+    childsprite {
+        sprite: ${obj.id}_ground_t${tile['x']}_${tile['y']}(0);
+        always_draw: 1;
+    }
+    </tal:overlay>
+    <tal:bldgs repeat="bldg tile.get('buildings', [])">
+    building {
+        sprite: ${obj.id}_bldg_t${tile['x']}_${tile['y']}_${repeat.bldg.index}(0);
+        recolour_mode: RECOLOUR_REMAP;
+        palette: PALETTE_USE_DEFAULT;
+    }
+    </tal:bldgs>
+}
+</tal:tiles>
+
+spritelayout ${obj.id}_layout_default {
+    ground {
+        sprite: ${obj.ground_sprite};
     }
 }
+
+switch(FEAT_OBJECTS, SELF, ${obj.id}_tile_switch, var[0x40] % 65536) {
+    <tal:cases repeat="tile obj.tile_grid_items()">
+    ${tile['switch_val']}: ${obj.id}_layout_t${tile['x']}_${tile['y']};
+    </tal:cases>
+    default: ${obj.id}_layout_default;
+}
+</tal:tiled>
+
+<!--! Multi-building mode: multiple spritesets + one spritelayout with multiple buildings -->
+<tal:multi condition="python:obj.has_multi_buildings() and not obj.has_tile_grid()">
+<tal:spritesets repeat="bldg obj.buildings">
+spriteset(${obj.id}_spriteset_${repeat.bldg.index}, "${bldg['file']}") {
+    [${bldg['coords'][0]}, ${bldg['coords'][1]}, ${bldg['coords'][2]}, ${bldg['coords'][3]}, ${bldg['coords'][4]}, ${bldg['coords'][5]}]
+}
+</tal:spritesets>
+
+spritelayout ${obj.id}_spritelayout {
+    ground {
+        sprite: ${obj.ground_sprite};
+    }
+    <tal:buildings repeat="bldg obj.buildings">
+    building {
+        sprite: ${obj.id}_spriteset_${repeat.bldg.index}(0);
+        recolour_mode: RECOLOUR_REMAP;
+        palette: PALETTE_USE_DEFAULT;
+        xoffset: ${bldg.get('xoffset', 0)};
+        yoffset: ${bldg.get('yoffset', 0)};
+        zoffset: ${bldg.get('zoffset', 0)};
+        xextent: ${bldg.get('xextent', 16)};
+        yextent: ${bldg.get('yextent', 16)};
+        zextent: ${bldg.get('zextent', 16)};
+    }
+    </tal:buildings>
+}
+</tal:multi>
+
+<!--! Animated single sprite mode: spriteset with multiple frames -->
+<tal:animated condition="python:obj.has_animation() and not obj.has_multi_buildings() and not obj.has_tile_grid()">
+spriteset(${obj.id}_spriteset, "${obj.sprite_file}") {
+    <tal:frames repeat="frame obj.animation_frames">
+    [${frame[0]}, ${frame[1]}, ${frame[2]}, ${frame[3]}, ${frame[4]}, ${frame[5]}]
+    </tal:frames>
+}
+
+spritelayout ${obj.id}_spritelayout {
+    ground {
+        sprite: ${obj.ground_sprite};
+    }
+    building {
+        sprite: ${obj.id}_spriteset(animation_frame % ${obj.animation_frame_count()});
+        recolour_mode: RECOLOUR_REMAP;
+        palette: PALETTE_USE_DEFAULT;
+    }
+}
+</tal:animated>
+
+<!--! Single sprite mode: one spriteset + one building -->
+<tal:single condition="python:obj.has_custom_sprite() and not obj.has_multi_buildings() and not obj.has_animation() and not obj.has_tile_grid()">
+spriteset(${obj.id}_spriteset, "${obj.sprite_file}") {
+    [${obj.sprite_coords[0]}, ${obj.sprite_coords[1]}, ${obj.sprite_coords[2]}, ${obj.sprite_coords[3]}, ${obj.sprite_coords[4]}, ${obj.sprite_coords[5]}]
+}
+
+spritelayout ${obj.id}_spritelayout {
+    ground {
+        sprite: ${obj.ground_sprite};
+    }
+    building {
+        sprite: ${obj.id}_spriteset(0);
+        recolour_mode: RECOLOUR_REMAP;
+        palette: PALETTE_USE_DEFAULT;
+    }
+}
+</tal:single>
+
+<!--! Plain mode: just ground sprite, no building -->
+<tal:plain condition="python:not obj.has_custom_sprite() and not obj.has_multi_buildings() and not obj.has_animation() and not obj.has_tile_grid()">
+spritelayout ${obj.id}_spritelayout {
+    ground {
+        sprite: ${obj.ground_sprite};
+    }
+}
+</tal:plain>
 
 item(FEAT_OBJECTS, ${obj.id}, ${obj.numeric_id}) {
     property {
@@ -21,12 +140,31 @@ item(FEAT_OBJECTS, ${obj.id}, ${obj.numeric_id}) {
         introduction_date: ${obj.introduction_date};
         end_of_life_date: 0xFFFFFFFF;
         climates_available: ALL_CLIMATES;
+        <tal:flags_anim condition="obj.has_animation()">
+        object_flags: bitmask(OBJ_FLAG_ANYTHING_REMOVE, OBJ_FLAG_REMOVE_IS_INCOME, OBJ_FLAG_ANIMATED);
+        </tal:flags_anim>
+        <tal:flags_normal condition="python:not obj.has_animation()">
         object_flags: bitmask(OBJ_FLAG_ANYTHING_REMOVE, OBJ_FLAG_REMOVE_IS_INCOME);
+        </tal:flags_normal>
         height: ${obj.height};
         num_views: ${obj.views};
+        <tal:anim condition="obj.has_animation()">
+        animation_info: [ANIMATION_LOOPING, ${obj.animation_frame_count()}];
+        animation_speed: ${obj.animation_speed};
+        animation_triggers: bitmask(ANIM_TRIGGER_OBJ_BUILT);
+        </tal:anim>
     }
     graphics {
+        <tal:tiled_gfx condition="obj.has_tile_grid()">
+        default: ${obj.id}_tile_switch;
+        </tal:tiled_gfx>
+        <tal:anim_gfx condition="python:obj.has_animation() and not obj.has_tile_grid()">
+        anim_control: return CB_RESULT_NEXT_FRAME;
         default: ${obj.id}_spritelayout;
+        </tal:anim_gfx>
+        <tal:normal_gfx condition="python:not obj.has_tile_grid() and not obj.has_animation()">
+        default: ${obj.id}_spritelayout;
+        </tal:normal_gfx>
     }
 }
 
