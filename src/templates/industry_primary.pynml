@@ -14,6 +14,8 @@
 <tal:include define="animation_macros load: animation_macros.pynml"
              metal:use-macro="animation_macros.macros['tile_animation']" />
 
+<tal:include metal:use-macro="load: expansion_scan_tile.pynml" />
+
 <tal:include metal:use-macro="load: properties_tile.pynml" />
 
 

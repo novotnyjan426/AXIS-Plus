@@ -26,11 +26,24 @@ STR_PARAM_DESC_EXPERIMENTAL_FEATURES                                            
 STR_PARAM_NAME_EXPANSION_THRESHOLD_LOW                                          :Expansion: object tiles for Low boost (default 10)
 STR_PARAM_NAME_EXPANSION_THRESHOLD_MEDIUM                                       :Expansion: object tiles for Medium boost (default 20)
 STR_PARAM_NAME_EXPANSION_THRESHOLD_HIGH                                         :Expansion: object tiles for High boost (default 40)
-STR_PARAM_DESC_EXPANSION_THRESHOLD                                              :Number of object tiles within a 7-tile radius of an industry required to reach this expansion level.{}{}Place objects (from the Objects menu) near your industries to boost production.
+STR_PARAM_DESC_EXPANSION_THRESHOLD                                              :Number of expansion buildings within approximately 7 tiles of an industry required to reach this expansion level.{}{}Place expansion buildings (from the Objects menu) near your industries to boost production.
 STR_PARAM_NAME_EXPANSION_BONUS_LOW                                              :Expansion: Low boost production level (%, default 130)
 STR_PARAM_NAME_EXPANSION_BONUS_MEDIUM                                           :Expansion: Medium boost production level (%, default 170)
 STR_PARAM_NAME_EXPANSION_BONUS_HIGH                                             :Expansion: High boost production level (%, default 250)
 STR_PARAM_DESC_EXPANSION_BONUS                                                  :Production multiplier when the expansion threshold is reached (as percentage, 100 = no change, 130 = +30%, 250 = +150%).
+
+STR_PARAM_NAME_EXPANSION_COST_LEVEL                                              :Expansion: building cost level (default 3)
+STR_PARAM_DESC_EXPANSION_COST_LEVEL                                              :Controls how expensive expansion buildings are to place. Each level doubles the cost. Removal always refunds the full build cost.
+STR_PARAM_VALUE_EXPANSION_COST_0                                                 :0 - Very Low (1x)
+STR_PARAM_VALUE_EXPANSION_COST_1                                                 :1 - Low (2x)
+STR_PARAM_VALUE_EXPANSION_COST_2                                                 :2 - Medium (4x)
+STR_PARAM_VALUE_EXPANSION_COST_3                                                 :3 - Default (8x)
+STR_PARAM_VALUE_EXPANSION_COST_4                                                 :4 - High (16x)
+STR_PARAM_VALUE_EXPANSION_COST_5                                                 :5 - Very High (32x)
+STR_PARAM_VALUE_EXPANSION_COST_6                                                 :6 - Extreme (64x)
+
+STR_OBJECT_CLASS_AXIS_PLUS                                                       :AXIS+ Expansion
+STR_OBJECT_EXPANSION_TEST                                                        :Expansion Building (Test)
 
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       :Extreme Classic
 STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC                                          :INCOMPLETE Boreal
@@ -44,9 +57,9 @@ STR_CARGO_SUBTYPE_DISPLAY_CARGO_SUPPLIED_FLAG                                   
 STR_EXTRA_TEXT_SECONDARY_NON_COMBINATORY                                        :{BLACK}Produces at maximum rate if {WHITE}any {BLACK}required cargo is supplied.
 STR_EXTRA_TEXT_SECONDARY_COMBINATORY                                            :{BLACK}For maximum production rate, supply {WHITE}all {BLACK}required cargos at least once every three months.
 STR_EXTRA_TEXT_TOWN_PRODUCER                                                    :{BLACK}Production is proportional to town population. At least {WHITE}{SIGNED_WORD} units{BLACK} and not more than {WHITE}{SIGNED_WORD} units{BLACK} of cargo will be produced every month.
-STR_PRIMARY_PRODUCTION_1X                                                       :{BLACK}Current production: {YELLOW}Normal {}{}{BLACK}For {WHITE}Enhanced {BLACK}production deliver {SIGNED_WORD} crates of supplies at least once every three months.{}For {WHITE}Crankin' It {BLACK}production deliver {SIGNED_WORD} crates.{}{}{BLACK}Expansion objects: {YELLOW}{SIGNED_WORD}{BLACK} (7-tile radius){}Expansion output: {YELLOW}{SIGNED_WORD}%
-STR_PRIMARY_PRODUCTION_2X                                                       :{BLACK}Current production: {YELLOW}Enhanced {}{}{BLACK}To keep this level, deliver {SIGNED_WORD} crates of supplies at least once every three months.{}For {WHITE}Crankin' It {BLACK}production deliver {SIGNED_WORD} crates.{}{}{BLACK}Expansion objects: {YELLOW}{SIGNED_WORD}{BLACK} (7-tile radius){}Expansion output: {YELLOW}{SIGNED_WORD}%
-STR_PRIMARY_PRODUCTION_4X                                                       :{BLACK}Current production: {YELLOW}Crankin' It {}{}{BLACK}To keep this level, deliver {SKIP}{SIGNED_WORD} crates of supplies at least once every three months.{}{}{BLACK}Expansion objects: {YELLOW}{SIGNED_WORD}{BLACK} (7-tile radius){}Expansion output: {YELLOW}{SIGNED_WORD}%
+STR_PRIMARY_PRODUCTION_1X                                                       :{BLACK}Current production: {YELLOW}Normal {}{}{BLACK}For {WHITE}Enhanced {BLACK}production deliver {SIGNED_WORD} crates of supplies at least once every three months.{}For {WHITE}Crankin' It {BLACK}production deliver {SIGNED_WORD} crates.{}{}{BLACK}Nearby expansion buildings: {YELLOW}{SIGNED_WORD}{BLACK} (~7 tile radius){}Expansion bonus: {YELLOW}{SIGNED_WORD}%
+STR_PRIMARY_PRODUCTION_2X                                                       :{BLACK}Current production: {YELLOW}Enhanced {}{}{BLACK}To keep this level, deliver {SIGNED_WORD} crates of supplies at least once every three months.{}For {WHITE}Crankin' It {BLACK}production deliver {SIGNED_WORD} crates.{}{}{BLACK}Nearby expansion buildings: {YELLOW}{SIGNED_WORD}{BLACK} (~7 tile radius){}Expansion bonus: {YELLOW}{SIGNED_WORD}%
+STR_PRIMARY_PRODUCTION_4X                                                       :{BLACK}Current production: {YELLOW}Crankin' It {}{}{BLACK}To keep this level, deliver {SKIP}{SIGNED_WORD} crates of supplies at least once every three months.{}{}{BLACK}Nearby expansion buildings: {YELLOW}{SIGNED_WORD}{BLACK} (~7 tile radius){}Expansion bonus: {YELLOW}{SIGNED_WORD}%
 STR_PORT_PRODUCTION_1X                                                          :{BLACK}Current production: {YELLOW}Normal {}{}{BLACK}For {WHITE}Enhanced {BLACK}production deliver {SIGNED_WORD} units of cargo at least once every three months.{}For {WHITE}Crankin' It {BLACK}production deliver {SIGNED_WORD} units.
 STR_PORT_PRODUCTION_2X                                                          :{BLACK}Current production: {YELLOW}Enhanced {}{}{BLACK}To keep this level, deliver {SIGNED_WORD} units of cargo at least once every three months.{}For {WHITE}Crankin' It {BLACK}production deliver {SIGNED_WORD} units.
 STR_PORT_PRODUCTION_4X                                                          :{BLACK}Current production: {YELLOW}Crankin' It {}{}{BLACK}To keep this level, deliver {SKIP}{SIGNED_WORD} units of cargo at least once every three months.

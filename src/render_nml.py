@@ -19,6 +19,7 @@ registered_cargos = firs.registered_cargos
 registered_industries = firs.registered_industries
 registered_economies = firs.registered_economies
 incompatible_industries = firs.incompatible_industries
+registered_objects = firs.registered_objects
 
 from chameleon import PageTemplateLoader  # chameleon used in most template cases
 
@@ -81,6 +82,21 @@ def render_industry_nml(industry):
     return result
 
 
+def render_objects_nml(objects):
+    template = templates["objects.pynml"]
+    result = utils.unescape_chameleon_output(
+        template(
+            registered_objects=objects,
+        )
+    )
+    nml_file = codecs.open(
+        os.path.join(generated_nml_path, "objects.nml"), "w", "utf8"
+    )
+    nml_file.write(result)
+    nml_file.close()
+    return result
+
+
 def main():
     start = time()
     grf_nml = codecs.open(
@@ -110,6 +126,11 @@ def main():
     # multiprocessing was tried here and removed as it was empirically slower in testing (due to overhead of starting extra pythons probably)
     for industry in registered_industries:
         grf_nml.write(render_industry_nml(industry))
+
+    # render objects (expansion buildings etc.)
+    if registered_objects:
+        grf_nml.write(render_objects_nml(registered_objects))
+
     grf_nml.close()
     # eh, how long does this take anyway?
     print(format((time() - start), ".2f") + "s")

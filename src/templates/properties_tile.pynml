@@ -26,7 +26,13 @@
     		    <!--! tedious optimisation to avoid a switch that returns 0 for one macro -->
                 <tal:block condition="tile.custom_animation_control['macro'] == 'first_frame_is_0'">
                     <!--! starts animation on first frame, intended to be called by periodic tile loop -->
-        		    anim_control: 0;
+                    <tal:with_expansion condition="python:getattr(industry, 'expansion_scan_enabled', False)">
+                        <!--! expansion scan runs as side effect, returns 0 (same as no-scan case) -->
+                        anim_control: ${industry.id}_expansion_scan_entry;
+                    </tal:with_expansion>
+                    <tal:without_expansion condition="python:not getattr(industry, 'expansion_scan_enabled', False)">
+        		        anim_control: 0;
+                    </tal:without_expansion>
                 </tal:block>
                 <tal:block condition="tile.custom_animation_control['macro'] != 'first_frame_is_0'">
         		    anim_control: ${tile.id}_anim_control;

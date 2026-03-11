@@ -139,43 +139,19 @@ switch(FEAT_INDUSTRIES, SELF, ${industry.id}_produce_256_ticks_shift_supplies_de
     return 0;
 }
 
-<!--! Expansion spike: count nearby object tiles and store in perm storage.
-      Scans a 15x15 area (offsets -7 to +7) around the industry north tile.
-      nearby_tile_class returns tile class; TILE_CLASS_OBJECTS means an object is placed there.
-      For FEAT_INDUSTRIES, offsets must be unsigned nibbles (0..15):
-        0..7 = positive offset, 8=-8, 9=-7, ..., 15=-1.
-      This counts ALL objects, not just AXIS+ objects (see EXPANSION_PLAN.md Phase 0).
-      Split into per-row switches to avoid nmlc register exhaustion.
-      Chain: row_-7 is defined first (terminal, returns 0), then row_-6 chains to row_-7, etc.
-      Entry point calls row_+7 which is defined last. -->
-<tal:define_rows define="rows python:list(range(-7, 8))">
-    <tal:scan_rows repeat="dy rows">
-        switch(FEAT_INDUSTRIES, SELF, ${industry.id}_count_expansion_row_${(dy + 16) % 16},
-            [
-                STORE_PERM_ALT(${get_perm_num("expansion_tile_count")},
-                    LOAD_PERM(${get_perm_num("expansion_tile_count")})
-                    <tal:scan_cols repeat="dx range(-7, 8)">
-                        + (nearby_tile_class(${(dx + 16) % 16}, ${(dy + 16) % 16}) == TILE_CLASS_OBJECTS ? 1 : 0)
-                    </tal:scan_cols>
-                ),
-            ]) {
-            <tal:first_row condition="repeat.dy.start">
-                return 0;
-            </tal:first_row>
-            <tal:chain_row condition="not repeat.dy.start">
-                ${industry.id}_count_expansion_row_${((dy - 1) + 16) % 16};
-            </tal:chain_row>
-        }
-    </tal:scan_rows>
-</tal:define_rows>
-
-switch(FEAT_INDUSTRIES, SELF, ${industry.id}_count_expansion_tiles,
+<!--! Sum expansion chunk counts from FEAT_INDUSTRYTILES scanners.
+      The actual tile scanning is done in expansion_scan_tile.pynml via tileloop callbacks.
+      This switch just sums the partial chunk counts stored by those callbacks. -->
+switch(FEAT_INDUSTRIES, SELF, ${industry.id}_sum_expansion_chunks,
     [
-        <!--! zero the counter before scanning -->
-        STORE_PERM_ALT(${get_perm_num("expansion_tile_count")}, 0),
+        STORE_PERM_ALT(${get_perm_num("expansion_tile_count")},
+            LOAD_PERM(${get_perm_num("expansion_chunk_count_0")})
+            + LOAD_PERM(${get_perm_num("expansion_chunk_count_1")})
+            + LOAD_PERM(${get_perm_num("expansion_chunk_count_2")})
+            + LOAD_PERM(${get_perm_num("expansion_chunk_count_3")})
+        ),
     ]) {
-    <!--! start scanning from row +7, which chains backwards to row -7 -->
-    ${industry.id}_count_expansion_row_7;
+    return 0;
 }
 
 <!--! Calculate expansion multiplier from tile count and GRF parameter thresholds -->
@@ -198,7 +174,7 @@ switch(FEAT_INDUSTRIES, SELF, ${industry.id}_produce_256_ticks,
     [
         <!--! there is a good chance that the order of operations here introduces an obiwan on the 27 cycles
               but it _seems_ to work and I don't think it matters enough to figure it out with pen and paper -->
-        ${industry.id}_count_expansion_tiles(),
+        ${industry.id}_sum_expansion_chunks(),
         ${industry.id}_calculate_expansion_multiplier(),
         ${industry.id}_produce_calculate_current_production_level(),
         <!--! combine expansion multiplier with supply boost in TEMP(9) to avoid 32-bit overflow in produce formula

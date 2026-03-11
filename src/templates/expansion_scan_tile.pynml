@@ -1,0 +1,88 @@
+<!--! Expansion scanner mesh: FEAT_INDUSTRYTILES switches for scanning nearby objects.
+      Uses signed offsets (available in FEAT_INDUSTRYTILES but NOT FEAT_INDUSTRIES).
+      Each layout gets per-chunk scanner tiles that scan quadrants of the expanded
+      bounding box and store partial counts to industry perm storage via PARENT scope.
+      The industry's 256-tick callback sums chunk registers into expansion_tile_count.
+      See EXPANSION_PLAN.md Option 4 for full design. -->
+
+<tal:expansion_scan condition="python:getattr(industry, 'expansion_scan_enabled', False)">
+<tal:mesh define="mesh python:industry.get_expansion_scanner_mesh()">
+<tal:check condition="python:len(mesh) > 0">
+
+<!--! ===== Per-layout, per-chunk scan chains ===== -->
+<tal:layouts repeat="layout_data mesh">
+    <tal:scanners repeat="scanner layout_data['scanners']">
+        <tal:active condition="python:len(scanner['scan_rows_list']) > 0 and not scanner['is_duplicate']">
+
+            <!--! Store partial count to parent industry perm storage (PARENT scope).
+                  Defined first because NML requires callee before caller. -->
+            switch(FEAT_INDUSTRYTILES, PARENT,
+                ${industry.id}_store_l${layout_data['layout_num']}_c${scanner['chunk_id']},
+                [
+                    STORE_PERM(LOAD_TEMP(0x10), ${get_perm_num("expansion_chunk_count_" + str(scanner['chunk_id']))}),
+                ]) {
+                return 0;
+            }
+
+            <!--! Row scan switches: FEAT_INDUSTRYTILES SELF scope with signed offsets.
+                  Chain order: entry -> last_row -> ... -> first_row -> store.
+                  Each row accumulates count in TEMP(0x10). -->
+            <tal:rows repeat="row scanner['scan_rows_list']">
+                switch(FEAT_INDUSTRYTILES, SELF,
+                    ${industry.id}_scan_l${layout_data['layout_num']}_c${scanner['chunk_id']}_r${row['suffix']},
+                    [
+                        STORE_TEMP(LOAD_TEMP(0x10)
+                            <tal:cols repeat="dx row['dxs']">
+                                + (nearby_tile_class(${dx}, ${row['dy']}) == TILE_CLASS_OBJECTS ? 1 : 0)
+                            </tal:cols>
+                        , 0x10),
+                    ]) {
+                    <tal:terminal condition="repeat.row.start">
+                        ${industry.id}_store_l${layout_data['layout_num']}_c${scanner['chunk_id']};
+                    </tal:terminal>
+                    <tal:chain condition="not repeat.row.start">
+                        ${industry.id}_scan_l${layout_data['layout_num']}_c${scanner['chunk_id']}_r${scanner['scan_rows_list'][repeat.row.index - 1]['suffix']};
+                    </tal:chain>
+                }
+            </tal:rows>
+
+            <!--! Chunk entry: zero counter, chain to last (highest dy) row -->
+            switch(FEAT_INDUSTRYTILES, SELF,
+                ${industry.id}_scan_l${layout_data['layout_num']}_c${scanner['chunk_id']},
+                [
+                    STORE_TEMP(0, 0x10),
+                ]) {
+                ${industry.id}_scan_l${layout_data['layout_num']}_c${scanner['chunk_id']}_r${scanner['scan_rows_list'][-1]['suffix']};
+            }
+
+        </tal:active>
+    </tal:scanners>
+</tal:layouts>
+
+<!--! ===== Per-layout dispatch: check relative_pos to identify scanner tiles ===== -->
+<tal:layouts repeat="layout_data mesh">
+    switch(FEAT_INDUSTRYTILES, SELF,
+        ${industry.id}_expansion_scan_layout_${layout_data['layout_num']},
+        relative_pos) {
+        <tal:scanners repeat="scanner layout_data['scanners']">
+            <tal:active condition="python:len(scanner['scan_rows_list']) > 0 and not scanner['is_duplicate']">
+                relative_coord(${scanner['scanner_coord'][0]}, ${scanner['scanner_coord'][1]}): ${industry.id}_scan_l${layout_data['layout_num']}_c${scanner['chunk_id']};
+            </tal:active>
+        </tal:scanners>
+        return 0;
+    }
+</tal:layouts>
+
+<!--! ===== Layout selector: PARENT scope to access layout_num ===== -->
+switch(FEAT_INDUSTRYTILES, PARENT,
+    ${industry.id}_expansion_scan_entry,
+    layout_num) {
+    <tal:layouts repeat="layout_data mesh">
+        ${layout_data['layout_num']}: ${industry.id}_expansion_scan_layout_${layout_data['layout_num']};
+    </tal:layouts>
+    ${industry.id}_expansion_scan_layout_1;
+}
+
+</tal:check>
+</tal:mesh>
+</tal:expansion_scan>

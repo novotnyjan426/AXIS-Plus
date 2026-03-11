@@ -1,0 +1,33 @@
+<!--! FEAT_OBJECTS template for expansion objects.
+      Each object is a simple placeable tile that the expansion scanner detects
+      via nearby_tile_class == TILE_CLASS_OBJECTS. -->
+
+<tal:objects repeat="obj registered_objects">
+
+spritelayout ${obj.id}_spritelayout {
+    ground {
+        sprite: GROUNDSPRITE_CONCRETE;
+    }
+}
+
+item(FEAT_OBJECTS, ${obj.id}, ${obj.numeric_id}) {
+    property {
+        class: "${obj.class_id}";
+        classname: string(${obj.class_name_string});
+        name: string(${obj.name_string});
+        size: [${obj.size[0]}, ${obj.size[1]}];
+        build_cost_multiplier: ${obj.build_cost_multiplier};
+        remove_cost_multiplier: ${obj.remove_cost_multiplier};
+        introduction_date: ${obj.introduction_date};
+        end_of_life_date: 0xFFFFFFFF;
+        climates_available: ALL_CLIMATES;
+        object_flags: bitmask(OBJ_FLAG_ANYTHING_REMOVE, OBJ_FLAG_REMOVE_IS_INCOME);
+        height: ${obj.height};
+        num_views: ${obj.views};
+    }
+    graphics {
+        default: ${obj.id}_spritelayout;
+    }
+}
+
+</tal:objects>

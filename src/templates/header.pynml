@@ -131,6 +131,24 @@ grf {
 			max_value: 500;
 		}
 	}
+	param 16 {
+		expansion_cost_level {
+			name: string(STR_PARAM_NAME_EXPANSION_COST_LEVEL);
+			desc: string(STR_PARAM_DESC_EXPANSION_COST_LEVEL);
+			def_value: 3;
+			min_value: 0;
+			max_value: 6;
+			names: {
+				0: string(STR_PARAM_VALUE_EXPANSION_COST_0);
+				1: string(STR_PARAM_VALUE_EXPANSION_COST_1);
+				2: string(STR_PARAM_VALUE_EXPANSION_COST_2);
+				3: string(STR_PARAM_VALUE_EXPANSION_COST_3);
+				4: string(STR_PARAM_VALUE_EXPANSION_COST_4);
+				5: string(STR_PARAM_VALUE_EXPANSION_COST_5);
+				6: string(STR_PARAM_VALUE_EXPANSION_COST_6);
+			};
+		}
+	}
 }
 
 basecost {
@@ -138,6 +156,17 @@ basecost {
 	PR_BUILD_INDUSTRY_RAW : 2;  // Building primary industries is also expensive
 	PR_CLEAR_INDUSTRY : 2;      // Deleting industries must also be expensive
 }
+
+<!--! Expansion object cost scaling: basecost shift controlled by expansion_cost_level param.
+      build=51 / remove=255 (1:5 ratio) cancels OpenTTD's /5 removal formula for exact refund.
+      Shift applies equally to build and clear, so refund is always exact. -->
+if (expansion_cost_level == 0) { basecost { PR_BUILD_UNMOVABLE: 0; PR_CLEAR_UNMOVABLE: 0; } }
+if (expansion_cost_level == 1) { basecost { PR_BUILD_UNMOVABLE: 1; PR_CLEAR_UNMOVABLE: 1; } }
+if (expansion_cost_level == 2) { basecost { PR_BUILD_UNMOVABLE: 2; PR_CLEAR_UNMOVABLE: 2; } }
+if (expansion_cost_level == 3) { basecost { PR_BUILD_UNMOVABLE: 3; PR_CLEAR_UNMOVABLE: 3; } }
+if (expansion_cost_level == 4) { basecost { PR_BUILD_UNMOVABLE: 4; PR_CLEAR_UNMOVABLE: 4; } }
+if (expansion_cost_level == 5) { basecost { PR_BUILD_UNMOVABLE: 5; PR_CLEAR_UNMOVABLE: 5; } }
+if (expansion_cost_level == 6) { basecost { PR_BUILD_UNMOVABLE: 6; PR_CLEAR_UNMOVABLE: 6; } }
 
 <!--! Old default values for old savegames -->
 if (param[6] == 0) { param[6] = 100; }

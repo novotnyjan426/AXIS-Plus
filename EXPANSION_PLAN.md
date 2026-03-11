@@ -514,16 +514,139 @@ Each object has its own `build_cost_multiplier`. Tune so that:
 
 ---
 
-## Phase 4 — Polish
+## Phase 4 — Workforce System (Passenger Requirement for Expansion)
 
-### 4.1 Visual Feedback on Objects
+### Concept
+
+When a primary industry is expanded (expansion tile count reaches Low threshold
+or above), the industry **starts requiring passengers** to maintain the
+expansion bonus. The idea: expanding a mine means more workers, expanding a
+farm means more farmhands. No expansion = no workforce needed.
+
+Additionally, expanded industries **produce passengers** (workers leaving after
+their shift). The player must set up transport for both directions.
+
+### Gameplay Flow
+
+1. Player builds a Coal Mine. Normal operation, no passengers involved.
+2. Player places expansion buildings around the mine (10+ tiles).
+3. The mine reaches Low expansion threshold:
+   - Nearby stations now display **"Accepts: Passengers"**
+   - The mine starts **producing passengers** (workers needing rides home)
+   - Expansion bonus is **only active if passengers are being delivered**
+4. Player must set up a bus/train route bringing passengers to the mine.
+5. If passengers stop being delivered, expansion bonus drops to 0% (but the
+   expansion buildings remain, and the bonus returns when deliveries resume).
+
+### Technical Approach
+
+#### Dynamic cargo acceptance (PASS appears only when expanded)
+
+Use `cargo_acceptance` callback on FEAT_INDUSTRYTILES (callback 0x2B/0x2C).
+The callback checks PARENT scope perm storage (`expansion_tile_count`):
+
+```
+if expansion_tile_count >= expansion_threshold_low:
+    accept PASS (return 8/8 acceptance)
+else:
+    don't accept PASS (return 0)
+```
+
+This affects station coverage display: nearby stations will dynamically show
+or hide "Accepts: Passengers" based on the industry's expansion state.
+
+**Note:** The industry's static `accepted_cargos` list (Action 0 property)
+does NOT include PASS. The acceptance is purely callback-driven and dynamic.
+Need to verify this approach works — if static cargo list is required for the
+callback to fire, PASS may need to be in the list with a 0/8 base acceptance
+that the callback overrides.
+
+#### Dynamic cargo production (PASS produced only when expanded)
+
+In the `produce_256_ticks` callback, conditionally produce PASS:
+
+```nml
+produce(...,
+    [
+        COAL: (normal_production_formula);
+        PASS: (expansion_tile_count >= threshold_low) ? workforce_amount : 0;
+    ],
+0)
+```
+
+PASS must be in the industry's output cargo type list for the produce callback
+to output it. Add PASS to output cargo types with base amount 0 — the callback
+controls actual production.
+
+The `workforce_amount` could scale with expansion tier:
+- Low expansion: 10 passengers per cycle
+- Medium expansion: 20 passengers per cycle
+- High expansion: 40 passengers per cycle
+
+#### Conditioning expansion bonus on PASS delivery
+
+In `_calculate_expansion_multiplier`, add a check:
+
+```nml
+expansion_bonus = (tile_count >= threshold AND passengers_delivered_recently)
+                  ? bonus_percent
+                  : 100
+```
+
+Track passenger delivery using the same 27-cycle mechanism as supplies:
+a perm register counting down from 27, reset on PASS delivery.
+
+### New GRF Parameters
+
+| Param | Variable | Default | Description |
+|-------|----------|---------|-------------|
+| TBD | `expansion_workforce_enabled` | 1 (On) | Toggle workforce requirement |
+| TBD | `expansion_workforce_amount` | 10 | Base passengers produced per cycle |
+
+### Files to Modify
+
+| File | Change |
+|------|--------|
+| `src/industry.py` | Add PASS to output cargo types (conditional), perm register for PASS tracking |
+| `src/templates/produce_primary.pynml` | PASS production in produce callback, PASS delivery tracking |
+| `src/templates/properties_tile.pynml` | `cargo_acceptance` callback for dynamic PASS acceptance |
+| `src/templates/extra_text_primary.pynml` | Show workforce status in industry window |
+| `src/lang/english.lng` | Workforce-related strings |
+| `src/templates/header.pynml` | New params for workforce toggle/amount |
+
+### Open Questions
+
+- Does `cargo_acceptance` callback work without PASS in the static accepted
+  cargo list? If not, PASS must be statically listed with 0/8 base acceptance.
+- How does adding PASS to output cargo types interact with economy variations?
+  Some economies may not have PASS as a defined cargo.
+- Should the workforce requirement apply to ALL primary industries, or only
+  mines/industrial types? Farms hiring seasonal workers makes sense, but
+  fishing grounds/oil rigs have different flavor.
+- Should workforce passengers be separate from town passengers? (Not possible
+  — PASS is PASS, no way to distinguish source in OpenTTD.)
+- Performance: adding `cargo_acceptance` callback to every industry tile adds
+  callback overhead. Profile if needed.
+
+### Dependencies
+
+- Phase 1 (expansion scanning) must be stable.
+- Phase 1.3 (object pipeline) must be complete so expansion buildings exist.
+- This is independent of Phase 3 (DWE sprites) — workforce works with any
+  expansion objects.
+
+---
+
+## Phase 5 — Polish
+
+### 5.1 Visual Feedback on Objects
 
 Objects check `nearby_tile_class` for adjacent industry tiles. If found, show
 "active" sprite variant; otherwise show "inactive" variant.
 
 Implementation: object graphics callback with two spritelayouts.
 
-### 4.2 Industry Window Text — Expansion Info Display
+### 5.2 Industry Window Text — Expansion Info Display
 
 Update extra_text templates to display expansion status:
 - `src/templates/extra_text_primary.pynml`
@@ -578,7 +701,7 @@ The switch block selects the appropriate string based on current tier.
 
 **Strings in:** `src/lang/english.lng`
 
-### 4.3 Snow Variants
+### 5.3 Snow Variants
 
 Add snow-aware sprite selection for objects in snow climates.
 
@@ -729,11 +852,43 @@ Two sub-variants:
   producer" — different gameplay feel.
 - Downside: more industry definitions to maintain.
 
+**Option 4: FEAT_INDUSTRYTILES with layout-aware scanner mesh (recommended)**
+
+Instead of choosing one scanner tile per industry, generate a **small fixed set
+of scanner tiles per layout**. Each scanner covers only its assigned sub-area
+of the industry's expanded bounding box, and the parent industry sums the
+partial counts.
+
+Template/build-time shape:
+
+1. For each layout, compute the industry's bounding box.
+2. Expand that box by the configured scan radius (currently 7 tiles).
+3. Partition the expanded box into 15x15 chunks (or smaller edge chunks),
+   because one `FEAT_INDUSTRYTILES` scan can only reach `-7..+7`.
+4. For each chunk, choose one real industry tile as the scanner for that
+   chunk, preferably the tile nearest the chunk center.
+5. In the tileloop callback, each scanner counts only its own chunk and writes
+   to its own perm register (e.g. `expansion_chunk_count_1..4`).
+6. The industry's 256-tick callback sums the chunk registers into
+   `expansion_tile_count`, then calculates `expansion_multiplier` as normal.
+
+- Zone: matches the industry's full expanded footprint, not a circle around one
+  arbitrary tile.
+- Deterministic for every layout variant.
+- Symmetric relative to industry edges, including sparse layouts such as oil
+  wells.
+- Keeps the original "place objects around the whole industry" design intent.
+- More complex than Option 1, but mechanically cleaner than Option 2.
+- Requires extra perm storage registers for partial counts; secondary
+  industries may need a savegame-version bump if the current unused slots are
+  insufficient.
+- Requires codegen logic in Python/templates, but that complexity is centralised
+  and reusable rather than hidden in per-industry hand patches.
+
 ### Preferred fix from current code analysis
 
-The best current path is to **move the expansion scan off the industry
-callback and onto an industry-tile tileloop callback**, then write the result
-back to the parent industry perm storage.
+The strongest current path is **Option 4: layout-aware scanner mesh using
+FEAT_INDUSTRYTILES tileloop callbacks**.
 
 Why this is currently the strongest option:
 
@@ -748,34 +903,43 @@ Why this is currently the strongest option:
 3. Several extractive industries already have
    `ANIM_TRIGGER_INDTILE_TILE_LOOP`, so there is already an engine-driven,
    periodic tile callback available in this project that can host the scan.
-4. Each industry tile callback can identify its position inside the layout via
-   `relative_pos`, so the expensive scan can be limited to exactly one tile
-   instance per industry, typically `relative_coord(0, 0)`.
+4. A single fixed scanner tile (Option 2) makes the effective radius depend too
+   much on layout shape and sparse placement. A scanner mesh lets the scan
+   follow the actual footprint of the industry instead of one arbitrary tile.
+5. Each industry tile callback can identify its position inside the layout via
+   `relative_pos`, which makes per-layout scanner assignment feasible in code
+   generation.
 
 #### Proposed implementation shape
 
-1. Add an `FEAT_INDUSTRYTILES` switch that runs on tile loop.
-2. Gate the scan with `relative_pos == relative_coord(0, 0)` so only the
-   layout anchor tile performs the 15x15 signed scan.
-3. In that tile callback, use a `PARENT` switch to store the count into the
-   parent industry's `expansion_tile_count`.
-4. Keep multiplier calculation in the existing industry 256-tick callback, but
-   make it read the cached value written by the tile callback instead of
-   rescanning from `FEAT_INDUSTRIES`.
-5. For industries that do not already have tileloop-enabled tiles, add a tiny
-   hidden "heartbeat" animation to one shared tile type so the callback runs
+1. Add `expansion_chunk_count_n` perm registers for a small fixed maximum
+   number of scanner chunks.
+2. At template time, compute per-layout expanded bounding boxes and partition
+   them into chunk-sized scan regions.
+3. Generate `FEAT_INDUSTRYTILES` tileloop switches that activate only on the
+   designated scanner tiles for those chunks.
+4. Each scanner counts only offsets inside its assigned chunk and stores the
+   result into its own chunk register.
+5. In the existing industry 256-tick callback, sum the chunk registers into
+   `expansion_tile_count`.
+6. Calculate `expansion_multiplier` from the summed count.
+7. For industries without tileloop-enabled tiles, add a tiny hidden
+   "heartbeat" animation to one shared tile type so the callback runs
    periodically without changing visible graphics.
 
 #### Validation spike for this approach
 
 Before broader rollout, test one industry such as `coal_mine`:
 
-1. Reuse its existing tileloop-enabled tile.
-2. On the tileloop callback, if `relative_pos == relative_coord(0, 0)`,
-   scan `nearby_tile_class(-7..7, -7..7)` in `FEAT_INDUSTRYTILES`.
-3. Write the count to parent perm storage.
-4. Show the stored count in extra text or debug storage.
-5. Verify in game that objects north/west now count as expected.
+1. Reuse its existing tileloop-enabled tile(s).
+2. Generate two to four scanner chunks for one known layout.
+3. On the designated scanner tiles, scan only the assigned chunk offsets in
+   `FEAT_INDUSTRYTILES`.
+4. Store each partial count in its own chunk register.
+5. Sum them in the industry callback and show the total in extra text or debug
+   storage.
+6. Verify in game that objects north/west count correctly and that the scan
+   area tracks the whole footprint instead of one anchor tile.
 
 If parent perm writes from `FEAT_INDUSTRYTILES, PARENT` prove impossible in
 practice, the fallback is to keep the current `FEAT_INDUSTRIES` scan only as a
@@ -804,10 +968,9 @@ templates.
 
 **Oil Wells note:** `oil_wells` is not actually a 1x1 industry in this codebase;
 it uses sparse multi-tile layouts with several pump tiles spread across the
-footprint. That makes it compatible with the same anchor-tile approach used
-for larger industries: choose one deterministic layout tile (for example the
-tile at `relative_coord(0, 0)`) to run the scan, rather than scanning from
-every pump tile.
+footprint. That makes it a strong argument for Option 4: a sparse layout is
+better represented by multiple scanner chunks following the bounding box than
+by one anchor tile in an arbitrary corner or center.
 
 ### Still Open
 
@@ -839,3 +1002,32 @@ every pump tile.
     count, another player could place random objects near your industry to
     give you a free boost (or clutter your area). This is a minor concern
     for competitive multiplayer but irrelevant for single-player.
+
+### Known Bugs (Phase 1 Spike)
+
+11. **Asymmetric scan zone on industries with mixed tile types.**
+    Industries like `clay_pit` have two tile types: `tile_1` (no animation)
+    and `tile_2` (`random_first_frame` with `CONSTRUCTION_STATE` trigger).
+    Only `tile_1` can act as a scanner (it gets the auto-added `TILE_LOOP`
+    trigger). If `tile_1` positions are clustered (e.g. upper-left area),
+    the scan reaches 7+ tiles in that direction but only 5-6 tiles in the
+    opposite direction. Observed on clay_pit: down-left 5, up-left 8,
+    up-right 6, down-right 6 tiles.
+    **Fix**: Make `tile_2` (and other `random_first_frame` tiles) also usable
+    as scanners by adding `TILE_LOOP` to their triggers and wrapping their
+    `anim_control` to return `CB_RESULT_DO_NOTHING` for tile loop calls
+    (so the animation isn't reset every ~256 ticks). This requires a
+    per-tile-type wrapper switch that distinguishes tile loop from
+    construction state triggers — tricky because `extra_callback_info1 = 0`
+    is ambiguous between the two. Possible workaround: check
+    `animation_frame > 0` (animation already running = tile loop, not
+    construction).
+
+12. **Merged quadrants reduce effective scan area for small industries.**
+    When the industry footprint is small (e.g. seaweed_farm with 4 tiles),
+    multiple quadrants map to the same scanner tile. Their scan areas are
+    merged into one scanner, which works correctly but means the total
+    scanned area is limited by one scanner's -7..+7 reach. For very small
+    industries, the effective scan zone may be 14x14 instead of the full
+    expanded bounding box. This is acceptable for gameplay but means the
+    scan zone is smaller than intended for tiny industries.

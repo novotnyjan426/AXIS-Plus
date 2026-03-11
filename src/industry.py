@@ -1602,6 +1602,159 @@ class Industry(object):
         if isinstance(sprite_or_spriteset, Sprite):
             return getattr(sprite_or_spriteset, "sprite_number" + suffix)
 
+    def get_expansion_scanner_mesh(self, scan_radius=7):
+        """Compute expansion scanner mesh for Option 4 tile scanning.
+
+        Returns a list of dicts (one per layout) containing per-chunk scanner
+        assignments.  Each scanner covers one quadrant of the expanded bounding
+        box using signed offsets from FEAT_INDUSTRYTILES.
+
+        Only scan-capable tiles (with first_frame_is_0 / TILE_LOOP) are used as
+        scanner candidates.  Null layout tiles ("255", "24", etc.) are excluded.
+        When multiple quadrants map to the same scanner tile, their scan areas
+        are merged into the primary scanner instead of being skipped.
+        """
+        if not self.industry_layouts:
+            return []
+
+        # Build set of tile IDs that can fire the scan (have TILE_LOOP trigger)
+        scan_capable_tile_ids = set()
+        real_tile_ids = set()
+        for tile in self.tiles:
+            real_tile_ids.add(tile.id)
+            ac = getattr(tile, "custom_animation_control", None)
+            if ac and ac.get("macro") == "first_frame_is_0":
+                scan_capable_tile_ids.add(tile.id)
+
+        # Union bounding box across ALL layouts (real tiles only, skip null "255"/"24")
+        all_positions = set()
+        for layout in self.industry_layouts:
+            for tile_tuple in layout.layout:
+                if tile_tuple[2] in real_tile_ids:
+                    all_positions.add((tile_tuple[0], tile_tuple[1]))
+
+        if not all_positions:
+            return []
+
+        min_x = min(p[0] for p in all_positions)
+        max_x = max(p[0] for p in all_positions)
+        min_y = min(p[1] for p in all_positions)
+        max_y = max(p[1] for p in all_positions)
+
+        # Expand by scan radius
+        exp_min_x = min_x - scan_radius
+        exp_max_x = max_x + scan_radius
+        exp_min_y = min_y - scan_radius
+        exp_max_y = max_y + scan_radius
+
+        # Split into 2x2 quadrants at industry center
+        x_split = (min_x + max_x) // 2
+        y_split = (min_y + max_y) // 2
+
+        quadrants = [
+            (exp_min_x, exp_min_y, x_split, y_split),
+            (exp_min_x, y_split + 1, x_split, exp_max_y),
+            (x_split + 1, exp_min_y, exp_max_x, y_split),
+            (x_split + 1, y_split + 1, exp_max_x, exp_max_y),
+        ]
+
+        result = []
+        for layout_index, layout in enumerate(self.industry_layouts):
+            # Only scan-capable tile positions (real tiles with TILE_LOOP trigger)
+            scan_positions = list(
+                set(
+                    (t[0], t[1])
+                    for t in layout.layout
+                    if t[2] in scan_capable_tile_ids
+                )
+            )
+
+            if not scan_positions:
+                result.append(
+                    {
+                        "layout": layout,
+                        "layout_num": layout_index + 1,
+                        "scanners": [],
+                    }
+                )
+                continue
+
+            scanners = []
+            scanner_by_coord = {}  # coord -> scanner dict (for merging)
+
+            for chunk_id, (qmin_x, qmin_y, qmax_x, qmax_y) in enumerate(quadrants):
+                qcenter_x = (qmin_x + qmax_x) / 2.0
+                qcenter_y = (qmin_y + qmax_y) / 2.0
+
+                best_tile = min(
+                    scan_positions,
+                    key=lambda p: (p[0] - qcenter_x) ** 2
+                    + (p[1] - qcenter_y) ** 2,
+                )
+
+                # Compute scan offsets within this quadrant reachable from scanner
+                scan_rows_list = []
+                for abs_y in range(qmin_y, qmax_y + 1):
+                    dy = abs_y - best_tile[1]
+                    if not (-scan_radius <= dy <= scan_radius):
+                        continue
+                    row_dxs = []
+                    for abs_x in range(qmin_x, qmax_x + 1):
+                        dx = abs_x - best_tile[0]
+                        if -scan_radius <= dx <= scan_radius:
+                            row_dxs.append(dx)
+                    if row_dxs:
+                        suffix = "n" + str(abs(dy)) if dy < 0 else str(dy)
+                        scan_rows_list.append(
+                            {"dy": dy, "suffix": suffix, "dxs": row_dxs}
+                        )
+
+                if best_tile in scanner_by_coord:
+                    # Merge scan rows into existing scanner for this coord
+                    existing = scanner_by_coord[best_tile]
+                    existing_by_dy = {
+                        r["dy"]: r for r in existing["scan_rows_list"]
+                    }
+                    for new_row in scan_rows_list:
+                        if new_row["dy"] in existing_by_dy:
+                            merged_dxs = sorted(
+                                set(
+                                    existing_by_dy[new_row["dy"]]["dxs"]
+                                    + new_row["dxs"]
+                                )
+                            )
+                            existing_by_dy[new_row["dy"]]["dxs"] = merged_dxs
+                        else:
+                            existing["scan_rows_list"].append(new_row)
+                    existing["scan_rows_list"].sort(key=lambda r: r["dy"])
+                    # Mark this chunk as merged (skip in template)
+                    scanners.append(
+                        {
+                            "chunk_id": chunk_id,
+                            "scanner_coord": best_tile,
+                            "scan_rows_list": [],
+                            "is_duplicate": True,
+                        }
+                    )
+                else:
+                    scanner = {
+                        "chunk_id": chunk_id,
+                        "scanner_coord": best_tile,
+                        "scan_rows_list": scan_rows_list,
+                        "is_duplicate": False,
+                    }
+                    scanner_by_coord[best_tile] = scanner
+                    scanners.append(scanner)
+
+            result.append(
+                {
+                    "layout": layout,
+                    "layout_num": layout_index + 1,
+                    "scanners": scanners,
+                }
+            )
+        return result
+
     def get_perm_num(self, identifier):
         # just a silly pass-through to perm_storage_mappings.get_perm_num
         return get_perm_num(identifier, industry_type=self.__class__.__name__)
@@ -1704,7 +1857,58 @@ class IndustryPrimary(Industry):
                 "expansion_tile_count",
                 # expansion system: cached production multiplier (100 = no bonus, 130 = +30%, etc.)
                 "expansion_multiplier",
+                # expansion system: per-chunk partial counts from FEAT_INDUSTRYTILES scanners
+                "expansion_chunk_count_0",
+                "expansion_chunk_count_1",
+                "expansion_chunk_count_2",
+                "expansion_chunk_count_3",
             ],
+        )
+    def _ensure_expansion_scan_tile(self):
+        """Ensure at least one tile has TILE_LOOP trigger + first_frame_is_0 for expansion scanning.
+
+        For industries that already have a first_frame_is_0 tile (mines), this is a no-op.
+        For industries without one (farms, ports, etc.), modifies the first non-animated tile
+        to add a minimal heartbeat animation that fires the tile loop callback.
+        Must run before properties_tile.pynml renders but after tiles are added.
+        """
+        # Already have a suitable tile?
+        for tile in self.tiles:
+            ac = getattr(tile, "custom_animation_control", None)
+            if ac and ac.get("macro") == "first_frame_is_0":
+                return
+        # Find first tile without custom_animation_control and without existing animation
+        for tile in self.tiles:
+            if tile.custom_animation_control is None and tile.animation_length <= 1:
+                tile.animation_length = 2
+                tile.animation_looping = True
+                tile.custom_animation_control = {
+                    "macro": "first_frame_is_0",
+                    "animation_triggers": "bitmask(ANIM_TRIGGER_INDTILE_TILE_LOOP)",
+                }
+                return
+        # Fallback: tile without custom_animation_control but with existing animation
+        for tile in self.tiles:
+            if tile.custom_animation_control is None:
+                tile.custom_animation_control = {
+                    "macro": "first_frame_is_0",
+                    "animation_triggers": "bitmask(ANIM_TRIGGER_INDTILE_TILE_LOOP)",
+                }
+                return
+
+    @property
+    def expansion_scan_enabled(self):
+        """Enable expansion scan for all primary industries.
+
+        Lazily ensures at least one tile has the required tile loop hook.
+        """
+        if not hasattr(self, "_expansion_scan_setup_done"):
+            self._ensure_expansion_scan_tile()
+            self._expansion_scan_setup_done = True
+        return any(
+            getattr(tile, "custom_animation_control", None) is not None
+            and tile.custom_animation_control.get("macro") == "first_frame_is_0"
+            for tile in self.tiles
         )
 
     def get_prod_cargo_types(self, economy):

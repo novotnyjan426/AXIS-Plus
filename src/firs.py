@@ -32,6 +32,10 @@ import economies
 
 registered_economies = economies.registered_economies
 
+import objects
+
+registered_objects = objects.registered_objects
+
 # guard against mistakes with cargo ids in economies
 known_cargo_ids = [cargo.id for cargo in registered_cargos]
 cargo_label_id_mapping = {cargo.cargo_label: cargo.id for cargo in registered_cargos}
