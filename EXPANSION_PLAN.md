@@ -681,6 +681,86 @@ north/west of the industry are not detected — only south/east works.
   (which supports signed offsets and CAN write to industry perm storage)
 - As a workaround: accept south/east-only scan and adjust thresholds
 
+### Preferred fix from current code analysis
+
+The best current path is to **move the expansion scan off the industry
+callback and onto an industry-tile tileloop callback**, then write the result
+back to the parent industry perm storage.
+
+Why this is currently the strongest option:
+
+1. The existing implementation in `src/templates/produce_primary.pynml`
+   already emits wrapped nibble offsets (`9..15,0..7`) into generated NML, and
+   the generated GRF version is already well above 8. That makes "wrong GRF
+   version" much less likely than "FEAT_INDUSTRIES does not actually give the
+   signed behaviour we expected here".
+2. `FEAT_INDUSTRYTILES` already uses normal signed `nearby_tile_class(x, y)`
+   patterns elsewhere in the codebase, so north/west scanning is on much
+   firmer ground there.
+3. Several extractive industries already have
+   `ANIM_TRIGGER_INDTILE_TILE_LOOP`, so there is already an engine-driven,
+   periodic tile callback available in this project that can host the scan.
+4. Each industry tile callback can identify its position inside the layout via
+   `relative_pos`, so the expensive scan can be limited to exactly one tile
+   instance per industry, typically `relative_coord(0, 0)`.
+
+#### Proposed implementation shape
+
+1. Add an `FEAT_INDUSTRYTILES` switch that runs on tile loop.
+2. Gate the scan with `relative_pos == relative_coord(0, 0)` so only the
+   layout anchor tile performs the 15x15 signed scan.
+3. In that tile callback, use a `PARENT` switch to store the count into the
+   parent industry's `expansion_tile_count`.
+4. Keep multiplier calculation in the existing industry 256-tick callback, but
+   make it read the cached value written by the tile callback instead of
+   rescanning from `FEAT_INDUSTRIES`.
+5. For industries that do not already have tileloop-enabled tiles, add a tiny
+   hidden "heartbeat" animation to one shared tile type so the callback runs
+   periodically without changing visible graphics.
+
+#### Validation spike for this approach
+
+Before broader rollout, test one industry such as `coal_mine`:
+
+1. Reuse its existing tileloop-enabled tile.
+2. On the tileloop callback, if `relative_pos == relative_coord(0, 0)`,
+   scan `nearby_tile_class(-7..7, -7..7)` in `FEAT_INDUSTRYTILES`.
+3. Write the count to parent perm storage.
+4. Show the stored count in extra text or debug storage.
+5. Verify in game that objects north/west now count as expected.
+
+If parent perm writes from `FEAT_INDUSTRYTILES, PARENT` prove impossible in
+practice, the fallback is to keep the current `FEAT_INDUSTRIES` scan only as a
+temporary spike and treat the expansion mechanic as blocked on engine
+limitations rather than trying to ship the south/east-only behaviour.
+
+#### Related implementation idea: extend an existing project pattern
+
+This is probably not a completely new architectural direction for AXIS+.
+It appears to be an **extension of patterns already used in the codebase**:
+
+1. `FEAT_INDUSTRYTILES` already handles tile-local behaviour.
+2. `relative_pos` is already used to make tile behaviour depend on layout
+   position.
+3. `PARENT` industry-tile switches already exist elsewhere in the project.
+4. `ANIM_TRIGGER_INDTILE_TILE_LOOP` is already used by several extractive
+   industries, including `oil_wells`.
+
+That means the expansion scan idea is less "invent a new subsystem" and more
+"reuse the existing industry-tile callback model for a new purpose".
+
+**Implication:** if this is implemented, it should be designed as a small,
+reusable helper/template that plugs into the existing industry-tile callback
+flow, not as a one-off special case embedded only in primary production
+templates.
+
+**Oil Wells note:** `oil_wells` is not actually a 1x1 industry in this codebase;
+it uses sparse multi-tile layouts with several pump tiles spread across the
+footprint. That makes it compatible with the same anchor-tile approach used
+for larger industries: choose one deterministic layout tile (for example the
+tile at `relative_coord(0, 0)`) to run the scan, rather than scanning from
+every pump tile.
+
 ### Still Open
 
 5. **Industry-specific objects count the same as everything else.**
