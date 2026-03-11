@@ -70,6 +70,24 @@ STR_OBJECT_BAUXITE_CRANE                                                        
 STR_OBJECT_BAUXITE_BULLDOZER                                                     :Bauxite Mine Bulldozer
 STR_OBJECT_BAUXITE_PIT                                                           :Bauxite Open Pit
 STR_OBJECT_CLAY_PIT                                                              :Clay Open Pit
+STR_OBJECT_QUARRY_PIT                                                            :Quarry Open Pit
+STR_OBJECT_LIMESTONE_PILE                                                        :Limestone Pile
+STR_OBJECT_LIMESTONE_PILE_SMALL                                                  :Limestone Pile (Small)
+STR_OBJECT_PYRITE_PILE                                                           :Pyrite Pile
+STR_OBJECT_PYRITE_PILE_SMALL                                                     :Pyrite Pile (Small)
+STR_OBJECT_NITRATE_CHIMNEY                                                       :Nitrate Mine Chimney
+STR_OBJECT_NITRATE_WAREHOUSE                                                     :Nitrate Mine Warehouse
+STR_OBJECT_NITRATE_SHED                                                          :Nitrate Mine Shed
+STR_OBJECT_NITRATE_CRANE                                                         :Nitrate Mine Crane
+STR_OBJECT_NITRATE_PILE                                                          :Nitrate Pile
+STR_OBJECT_SODA_ASH_HEADGEAR                                                     :Soda Ash Mine Headgear
+STR_OBJECT_SODA_ASH_CRUSHER                                                      :Soda Ash Mine Crusher
+STR_OBJECT_SODA_ASH_WINDING_HOUSE                                                :Soda Ash Winding House
+STR_OBJECT_SODA_ASH_SILOS                                                        :Soda Ash Mine Silos
+STR_OBJECT_SODA_ASH_PILE                                                         :Soda Ash Pile
+STR_OBJECT_SODA_ASH_PILE_SMALL                                                   :Soda Ash Pile (Small)
+STR_OBJECT_SODA_ASH_TRUCK                                                        :Soda Ash Mine Truck
+STR_OBJECT_TAR_SANDS_PIT                                                         :Tar Sands Open Pit
 STR_OBJECT_COPPER_HEADGEAR                                                       :Copper Mine Headgear
 STR_OBJECT_COPPER_CRUSHER                                                        :Copper Ore Crusher
 STR_OBJECT_COPPER_WINDING_HOUSE                                                  :Copper Mine Winding House
@@ -100,12 +118,51 @@ STR_OBJECT_FARM_EQUIPMENT                                                       
 STR_OBJECT_FARM_TOOLS                                                            :Farm Tools
 STR_OBJECT_FARM_PEN                                                              :Livestock Pen
 STR_OBJECT_FARM_VEHICLES                                                         :Farm Vehicles
-STR_OBJECT_CLASS_PORT_EXPANSIONS                                                 :  Port Expansions
+STR_OBJECT_CLASS_PORT_EXPANSIONS                                                 :  Docks & Water
 STR_OBJECT_PORT_WAREHOUSE                                                        :Port Warehouse
 STR_OBJECT_PORT_CRANE                                                            :Port Crane
 STR_OBJECT_PORT_CRATES                                                           :Cargo Crates
 STR_OBJECT_PORT_GOODS                                                            :Cargo Goods
 STR_OBJECT_PORT_PAD                                                              :Concrete Pad
+STR_OBJECT_SALT_EVAP_SHED                                                        :Salt Works Shed
+STR_OBJECT_SALT_EVAP_PAN                                                         :Salt Evaporation Pan
+STR_OBJECT_SALT_EVAP_PAN_FULL                                                    :Salt Evaporation Pan (Full)
+STR_OBJECT_DREDGING_CRANE                                                        :Dredging Crane
+STR_OBJECT_SEAWEED_PATCH                                                         :Seaweed Patch
+STR_OBJECT_SEAWEED_DENSE                                                         :Seaweed Patch (Dense)
+STR_OBJECT_RUBBER_WAREHOUSE                                                      :Plantation Warehouse
+STR_OBJECT_RUBBER_SHED                                                           :Plantation Shed
+STR_OBJECT_SHEEP_BARN                                                            :Sheep Barn
+STR_OBJECT_SHEEP_FARMHOUSE                                                       :Sheep Farmhouse
+STR_OBJECT_SHEEP_SHED                                                            :Sheep Shed
+STR_OBJECT_SHEEP_PEN                                                             :Sheep Pen
+STR_OBJECT_SHEEP_PEN_ALT                                                         :Sheep Pen (alt)
+STR_OBJECT_DAIRY_BARN                                                            :Dairy Barn
+STR_OBJECT_DAIRY_BARN_SILO                                                       :Dairy Barn with Silo
+STR_OBJECT_DAIRY_LARGE_BARN                                                      :Large Dairy Barn
+STR_OBJECT_DAIRY_FARMHOUSE                                                       :Dairy Farmhouse
+STR_OBJECT_DAIRY_PEN                                                             :Cattle Pen
+STR_OBJECT_DAIRY_PEN_ALT                                                         :Cattle Pen (alt)
+STR_OBJECT_RANCH_HOUSE                                                           :Ranch House
+STR_OBJECT_RANCH_HOUSE_ALT                                                       :Ranch House (alt)
+STR_OBJECT_RANCH_COTTAGE                                                         :Ranch Cottage
+STR_OBJECT_RANCH_HAY                                                             :Hay Bales
+STR_OBJECT_RANCH_HAY_ALT                                                         :Hay Bales (alt)
+STR_OBJECT_PIGGERY                                                               :Piggery
+STR_OBJECT_CLASS_TREES_PLANTS                                                    :  Trees & Plants
+STR_OBJECT_TREE_FRUIT                                                            :Fruit Tree
+STR_OBJECT_TREE_FRUIT_LARGE                                                      :Fruit Tree (large)
+STR_OBJECT_TREE_DECIDUOUS                                                        :Deciduous Tree
+STR_OBJECT_TREE_ORCHARD                                                          :Orchard Tree
+STR_OBJECT_TREE_TROPICAL                                                         :Tropical Tree
+STR_OBJECT_TREE_COFFEE                                                           :Coffee Bush
+STR_OBJECT_TREE_RUBBER                                                           :Rubber Tree
+STR_OBJECT_TREE_PALM                                                             :Palm Tree
+STR_OBJECT_FOREST_CRANE                                                          :Logging Crane
+STR_OBJECT_FOREST_CRANE_ALT                                                      :Logging Crane (alt)
+STR_OBJECT_FOREST_EQUIPMENT                                                      :Logging Equipment
+STR_OBJECT_FOREST_LOGS                                                           :Log Pile
+STR_OBJECT_FOREST_LOGS_ALT                                                       :Log Pile (alt)
 
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       :Extreme Classic
 STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC                                          :INCOMPLETE Boreal

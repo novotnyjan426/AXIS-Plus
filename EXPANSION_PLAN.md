@@ -405,35 +405,37 @@ industry counts toward expansion.
 | Group | Class ID | Industries | Status |
 |-------|----------|------------|--------|
 | **AXIS+ Expansions** | `"AXP+"` | Generic / test objects | Done |
-| **  Mine Expansions** | `"AXPM"` | 18 industries (see below) | 5 done (coal, iron, bauxite, clay, copper) |
-| **  Agriculture Expansions** | `"AXPA"` | 16 industries (see below) | 3 done (arable_farm, fruit_plantation, farm) |
+| **  Mine Expansions** | `"AXPM"` | 16 industries (see below) | 9 done (coal, iron, bauxite, clay, copper, quarry, limestone, pyrite, nitrate) |
+| **  Agriculture Expansions** | `"AXPA"` | 16 industries (see below) | 9 done (arable_farm, fruit_plantation, farm, rubber_plantation, sheep_farm, dairy_farm, ranch, orchard_piggery, forest) |
+| **  Trees & Plants** | `"AXPT"` | shared across plantations/orchards | 8 base game trees |
 | **  Oil Expansions** | `"AXPO"` | 2 industries | TODO |
-| **  Port Expansions** | `"AXPP"` | 4 industries | 1 done (port) |
+| **  Docks & Water** | `"AXPP"` | 7 industries (see below) | 4 done (port, salt_evaporator, dredging_site, seaweed_farm) |
 | **  Other Primary** | `"AXPX"` | 2 industries | TODO |
 | **  Secondary** | *(TBD)* | 73 industries (split TBD) | Future (Phase 2.2) |
 
 Tertiary industries (shops, distributors) do **not** get expansion support.
 
-#### Mine Expansions (AXPM) — 18 industries
+#### Mine Expansions (AXPM) — 16 industries
 
 coal_mine ✅, iron_ore_mine ✅, bauxite_mine ✅, clay_pit ✅, copper_mine ✅,
-quarry, limestone_mine, pyrite_mine, phosphate_mine, nitrate_mine, salt_mine,
-salt_evaporator, soda_ash_mine, diamond_mine, manganese_mine, tar_sands_mine,
-dredging_site, trading_post
+quarry ✅, limestone_mine ✅, pyrite_mine ✅, nitrate_mine ✅, phosphate_mine, salt_mine,
+soda_ash_mine ✅, diamond_mine, manganese_mine, tar_sands_mine ✅,
+trading_post
 
-#### Agriculture Expansions (AXPA) — 16 industries
+#### Agriculture Expansions (AXPA) — 15 industries
 
-arable_farm ✅, farm ✅, dairy_farm, sheep_farm, ranch, orchard_piggery, vineyard,
-coffee_estate, fruit_plantation ✅, rubber_plantation, forest, fish_farm,
-seaweed_farm, herding_coop, peatlands, fishing_grounds
+arable_farm ✅, farm ✅, dairy_farm ✅, sheep_farm ✅, ranch ✅, orchard_piggery ✅, vineyard,
+coffee_estate, fruit_plantation ✅, rubber_plantation ✅, forest ✅, fish_farm,
+herding_coop, peatlands, fishing_grounds
 
 #### Oil Expansions (AXPO) — 2 industries
 
 oil_wells, oil_rig
 
-#### Port Expansions (AXPP) — 4 industries
+#### Docks & Water (AXPP) — 7 industries
 
-bulk_terminal, liquids_terminal, port ✅, wharf
+bulk_terminal, liquids_terminal, port ✅, wharf, salt_evaporator ✅,
+dredging_site ✅, seaweed_farm ✅
 
 #### Other Primary (AXPX) — 2 industries
 

@@ -27,9 +27,14 @@ class ExpansionObject:
         # if set, the spriteset has multiple frames and animation properties are added
         self.animation_frames = kwargs.get("animation_frames", None)
         self.animation_speed = kwargs.get("animation_speed", 3)
+        # animation_length: enables animation on multi-building objects
+        # (base_sprite buildings can use "animation_frame" in their expression)
+        self.animation_length = kwargs.get("animation_length", 0)
         # multi-tile mode: list of tile dicts for per-tile spritelayouts
         # each dict: {x, y, sprite: [x,y,w,h,xoff,yoff], buildings: [...]}
         self.tile_grid = kwargs.get("tile_grid", None)
+        # base game sprite mode: numeric sprite ID (no spriteset needed)
+        self.base_sprite = kwargs.get("base_sprite", None)
         # allow placement on water tiles
         self.allow_on_water = kwargs.get("allow_on_water", False)
 
@@ -48,7 +53,7 @@ class ExpansionObject:
         return self.buildings is not None and len(self.buildings) > 0
 
     def has_animation(self):
-        return self.animation_frames is not None and len(self.animation_frames) > 1
+        return (self.animation_frames is not None and len(self.animation_frames) > 1) or self.animation_length > 0
 
     def has_tile_grid(self):
         return self.tile_grid is not None and len(self.tile_grid) > 0
@@ -77,6 +82,8 @@ class ExpansionObject:
     def animation_frame_count(self):
         if self.animation_frames:
             return len(self.animation_frames)
+        if self.animation_length > 0:
+            return self.animation_length
         return 0
 
     def register(self):

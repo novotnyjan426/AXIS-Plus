@@ -86,9 +86,11 @@ switch(FEAT_OBJECTS, SELF, ${obj.id}_tile_switch, var[0x40] % 65536) {
 <!--! Multi-building mode: multiple spritesets + one spritelayout with multiple buildings -->
 <tal:multi condition="python:obj.has_multi_buildings() and not obj.has_tile_grid()">
 <tal:spritesets repeat="bldg obj.buildings">
+<tal:file_bldg condition="bldg.get('file')">
 spriteset(${obj.id}_spriteset_${repeat.bldg.index}, "${bldg['file']}") {
     [${bldg['coords'][0]}, ${bldg['coords'][1]}, ${bldg['coords'][2]}, ${bldg['coords'][3]}, ${bldg['coords'][4]}, ${bldg['coords'][5]}]
 }
+</tal:file_bldg>
 </tal:spritesets>
 
 spritelayout ${obj.id}_spritelayout {
@@ -96,6 +98,7 @@ spritelayout ${obj.id}_spritelayout {
         sprite: ${obj.ground_sprite};
     }
     <tal:buildings repeat="bldg obj.buildings">
+    <tal:file_bldg condition="bldg.get('file')">
     building {
         sprite: ${obj.id}_spriteset_${repeat.bldg.index}(0);
         recolour_mode: RECOLOUR_REMAP;
@@ -107,6 +110,20 @@ spritelayout ${obj.id}_spritelayout {
         yextent: ${bldg.get('yextent', 16)};
         zextent: ${bldg.get('zextent', 16)};
     }
+    </tal:file_bldg>
+    <tal:base_bldg condition="bldg.get('base_sprite')">
+    building {
+        sprite: ${bldg['base_sprite']};
+        recolour_mode: RECOLOUR_REMAP;
+        palette: PALETTE_USE_DEFAULT;
+        xoffset: ${bldg.get('xoffset', 0)};
+        yoffset: ${bldg.get('yoffset', 0)};
+        zoffset: ${bldg.get('zoffset', 0)};
+        xextent: ${bldg.get('xextent', 16)};
+        yextent: ${bldg.get('yextent', 16)};
+        zextent: ${bldg.get('zextent', 16)};
+    }
+    </tal:base_bldg>
     </tal:buildings>
 }
 </tal:multi>
@@ -149,8 +166,25 @@ spritelayout ${obj.id}_spritelayout {
 }
 </tal:single>
 
+<!--! Base sprite mode: numeric base game sprite ID, no spriteset -->
+<tal:basesprite condition="python:obj.base_sprite is not None">
+spritelayout ${obj.id}_spritelayout {
+    ground {
+        sprite: ${obj.ground_sprite};
+    }
+    building {
+        sprite: ${obj.base_sprite};
+        xoffset: 6;
+        yoffset: 6;
+        xextent: 4;
+        yextent: 4;
+        zextent: 32;
+    }
+}
+</tal:basesprite>
+
 <!--! Plain mode: just ground sprite, no building -->
-<tal:plain condition="python:not obj.has_custom_sprite() and not obj.has_multi_buildings() and not obj.has_animation() and not obj.has_tile_grid()">
+<tal:plain condition="python:not obj.has_custom_sprite() and not obj.has_multi_buildings() and not obj.has_animation() and not obj.has_tile_grid() and obj.base_sprite is None">
 spritelayout ${obj.id}_spritelayout {
     ground {
         sprite: ${obj.ground_sprite};
@@ -190,6 +224,7 @@ item(FEAT_OBJECTS, ${obj.id}, ${obj.numeric_id}) {
         <tal:normal_gfx condition="python:not obj.has_tile_grid() and not obj.has_animation()">
         default: ${obj.id}_spritelayout;
         </tal:normal_gfx>
+
     }
 }
 

@@ -114,48 +114,39 @@ pit = ExpansionObject(
     class_id=CLASS_ID,
     class_name_string=CLASS_NAME,
     sprite_file=SPRITE_FILE,
-    size=[5, 4],
+    size=[5, 3],
     ground_sprite="GROUNDSPRITE_NORMAL",
     height=2,
     tile_grid=[
-        # Row y=0: processing buildings row (x=0 and x=4 are empty)
-        {"x": 0, "y": 0, "sprite": None},  # empty corner
-        {"x": 1, "y": 0, "sprite": [1010, 10, 64, 34, -31, -3],  # ground near crusher
-         "buildings": [{"coords": [1010, 50, 64, 64, -31, -33]}]},  # crusher
-        {"x": 2, "y": 0, "sprite": [940, 10, 64, 31, -31, 0],    # ground near conveyor
-         "buildings": [{"coords": [940, 50, 64, 64, -31, -35]}]},   # conveyor
-        {"x": 3, "y": 0, "sprite": [870, 10, 64, 31, -31, 0],    # ground near silo
-         "buildings": [{"coords": [870, 50, 64, 64, -31, -35]}]},   # silo
-        {"x": 4, "y": 0, "sprite": None},  # empty corner
-
-        # Row y=1: top edge of pit
-        {"x": 0, "y": 1, "sprite": [290, 10, 64, 31, -31, 0]},         # spriteset_24
-        {"x": 1, "y": 1, "sprite": [220, 10, 64, 31, -31, 0],          # spriteset_23
+        # Row y=0: top edge of pit
+        {"x": 0, "y": 0, "sprite": [290, 10, 64, 31, -31, 0],          # spriteset_24
+         "buildings": [{"coords": [290, 130, 64, 64, -31, -22]}]},      # pit_conveyor_4
+        {"x": 1, "y": 0, "sprite": [220, 10, 64, 31, -31, 0],          # spriteset_23
          "buildings": [{"coords": [220, 130, 64, 64, -31, -22]}]},      # pit_conveyor_3
-        {"x": 2, "y": 1, "sprite": [150, 10, 64, 31, -31, 0],          # spriteset_22
+        {"x": 2, "y": 0, "sprite": [150, 10, 64, 31, -31, 0],          # spriteset_22
          "buildings": [{"coords": [150, 130, 64, 64, -31, -22]}]},      # pit_conveyor_2
-        {"x": 3, "y": 1, "sprite": [80, 10, 64, 31, -31, 0],           # spriteset_20
+        {"x": 3, "y": 0, "sprite": [80, 10, 64, 31, -31, 0],           # spriteset_20
          "buildings": [{"coords": [80, 130, 64, 64, -31, -22]}]},       # pit_conveyor_1
-        {"x": 4, "y": 1, "sprite": [10, 10, 64, 31, -31, 0]},          # spriteset_19
+        {"x": 4, "y": 0, "sprite": [10, 10, 64, 31, -31, 0]},          # spriteset_19
 
-        # Row y=2: middle of pit
-        {"x": 0, "y": 2, "sprite": [290, 50, 64, 31, -31, 0]},         # spriteset_12
-        {"x": 1, "y": 2, "sprite": [220, 50, 64, 31, -31, 0]},         # spriteset_11
-        {"x": 2, "y": 2, "sprite": [150, 50, 64, 31, -31, 0]},         # spriteset_10
-        {"x": 3, "y": 2, "sprite": [80, 50, 64, 31, -31, 0],           # spriteset_8
+        # Row y=1: middle of pit
+        {"x": 0, "y": 1, "sprite": [290, 50, 64, 31, -31, 0]},         # spriteset_12
+        {"x": 1, "y": 1, "sprite": [220, 50, 64, 31, -31, 0]},         # spriteset_11
+        {"x": 2, "y": 1, "sprite": [150, 50, 64, 31, -31, 0]},         # spriteset_10
+        {"x": 3, "y": 1, "sprite": [80, 50, 64, 31, -31, 0],           # spriteset_8
          "buildings": [{"coords": [440, 90, 64, 31, -31, 0]}]},         # bulldozer
-        {"x": 4, "y": 2, "sprite": [10, 50, 64, 31, -31, 0]},          # spriteset_7
+        {"x": 4, "y": 1, "sprite": [10, 50, 64, 31, -31, 0]},          # spriteset_7
 
-        # Row y=3: bottom of pit
-        {"x": 0, "y": 3, "sprite": [290, 90, 64, 31, -31, 0]},         # spriteset_6
-        {"x": 1, "y": 3, "sprite": [220, 90, 64, 31, -31, 0],          # spriteset_5
+        # Row y=2: bottom of pit
+        {"x": 0, "y": 2, "sprite": [290, 90, 64, 31, -31, 0]},         # spriteset_6
+        {"x": 1, "y": 2, "sprite": [220, 90, 64, 31, -31, 0],          # spriteset_5
          "buildings": [                                                   # crane + pile
              {"coords": [440, 10, 64, 71, -48, -55]},
              {"coords": [360, 50, 64, 31, -63, -16]},
          ]},
-        {"x": 2, "y": 3, "sprite": [150, 90, 64, 31, -31, 0]},         # spriteset_4
-        {"x": 3, "y": 3, "sprite": [80, 90, 64, 31, -31, 0],           # spriteset_2 (actually 10,90 in orig)
+        {"x": 2, "y": 2, "sprite": [150, 90, 64, 31, -31, 0]},         # spriteset_4
+        {"x": 3, "y": 2, "sprite": [80, 90, 64, 31, -31, 0],           # spriteset_2
          "buildings": [{"coords": [10, 130, 64, 64, -31, -22]}]},       # pit_conveyor_0
-        {"x": 4, "y": 3, "sprite": [10, 90, 64, 31, -31, 0]},          # spriteset_1
+        {"x": 4, "y": 2, "sprite": [10, 90, 64, 31, -31, 0]},          # spriteset_1
     ],
 )
