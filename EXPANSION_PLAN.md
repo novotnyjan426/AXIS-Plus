@@ -645,41 +645,89 @@ Add snow-aware sprite selection for objects in snow climates.
 
 **BUG: Scan area only covers south/east of industry, not north/west.**
 
-The 15x15 tile scan uses unsigned nibble offsets (0-15) for `nearby_tile_class`
-in FEAT_INDUSTRIES. Values 8-15 are intended to represent negative offsets
-(-8 to -1) via 4-bit signed interpretation, but in practice objects placed
-north/west of the industry are not detected — only south/east works.
+**Root cause:** `nearby_tile_class` for FEAT_INDUSTRIES uses unsigned offsets
+(0-15). Values 8-15 are treated as positive offsets 8-15 by OpenTTD, NOT as
+negative offsets -8 to -1. This is a spec limitation: FEAT_INDUSTRIES only
+supports unsigned tile offsets, regardless of GRF version.
 
-**Symptoms:**
-- Objects placed visually "below" (south/east) the industry are counted
-- Objects placed visually "above" (north/west) are NOT counted
-- Effective scan range appears to be ~14 tiles in one direction only
+**Status: NOT FIXED — approach needs decision (see below).**
 
-**Investigation so far:**
-- NML uses `unsigned_tile_offset` (range 0..15) for FEAT_INDUSTRIES,
-  vs `signed_tile_offset` (range -8..7) for FEAT_INDUSTRYTILES
-- Both use identical encoding: `(y & 0xF) << 4 | (x & 0xF)`
-- OpenTTD source shows signed conversion happens when `grf_version >= 8`:
-  `if (signed_offsets && x >= 8) x -= 16;`
-- NML 0.8.1 should generate GRF version 8 (unverified in binary)
-- The parameter byte for `nearby_tile_class(9, 9)` should be 0x99,
-  which the game engine should interpret as offset (-7, -7)
+The FEAT_INDUSTRYTILES approach (signed offsets, per-tile anim_control wrappers)
+was implemented and tested in-game. It partially works but has multiple issues:
 
-**Possible causes to investigate:**
-1. GRF version might not be 8 — verify in the compiled GRF binary
-2. JGRPP might handle the signed_offsets flag differently
-3. `this->tile` in the industry production callback might not be the
-   north tile, or might behave unexpectedly
-4. The unsigned nibble values 8-15 might map to positive offsets 8-15
-   (not -8 to -1) for FEAT_INDUSTRIES specifically
+- **Asymmetric zone**: scan is centered on whichever tile claims the scanner
+  role, giving different range in different directions (e.g. coal mine: 7 tiles
+  down-left/down-right, 3 tiles up-right, 6 tiles up-left).
+- **Non-deterministic**: which tile claims scanner depends on callback firing
+  order, so the zone varies unpredictably.
+- **Broken for some industries**: clay pit, quarry, and others with
+  `ANIM_TRIGGER_INDTILE_CONSTRUCTION_STATE` (not `TILE_LOOP`) only scan once
+  at construction, then never again.
+- **Fluctuating counts**: before scanner lock was added, ALL tiles were scanning
+  and overwriting the perm storage count every tick.
 
-**Possible fixes to try:**
-- Verify GRF version byte in the compiled .grf binary
-- Test with a minimal GRF that only checks `nearby_tile_class(15, 0)`
-  (should be offset -1,0) and see if a tile to the west is detected
-- If unsigned nibbles don't work: consider scanning from FEAT_INDUSTRYTILES
-  (which supports signed offsets and CAN write to industry perm storage)
-- As a workaround: accept south/east-only scan and adjust thresholds
+The scanner lock (first tile claims the role via `expansion_scanner_pos` perm
+register) fixed the fluctuating count but NOT the asymmetry or broken industries.
+
+### Decision Needed: Scan Approach
+
+Three approaches are on the table. A decision is needed before further
+implementation work.
+
+**Option 1: FEAT_INDUSTRIES south/east only (simplest)**
+
+Revert to FEAT_INDUSTRIES `nearby_tile_class` with unsigned offsets 0-15.
+The scan runs in the 256-tick production callback — no tile animation wrappers,
+no scanner lock, no TILE_LOOP patching needed.
+
+- Zone: 16×16 tiles south/east of industry's north corner.
+- Perfectly deterministic for all industries and all layout variants.
+- Player learns "place expansion objects south/east of the industry."
+- Downside: no north/west coverage. Feels arbitrary/directional.
+- Works for all industry sizes including 1-tile industries (oil wells).
+
+**Option 2: FEAT_INDUSTRYTILES with fixed scanner tile (all directions)**
+
+Keep FEAT_INDUSTRYTILES signed offsets (-7 to +7) but fix the scanner selection:
+at template time (Python), compute which tile is closest to the industry's
+bounding box center across all layouts. Hardcode that tile as the scanner.
+Fix `_ensure_expansion_tile_loop()` to also patch tiles that have
+`ANIM_TRIGGER_INDTILE_CONSTRUCTION_STATE` (add `TILE_LOOP` to their trigger
+bitmask).
+
+- Zone: 15×15 tiles centered on the scanner tile, all directions.
+- Deterministic per industry type (same scanner tile every time).
+- Different industry sizes get different effective radius beyond their edge,
+  but consistent within a type.
+- Downside: complex implementation (per-tile wrappers, PARENT context switches,
+  scanner selection logic). Different layout variants may shift the zone
+  slightly.
+- Edge case: oil wells and other sparse/1-tile industries — scanner tile
+  may be in a non-obvious position.
+
+**Option 3: Expansion as fundable industries (no objects/landmarks GRF)**
+
+Instead of scanning for nearby objects, create a per-industry-type "expansion
+industry" (e.g. "Coal Mine Expansion", "Arable Farm Expansion") that the player
+funds via the industry menu. The expansion industry has a location check
+requiring proximity to the parent type.
+
+Two sub-variants:
+- **3a — Parent detects expansion industry**: parent scans for the expansion
+  industry using `nearby_tile_industry_type`. Same offset limitations as
+  Option 1/2 apply.
+- **3b — Expansion produces cargo directly**: the expansion industry produces
+  the same output cargo as the parent. No inter-industry detection needed.
+  The expansion IS the extra production. No scanning at all.
+
+- No Objects/Landmarks GRF dependency.
+- Intuitive UX: player funds expansion from industry menu.
+- 3b completely avoids the scanning problem.
+- Downside: burns industry type slots (limited ~64 per GRF). Each primary
+  industry type needs its own expansion industry.
+- Downside (3b): changes the design from "multiplier boost" to "separate
+  producer" — different gameplay feel.
+- Downside: more industry definitions to maintain.
 
 ### Preferred fix from current code analysis
 
