@@ -83,8 +83,35 @@ switch(FEAT_OBJECTS, SELF, ${obj.id}_tile_switch, var[0x40] % 65536) {
 }
 </tal:tiled>
 
+<!--! Slope-aware tree mode: per-slope spritelayouts with base_sprite trees + slope switch -->
+<tal:slope_trees condition="obj.has_slope_buildings()">
+<tal:slopes repeat="slope_entry obj.slope_buildings_items()">
+spritelayout ${obj.id}_slope_${slope_entry[0]} {
+    ground {
+        sprite: ${obj.slope_ground_expr};
+    }
+    <tal:bldgs repeat="bldg slope_entry[1]">
+    building {
+        sprite: ${bldg['base_sprite']};
+        xoffset: ${bldg['xoffset']};
+        yoffset: ${bldg['yoffset']};
+        xextent: ${bldg.get('xextent', 4)};
+        yextent: ${bldg.get('yextent', 4)};
+        zextent: ${bldg.get('zextent', 32)};
+    }
+    </tal:bldgs>
+}
+</tal:slopes>
+switch(FEAT_OBJECTS, SELF, ${obj.id}_slope_switch, nearby_tile_slope(0, 0)) {
+    <tal:cases repeat="slope_entry obj.slope_buildings_items()">
+    ${slope_entry[0]}: ${obj.id}_slope_${slope_entry[0]};
+    </tal:cases>
+    default: ${obj.id}_slope_0;
+}
+</tal:slope_trees>
+
 <!--! Multi-building mode: multiple spritesets + one spritelayout with multiple buildings -->
-<tal:multi condition="python:obj.has_multi_buildings() and not obj.has_tile_grid()">
+<tal:multi condition="python:obj.has_multi_buildings() and not obj.has_tile_grid() and not obj.has_slope_buildings()">
 <tal:spritesets repeat="bldg obj.buildings">
 <tal:file_bldg condition="bldg.get('file')">
 spriteset(${obj.id}_spriteset_${repeat.bldg.index}, "${bldg['file']}") {
@@ -126,6 +153,29 @@ spritelayout ${obj.id}_spritelayout {
     </tal:base_bldg>
     </tal:buildings>
 }
+<!--! Static purchase spritelayout for animated base_sprite objects -->
+<tal:purchase condition="obj.purchase_sprite is not None">
+spritelayout ${obj.id}_purchase {
+    ground {
+        sprite: ${obj.ground_sprite};
+    }
+    <tal:buildings repeat="bldg obj.buildings">
+    <tal:base_bldg condition="bldg.get('base_sprite')">
+    building {
+        sprite: ${obj.purchase_sprite};
+        recolour_mode: RECOLOUR_REMAP;
+        palette: PALETTE_USE_DEFAULT;
+        xoffset: ${bldg.get('xoffset', 0)};
+        yoffset: ${bldg.get('yoffset', 0)};
+        zoffset: ${bldg.get('zoffset', 0)};
+        xextent: ${bldg.get('xextent', 16)};
+        yextent: ${bldg.get('yextent', 16)};
+        zextent: ${bldg.get('zextent', 16)};
+    }
+    </tal:base_bldg>
+    </tal:buildings>
+}
+</tal:purchase>
 </tal:multi>
 
 <!--! Animated single sprite mode: spriteset with multiple frames -->
@@ -184,7 +234,7 @@ spritelayout ${obj.id}_spritelayout {
 </tal:basesprite>
 
 <!--! Plain mode: just ground sprite, no building -->
-<tal:plain condition="python:not obj.has_custom_sprite() and not obj.has_multi_buildings() and not obj.has_animation() and not obj.has_tile_grid() and obj.base_sprite is None">
+<tal:plain condition="python:not obj.has_custom_sprite() and not obj.has_multi_buildings() and not obj.has_animation() and not obj.has_tile_grid() and obj.base_sprite is None and not obj.has_slope_buildings()">
 spritelayout ${obj.id}_spritelayout {
     ground {
         sprite: ${obj.ground_sprite};
@@ -218,10 +268,18 @@ item(FEAT_OBJECTS, ${obj.id}, ${obj.numeric_id}) {
         default: ${obj.id}_tile_switch;
         </tal:tiled_gfx>
         <tal:anim_gfx condition="python:obj.has_animation() and not obj.has_tile_grid()">
+        <tal:purchase condition="obj.purchase_sprite is not None">
+        purchase: ${obj.id}_purchase;
+        </tal:purchase>
         anim_control: return CB_RESULT_NEXT_FRAME;
         default: ${obj.id}_spritelayout;
         </tal:anim_gfx>
-        <tal:normal_gfx condition="python:not obj.has_tile_grid() and not obj.has_animation()">
+        <tal:slope_gfx condition="python:obj.has_slope_buildings() and not obj.has_tile_grid()">
+        tile_check: return CB_RESULT_LOCATION_ALLOW;
+        autoslope: return CB_RESULT_AUTOSLOPE;
+        default: ${obj.id}_slope_switch;
+        </tal:slope_gfx>
+        <tal:normal_gfx condition="python:not obj.has_tile_grid() and not obj.has_animation() and not obj.has_slope_buildings()">
         default: ${obj.id}_spritelayout;
         </tal:normal_gfx>
 

@@ -89,6 +89,52 @@ copper_mine_expansion.ore_truck.register()
 copper_mine_expansion.ore_pile_front.register()
 copper_mine_expansion.ore_pile_rear.register()
 
+# Chromite Mine Expansions
+from objects import chromite_mine_expansion
+chromite_mine_expansion.headgear.register()
+chromite_mine_expansion.winding_house.register()
+chromite_mine_expansion.exit_trestle.register()
+chromite_mine_expansion.ore_pile.register()
+
+# Manganese Mine Expansions
+from objects import manganese_mine_expansion
+manganese_mine_expansion.headgear.register()
+manganese_mine_expansion.winding_house.register()
+manganese_mine_expansion.exit_trestle.register()
+manganese_mine_expansion.ore_pile.register()
+
+# Potash Mine Expansions
+from objects import potash_mine_expansion
+potash_mine_expansion.headgear.register()
+potash_mine_expansion.winding_house.register()
+potash_mine_expansion.exit_trestle.register()
+potash_mine_expansion.ore_pile.register()
+
+# Diamond Mine Expansions
+from objects import diamond_mine_expansion
+diamond_mine_expansion.headgear.register()
+diamond_mine_expansion.winding_house.register()
+diamond_mine_expansion.vents_shed.register()
+
+# Phosphate Mine Expansions
+from objects import phosphate_mine_expansion
+phosphate_mine_expansion.pit.register()
+
+# Salt Mine Expansions
+from objects import salt_mine_expansion
+salt_mine_expansion.pit.register()
+
+# Oil Wells Expansions
+from objects import oil_wells_expansion
+oil_wells_expansion.pump.register()
+oil_wells_expansion.shed.register()
+
+# Cryo Plant Expansions
+from objects import cryo_plant_expansion
+cryo_plant_expansion.separation_tower.register()
+cryo_plant_expansion.horizontal_tanks.register()
+cryo_plant_expansion.storage_tank.register()
+
 # Agriculture Expansions — Arable Farm
 from objects import arable_farm_expansion
 arable_farm_expansion.barn.register()
@@ -141,6 +187,46 @@ from objects import seaweed_farm_expansion
 seaweed_farm_expansion.seaweed_patch.register()
 seaweed_farm_expansion.seaweed_dense.register()
 
+# Docks & Water Expansions — Wharf
+from objects import wharf_expansion
+wharf_expansion.tanks.register()
+wharf_expansion.silos.register()
+wharf_expansion.warehouse.register()
+
+# Docks & Water Expansions — Liquids Terminal
+from objects import liquids_terminal_expansion
+liquids_terminal_expansion.office.register()
+liquids_terminal_expansion.spherical_tank.register()
+liquids_terminal_expansion.large_tank.register()
+
+# Docks & Water Expansions — Fish Farm
+from objects import fish_farm_expansion
+fish_farm_expansion.warehouse.register()
+fish_farm_expansion.fish_tank.register()
+fish_farm_expansion.fish_tank_full.register()
+
+# Docks & Water Expansions — Fishing Grounds
+from objects import fishing_grounds_expansion
+fishing_grounds_expansion.equipment.register()
+
+# Docks & Water Expansions — Trading Post
+from objects import trading_post_expansion
+trading_post_expansion.warehouse.register()
+trading_post_expansion.ship_hull.register()
+
+# Agriculture Expansions — Peatlands
+from objects import peatlands_expansion
+peatlands_expansion.nissen_hut.register()
+peatlands_expansion.tractor.register()
+peatlands_expansion.harvester.register()
+peatlands_expansion.crane.register()
+peatlands_expansion.peat_pile.register()
+
+# Agriculture Expansions — Vineyard
+from objects import vineyard_expansion
+vineyard_expansion.house.register()
+vineyard_expansion.shed.register()
+
 # Agriculture Expansions — Rubber Plantation
 from objects import rubber_plantation_expansion
 rubber_plantation_expansion.warehouse.register()
@@ -175,16 +261,30 @@ ranch_expansion.hay_bales_alt.register()
 from objects import orchard_piggery_expansion
 orchard_piggery_expansion.piggery.register()
 
-# Agriculture Expansions — Trees
+# Agriculture Expansions — Herding Coop
+from objects import herding_coop_expansion
+herding_coop_expansion.hut.register()
+herding_coop_expansion.hut_small.register()
+
+# Agriculture Expansions — Coffee Estate
+from objects import coffee_estate_expansion
+coffee_estate_expansion.house.register()
+coffee_estate_expansion.shed.register()
+
+# Agriculture Expansions — Trees (slope-aware groves & dense)
 from objects import tree_expansion
-tree_expansion.fruit_tree.register()
-tree_expansion.fruit_tree_large.register()
-tree_expansion.deciduous_tree.register()
-tree_expansion.orchard_tree.register()
-tree_expansion.tropical_tree.register()
-tree_expansion.coffee_bush.register()
-tree_expansion.rubber_tree.register()
-tree_expansion.palm_tree.register()
+tree_expansion.conifer_grove.register()
+tree_expansion.deciduous_grove.register()
+tree_expansion.fruit_grove.register()
+tree_expansion.fruit_large_grove.register()
+tree_expansion.orchard_grove.register()
+tree_expansion.tropical_grove.register()
+tree_expansion.coffee_grove.register()
+tree_expansion.rubber_grove.register()
+tree_expansion.palm_grove.register()
+tree_expansion.conifer_dense.register()
+tree_expansion.vine_dense.register()
+tree_expansion.coffee_dense.register()
 
 # Agriculture Expansions — Forest
 from objects import forest_expansion

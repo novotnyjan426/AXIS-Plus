@@ -35,8 +35,14 @@ class ExpansionObject:
         self.tile_grid = kwargs.get("tile_grid", None)
         # base game sprite mode: numeric sprite ID (no spriteset needed)
         self.base_sprite = kwargs.get("base_sprite", None)
+        # slope-aware trees: dict of slope -> list of base_sprite building dicts
+        # generates one spritelayout per slope + a slope switch
+        self.slope_buildings = kwargs.get("slope_buildings", None)
         # allow placement on water tiles
         self.allow_on_water = kwargs.get("allow_on_water", False)
+        # static purchase sprite for animated base_sprite objects
+        # (animation_frame not available in purchase context)
+        self.purchase_sprite = kwargs.get("purchase_sprite", None)
 
     def get_flags(self):
         flags = ["OBJ_FLAG_ANYTHING_REMOVE", "OBJ_FLAG_REMOVE_IS_INCOME"]
@@ -44,6 +50,8 @@ class ExpansionObject:
             flags.append("OBJ_FLAG_ANIMATED")
         if self.allow_on_water:
             flags.append("OBJ_FLAG_ON_WATER")
+        if self.has_slope_buildings():
+            flags.append("OBJ_FLAG_NO_FOUNDATIONS")
         return "bitmask(" + ", ".join(flags) + ")"
 
     def has_custom_sprite(self):
@@ -54,6 +62,24 @@ class ExpansionObject:
 
     def has_animation(self):
         return (self.animation_frames is not None and len(self.animation_frames) > 1) or self.animation_length > 0
+
+    def has_slope_buildings(self):
+        return self.slope_buildings is not None and len(self.slope_buildings) > 0
+
+    @property
+    def slope_ground_expr(self):
+        """Ground sprite expression for slope-aware layouts.
+        Uses explicit slope offset instead of GROUNDSPRITE_NORMAL which
+        doesn't auto-adapt for FEAT_OBJECTS with NO_FOUNDATIONS."""
+        # Resolve base ground sprite number
+        gs = self.ground_sprite
+        if gs == "GROUNDSPRITE_NORMAL":
+            gs = "3981"
+        return gs + " + slope_to_sprite_offset(nearby_tile_slope(0, 0))"
+
+    def slope_buildings_items(self):
+        """Return sorted (slope, buildings_list) pairs for template iteration."""
+        return sorted(self.slope_buildings.items())
 
     def has_tile_grid(self):
         return self.tile_grid is not None and len(self.tile_grid) > 0

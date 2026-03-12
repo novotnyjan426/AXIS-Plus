@@ -1001,15 +1001,63 @@ footprint. That makes it a strong argument for Option 4: a sparse layout is
 better represented by multiple scanner chunks following the bounding box than
 by one anchor tile in an arbitrary corner or center.
 
+### Resolved (Phase 2)
+
+13. **"Mini-industry expansion" approach evaluated and rejected.**
+    An alternative was prototyped where expansion tiles are fundable industries
+    (e.g. `coal_mine_expansion`) instead of FEAT_OBJECTS. This uses
+    `nearby_tile_industrytile_id` (var 0x62) to identify specific expansion
+    tile types — solving the object identification problem. However:
+    - **Industry type limit = 128 per GRF** (AXIS+ uses 122/128). Adding one
+      expansion industry per primary type (~40) is impossible.
+    - **Industry tile type limit = 255 per GRF** (AXIS+ uses ~211/255). Tile
+      IDs have more room but not enough for per-industry expansion tiles.
+    - A shared "generic expansion industry" with per-category tile types would
+      use only 1 industry slot + 3-5 tile slots, but loses per-industry-type
+      identification (all mines share one expansion tile type).
+    - **JGRPP does not raise these limits.** Checked changelog and source:
+      JGRPP raises limits for houses (4096), objects, road stops — but NOT
+      for industry types (128) or industry tile types (255).
+    - **Conclusion:** Not viable within current engine limits. The uncommitted
+      prototype code (`coal_mine_expansion.py`, `fund_only`,
+      `require_near_industry_type`) is kept as reference but not shipped.
+
+14. **Future plan: JGRPP feature request for `nearby_tile_object_type`
+    and `nearby_tile_object_grfid` on FEAT_INDUSTRYTILES.**
+    This is the clean long-term solution. Analysis shows:
+    - **Already implemented for other features:** FEAT_OBJECTS has
+      `nearby_tile_object_type` (var 0x60), FEAT_STATIONS has
+      `nearby_tile_grfid` (var 0x6A). The infrastructure exists in OpenTTD.
+    - **Implementation is trivial:** Reuse `GetObjectIDAtOffset()` from
+      `newgrf_object.cpp` in `newgrf_industrytiles.cpp`. Same pattern as
+      station var 0x6A.
+    - **Performance is negligible:** All operations are O(1) array lookups
+      (4-5 memory reads). The existing `nearby_tile_class` (var 0x60) is
+      actually MORE expensive (computes slope from 4 corner heights,
+      terrain type switch, water class check). At expansion scanner scale
+      (~40,000 lookups per 256-tick cycle across ~200 industries), the total
+      cost is ~1.2ms spread over 8.5 seconds. The NewGRF resolver dispatch
+      overhead (virtual calls, switch statements) dominates, not the data
+      lookup.
+    - **Solves multiple problems at once:** Industry can identify own-GRF
+      expansion objects vs foreign objects, lighthouse/transmitter false
+      positives disappear, cross-industry-type sharing is eliminated (coal
+      mine doesn't count farm expansion objects).
+    - **Same-type sharing remains:** Two coal mines near each other would
+      still share expansion objects (both see `nearby_tile_object_type`
+      matching). This is acceptable — "industrial district" effect.
+    - **JGRPP is the right target:** JGR accepts NewGRF extensions more
+      readily than vanilla OpenTTD. Similar additions (station vars, object
+      properties, signal vars) have been accepted before.
+
 ### Still Open
 
 5. **Industry-specific objects count the same as everything else.**
    Because the industry cannot distinguish object types, a "Coal Expansion"
    object has no mechanical advantage over a "Farm Expansion" object placed
    at a coal mine. Per-industry object sets exist only for UX/visual purposes.
-   Consider whether this is acceptable long-term or if a workaround should
-   be explored (e.g. feature request to OpenTTD for `nearby_tile_object_type`
-   on FEAT_INDUSTRIES).
+   **Planned fix:** JGRPP feature request (see Resolved #14 above). Until
+   then, accepted for current release.
 
 6. **Tertiary industries:** Not planned for expansion support. Confirm.
 

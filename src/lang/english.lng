@@ -44,7 +44,7 @@ STR_PARAM_VALUE_EXPANSION_COST_6                                                
 
 STR_OBJECT_CLASS_AXIS_PLUS                                                       :AXIS+ Expansions
 STR_OBJECT_EXPANSION_TEST                                                        :Expansion Building (Test)
-STR_OBJECT_CLASS_MINE_EXPANSIONS                                                 :  Mine Expansions
+STR_OBJECT_CLASS_MINE_EXPANSIONS                                                 :  Mining & Oil Expansions
 STR_OBJECT_COAL_HEADFRAME                                                        :Mine Headframe
 STR_OBJECT_COAL_BUILDING                                                         :Mine Building
 STR_OBJECT_COAL_PILE_SMALL                                                       :Coal Pile (small)
@@ -97,6 +97,28 @@ STR_OBJECT_COPPER_EXIT_TRESTLE                                                  
 STR_OBJECT_COPPER_ORE_TRUCK                                                      :Copper Ore Truck
 STR_OBJECT_COPPER_ORE_PILE                                                       :Copper Ore Pile
 STR_OBJECT_COPPER_ORE_PILE_ALT                                                   :Copper Ore Pile (alt)
+STR_OBJECT_CHROMITE_HEADGEAR                                                     :Chromite Mine Headgear
+STR_OBJECT_CHROMITE_WINDING_HOUSE                                                :Chromite Mine Winding House
+STR_OBJECT_CHROMITE_EXIT_TRESTLE                                                 :Chromite Mine Exit Trestle
+STR_OBJECT_CHROMITE_ORE_PILE                                                     :Chromite Ore Pile
+STR_OBJECT_MANGANESE_HEADGEAR                                                    :Manganese Mine Headgear
+STR_OBJECT_MANGANESE_WINDING_HOUSE                                               :Manganese Mine Winding House
+STR_OBJECT_MANGANESE_EXIT_TRESTLE                                                :Manganese Mine Exit Trestle
+STR_OBJECT_MANGANESE_ORE_PILE                                                    :Manganese Ore Pile
+STR_OBJECT_POTASH_HEADGEAR                                                       :Potash Mine Headgear
+STR_OBJECT_POTASH_WINDING_HOUSE                                                  :Potash Mine Winding House
+STR_OBJECT_POTASH_EXIT_TRESTLE                                                   :Potash Mine Exit Trestle
+STR_OBJECT_POTASH_ORE_PILE                                                       :Potash Ore Pile
+STR_OBJECT_DIAMOND_HEADGEAR                                                      :Diamond Mine Headgear
+STR_OBJECT_DIAMOND_WINDING_HOUSE                                                 :Diamond Mine Winding House
+STR_OBJECT_DIAMOND_VENTS_SHED                                                    :Diamond Mine Vents Shed
+STR_OBJECT_PHOSPHATE_PIT                                                         :Phosphate Open Pit
+STR_OBJECT_SALT_MINE_PIT                                                         :Salt Open Pit
+STR_OBJECT_OIL_PUMP                                                              :Oil Pump Jack
+STR_OBJECT_OIL_SHED                                                              :Oil Field Shed
+STR_OBJECT_CRYO_TOWER                                                            :Separation Tower
+STR_OBJECT_CRYO_TANKS                                                            :Horizontal Tanks
+STR_OBJECT_CRYO_STORAGE                                                          :Storage Tank
 STR_OBJECT_CLASS_AGRICULTURE_EXPANSIONS                                          :  Agriculture Expansions
 STR_OBJECT_ARABLE_BARN                                                           :Farm Barn
 STR_OBJECT_ARABLE_FARM_CART                                                      :Farm Cart
@@ -130,6 +152,18 @@ STR_OBJECT_SALT_EVAP_PAN_FULL                                                   
 STR_OBJECT_DREDGING_CRANE                                                        :Dredging Crane
 STR_OBJECT_SEAWEED_PATCH                                                         :Seaweed Patch
 STR_OBJECT_SEAWEED_DENSE                                                         :Seaweed Patch (Dense)
+STR_OBJECT_WHARF_TANKS                                                           :Wharf Tanks
+STR_OBJECT_WHARF_SILOS                                                           :Wharf Silos
+STR_OBJECT_WHARF_WAREHOUSE                                                       :Wharf Warehouse
+STR_OBJECT_LIQUIDS_OFFICE                                                        :Terminal Office
+STR_OBJECT_LIQUIDS_SPHERICAL_TANK                                                :Spherical Tank
+STR_OBJECT_LIQUIDS_LARGE_TANK                                                    :Cylinder Tank
+STR_OBJECT_FISH_FARM_WAREHOUSE                                                   :Fish Farm Warehouse
+STR_OBJECT_FISH_FARM_TANK                                                        :Fish Tank
+STR_OBJECT_FISH_FARM_TANK_FULL                                                   :Fish Tank (Stocked)
+STR_OBJECT_FISHING_EQUIPMENT                                                     :Fishing Equipment
+STR_OBJECT_TRADING_POST_WAREHOUSE                                                :Shipbreaker Warehouse
+STR_OBJECT_TRADING_POST_HULL                                                     :Ship Hull
 STR_OBJECT_RUBBER_WAREHOUSE                                                      :Plantation Warehouse
 STR_OBJECT_RUBBER_SHED                                                           :Plantation Shed
 STR_OBJECT_SHEEP_BARN                                                            :Sheep Barn
@@ -143,21 +177,36 @@ STR_OBJECT_DAIRY_LARGE_BARN                                                     
 STR_OBJECT_DAIRY_FARMHOUSE                                                       :Dairy Farmhouse
 STR_OBJECT_DAIRY_PEN                                                             :Cattle Pen
 STR_OBJECT_DAIRY_PEN_ALT                                                         :Cattle Pen (alt)
+STR_OBJECT_HERDING_HUT                                                           :Herding Hut
+STR_OBJECT_HERDING_HUT_SMALL                                                     :Herding Hut (Small)
+STR_OBJECT_COFFEE_HOUSE                                                          :Coffee Estate House
+STR_OBJECT_COFFEE_SHED                                                           :Coffee Estate Shed
 STR_OBJECT_RANCH_HOUSE                                                           :Ranch House
 STR_OBJECT_RANCH_HOUSE_ALT                                                       :Ranch House (alt)
 STR_OBJECT_RANCH_COTTAGE                                                         :Ranch Cottage
 STR_OBJECT_RANCH_HAY                                                             :Hay Bales
 STR_OBJECT_RANCH_HAY_ALT                                                         :Hay Bales (alt)
 STR_OBJECT_PIGGERY                                                               :Piggery
+STR_OBJECT_PEATLANDS_HUT                                                         :Peatlands Hut
+STR_OBJECT_PEATLANDS_TRACTOR                                                     :Peatlands Tractor
+STR_OBJECT_PEATLANDS_HARVESTER                                                   :Peat Harvester
+STR_OBJECT_PEATLANDS_CRANE                                                       :Peatlands Crane
+STR_OBJECT_PEATLANDS_PILE                                                        :Peat Pile
+STR_OBJECT_VINEYARD_HOUSE                                                        :Vineyard House
+STR_OBJECT_VINEYARD_SHED                                                         :Vineyard Shed
 STR_OBJECT_CLASS_TREES_PLANTS                                                    :  Trees & Plants
-STR_OBJECT_TREE_FRUIT                                                            :Fruit Tree
-STR_OBJECT_TREE_FRUIT_LARGE                                                      :Fruit Tree (large)
-STR_OBJECT_TREE_DECIDUOUS                                                        :Deciduous Tree
-STR_OBJECT_TREE_ORCHARD                                                          :Orchard Tree
-STR_OBJECT_TREE_TROPICAL                                                         :Tropical Tree
-STR_OBJECT_TREE_COFFEE                                                           :Coffee Bush
-STR_OBJECT_TREE_RUBBER                                                           :Rubber Tree
-STR_OBJECT_TREE_PALM                                                             :Palm Tree
+STR_OBJECT_TREE_CONIFER_GROVE                                                    :Conifer Grove
+STR_OBJECT_TREE_DECIDUOUS_GROVE                                                  :Deciduous Grove
+STR_OBJECT_TREE_FRUIT_GROVE                                                      :Fruit Tree Grove
+STR_OBJECT_TREE_FRUIT_LARGE_GROVE                                                :Fruit Tree Grove (large)
+STR_OBJECT_TREE_ORCHARD_GROVE                                                    :Orchard Grove
+STR_OBJECT_TREE_TROPICAL_GROVE                                                   :Tropical Grove
+STR_OBJECT_TREE_COFFEE_GROVE                                                     :Coffee Bush Grove
+STR_OBJECT_TREE_RUBBER_GROVE                                                     :Rubber Tree Grove
+STR_OBJECT_TREE_PALM_GROVE                                                       :Palm Grove
+STR_OBJECT_TREE_CONIFER_DENSE                                                    :Dense Conifer Forest
+STR_OBJECT_TREE_VINE_DENSE                                                       :Dense Vineyard
+STR_OBJECT_TREE_COFFEE_DENSE                                                     :Dense Coffee Plantation
 STR_OBJECT_FOREST_CRANE                                                          :Logging Crane
 STR_OBJECT_FOREST_CRANE_ALT                                                      :Logging Crane (alt)
 STR_OBJECT_FOREST_EQUIPMENT                                                      :Logging Equipment
