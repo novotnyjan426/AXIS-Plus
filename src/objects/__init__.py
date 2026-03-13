@@ -172,6 +172,15 @@ port_expansion.cargo_crates.register()
 port_expansion.cargo_goods.register()
 port_expansion.concrete_pad.register()
 
+# Docks & Water Expansions — Bulk Terminal
+from objects import bulk_terminal_expansion
+bulk_terminal_expansion.tanks.register()
+bulk_terminal_expansion.silos.register()
+bulk_terminal_expansion.cone_silo.register()
+bulk_terminal_expansion.warehouse.register()
+bulk_terminal_expansion.crane.register()
+bulk_terminal_expansion.crane_rails.register()
+
 # Docks & Water Expansions — Salt Evaporator
 from objects import salt_evaporator_expansion
 salt_evaporator_expansion.shed.register()
@@ -293,3 +302,8 @@ forest_expansion.logging_crane_alt.register()
 forest_expansion.equipment.register()
 forest_expansion.log_pile.register()
 forest_expansion.log_pile_alt.register()
+
+# Recycling Depot Expansions
+from objects import recycling_depot_expansion
+recycling_depot_expansion.shed.register()
+recycling_depot_expansion.containers.register()

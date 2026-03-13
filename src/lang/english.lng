@@ -164,6 +164,14 @@ STR_OBJECT_FISH_FARM_TANK_FULL                                                  
 STR_OBJECT_FISHING_EQUIPMENT                                                     :Fishing Equipment
 STR_OBJECT_TRADING_POST_WAREHOUSE                                                :Shipbreaker Warehouse
 STR_OBJECT_TRADING_POST_HULL                                                     :Ship Hull
+STR_OBJECT_BULK_TERMINAL_TANKS                                                   :Bulk Terminal Tanks
+STR_OBJECT_BULK_TERMINAL_SILOS                                                   :Bulk Terminal Silos
+STR_OBJECT_BULK_TERMINAL_CONE_SILO                                               :Bulk Terminal Cone Silo
+STR_OBJECT_BULK_TERMINAL_WAREHOUSE                                               :Bulk Terminal Warehouse
+STR_OBJECT_BULK_TERMINAL_CRANE                                                   :Bulk Terminal Crane
+STR_OBJECT_BULK_TERMINAL_CRANE_RAILS                                             :Bulk Terminal Crane Rails
+STR_OBJECT_RECYCLING_SHED                                                        :Recycling Shed
+STR_OBJECT_RECYCLING_CONTAINERS                                                  :Recycling Containers
 STR_OBJECT_RUBBER_WAREHOUSE                                                      :Plantation Warehouse
 STR_OBJECT_RUBBER_SHED                                                           :Plantation Shed
 STR_OBJECT_SHEEP_BARN                                                            :Sheep Barn
