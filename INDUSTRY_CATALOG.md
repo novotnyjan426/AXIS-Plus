@@ -85,10 +85,25 @@ output_cargo_amount = total_output x output_ratio / 8
 ```
 The `output_ratio` numbers (×N on the ▶ lines) always sum to 8.
 
-**Example:** Blast furnace (Steel City) accepts Iron Ore ×3, Coke ×3, Limestone ×2.
+**Combinatory mode (ALL vs ANY):**
+
+Each secondary industry is marked with a combinatory mode:
+
+- **🔗 ALL** — Input ratios are designed to sum to 8. Supply **all** accepted cargos
+  for maximum throughput. Missing inputs directly reduce the ratio.
+- **⚡ ANY** — Each input independently contributes a high ratio. Supplying **any
+  single** input already gives good throughput; additional inputs may push ratio
+  above 8 (effectively capped at 8).
+
+**Example (ALL):** Blast furnace (Steel City) accepts Iron Ore ×3, Coke ×3, Limestone ×2.
 If all three are supplied: ratio = 3+3+2 = 8 (full throughput = 100% of input).
 If only Iron Ore + Coke: ratio = 6 (75% throughput).
 Output split: Iron ×6/8 = 75%, Slag ×2/8 = 25% of total produced.
+
+**Example (ANY):** Biorefinery (Extreme Classic) accepts Sugar Beet ×6, Biomass ×6, Oil Seeds ×6.
+Delivering only Sugar Beet: ratio = 6/8 (75% throughput).
+Delivering Sugar Beet + Biomass: ratio = 12/8, capped at 8/8 (full throughput).
+Any single input already gives strong production — no need to supply all three.
 
 ### Tertiary Industries
 
@@ -832,7 +847,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Abattoir (`stockyard`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC, Steel City
 
 **Extreme Classic**
   ◀ Livestock [LVST] ×6
@@ -862,12 +877,12 @@ cargos at a constant rate unrelated to deliveries.
   ◀ Livestock [LVST] ×6
   ◀ Cleaning Agents [SOAP] ×2
 
-  ▶ Fish [FISH] ×8
+  ▶ Food [FOOD] ×8
 
 ---
 
 ### Acid Plant (`sulphuric_acid_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
 
 **Extreme Classic**
   ◀ Sulphur [SULP] ×5
@@ -896,7 +911,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Alumina Refinery (`alumina_refinery`)
-**Type**: Secondary | **Economies**: Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Steel City
 
   ◀ Bauxite [AORE] ×6
   ◀ Sodium Hydroxide [LYE_] ×2
@@ -906,7 +921,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Aluminium Plant (`aluminium_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, ⚠️ BLTC, Steel City
 
 **Extreme Classic**
   ◀ Bauxite [AORE] ×4
@@ -933,7 +948,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Ammonia Plant (`ammonia_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, ⚠️ BLTC, Steel City
 
 **Extreme Classic**
   ◀ Refined Oil [RFPR] ×2
@@ -961,7 +976,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Appliance Factory (`appliance_factory`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
 
 **Extreme Classic**
   ◀ Metal Parts [MPAR] ×4
@@ -999,7 +1014,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Appliance Factory (`factory_1`)
-**Type**: Secondary | **Economies**: Tropical Paradise, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise, ⚠️ BLTC, Steel City
 
 **Tropical Paradise**
   ◀ Metal Parts [MPAR] ×4
@@ -1029,7 +1044,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Assembly Plant (`assembly_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
   ◀ Steel [STEL] ×3
@@ -1063,7 +1078,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Bakery (`bakery`)
-**Type**: Secondary | **Economies**: Tropical Paradise
+**Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise
 
   ◀ Flour [BAKE] ×3
   ◀ Sugar [SUGR] ×2
@@ -1076,7 +1091,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Basic Oxygen Furnace (`basic_oxygen_furnace`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
   ◀ Iron [IRON] ×4
@@ -1108,7 +1123,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Biorefinery (`biorefinery`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
   ◀ Sugar Beet [SGBT] ×6
@@ -1138,7 +1153,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Blast Furnace (`blast_furnace`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
   ◀ Iron Ore [IORE] ×4
@@ -1167,7 +1182,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Body Plant (`body_plant`)
-**Type**: Secondary | **Economies**: Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Steel City
 
   ◀ Steel Sheet [STSH] ×4
   ◀ Paints & Coatings [COAT] ×2
@@ -1179,7 +1194,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Brewery (`brewery`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC
 
 **Extreme Classic**
   ◀ Grain [GRAI] ×4
@@ -1213,7 +1228,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Brick Works (`brick_works`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise
 
   ◀ Clay [CLAY] ×4
   ◀ Sand [SAND] ×3
@@ -1224,7 +1239,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Cannery (`food_processor`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ IAHC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ IAHC, Steel City
 
 **Extreme Classic**
   ◀ Produce [FRUT] ×4
@@ -1263,7 +1278,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Carbon Black Plant (`carbon_black_plant`)
-**Type**: Secondary | **Economies**: Steel City
+**Type**: Secondary (⚡ ANY) | **Economies**: Steel City
 
   ◀ Tar [CTAR] ×8
 
@@ -1273,7 +1288,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Cement Plant (`cement_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC, Steel City
 
 **Extreme Classic**
   ◀ Cement [CMNT] ×2
@@ -1318,7 +1333,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Chemical Plant (`chemical_plant`)
-**Type**: Secondary | **Economies**: ⚠️ Boreal, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC
+**Type**: Secondary (🔗 ALL) | **Economies**: ⚠️ Boreal, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC
 
 **⚠️ Boreal**
   ◀ Sulphur [SULP] ×2
@@ -1359,7 +1374,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Chlor-alkali Plant (`chlor_alkali_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic, ⚠️ BLTC, Steel City
+**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, ⚠️ BLTC, Steel City
 
 **Extreme Classic**
   ◀ Salt [SALT] ×8
@@ -1385,7 +1400,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Civil Explosives Facility (`civil_explosives_facility`)
-**Type**: Secondary | **Economies**: Tropical Paradise, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise, ⚠️ BLTC, Steel City
 
 **Tropical Paradise**
   ◀ Nitrates [NITR] ×2
@@ -1413,7 +1428,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Cleaning Products Factory (`cleaning_products_factory`)
-**Type**: Secondary | **Economies**: Tropical Paradise, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise, ⚠️ BLTC, Steel City
 
 **Tropical Paradise**
   ◀ Soda Ash [SASH] ×2
@@ -1445,7 +1460,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Cleaning Products Factory (`factory_2`)
-**Type**: Secondary | **Economies**: ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: ⚠️ BLTC, Steel City
 
 **⚠️ BLTC**
   ◀ Copper [COPR] ×2
@@ -1466,7 +1481,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Coal Liquefaction Plant (`fischer_tropsch_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic, ⚠️ BLTC, Steel City
+**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, ⚠️ BLTC, Steel City
 
 **Extreme Classic**
   ◀ Coal [COAL] ×8
@@ -1489,7 +1504,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Coke Oven (`coke_oven`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
   ◀ Coal [COAL] ×8
@@ -1513,7 +1528,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Component Factory (`component_factory`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ IAHC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ IAHC, Steel City
 
 **Extreme Classic**
   ◀ Metal Parts [MPAR] ×2
@@ -1549,7 +1564,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Construction Plant (`builders_yard`)
-**Type**: Secondary | **Economies**: ⚠️ BLTC, ⚠️ IAHC, Steel City
+**Type**: Secondary (⚡ ANY) | **Economies**: ⚠️ BLTC, ⚠️ IAHC, Steel City
 
   ◀ Cement [CMNT] ×2
   ◀ Metal Parts [MPAR] ×2
@@ -1561,7 +1576,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Construction Plant (`construction_plant`)
-**Type**: Secondary | **Economies**: ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: ⚠️ BLTC, Steel City
 
   ◀ Cement [CMNT] ×2
   ◀ Metal Parts [MPAR] ×2
@@ -1573,7 +1588,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Copper Concentrator (`copper_concentrator`)
-**Type**: Secondary | **Economies**: Tropical Paradise
+**Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise
 
   ◀ Copper Ore [CORE] ×4
   ◀ Sulphuric Acid [SUAC] ×2
@@ -1585,7 +1600,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Copper Smelter (`copper_refinery`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ IAHC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ IAHC, Steel City
 
 **Extreme Classic**
   ◀ Copper Ore [CORE] ×4
@@ -1622,7 +1637,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Dairy (`dairy`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC
 
 **Extreme Classic**
   ◀ Milk [MILK] ×6
@@ -1647,7 +1662,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Distillery and Winery (`cider_mill`)
-**Type**: Secondary | **Economies**: Tropical Paradise
+**Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise
 
   ◀ Produce [FRUT] ×3
   ◀ Sugar Cane [SGCN] ×3
@@ -1661,7 +1676,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Edible Oil Refinery (`edible_oil_refinery`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise
+**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Tropical Paradise
 
 **Extreme Classic**
   ◀ Oil Seeds [OLSD] ×4
@@ -1678,7 +1693,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Electric Arc Furnace (`electric_arc_furnace`)
-**Type**: Secondary | **Economies**: Extreme Classic, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Steel City
 
 **Extreme Classic**
   ◀ Scrap Metal [SCMT] ×4
@@ -1700,7 +1715,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Electrical Works (`electrical_works`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
   ◀ Copper [COPR] ×2
@@ -1731,7 +1746,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Engine Plant (`engine_plant`)
-**Type**: Secondary | **Economies**: Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Steel City
 
   ◀ Metal Parts [MPAR] ×2
   ◀ Aluminium [ALUM] ×2
@@ -1743,7 +1758,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Engineering Supply Yard (`supply_yard`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC, Steel City
+**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC, Steel City
 
 **Extreme Classic**
   ◀ Vehicles [VEHI] ×8
@@ -1785,7 +1800,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Farm Supply Yard (`farm_supply_yard`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
   ◀ Vehicles [VEHI] ×8
@@ -1812,12 +1827,12 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Ferroalloy Smelter (`ferrochrome_smelter`)
-**Type**: Secondary | **UNUSED** -- not enabled in any economy
+**Type**: Secondary (⚡ ANY) | **UNUSED** -- not enabled in any economy
 
 ---
 
 ### Fertiliser Plant (`fertiliser_plant`)
-**Type**: Secondary | **Economies**: Tropical Paradise, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise, ⚠️ BLTC, Steel City
 
 **Tropical Paradise**
   ◀ Phosphoric Acid [PHAC] ×4
@@ -1844,7 +1859,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Fishing Harbour (`fishing_harbour`)
-**Type**: Secondary | **Economies**: Extreme Classic, ⚠️ Boreal, Tropical Paradise, ⚠️ BLTC
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, ⚠️ Boreal, Tropical Paradise, ⚠️ BLTC
 
 **Extreme Classic**
   ◀ Fish [FISH] ×6
@@ -1872,7 +1887,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Flour Mill (`flour_mill`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC, Steel City
 
 **Extreme Classic**
   ◀ Grain [GRAI] ×6
@@ -1907,7 +1922,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Forge and Foundry (`iron_works`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
   ◀ Iron [IRON] ×3
@@ -1934,7 +1949,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Fruit Packing Plant (`fruit_packing_plant`)
-**Type**: Secondary | **Economies**: Tropical Paradise, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise, Steel City
 
 **Tropical Paradise**
   ◀ Produce [FRUT] ×4
@@ -1953,7 +1968,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Furniture Factory (`furniture_factory`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC
 
 **Extreme Classic**
   ◀ Timber [WDPR] ×4
@@ -1981,7 +1996,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Glass Works (`glass_works`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC, Steel City
 
 **Extreme Classic**
   ◀ Sand [SAND] ×6
@@ -2024,12 +2039,12 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Latex Processor (`latex_processor`)
-**Type**: Secondary | **UNUSED** -- not enabled in any economy
+**Type**: Secondary (🔗 ALL) | **UNUSED** -- not enabled in any economy
 
 ---
 
 ### Lime Kiln (`lime_kiln`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
 
 **Extreme Classic**
   ◀ Limestone [LIME] ×6
@@ -2059,7 +2074,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Machinery Factory (`machine_shop`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
   ◀ Electrical Parts [POWR] ×3
@@ -2096,7 +2111,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Meat Packing Plant (`meat_packing_plant`)
-**Type**: Secondary | **Economies**: Tropical Paradise, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise, Steel City
 
 **Tropical Paradise**
   ◀ Meat [MEAT] ×4
@@ -2117,7 +2132,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Metal Workshop (`metal_workshop`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
   ◀ Steel [STEL] ×6
@@ -2149,7 +2164,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Moulding Plant (`plastics_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
 
 **Extreme Classic**
   ◀ Plastics [PLAS] ×5
@@ -2181,7 +2196,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Naphtha Cracker (`ethylene_cracker`)
-**Type**: Secondary | **Economies**: Extreme Classic, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, ⚠️ BLTC, Steel City
 
 **Extreme Classic**
   ◀ Refined Oil [RFPR] ×4
@@ -2207,7 +2222,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Oil Refinery (`oil_refinery`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
 
 **Extreme Classic**
   ◀ Oil [OIL_] ×8
@@ -2242,7 +2257,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Paint Factory (`factory_3`)
-**Type**: Secondary | **Economies**: ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: ⚠️ BLTC, Steel City
 
 **⚠️ BLTC**
   ◀ Glass [GLAS] ×2
@@ -2263,7 +2278,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Paint Factory (`paint_factory`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
 
 **Extreme Classic**
   ◀ Refined Oil [RFPR] ×2
@@ -2304,7 +2319,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Paper Mill (`paper_mill`)
-**Type**: Secondary | **Economies**: Extreme Classic, ⚠️ Boreal, Tropical Paradise
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, ⚠️ Boreal, Tropical Paradise
 
 **Extreme Classic**
   ◀ Clay [CLAY] ×2
@@ -2332,7 +2347,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Phosphoric Acid Plant (`phosphoric_acid_plant`)
-**Type**: Secondary | **Economies**: Tropical Paradise, ⚠️ BLTC
+**Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise, ⚠️ BLTC
 
 **Tropical Paradise**
   ◀ Phosphate [PHOS] ×4
@@ -2350,7 +2365,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Polymerisation Plant (`polyethylene_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
 
 **Extreme Classic**
   ◀ Refined Oil [RFPR] ×6
@@ -2382,7 +2397,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Printing Plant (`printing_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic
 
   ◀ Paper [PAPR] ×6
   ◀ Paints & Coatings [COAT] ×2
@@ -2393,7 +2408,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Pyrite Smelter (`pyrite_smelter`)
-**Type**: Secondary | **Economies**: Extreme Classic, ⚠️ Boreal, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, ⚠️ Boreal, Steel City
 
 **Extreme Classic**
   ◀ Pyrite Ore [PORE] ×6
@@ -2422,7 +2437,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Recycling Plant (`recycling_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
   ◀ Recyclables [RCYC] ×6
 
@@ -2431,7 +2446,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Sawmill (`sawmill`)
-**Type**: Secondary | **Economies**: Extreme Classic, ⚠️ Boreal, Tropical Paradise, ⚠️ IAHC
+**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, ⚠️ Boreal, Tropical Paradise, ⚠️ IAHC
 
   ◀ Logs [WOOD] ×6
 
@@ -2440,7 +2455,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Scrap Yard (`junk_yard`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
   ◀ Recyclables [RCYC] ×6
@@ -2461,7 +2476,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Sheet Mill (`sheet_and_pipe_mill`)
-**Type**: Secondary | **Economies**: Extreme Classic, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Steel City
 
 **Extreme Classic**
   ◀ Steel [STEL] ×4
@@ -2481,7 +2496,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Slag Grinding Plant (`slag_grinding_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic, Steel City
+**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Steel City
 
 **Extreme Classic**
   ◀ Slag [SLAG] ×8
@@ -2497,12 +2512,12 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Smithy Forge (`smithy_forge`)
-**Type**: Secondary | **UNUSED** -- not enabled in any economy
+**Type**: Secondary (⚡ ANY) | **UNUSED** -- not enabled in any economy
 
 ---
 
 ### Solvay Plant (`solvay_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, Steel City
 
 **Extreme Classic**
   ◀ Salt [SALT] ×4
@@ -2533,12 +2548,12 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Steel Mill (`integrated_steel_mill`)
-**Type**: Secondary | **UNUSED** -- not enabled in any economy
+**Type**: Secondary (🔗 ALL) | **UNUSED** -- not enabled in any economy
 
 ---
 
 ### Steel Mill (`steel_mill`)
-**Type**: Secondary | **Economies**: ⚠️ BLTC
+**Type**: Secondary (🔗 ALL) | **Economies**: ⚠️ BLTC
 
   ◀ Iron Ore [IORE] ×2
   ◀ Coke [COKE] ×2
@@ -2551,7 +2566,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Sugar Refinery (`sugar_refinery`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC
 
 **Extreme Classic**
   ◀ Packaging [MNSP] ×3
@@ -2577,7 +2592,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Synthetic Rubber Plant (`polypropylene_plant`)
-**Type**: Secondary | **Economies**: ⚠️ BLTC, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: ⚠️ BLTC, Steel City
 
 **⚠️ BLTC**
   ◀ Propylene [C3H6] ×8
@@ -2593,7 +2608,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Textile Mill (`textile_mill`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC
 
 **Extreme Classic**
   ◀ Fibres [FICR] ×4
@@ -2623,7 +2638,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Timber Yard (`lumber_yard`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, ⚠️ BLTC, ⚠️ IAHC
 
 **Extreme Classic**
   ◀ Timber [WDPR] ×4
@@ -2657,7 +2672,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Tinplate Works (`tinplate_works`)
-**Type**: Secondary | **Economies**: ⚠️ BLTC
+**Type**: Secondary (🔗 ALL) | **Economies**: ⚠️ BLTC
 
   ◀ Steel [STEL] ×4
   ◀ Tin [TIN_] ×2
@@ -2668,7 +2683,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Tyre and Rubber Plant (`tyre_plant`)
-**Type**: Secondary | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
   ◀ Rubber [RUBR] ×4
@@ -2697,7 +2712,7 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Wire and Section Mill (`wire_and_section_mill`)
-**Type**: Secondary | **Economies**: Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Steel City
 
   ◀ Carbon Steel [STCB] ×3
   ◀ Cleaning Agents [SOAP] ×1

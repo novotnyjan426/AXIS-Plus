@@ -16,10 +16,7 @@ License: GPL v2.
    ```
    nmlc generated/firs.nml --grf=axis_plus_test.grf --lang-dir=generated/lang
    ```
-3. Copy GRF for testing:
-   ```
-   cp axis_plus_test.grf "C:/Users/novot/Documents/OpenTTD/content_download/newgrf/"
-   ```
+3. Copy GRF to your local OpenTTD `content_download/newgrf/` folder for testing.
 
 ## Key Architecture
 
