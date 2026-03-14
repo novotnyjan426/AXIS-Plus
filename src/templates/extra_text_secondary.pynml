@@ -15,12 +15,27 @@ switch (FEAT_INDUSTRIES, SELF, ${industry.id}_extra_text, economy) {
 <tal:economies repeat="economy industry.economies_enabled_for_industry">
     <!--! up to 8 cargos, n.b. supplied_flag_cargo_n register names are indexed to 1 not 0 -->
     <tal:cargos repeat="input_cargo industry.get_property('accept_cargos_with_input_ratios', economy)">
-        switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${input_cargo[0]}_economy_${economy.numeric_id}, [
-                LOAD_PERM(${get_perm_num("supplied_cycles_remaining_cargo_" + str(repeat.input_cargo.number))})
-            ]) {
-            0: return 0x3800 + string(STR_EMPTY);
-            return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_CARGO_SUPPLIED_FLAG);
-        }
+        <tal:warehouse condition="python: getattr(industry, 'base_processing_cap', 0) > 0">
+            <!--! warehouse-capped: combined full/supplied state — 0=normal, 1=supplied, 2=full, 3=full+supplied -->
+            switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${input_cargo[0]}_economy_${economy.numeric_id}, [
+                    STORE_TEMP(LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}), 0x100),
+                    STORE_TEMP(${industry.warehouse_max}, 0x101),
+                    (LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}) >= ${industry.warehouse_max} ? 2 : 0)
+                        + (LOAD_PERM(${get_perm_num("supplied_cycles_remaining_cargo_" + str(repeat.input_cargo.number))}) > 0 ? 1 : 0)
+                ]) {
+                0: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE);
+                1: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_SUPPLIED);
+                return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_FULL);
+            }
+        </tal:warehouse>
+        <tal:no_warehouse condition="python: getattr(industry, 'base_processing_cap', 0) == 0">
+            switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${input_cargo[0]}_economy_${economy.numeric_id}, [
+                    LOAD_PERM(${get_perm_num("supplied_cycles_remaining_cargo_" + str(repeat.input_cargo.number))})
+                ]) {
+                0: return 0x3800 + string(STR_EMPTY);
+                return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_CARGO_SUPPLIED_FLAG);
+            }
+        </tal:no_warehouse>
     </tal:cargos>
     switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_switch_cargo_economy_${economy.numeric_id}, getbits(extra_callback_info2, 16, 8)) {
         <!--! up to 8 cargos, indexed to 1 not 0 -->

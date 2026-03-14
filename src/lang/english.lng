@@ -230,6 +230,9 @@ STR_PARAM_VALUE_ECONOMIES_IN_A_HOT_COUNTRY                                      
 STR_PARAM_VALUE_ECONOMIES_STEELTOWN                                             :Steel City
 
 STR_CARGO_SUBTYPE_DISPLAY_CARGO_SUPPLIED_FLAG                                   : {BLACK}(supplied)
+STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE                                             : {BLACK}[{COMMA}/{COMMA}]
+STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_SUPPLIED                                    : {BLACK}(supplied) [{COMMA}/{COMMA}]
+STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_FULL                                        : {RED}FULL [{COMMA}/{COMMA}]
 STR_EXTRA_TEXT_SECONDARY_NON_COMBINATORY                                        :{BLACK}Produces at maximum rate if {WHITE}any {BLACK}required cargo is supplied.
 STR_EXTRA_TEXT_SECONDARY_COMBINATORY                                            :{BLACK}For maximum production rate, supply {WHITE}all {BLACK}required cargos at least once every three months.
 STR_EXTRA_TEXT_TOWN_PRODUCER                                                    :{BLACK}Production is proportional to town population. At least {WHITE}{SIGNED_WORD} units{BLACK} and not more than {WHITE}{SIGNED_WORD} units{BLACK} of cargo will be produced every month.

@@ -24,6 +24,7 @@ templates = PageTemplateLoader(
 from perm_storage_mappings import register_perm_storage_mapping, get_perm_num
 from economies import registered_economies
 from industries import registered_industries
+from cargos import registered_cargos
 
 def get_another_industry(id):
     # utility function so that we can provide numeric ids in nml output, rather than relying identifiers
@@ -79,10 +80,13 @@ class Tile(object):
         )
         self.custom_animation_control = kwargs.get("custom_animation_control", None)
         self.random_trigger = kwargs.get("random_trigger", None)
+        self.accept_all_flag = kwargs.get("accept_all_flag", True)
 
     @property
     def special_flags(self):
-        flags = ["INDTILE_FLAG_ACCEPT_ALL"]
+        flags = []
+        if self.accept_all_flag:
+            flags.append("INDTILE_FLAG_ACCEPT_ALL")
         flags.extend(self._special_flags)
         return "bitmask(" + ",".join(flags) + ")"
 
@@ -1199,6 +1203,10 @@ class Industry(object):
         registered_industries.append(self)
 
     def add_tile(self, *args, **kwargs):
+        # for capped industries, disable INDTILE_FLAG_ACCEPT_ALL so tile-level
+        # cargo_type_accept and cargo_amount_accept callbacks take effect
+        if getattr(self, 'base_processing_cap', 0) > 0:
+            kwargs.setdefault('accept_all_flag', False)
         new_tile = Tile(self.id, *args, **kwargs)
         self.tiles.append(new_tile)
         return new_tile
@@ -2055,6 +2063,7 @@ class IndustrySecondary(Industry):
         self.combined_cargos_boost_prod = kwargs.get(
             "combined_cargos_boost_prod", False
         )
+        self.base_processing_cap = kwargs.get("base_processing_cap", 0)  # 0 = no warehouse
         register_perm_storage_mapping(
             self.__class__.__name__,
             [
@@ -2072,9 +2081,15 @@ class IndustrySecondary(Industry):
                 "supplied_cycles_remaining_cargo_8",
                 "total_cargo_to_distribute_this_cycle",
                 "total_produced_cargo_available",
-                "unused",
-                "unused",
-                "unused",
+                # warehouse storage for capped industries (base_processing_cap > 0)
+                "warehouse_cargo_1",
+                "warehouse_cargo_2",
+                "warehouse_cargo_3",
+                "warehouse_cargo_4",
+                "warehouse_cargo_5",
+                "warehouse_cargo_6",
+                "warehouse_cargo_7",
+                "warehouse_cargo_8",
             ],
         )
         # guard against prospect chance kword being set, it's pure cruft for secondary industry (harmless, but needless)
@@ -2084,6 +2099,55 @@ class IndustrySecondary(Industry):
                 + self.id
                 + "; secondary industries should not set prospect_chance"
             )
+
+    @property
+    def warehouse_max(self):
+        return self.base_processing_cap * 27  # ~3 months buffer
+
+    def get_all_accepted_cargo_labels(self):
+        """Return ordered list of all unique accepted cargo labels across all enabled economies.
+        Used for the accepted_cargos tile property (union of all economies)."""
+        seen = set()
+        labels = []
+        for economy in self.economies_enabled_for_industry:
+            for cargo in self.get_property('accept_cargos_with_input_ratios', economy):
+                if cargo[0] not in seen:
+                    seen.add(cargo[0])
+                    labels.append(cargo[0])
+        return labels
+
+    def _get_ctt_index(self, cargo_label):
+        """Return the global CTT (cargo translation table) index for a cargo label.
+        This is the position in the cargotable block, which is the order of registered_cargos."""
+        for i, cargo in enumerate(registered_cargos):
+            if cargo.cargo_label == cargo_label:
+                return i
+        raise ValueError("Cargo label {} not found in registered cargos".format(cargo_label))
+
+    def get_cargo_ctt_index(self, cargo_label, economy):
+        """Return the global CTT index for a cargo label (for use in stop_accept_cargo)."""
+        return self._get_ctt_index(cargo_label)
+
+    def get_packed_cargo_amount_accept(self, economy):
+        """Return NML expression for packed cargo_amount_accept callback return value.
+        Format: amt1 | (amt2 << 4) | (amt3 << 8) — 4 bits per slot, each 0 or 8.
+        Slot order matches accepted_cargos property (union of all economies).
+        Returns 8 when warehouse has space, 0 when full, 0 for cargos not in this economy."""
+        all_labels = self.get_all_accepted_cargo_labels()
+        economy_cargos = self.get_property('accept_cargos_with_input_ratios', economy)
+        economy_labels = [c[0] for c in economy_cargos]
+        parts = []
+        for i, label in enumerate(all_labels):
+            if label in economy_labels:
+                warehouse_idx = economy_labels.index(label) + 1  # 1-indexed register
+                perm_num = self.get_perm_num("warehouse_cargo_" + str(warehouse_idx))
+                expr = '(LOAD_PERM({}) < {} ? 8 : 0)'.format(perm_num, self.warehouse_max)
+            else:
+                expr = '0'
+            if i > 0:
+                expr = '({} << {})'.format(expr, i * 4)
+            parts.append(expr)
+        return " | ".join(parts)
 
     def get_prod_ratio(self, cargo_num, economy):
         if cargo_num > len(

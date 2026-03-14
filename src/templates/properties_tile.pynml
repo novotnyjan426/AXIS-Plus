@@ -13,6 +13,9 @@
                 animation_speed: ${tile.animation_speed};
             </tal:animation_speed>
             animation_triggers: ${tile.get_animation_triggers()};
+            <tal:warehouse_cargos condition="python: getattr(industry, 'base_processing_cap', 0) > 0">
+                accepted_cargos: [${', '.join(['[' + label + ', 8]' for label in industry.get_all_accepted_cargo_labels()])}];
+            </tal:warehouse_cargos>
         }
 
         graphics {
@@ -38,6 +41,9 @@
         		    anim_control: ${tile.id}_anim_control;
                 </tal:block>
     		</tal:anim_control>
+            <tal:warehouse_accept condition="python: getattr(industry, 'base_processing_cap', 0) > 0">
+                cargo_amount_accept: ${industry.id}_cargo_amount_accept;
+            </tal:warehouse_accept>
             <tal:random_trigger condition="tile.random_trigger is not None">
                 random_trigger: ${tile.random_trigger};
             </tal:random_trigger>

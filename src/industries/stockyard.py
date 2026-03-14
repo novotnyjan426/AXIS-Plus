@@ -13,6 +13,7 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_ANIMALS)",
     fund_cost_multiplier="115",
     pollution_and_squalor_factor=2,
+    base_processing_cap=22,
 )
 
 
@@ -45,7 +46,7 @@ industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
     ("SOAP", 2),
 ]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
-    ("FISH", 8),
+    ("FOOD", 8),
 ]
 
 industry.add_tile(
