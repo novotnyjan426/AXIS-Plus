@@ -1610,8 +1610,8 @@ class Industry(object):
         if isinstance(sprite_or_spriteset, Sprite):
             return getattr(sprite_or_spriteset, "sprite_number" + suffix)
 
-    def get_expansion_scanner_mesh(self, scan_radius=7):
-        """Compute expansion scanner mesh for Option 4 tile scanning.
+    def get_scale_scanner_mesh(self, scan_radius=7):
+        """Compute scale scanner mesh for Option 4 tile scanning.
 
         Returns a list of dicts (one per layout) containing per-chunk scanner
         assignments.  Each scanner covers one quadrant of the expanded bounding
@@ -1861,19 +1861,19 @@ class IndustryPrimary(Industry):
                 "num_supplies_delivered_25",
                 "num_supplies_delivered_26",
                 "num_supplies_delivered_27",
-                # expansion system: count of nearby object tiles detected by 256-tick scan
-                "expansion_tile_count",
-                # expansion system: cached production multiplier (100 = no bonus, 130 = +30%, etc.)
-                "expansion_multiplier",
-                # expansion system: per-chunk partial counts from FEAT_INDUSTRYTILES scanners
-                "expansion_chunk_count_0",
-                "expansion_chunk_count_1",
-                "expansion_chunk_count_2",
-                "expansion_chunk_count_3",
+                # scale system: count of nearby object tiles detected by 256-tick scan
+                "scale_tile_count",
+                # scale system: cached production multiplier (100 = no bonus, 130 = +30%, etc.)
+                "scale_multiplier",
+                # scale system: per-chunk partial counts from FEAT_INDUSTRYTILES scanners
+                "scale_chunk_count_0",
+                "scale_chunk_count_1",
+                "scale_chunk_count_2",
+                "scale_chunk_count_3",
             ],
         )
-    def _ensure_expansion_scan_tile(self):
-        """Ensure at least one tile has TILE_LOOP trigger + first_frame_is_0 for expansion scanning.
+    def _ensure_scale_scan_tile(self):
+        """Ensure at least one tile has TILE_LOOP trigger + first_frame_is_0 for scale scanning.
 
         For industries that already have a first_frame_is_0 tile (mines), this is a no-op.
         For industries without one (farms, ports, etc.), modifies the first non-animated tile
@@ -1905,14 +1905,14 @@ class IndustryPrimary(Industry):
                 return
 
     @property
-    def expansion_scan_enabled(self):
-        """Enable expansion scan for all primary industries.
+    def scale_scan_enabled(self):
+        """Enable scale scan for all primary industries.
 
         Lazily ensures at least one tile has the required tile loop hook.
         """
-        if not hasattr(self, "_expansion_scan_setup_done"):
-            self._ensure_expansion_scan_tile()
-            self._expansion_scan_setup_done = True
+        if not hasattr(self, "_scale_scan_setup_done"):
+            self._ensure_scale_scan_tile()
+            self._scale_scan_setup_done = True
         return any(
             getattr(tile, "custom_animation_control", None) is not None
             and tile.custom_animation_control.get("macro") == "first_frame_is_0"
@@ -2064,6 +2064,9 @@ class IndustrySecondary(Industry):
             "combined_cargos_boost_prod", False
         )
         self.base_processing_cap = kwargs.get("base_processing_cap", 0)  # 0 = no warehouse
+        # scale_bonus_cargos: list of (cargo_label, {level: ratio}) unlocked at scale levels
+        # e.g. [("BIOM", {"medium": 1, "high": 2})]
+        self.scale_bonus_cargos = kwargs.get("scale_bonus_cargos", [])
         register_perm_storage_mapping(
             self.__class__.__name__,
             [
@@ -2090,6 +2093,14 @@ class IndustrySecondary(Industry):
                 "warehouse_cargo_6",
                 "warehouse_cargo_7",
                 "warehouse_cargo_8",
+                # scale system (same registers as IndustryPrimary)
+                "scale_tile_count",
+                "scale_multiplier",
+                "scale_chunk_count_0",
+                "scale_chunk_count_1",
+                "scale_chunk_count_2",
+                "scale_chunk_count_3",
+                "warehouse_max_cached",
             ],
         )
         # guard against prospect chance kword being set, it's pure cruft for secondary industry (harmless, but needless)
@@ -2100,9 +2111,101 @@ class IndustrySecondary(Industry):
                 + "; secondary industries should not set prospect_chance"
             )
 
+    def _ensure_scale_scan_tile(self):
+        """Ensure at least one tile has TILE_LOOP trigger for scale scanning.
+        Reuses same logic as IndustryPrimary."""
+        for tile in self.tiles:
+            ac = getattr(tile, "custom_animation_control", None)
+            if ac and ac.get("macro") == "first_frame_is_0":
+                return
+        for tile in self.tiles:
+            if tile.custom_animation_control is None and tile.animation_length <= 1:
+                tile.animation_length = 2
+                tile.animation_looping = True
+                tile.custom_animation_control = {
+                    "macro": "first_frame_is_0",
+                    "animation_triggers": "bitmask(ANIM_TRIGGER_INDTILE_TILE_LOOP)",
+                }
+                return
+        for tile in self.tiles:
+            if tile.custom_animation_control is None:
+                tile.custom_animation_control = {
+                    "macro": "first_frame_is_0",
+                    "animation_triggers": "bitmask(ANIM_TRIGGER_INDTILE_TILE_LOOP)",
+                }
+                return
+
+    @property
+    def scale_scan_enabled(self):
+        """Enable scale scan for capped secondary industries."""
+        if self.base_processing_cap == 0:
+            return False
+        if not hasattr(self, "_scale_scan_setup_done"):
+            self._ensure_scale_scan_tile()
+            self._scale_scan_setup_done = True
+        return any(
+            getattr(tile, "custom_animation_control", None) is not None
+            and tile.custom_animation_control.get("macro") == "first_frame_is_0"
+            for tile in self.tiles
+        )
+
     @property
     def warehouse_max(self):
-        return self.base_processing_cap * 27  # ~3 months buffer
+        """Read cached warehouse max from perm register.
+        Fallback to base_cap * 9 (~1 month) if cache is uninitialized (0)."""
+        return "max(LOAD_PERM({}), {})".format(
+            self.get_perm_num("warehouse_max_cached"),
+            self.base_processing_cap * 9,
+        )
+
+    @property
+    def warehouse_max_expression(self):
+        """Full NML expression for computing warehouse max (stored to cache register).
+        expanded processing cap × months × ~9 ticks/month."""
+        return "({} * max(LOAD_PERM({}), 100) / 100 * warehouse_month_buffer * 9)".format(
+            self.base_processing_cap, self.get_perm_num("scale_multiplier")
+        )
+
+    def get_bonus_cargo_ratio_expression(self, cargo_label):
+        """Return NML expression for a bonus cargo's output ratio based on scale level.
+        Returns e.g. '(LOAD_PERM(22) >= primary_scale_bonus_medium ? (LOAD_PERM(22) >= primary_scale_bonus_high ? 2 : 1) : 0)'"""
+        for label, levels in self.scale_bonus_cargos:
+            if label == cargo_label:
+                exp_reg = self.get_perm_num("scale_multiplier")
+                # build nested ternary: check highest level first
+                if "high" in levels and "medium" in levels:
+                    return (
+                        "(LOAD_PERM({reg}) >= primary_scale_bonus_high ? {high}"
+                        " : LOAD_PERM({reg}) >= primary_scale_bonus_medium ? {med}"
+                        " : 0)"
+                    ).format(reg=exp_reg, high=levels["high"], med=levels["medium"])
+                elif "medium" in levels:
+                    return (
+                        "(LOAD_PERM({reg}) >= primary_scale_bonus_medium ? {med} : 0)"
+                    ).format(reg=exp_reg, med=levels["medium"])
+                elif "high" in levels:
+                    return (
+                        "(LOAD_PERM({reg}) >= primary_scale_bonus_high ? {high} : 0)"
+                    ).format(reg=exp_reg, high=levels["high"])
+        return "0"
+
+    def is_bonus_cargo(self, cargo_label):
+        """Check if a cargo is an scale-unlocked bonus cargo."""
+        return any(label == cargo_label for label, _ in self.scale_bonus_cargos)
+
+    def get_extra_text_string_warehouse(self, economy):
+        """Warehouse variant of extra_text: includes throughput info."""
+        accept_cargos_with_ratios = self.get_property(
+            "accept_cargos_with_input_ratios", economy
+        )
+        if len(accept_cargos_with_ratios) == 1:
+            extra_text_string = "STR_EXTRA_TEXT_SECONDARY_WAREHOUSE_THROUGHPUT"
+        else:
+            if self.combined_cargos_boost_prod:
+                extra_text_string = "STR_EXTRA_TEXT_SECONDARY_COMBINATORY_WAREHOUSE"
+            else:
+                extra_text_string = "STR_EXTRA_TEXT_SECONDARY_NON_COMBINATORY_WAREHOUSE"
+        return "string(" + extra_text_string + ")"
 
     def get_all_accepted_cargo_labels(self):
         """Return ordered list of all unique accepted cargo labels across all enabled economies.

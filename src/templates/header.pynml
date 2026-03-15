@@ -78,74 +78,94 @@ grf {
 		}
 	}
 	param 10 {
-		expansion_threshold_low {
-			name: string(STR_PARAM_NAME_EXPANSION_THRESHOLD_LOW);
-			desc: string(STR_PARAM_DESC_EXPANSION_THRESHOLD);
+		scale_threshold_low {
+			name: string(STR_PARAM_NAME_SCALE_THRESHOLD_LOW);
+			desc: string(STR_PARAM_DESC_SCALE_THRESHOLD);
 			def_value: 10;
 			min_value: 1;
 			max_value: 225;
 		}
 	}
 	param 11 {
-		expansion_threshold_medium {
-			name: string(STR_PARAM_NAME_EXPANSION_THRESHOLD_MEDIUM);
-			desc: string(STR_PARAM_DESC_EXPANSION_THRESHOLD);
+		scale_threshold_medium {
+			name: string(STR_PARAM_NAME_SCALE_THRESHOLD_MEDIUM);
+			desc: string(STR_PARAM_DESC_SCALE_THRESHOLD);
 			def_value: 20;
 			min_value: 1;
 			max_value: 225;
 		}
 	}
 	param 12 {
-		expansion_threshold_high {
-			name: string(STR_PARAM_NAME_EXPANSION_THRESHOLD_HIGH);
-			desc: string(STR_PARAM_DESC_EXPANSION_THRESHOLD);
+		scale_threshold_high {
+			name: string(STR_PARAM_NAME_SCALE_THRESHOLD_HIGH);
+			desc: string(STR_PARAM_DESC_SCALE_THRESHOLD);
 			def_value: 40;
 			min_value: 1;
 			max_value: 225;
 		}
 	}
 	param 13 {
-		primary_expansion_bonus_low {
-			name: string(STR_PARAM_NAME_EXPANSION_BONUS_LOW);
-			desc: string(STR_PARAM_DESC_EXPANSION_BONUS);
+		primary_scale_bonus_low {
+			name: string(STR_PARAM_NAME_SCALE_BONUS_LOW);
+			desc: string(STR_PARAM_DESC_SCALE_BONUS);
 			def_value: 130;
 			min_value: 100;
 			max_value: 500;
 		}
 	}
 	param 14 {
-		primary_expansion_bonus_medium {
-			name: string(STR_PARAM_NAME_EXPANSION_BONUS_MEDIUM);
-			desc: string(STR_PARAM_DESC_EXPANSION_BONUS);
+		primary_scale_bonus_medium {
+			name: string(STR_PARAM_NAME_SCALE_BONUS_MEDIUM);
+			desc: string(STR_PARAM_DESC_SCALE_BONUS);
 			def_value: 170;
 			min_value: 100;
 			max_value: 500;
 		}
 	}
 	param 15 {
-		primary_expansion_bonus_high {
-			name: string(STR_PARAM_NAME_EXPANSION_BONUS_HIGH);
-			desc: string(STR_PARAM_DESC_EXPANSION_BONUS);
+		primary_scale_bonus_high {
+			name: string(STR_PARAM_NAME_SCALE_BONUS_HIGH);
+			desc: string(STR_PARAM_DESC_SCALE_BONUS);
 			def_value: 250;
 			min_value: 100;
 			max_value: 500;
 		}
 	}
 	param 16 {
-		expansion_cost_level {
-			name: string(STR_PARAM_NAME_EXPANSION_COST_LEVEL);
-			desc: string(STR_PARAM_DESC_EXPANSION_COST_LEVEL);
+		warehouse_month_buffer {
+			name: string(STR_PARAM_NAME_WAREHOUSE_BUFFER);
+			desc: string(STR_PARAM_DESC_WAREHOUSE_BUFFER);
+			def_value: 3;
+			min_value: 1;
+			max_value: 9;
+			names: {
+				1: string(STR_PARAM_VALUE_WAREHOUSE_1);
+				2: string(STR_PARAM_VALUE_WAREHOUSE_2);
+				3: string(STR_PARAM_VALUE_WAREHOUSE_3);
+				4: string(STR_PARAM_VALUE_WAREHOUSE_4);
+				5: string(STR_PARAM_VALUE_WAREHOUSE_5);
+				6: string(STR_PARAM_VALUE_WAREHOUSE_6);
+				7: string(STR_PARAM_VALUE_WAREHOUSE_7);
+				8: string(STR_PARAM_VALUE_WAREHOUSE_8);
+				9: string(STR_PARAM_VALUE_WAREHOUSE_9);
+			};
+		}
+	}
+	param 17 {
+		scale_cost_level {
+			name: string(STR_PARAM_NAME_SCALE_COST_LEVEL);
+			desc: string(STR_PARAM_DESC_SCALE_COST_LEVEL);
 			def_value: 3;
 			min_value: 0;
 			max_value: 6;
 			names: {
-				0: string(STR_PARAM_VALUE_EXPANSION_COST_0);
-				1: string(STR_PARAM_VALUE_EXPANSION_COST_1);
-				2: string(STR_PARAM_VALUE_EXPANSION_COST_2);
-				3: string(STR_PARAM_VALUE_EXPANSION_COST_3);
-				4: string(STR_PARAM_VALUE_EXPANSION_COST_4);
-				5: string(STR_PARAM_VALUE_EXPANSION_COST_5);
-				6: string(STR_PARAM_VALUE_EXPANSION_COST_6);
+				0: string(STR_PARAM_VALUE_SCALE_COST_0);
+				1: string(STR_PARAM_VALUE_SCALE_COST_1);
+				2: string(STR_PARAM_VALUE_SCALE_COST_2);
+				3: string(STR_PARAM_VALUE_SCALE_COST_3);
+				4: string(STR_PARAM_VALUE_SCALE_COST_4);
+				5: string(STR_PARAM_VALUE_SCALE_COST_5);
+				6: string(STR_PARAM_VALUE_SCALE_COST_6);
 			};
 		}
 	}
@@ -157,29 +177,31 @@ basecost {
 	PR_CLEAR_INDUSTRY : 2;      // Deleting industries must also be expensive
 }
 
-<!--! Expansion object cost scaling: basecost shift controlled by expansion_cost_level param.
+<!--! Scale object cost scaling: basecost shift controlled by scale_cost_level param.
       build=51 / remove=255 (1:5 ratio) cancels OpenTTD's /5 removal formula for exact refund.
       Shift applies equally to build and clear, so refund is always exact. -->
-if (expansion_cost_level == 0) { basecost { PR_BUILD_UNMOVABLE: 0; PR_CLEAR_UNMOVABLE: 0; } }
-if (expansion_cost_level == 1) { basecost { PR_BUILD_UNMOVABLE: 1; PR_CLEAR_UNMOVABLE: 1; } }
-if (expansion_cost_level == 2) { basecost { PR_BUILD_UNMOVABLE: 2; PR_CLEAR_UNMOVABLE: 2; } }
-if (expansion_cost_level == 3) { basecost { PR_BUILD_UNMOVABLE: 3; PR_CLEAR_UNMOVABLE: 3; } }
-if (expansion_cost_level == 4) { basecost { PR_BUILD_UNMOVABLE: 4; PR_CLEAR_UNMOVABLE: 4; } }
-if (expansion_cost_level == 5) { basecost { PR_BUILD_UNMOVABLE: 5; PR_CLEAR_UNMOVABLE: 5; } }
-if (expansion_cost_level == 6) { basecost { PR_BUILD_UNMOVABLE: 6; PR_CLEAR_UNMOVABLE: 6; } }
+if (scale_cost_level == 0) { basecost { PR_BUILD_UNMOVABLE: 0; PR_CLEAR_UNMOVABLE: 0; } }
+if (scale_cost_level == 1) { basecost { PR_BUILD_UNMOVABLE: 1; PR_CLEAR_UNMOVABLE: 1; } }
+if (scale_cost_level == 2) { basecost { PR_BUILD_UNMOVABLE: 2; PR_CLEAR_UNMOVABLE: 2; } }
+if (scale_cost_level == 3) { basecost { PR_BUILD_UNMOVABLE: 3; PR_CLEAR_UNMOVABLE: 3; } }
+if (scale_cost_level == 4) { basecost { PR_BUILD_UNMOVABLE: 4; PR_CLEAR_UNMOVABLE: 4; } }
+if (scale_cost_level == 5) { basecost { PR_BUILD_UNMOVABLE: 5; PR_CLEAR_UNMOVABLE: 5; } }
+if (scale_cost_level == 6) { basecost { PR_BUILD_UNMOVABLE: 6; PR_CLEAR_UNMOVABLE: 6; } }
 
 <!--! Old default values for old savegames -->
 if (param[6] == 0) { param[6] = 100; }
 if (param[7] == 0) { param[7] = 100; }
 if (param[8] == 0) { param[8] = 400; }
 if (param[9] == 0) { param[9] = 300; }
-<!--! Expansion parameter defaults (0 means uninitialized) -->
+<!--! Scale parameter defaults (0 means uninitialized) -->
 if (param[10] == 0) { param[10] = 10; }
 if (param[11] == 0) { param[11] = 20; }
 if (param[12] == 0) { param[12] = 40; }
 if (param[13] == 0) { param[13] = 130; }
 if (param[14] == 0) { param[14] = 170; }
 if (param[15] == 0) { param[15] = 250; }
+<!--! Warehouse parameter default (clamp to valid range 1-9) -->
+if (param[16] < 1 || param[16] > 9) { param[16] = 3; }
 
 <!--! disable the default industries -->
 disable_item(FEAT_INDUSTRIES, 0, 36);

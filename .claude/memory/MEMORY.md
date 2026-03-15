@@ -3,7 +3,7 @@
 ## Project
 - OpenTTD NewGRF industry set forked from FIRS, ~128 industries
 - Build: `python src/render_nml.py` then `nmlc generated/firs.nml --grf=axis_plus_test.grf --lang-dir=generated/lang`
-- Test GRF goes to: `C:/Users/novot/Documents/OpenTTD/content_download/newgrf/`
+- Test GRF goes to local OpenTTD `content_download/newgrf/` folder
 - See `CLAUDE.md` in repo root for full project context
 
 ## User Preferences

@@ -1,5 +1,5 @@
-<!--! FEAT_OBJECTS template for expansion objects.
-      Each object is a simple placeable tile that the expansion scanner detects
+<!--! FEAT_OBJECTS template for scale objects.
+      Each object is a simple placeable tile that the scale scanner detects
       via nearby_tile_class == TILE_CLASS_OBJECTS. -->
 
 <tal:objects repeat="obj registered_objects">

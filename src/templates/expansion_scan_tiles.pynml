@@ -1,0 +1,49 @@
+<!--! Scale tile scan using FEAT_INDUSTRIES.
+      Scans a 16x16 area (offsets 0 to 15) south/east of the industry origin.
+      Uses FEAT_INDUSTRIES context so the scan zone is deterministic and
+      independent of which tile runs it.  The production callback calls
+      count_scale_tiles() which chains through row scans and writes the
+      accumulated count to perm storage.
+      TEMP(0x10) is used as the running counter across the switch chain. -->
+
+<tal:scale condition="python:getattr(industry, 'scale_enabled', False)">
+
+<!--! Write scan result to industry perm storage. -->
+switch(FEAT_INDUSTRIES, SELF, ${industry.id}_scale_write,
+    [
+        STORE_PERM_ALT(${get_perm_num("scale_tile_count")}, LOAD_TEMP(0x10)),
+    ]) {
+    return 0;
+}
+
+<!--! Per-row scan switches using unsigned offsets (0-15).
+      Row 0 is terminal (chains to write switch).
+      Row 15 is the first to execute (entry from count_scale_tiles). -->
+<tal:scan_rows repeat="y range(16)">
+    switch(FEAT_INDUSTRIES, SELF, ${industry.id}_scan_row_${repeat.y.index},
+        [
+            STORE_TEMP(
+                LOAD_TEMP(0x10)
+                <tal:scan_cols repeat="x range(16)">
+                    + (nearby_tile_class(${x}, ${y}) == TILE_CLASS_OBJECTS ? 1 : 0)
+                </tal:scan_cols>
+            , 0x10),
+        ]) {
+        <tal:first_row condition="repeat.y.start">
+            ${industry.id}_scale_write;
+        </tal:first_row>
+        <tal:chain_row condition="not repeat.y.start">
+            ${industry.id}_scan_row_${repeat.y.index - 1};
+        </tal:chain_row>
+    }
+</tal:scan_rows>
+
+<!--! Scan entry point: zero the counter, start scanning from row 15. -->
+switch(FEAT_INDUSTRIES, SELF, ${industry.id}_count_scale_tiles,
+    [
+        STORE_TEMP(0, 0x10),
+    ]) {
+    ${industry.id}_scan_row_15;
+}
+
+</tal:scale>

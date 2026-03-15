@@ -3,7 +3,7 @@ from objects.base_object import ExpansionObject
 obj = ExpansionObject(
     id="expansion_test_object",
     numeric_id=0,
-    name_string="STR_OBJECT_EXPANSION_TEST",
+    name_string="STR_OBJECT_SCALE_TEST",
     class_id="AXP+",
     class_name_string="STR_OBJECT_CLASS_AXIS_PLUS",
     size=[1, 1],
