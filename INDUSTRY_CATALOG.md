@@ -706,14 +706,14 @@ cargos at a constant rate unrelated to deliveries.
   ◀ Packaging [MNSP] ×2
 
   ▶ Food [FOOD] ×8
-  ▶ Biomass [BIOM] ×2
+  ▶ Biomass [BIOM] ×2 (scale: medium+)
 
 **Tropical Paradise**
   ◀ Livestock [LVST] ×8
   ◀ Cleaning Agents [SOAP] ×2
 
   ▶ Meat [MEAT] ×8
-  ▶ Biomass [BIOM] ×2
+  ▶ Biomass [BIOM] ×2 (scale: medium+)
 
 **Steel City**
   ◀ Livestock [LVST] ×6

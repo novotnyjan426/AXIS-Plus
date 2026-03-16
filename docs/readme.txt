@@ -9,7 +9,7 @@ FIRS docs are published online:
 =======
 GRF Name : FIRS Industry Replacement Set
 
-This version of FIRS is created using repository version 6765
+This version of FIRS is created using repository version 6767
 
 Thanks to *all* who helped create FIRS.
 

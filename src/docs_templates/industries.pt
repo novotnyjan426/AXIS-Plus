@@ -64,7 +64,9 @@
                                     </th>
                                     <td style="width:36%;">
                                         <tal:cargos repeat="cargo doc_helper.cargos_accepted_by_industry(industry, economy)">
-                                            <a href="cargos.html#${cargo.id}">${doc_helper.get_cargo_name(cargo)}${(',', '')[repeat.cargo.end]}</a>
+                                            <tal:cargo_entry define="ratio doc_helper.get_cargo_input_ratio(industry, cargo, economy)">
+                                                <a href="cargos.html#${cargo.id}">${doc_helper.get_cargo_name(cargo)}</a><tal:ratio condition="ratio"> <small class="muted">&times;${ratio}</small></tal:ratio><tal:req condition="doc_helper.is_cargo_required(industry, cargo)"> <span class="label label-important" title="Required for production">req</span></tal:req><tal:booster condition="python: doc_helper.has_required_cargos(industry) and not doc_helper.is_cargo_required(industry, cargo)"> <span class="label label-info" title="Optional efficiency booster">boost</span></tal:booster><br tal:condition="not: repeat.cargo.end" />
+                                            </tal:cargo_entry>
                                         </tal:cargos>
                                         <tal:no_cargos condition="len(doc_helper.cargos_accepted_by_industry(industry, economy)) == 0">
                                             <span class="muted">Nothing</span>
@@ -72,7 +74,9 @@
                                     </td>
                                     <td style="width:36%;">
                                         <tal:cargos repeat="cargo doc_helper.cargos_produced_by_industry(industry, economy)">
-                                            <a href="cargos.html#${cargo.id}">${doc_helper.get_cargo_name(cargo)}${(',', '')[repeat.cargo.end]}</a>
+                                            <tal:cargo_entry define="ratio doc_helper.get_cargo_output_ratio(industry, cargo, economy); scale doc_helper.get_cargo_scale_info(industry, cargo)">
+                                                <a href="cargos.html#${cargo.id}">${doc_helper.get_cargo_name(cargo)}</a><tal:ratio condition="ratio"> <small class="muted">&times;${ratio}</small></tal:ratio><tal:scale condition="scale"> <span class="label label-warning" title="Unlocked at scale level ${scale}">${scale}</span></tal:scale><br tal:condition="not: repeat.cargo.end" />
+                                            </tal:cargo_entry>
                                         </tal:cargos>
                                         <tal:no_cargos condition="len(doc_helper.cargos_produced_by_industry(industry, economy)) == 0">
                                             <span class="muted">Nothing</span>

@@ -300,6 +300,52 @@ class DocHelper(object):
     def get_cargoflow_supply_cargos(self):
         return ["farm_supplies", "engineering_supplies"]
 
+    def is_cargo_required(self, industry, cargo):
+        """Check if a cargo is in the industry's required_input_cargos list."""
+        if not hasattr(industry, 'required_input_cargos'):
+            return False
+        return cargo.cargo_label in industry.required_input_cargos
+
+    def has_required_cargos(self, industry):
+        """Check if industry has any required input cargos."""
+        return hasattr(industry, 'required_input_cargos') and len(industry.required_input_cargos) > 0
+
+    def is_warehouse_industry(self, industry):
+        """Check if industry uses warehouse model."""
+        return hasattr(industry, 'base_processing_cap') and industry.base_processing_cap > 0
+
+    def get_cargo_scale_info(self, industry, cargo):
+        """Return scale level info for a bonus cargo, or empty string if not a bonus cargo."""
+        if not hasattr(industry, 'scale_bonus_cargos'):
+            return ""
+        for label, levels in industry.scale_bonus_cargos:
+            if label == cargo.cargo_label:
+                if "medium" in levels and "high" in levels:
+                    return "medium+"
+                elif "high" in levels:
+                    return "high"
+                elif "medium" in levels:
+                    return "medium+"
+        return ""
+
+    def get_cargo_input_ratio(self, industry, cargo, economy):
+        """Return the input ratio for an accepted cargo, or 0."""
+        accept_list = industry.get_property('accept_cargos_with_input_ratios', economy)
+        if accept_list:
+            for label, ratio in accept_list:
+                if label == cargo.cargo_label:
+                    return ratio
+        return 0
+
+    def get_cargo_output_ratio(self, industry, cargo, economy):
+        """Return the output ratio for a produced cargo, or 0."""
+        prod_list = industry.get_prod_cargo_types(economy)
+        if prod_list:
+            for label, ratio in prod_list:
+                if label == cargo.cargo_label:
+                    return ratio
+        return 0
+
     def get_active_nav(self, doc_name, nav_link):
         return ("", "active")[doc_name == nav_link]
 
