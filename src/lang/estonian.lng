@@ -41,18 +41,10 @@ STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE.g                                     :Tavaline parasvööde
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE.in                                    :Tavaline parasvööde
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE.sü                                    :Tavaline parasvööde
-STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC                                          :Tavaline Arktika
-STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC.g                                        :Tavaline Arktika
-STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC.in                                       :Tavaline Arktika
-STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC.sü                                       :Tavaline Arktika
 STR_PARAM_VALUE_ECONOMIES_BASIC_TROPIC                                          :Tavaline troopiline
 STR_PARAM_VALUE_ECONOMIES_BASIC_TROPIC.g                                        :Tavaline troopiline
 STR_PARAM_VALUE_ECONOMIES_BASIC_TROPIC.in                                       :Tavaline troopiline
 STR_PARAM_VALUE_ECONOMIES_BASIC_TROPIC.sü                                       :Tavaline troopiline
-STR_PARAM_VALUE_ECONOMIES_IN_A_HOT_COUNTRY                                          :Pimeduse süda
-STR_PARAM_VALUE_ECONOMIES_IN_A_HOT_COUNTRY.g                                        :Pimeduse süda
-STR_PARAM_VALUE_ECONOMIES_IN_A_HOT_COUNTRY.in                                       :Pimeduse süda
-STR_PARAM_VALUE_ECONOMIES_IN_A_HOT_COUNTRY.sü                                       :Pimeduse süda
 
 STR_CARGO_NAME_ALCOHOL                                                          :Alkohol
 STR_CARGO_NAME_ALCOHOL.g                                                        :Alkohol

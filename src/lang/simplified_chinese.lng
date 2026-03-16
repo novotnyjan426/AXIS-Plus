@@ -24,11 +24,8 @@ STR_PARAM_NAME_EXPERIMENTAL_FEATURES                                            
 STR_PARAM_DESC_EXPERIMENTAL_FEATURES                                            :开启或关闭实验性功能。
 
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       :经典极致版
-STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC                                          :开发中·寒带版
 STR_PARAM_VALUE_ECONOMIES_BASIC_TROPIC                                          :热带天堂版
 STR_PARAM_VALUE_ECONOMIES_TROPICAL_PARADISE                                     :热带天堂版
-STR_PARAM_VALUE_ECONOMIES_BETTER_LIVING_THROUGH_CHEMISTRY                       :开发中·化工宜居版
-STR_PARAM_VALUE_ECONOMIES_IN_A_HOT_COUNTRY                                      :开发中·热带国度版
 STR_PARAM_VALUE_ECONOMIES_STEELTOWN                                             :钢铁都市版
 
 STR_CARGO_SUBTYPE_DISPLAY_CARGO_SUPPLIED_FLAG                                   : {BLACK}（已补给）

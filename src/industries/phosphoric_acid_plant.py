@@ -14,7 +14,6 @@ industry = IndustrySecondary(
     fund_cost_multiplier="170",
 )
 
-industry.economy_variations['BETTER_LIVING_THROUGH_CHEMISTRY'].enabled = True
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [

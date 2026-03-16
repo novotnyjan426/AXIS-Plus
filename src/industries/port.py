@@ -31,18 +31,6 @@ industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_multipliers
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prob_map_gen = "10"
 
-industry.economy_variations["BASIC_ARCTIC"].enabled = True
-industry.economy_variations["BASIC_ARCTIC"].accept_cargo_types = [
-    "PAPR",
-    "ZINC",
-    "FERT",
-]
-industry.economy_variations["BASIC_ARCTIC"].prod_cargo_types_with_multipliers = [
-    ("KAOL", 16),
-    ("NH3_", 17),
-    ("ENSP", 9),
-    ("FMSP", 9),
-]
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargo_types = [
@@ -56,18 +44,6 @@ industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_multipliers = 
     ("FMSP", 9),
 ]
 
-industry.economy_variations["IN_A_HOT_COUNTRY"].enabled = True
-industry.economy_variations["IN_A_HOT_COUNTRY"].accept_cargo_types = [
-    "COPR",
-    "FRUT",
-    "WDPR",
-]
-industry.economy_variations["IN_A_HOT_COUNTRY"].prod_cargo_types_with_multipliers = [
-    ("GOOD", 14),
-    ("ENSP", 17),
-]
-# industry.economy_variations['IN_A_HOT_COUNTRY'].accept_cargo_types = ['DIAM', 'EOIL', 'JAVA', 'WDPR']
-# industry.economy_variations['IN_A_HOT_COUNTRY'].prod_cargo_types_with_multipliers = [('GOOD', 14), ('SASH', 12)]
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargo_types = ["FOOD", "GOOD"]

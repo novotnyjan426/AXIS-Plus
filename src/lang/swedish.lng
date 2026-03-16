@@ -19,9 +19,7 @@ STR_PARAM_NAME_PRIMARY_LEVEL2_BONUS                                             
 STR_PARAM_DESC_PRIMARY_LEVEL_BONUS                                              :Produktion på bondgårdar, gruvor och liknande industrier när leveranskraven är uppnådda (i procent av {SILVER}Normal {BLACK} produktionsnivå).
 
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       :Tempererad bas-ekonomi
-STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC                                          :Arktisk bas-ekonomi
 STR_PARAM_VALUE_ECONOMIES_BASIC_TROPIC                                          :Tropisk bas-ekonomi
-STR_PARAM_VALUE_ECONOMIES_IN_A_HOT_COUNTRY                                          :I ett varmare land
 STR_PARAM_VALUE_ECONOMIES_STEELTOWN                                             :Stålstaden
 
 STR_CARGO_NAME_ACID                                                             :Syra

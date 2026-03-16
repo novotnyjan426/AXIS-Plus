@@ -18,7 +18,6 @@ industry = IndustrySecondary(
     fund_cost_multiplier="95",
 )
 
-industry.economy_variations['BETTER_LIVING_THROUGH_CHEMISTRY'].enabled = True
 
 industry.economy_variations["STEELTOWN"].enabled = True
 

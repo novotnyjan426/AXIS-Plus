@@ -16,7 +16,6 @@ industry = IndustryPrimaryOrganic(
 )
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
-industry.economy_variations['BETTER_LIVING_THROUGH_CHEMISTRY'].enabled = True
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 
 industry.add_tile(

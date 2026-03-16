@@ -21,7 +21,6 @@ industry = IndustrySecondary(
 )
 
 # deliberately not in BLTC, requires sugar beet, which is too climate-specific for BLTC
-industry.economy_variations['BETTER_LIVING_THROUGH_CHEMISTRY'].enabled = True
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [

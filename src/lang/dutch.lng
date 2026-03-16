@@ -24,10 +24,7 @@ STR_PARAM_NAME_EXPERIMENTAL_FEATURES                                            
 STR_PARAM_DESC_EXPERIMENTAL_FEATURES                                            :Schakelt experimentele opties uit.
 
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       :INCOMPLEET Klassiek
-STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC                                          :INCOMPLEET Arctisch
 STR_PARAM_VALUE_ECONOMIES_BASIC_TROPIC                                          :Tropisch paradijs
-STR_PARAM_VALUE_ECONOMIES_BETTER_LIVING_THROUGH_CHEMISTRY                       :INCOMPLEET Beter leven met chemie
-STR_PARAM_VALUE_ECONOMIES_IN_A_HOT_COUNTRY                                      :INCOMPLEET In een warm land
 STR_PARAM_VALUE_ECONOMIES_STEELTOWN                                             :Staalstad
 
 STR_CARGO_SUBTYPE_DISPLAY_CARGO_SUPPLIED_FLAG                                   :{BLACK}(geleverd)

@@ -16,9 +16,6 @@ industry = IndustryTertiary(
     fund_cost_multiplier="8",
 )
 
-industry.economy_variations["IN_A_HOT_COUNTRY"].enabled = True
-industry.economy_variations["IN_A_HOT_COUNTRY"].prob_map_gen = "8"
-industry.economy_variations["IN_A_HOT_COUNTRY"].prob_in_game = "8"
 
 industry.economy_variations["STEELTOWN"].enabled = True
 

@@ -19,17 +19,10 @@ industry = IndustrySecondary(
     fund_cost_multiplier="16",
 )
 
-industry.economy_variations['BETTER_LIVING_THROUGH_CHEMISTRY'].enabled = True
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].prob_in_game = "6"
 industry.economy_variations["STEELTOWN"].prob_map_gen = "9"
-
-industry.economy_variations["IN_A_HOT_COUNTRY"].enabled = True
-industry.economy_variations["IN_A_HOT_COUNTRY"].prob_map_gen = "14"
-# industry.economy_variations['IN_A_HOT_COUNTRY'].accept_cargo_types = ['CMNT', 'WDPR']
-
-
 
 
 industry.add_tile(

@@ -14,7 +14,6 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_REFINERY)",
 )
 
-industry.economy_variations['BETTER_LIVING_THROUGH_CHEMISTRY'].enabled = True
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [

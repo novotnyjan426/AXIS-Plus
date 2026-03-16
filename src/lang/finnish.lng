@@ -19,9 +19,7 @@ STR_PARAM_NAME_PRIMARY_LEVEL2_BONUS                                             
 STR_PARAM_DESC_PRIMARY_LEVEL_BONUS                                              :Tuotanto maatiloilla, kaivoksissa ja vastaavissa teollisuuslaitoksissa kun toimitusvaatimukset ovat saavutettu (prosentteina {SILVER}normaalista {BLACK}tuotantotasosta).
 
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       :Lauhkea ilmasto, pelkistetty
-STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC                                          :Pohjoinen ilmasto, pelkistetty
 STR_PARAM_VALUE_ECONOMIES_BASIC_TROPIC                                          :Trooppinen, pelkistetty
-STR_PARAM_VALUE_ECONOMIES_IN_A_HOT_COUNTRY                                          :Kuumassa maassa
 STR_PARAM_VALUE_ECONOMIES_STEELTOWN                                             :Teräskylä
 
 STR_CARGO_NAME_ALCOHOL                                                          :Alkoholi

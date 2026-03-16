@@ -15,7 +15,6 @@ industry = IndustrySecondary(
     pollution_and_squalor_factor=2,
 )
 
-industry.economy_variations["BASIC_ARCTIC"].enabled = True
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
     ("PORE", 6),
@@ -41,7 +40,6 @@ industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_rati
     # ("FECR", 2),
     # ("SULP", 2),
 ]
-
 
 
 industry.add_tile(

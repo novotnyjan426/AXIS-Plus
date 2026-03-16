@@ -1,0 +1,1527 @@
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title >FIRS Industry Replacement Set</title>
+    <meta http-equiv="Content-Type" content="text/html;" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="static/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link type="text/css" href="static/css/style.css" rel="stylesheet">
+    <link href="static/css/font-awesome.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src="static/js/jquery-1.9.1.min.js"></script>
+
+    <script type="text/javascript" src="static/js/jquery.metadata.js"></script>
+    <script type="text/javascript" src="static/js/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.tablesorter.widgets.min.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.tablesorter').tablesorter({
+                textExtraction: function(node){
+                            var cell_value = $(node).text();
+                            var sort_value = $(node).data('value');
+                    return (sort_value != undefined) ? sort_value : cell_value;
+                 },
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <div class="navbar navbar-inverse"
+         style="border-bottom:1px solid #000; border-radius:0; margin-bottom:0;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#firs-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="get_started.html">FIRS</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="firs-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="">
+                    </li>
+                    <li class="active">
+                        <a href="economies.html">Economies</a>
+                    </li>
+                    <li class="">
+                        <a href="cargos.html">Cargos</a>
+                    </li>
+                    <li class="">
+                        <a href="industries.html">Industries</a>
+                    </li>
+                    <li class="">
+                        <a href="code_reference.html">Code Reference</a>
+                    </li>
+                    <li class="">
+                        <a href="changelog.html">Changelog</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="">
+                        <a href="translations.html"><i class="fa fa-globe icon-white"></i> Help Translate FIRS</a>
+                    </li>
+                    <li>
+                        <a href="http://www.tt-forums.net/viewtopic.php?t=41607"><i class="fa fa-comments icon-white"></i> Discuss at TT-Forums.net</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="hero-unit subhead">
+        <div class="container text-center">
+            <h1 style="font-size:48px; padding-top:30px;">FIRS Industry Replacement Set</h1>
+            <p class="lead">New Industries and Cargos for OpenTTD</p>
+            <br />
+            <br />
+            <script language="JavaScript">
+            function random_img(num_images){
+                var images=new Array(
+                    
+                    'stockyard','sulphuric_acid_plant','alumina_refinery','aluminium_plant','ammonia_plant','appliance_factory','arable_farm','assembly_plant','bakery','basic_oxygen_furnace','bauxite_mine','biorefinery','blast_furnace','body_plant','brewery','brick_works','bulk_terminal','food_processor','carbon_black_plant','cement_plant','chemical_plant','chlor_alkali_plant','chromite_mine','civil_explosives_facility','clay_pit','cleaning_products_factory','fischer_tropsch_plant','coal_mine','coke_oven','component_factory','builders_yard','copper_concentrator','copper_refinery','ranch','cryo_plant','dairy','dairy_farm','diamond_mine','cider_mill','dredging_site','edible_oil_refinery','electric_arc_furnace','electrical_works','engine_plant','supply_yard','farm_supply_yard','ferrochrome_smelter','fertiliser_plant','fish_farm','fishing_grounds','fishing_harbour','flour_mill','forest','iron_works','fruit_packing_plant','fruit_plantation','furniture_factory','general_store','glass_works','food_market','hardware_store','herding_coop','iron_ore_mine','lime_kiln','limestone_mine','liquids_terminal','machine_shop','manganese_mine','meat_packing_plant','metal_workshop','farm','plastics_plant','ethylene_cracker','nitrate_mine','oil_refinery','oil_wells','orchard_piggery','paint_factory','paper_mill','peatlands','petrol_pump','phosphate_mine','phosphoric_acid_plant','polyethylene_plant','port','potash_mine','printing_plant','pyrite_mine','pyrite_smelter','quarry','recycling_depot','recycling_plant','rubber_plantation','salt_evaporator','salt_mine','junk_yard','seaweed_farm','sheep_farm','sheet_and_pipe_mill','trading_post','slag_grinding_plant','smithy_forge','soda_ash_mine','solvay_plant','coffee_estate','integrated_steel_mill','sugar_refinery','polypropylene_plant','tar_sands_mine','textile_mill','lumber_yard','tinplate_works','tyre_plant','vehicle_distributor','vineyard','wharf','wire_and_section_mill'
+                );
+
+                for(i = 0; i < num_images; i++){
+                    var random_image = images.splice(Math.floor(Math.random()*images.length), 1);
+                    document.write('<a href="industries.html#' + random_image + '"><img style="margin-top:-30px; margin-bottom:0;" width="20%" src="static/img/industries/'+ random_image +'.png"></a>')
+                }
+            }
+            random_img(5)
+            </script>
+        </div>
+    </div>
+    
+        
+    
+    <div class="container firs-larger-font">
+        <div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="page-header text-center">
+                <h2>Economies</h2>
+                <p>In FIRS, the Economy parameter setting controls which industries and cargos will be used in the game.</p>
+                <ul class="list-inline">
+                    
+                        <li><a href="#extreme_classic">Extreme Classic</a></li>
+                    
+                        <li><a href="#steel_city">Steel City</a></li>
+                    
+                        <li><a href="#tropical_paradise">Tropical Paradise</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+        <div class="row" id="extreme_classic"  style="padding-bottom:20px;">
+            <div class="col-xs-12 col-sm-4">
+                <h3 class="firs-title-with-anchor">
+                    <a href="#extreme_classic">Extreme Classic</a>
+                </h3>
+                <p class="lead">Simple economy. Inspired by south-western UK. Best used with Temperate climate.</p>
+            </div>
+            <div class="col-xs-12 col-sm-8" style="padding-top:16px;">
+
+                <h4>64 Cargos</h4>
+                
+                    <a href="cargos.html#acid">
+                        Acid,
+                    </a>
+                
+                    <a href="cargos.html#alcohol">
+                        Alcohol,
+                    </a>
+                
+                    <a href="cargos.html#aluminium">
+                        Aluminium,
+                    </a>
+                
+                    <a href="cargos.html#bauxite">
+                        Bauxite,
+                    </a>
+                
+                    <a href="cargos.html#biomass">
+                        Biomass,
+                    </a>
+                
+                    <a href="cargos.html#building_materials">
+                        Building Materials,
+                    </a>
+                
+                    <a href="cargos.html#cement">
+                        Cement,
+                    </a>
+                
+                    <a href="cargos.html#chlorine">
+                        Chlorine,
+                    </a>
+                
+                    <a href="cargos.html#clay">
+                        Clay,
+                    </a>
+                
+                    <a href="cargos.html#coal">
+                        Coal,
+                    </a>
+                
+                    <a href="cargos.html#coke">
+                        Coke,
+                    </a>
+                
+                    <a href="cargos.html#copper">
+                        Copper,
+                    </a>
+                
+                    <a href="cargos.html#copper_ore">
+                        Copper Ore,
+                    </a>
+                
+                    <a href="cargos.html#edible_oil">
+                        Edible Oil,
+                    </a>
+                
+                    <a href="cargos.html#electrical_parts">
+                        Electrical Parts,
+                    </a>
+                
+                    <a href="cargos.html#engineering_supplies">
+                        Engineering Supplies,
+                    </a>
+                
+                    <a href="cargos.html#explosives">
+                        Explosives,
+                    </a>
+                
+                    <a href="cargos.html#farm_supplies">
+                        Farm Supplies,
+                    </a>
+                
+                    <a href="cargos.html#fertiliser">
+                        Fertiliser,
+                    </a>
+                
+                    <a href="cargos.html#plant_fibres">
+                        Fibres,
+                    </a>
+                
+                    <a href="cargos.html#fish">
+                        Fish,
+                    </a>
+                
+                    <a href="cargos.html#food">
+                        Food,
+                    </a>
+                
+                    <a href="cargos.html#glass">
+                        Glass,
+                    </a>
+                
+                    <a href="cargos.html#goods">
+                        Goods,
+                    </a>
+                
+                    <a href="cargos.html#grain">
+                        Grain,
+                    </a>
+                
+                    <a href="cargos.html#pig_iron">
+                        Iron,
+                    </a>
+                
+                    <a href="cargos.html#iron_ore">
+                        Iron Ore,
+                    </a>
+                
+                    <a href="cargos.html#limestone">
+                        Limestone,
+                    </a>
+                
+                    <a href="cargos.html#livestock">
+                        Livestock,
+                    </a>
+                
+                    <a href="cargos.html#logs">
+                        Logs,
+                    </a>
+                
+                    <a href="cargos.html#mail">
+                        Mail,
+                    </a>
+                
+                    <a href="cargos.html#metal_parts">
+                        Metal Parts,
+                    </a>
+                
+                    <a href="cargos.html#milk">
+                        Milk,
+                    </a>
+                
+                    <a href="cargos.html#nitrates">
+                        Nitrates,
+                    </a>
+                
+                    <a href="cargos.html#oil">
+                        Oil,
+                    </a>
+                
+                    <a href="cargos.html#oil_seeds">
+                        Oil Seeds,
+                    </a>
+                
+                    <a href="cargos.html#packaging">
+                        Packaging,
+                    </a>
+                
+                    <a href="cargos.html#paints_and_coatings">
+                        Paints &amp; Coatings,
+                    </a>
+                
+                    <a href="cargos.html#paper">
+                        Paper,
+                    </a>
+                
+                    <a href="cargos.html#passengers">
+                        Passengers,
+                    </a>
+                
+                    <a href="cargos.html#petrol">
+                        Petroleum Fuels,
+                    </a>
+                
+                    <a href="cargos.html#plastics">
+                        Plastics,
+                    </a>
+                
+                    <a href="cargos.html#fruits">
+                        Produce,
+                    </a>
+                
+                    <a href="cargos.html#pyrite_ore">
+                        Pyrite Ore,
+                    </a>
+                
+                    <a href="cargos.html#quicklime">
+                        Quicklime,
+                    </a>
+                
+                    <a href="cargos.html#rare_metals">
+                        Rare Metals,
+                    </a>
+                
+                    <a href="cargos.html#recyclables">
+                        Recyclables,
+                    </a>
+                
+                    <a href="cargos.html#chemicals">
+                        Refined Oil,
+                    </a>
+                
+                    <a href="cargos.html#rubber">
+                        Rubber,
+                    </a>
+                
+                    <a href="cargos.html#tyres">
+                        Rubber Parts,
+                    </a>
+                
+                    <a href="cargos.html#salt">
+                        Salt,
+                    </a>
+                
+                    <a href="cargos.html#sand">
+                        Sand,
+                    </a>
+                
+                    <a href="cargos.html#scrap_metal">
+                        Scrap Metal,
+                    </a>
+                
+                    <a href="cargos.html#slag">
+                        Slag,
+                    </a>
+                
+                    <a href="cargos.html#soda_ash">
+                        Soda Ash,
+                    </a>
+                
+                    <a href="cargos.html#steel">
+                        Steel,
+                    </a>
+                
+                    <a href="cargos.html#sugar_beet">
+                        Sugar Beet,
+                    </a>
+                
+                    <a href="cargos.html#sulphur">
+                        Sulphur,
+                    </a>
+                
+                    <a href="cargos.html#coal_tar">
+                        Tar,
+                    </a>
+                
+                    <a href="cargos.html#textiles">
+                        Textiles,
+                    </a>
+                
+                    <a href="cargos.html#lumber">
+                        Timber,
+                    </a>
+                
+                    <a href="cargos.html#vehicle_parts">
+                        Vehicle Parts,
+                    </a>
+                
+                    <a href="cargos.html#vehicles">
+                        Vehicles,
+                    </a>
+                
+                    <a href="cargos.html#zinc">
+                        Zinc
+                    </a>
+                
+
+                <h4>91 Industries</h4>
+                
+                    <a href="industries.html#stockyard">Abattoir,</a>
+                
+                    <a href="industries.html#sulphuric_acid_plant">Acid Plant,</a>
+                
+                    <a href="industries.html#aluminium_plant">Aluminium Plant,</a>
+                
+                    <a href="industries.html#ammonia_plant">Ammonia Plant,</a>
+                
+                    <a href="industries.html#appliance_factory">Appliance Factory,</a>
+                
+                    <a href="industries.html#arable_farm">Arable Farm,</a>
+                
+                    <a href="industries.html#assembly_plant">Assembly Plant,</a>
+                
+                    <a href="industries.html#basic_oxygen_furnace">Basic Oxygen Furnace,</a>
+                
+                    <a href="industries.html#bauxite_mine">Bauxite Mine,</a>
+                
+                    <a href="industries.html#biorefinery">Biorefinery,</a>
+                
+                    <a href="industries.html#blast_furnace">Blast Furnace,</a>
+                
+                    <a href="industries.html#brewery">Brewery,</a>
+                
+                    <a href="industries.html#brick_works">Brick Works,</a>
+                
+                    <a href="industries.html#bulk_terminal">Bulk Terminal,</a>
+                
+                    <a href="industries.html#food_processor">Cannery,</a>
+                
+                    <a href="industries.html#cement_plant">Cement Plant,</a>
+                
+                    <a href="industries.html#chlor_alkali_plant">Chlor-alkali Plant,</a>
+                
+                    <a href="industries.html#clay_pit">Clay Pit,</a>
+                
+                    <a href="industries.html#fischer_tropsch_plant">Coal Liquefaction Plant,</a>
+                
+                    <a href="industries.html#coal_mine">Coal Mine,</a>
+                
+                    <a href="industries.html#coke_oven">Coke Oven,</a>
+                
+                    <a href="industries.html#component_factory">Component Factory,</a>
+                
+                    <a href="industries.html#copper_mine">Copper Mine,</a>
+                
+                    <a href="industries.html#copper_refinery">Copper Smelter,</a>
+                
+                    <a href="industries.html#ranch">Cotton Farm,</a>
+                
+                    <a href="industries.html#dairy">Dairy,</a>
+                
+                    <a href="industries.html#dairy_farm">Dairy Farm,</a>
+                
+                    <a href="industries.html#dredging_site">Dredging Site,</a>
+                
+                    <a href="industries.html#edible_oil_refinery">Edible Oil Refinery,</a>
+                
+                    <a href="industries.html#electric_arc_furnace">Electric Arc Furnace,</a>
+                
+                    <a href="industries.html#electrical_works">Electrical Works,</a>
+                
+                    <a href="industries.html#supply_yard">Engineering Supply Yard,</a>
+                
+                    <a href="industries.html#farm_supply_yard">Farm Supply Yard,</a>
+                
+                    <a href="industries.html#fish_farm">Fish Farm,</a>
+                
+                    <a href="industries.html#fishing_grounds">Fishing Grounds,</a>
+                
+                    <a href="industries.html#fishing_harbour">Fishing Harbour,</a>
+                
+                    <a href="industries.html#flour_mill">Flour Mill,</a>
+                
+                    <a href="industries.html#forest">Forest,</a>
+                
+                    <a href="industries.html#iron_works">Forge and Foundry,</a>
+                
+                    <a href="industries.html#fruit_plantation">Fruit Plantation,</a>
+                
+                    <a href="industries.html#furniture_factory">Furniture Factory,</a>
+                
+                    <a href="industries.html#general_store">General Store,</a>
+                
+                    <a href="industries.html#glass_works">Glass Works,</a>
+                
+                    <a href="industries.html#food_market">Grocer's Shop,</a>
+                
+                    <a href="industries.html#hardware_store">Hardware Store,</a>
+                
+                    <a href="industries.html#iron_ore_mine">Iron Ore Mine,</a>
+                
+                    <a href="industries.html#lime_kiln">Lime Kiln,</a>
+                
+                    <a href="industries.html#limestone_mine">Limestone Mine,</a>
+                
+                    <a href="industries.html#liquids_terminal">Liquids Terminal,</a>
+                
+                    <a href="industries.html#machine_shop">Machinery Factory,</a>
+                
+                    <a href="industries.html#metal_workshop">Metal Workshop,</a>
+                
+                    <a href="industries.html#farm">Mixed Farm,</a>
+                
+                    <a href="industries.html#plastics_plant">Moulding Plant,</a>
+                
+                    <a href="industries.html#ethylene_cracker">Naphtha Cracker,</a>
+                
+                    <a href="industries.html#nitrate_mine">Nitrate Mine,</a>
+                
+                    <a href="industries.html#oil_refinery">Oil Refinery,</a>
+                
+                    <a href="industries.html#oil_rig">Oil Rig,</a>
+                
+                    <a href="industries.html#oil_wells">Oil Wells,</a>
+                
+                    <a href="industries.html#orchard_piggery">Orchard and Piggery,</a>
+                
+                    <a href="industries.html#paint_factory">Paint Factory,</a>
+                
+                    <a href="industries.html#paper_mill">Paper Mill,</a>
+                
+                    <a href="industries.html#peatlands">Peatlands,</a>
+                
+                    <a href="industries.html#petrol_pump">Petrol Station,</a>
+                
+                    <a href="industries.html#polyethylene_plant">Polymerisation Plant,</a>
+                
+                    <a href="industries.html#port">Port,</a>
+                
+                    <a href="industries.html#power_plant">Power Plant,</a>
+                
+                    <a href="industries.html#printing_plant">Printing Plant,</a>
+                
+                    <a href="industries.html#pyrite_mine">Pyrite Mine,</a>
+                
+                    <a href="industries.html#pyrite_smelter">Pyrite Smelter,</a>
+                
+                    <a href="industries.html#quarry">Quarry,</a>
+                
+                    <a href="industries.html#recycling_depot">Recycling Depot,</a>
+                
+                    <a href="industries.html#recycling_plant">Recycling Plant,</a>
+                
+                    <a href="industries.html#rubber_plantation">Rubber Plantation,</a>
+                
+                    <a href="industries.html#salt_evaporator">Salt Evaporator,</a>
+                
+                    <a href="industries.html#sawmill">Sawmill,</a>
+                
+                    <a href="industries.html#junk_yard">Scrap Yard,</a>
+                
+                    <a href="industries.html#seaweed_farm">Seaweed Farm,</a>
+                
+                    <a href="industries.html#sheep_farm">Sheep Farm,</a>
+                
+                    <a href="industries.html#sheet_and_pipe_mill">Sheet Mill,</a>
+                
+                    <a href="industries.html#trading_post">Shipbreaker,</a>
+                
+                    <a href="industries.html#slag_grinding_plant">Slag Grinding Plant,</a>
+                
+                    <a href="industries.html#soda_ash_mine">Soda Ash Mine,</a>
+                
+                    <a href="industries.html#solvay_plant">Solvay Plant,</a>
+                
+                    <a href="industries.html#sugar_refinery">Sugar Refinery,</a>
+                
+                    <a href="industries.html#tar_sands_mine">Tar Sands Mine,</a>
+                
+                    <a href="industries.html#textile_mill">Textile Mill,</a>
+                
+                    <a href="industries.html#lumber_yard">Timber Yard,</a>
+                
+                    <a href="industries.html#tyre_plant">Tyre and Rubber Plant,</a>
+                
+                    <a href="industries.html#vehicle_distributor">Vehicle Distributor,</a>
+                
+                    <a href="industries.html#vineyard">Vineyard,</a>
+                
+                    <a href="industries.html#wharf">Wharf</a>
+                
+            </div>
+            <div class="col-xs-12">
+                <div style="margin-top: 40px; margin-bottom: 40px;">
+                    <h4>Cargo Flow</h4>
+                    <object style="max-width:100%;" data="extreme_classic.dot.svg" type="image/svg+xml"></object>
+                </div>
+
+                <div class="pull-right">
+                    <a href="cargoflow_extreme_classic.html">
+                        <i class="fa fa-search-plus"></i> View Cargo Flow Larger
+                    </a>
+                    |
+                    <a href="extreme_classic.dot"><small>Download Cargo Flow as .dot</small></a>
+                </div>
+            </div>
+        </div>
+        <hr />
+    
+        <div class="row" id="steel_city"  style="padding-bottom:20px;">
+            <div class="col-xs-12 col-sm-4">
+                <h3 class="firs-title-with-anchor">
+                    <a href="#steel_city">Steel City</a>
+                </h3>
+                <p class="lead">Complex economy featuring iron, steel and heavy manufacturing industries.</p>
+            </div>
+            <div class="col-xs-12 col-sm-8" style="padding-top:16px;">
+
+                <h4>64 Cargos</h4>
+                
+                    <a href="cargos.html#acid">
+                        Acid,
+                    </a>
+                
+                    <a href="cargos.html#alloy_steel">
+                        Alloy Steel,
+                    </a>
+                
+                    <a href="cargos.html#aluminia">
+                        Alumina,
+                    </a>
+                
+                    <a href="cargos.html#aluminium">
+                        Aluminium,
+                    </a>
+                
+                    <a href="cargos.html#ammonia">
+                        Ammonia,
+                    </a>
+                
+                    <a href="cargos.html#ammonium_nitrate">
+                        Ammonium Nitrate,
+                    </a>
+                
+                    <a href="cargos.html#bauxite">
+                        Bauxite,
+                    </a>
+                
+                    <a href="cargos.html#carbon_black">
+                        Carbon Black,
+                    </a>
+                
+                    <a href="cargos.html#carbon_steel">
+                        Carbon Steel,
+                    </a>
+                
+                    <a href="cargos.html#cement">
+                        Cement,
+                    </a>
+                
+                    <a href="cargos.html#chlorine">
+                        Chlorine,
+                    </a>
+                
+                    <a href="cargos.html#cleaning_agents">
+                        Cleaning Agents,
+                    </a>
+                
+                    <a href="cargos.html#coal">
+                        Coal,
+                    </a>
+                
+                    <a href="cargos.html#coke">
+                        Coke,
+                    </a>
+                
+                    <a href="cargos.html#copper">
+                        Copper,
+                    </a>
+                
+                    <a href="cargos.html#copper_concentrate">
+                        Copper Concentrate,
+                    </a>
+                
+                    <a href="cargos.html#electrical_parts">
+                        Electrical Parts,
+                    </a>
+                
+                    <a href="cargos.html#engineering_supplies">
+                        Engineering Supplies,
+                    </a>
+                
+                    <a href="cargos.html#farm_supplies">
+                        Farm Supplies,
+                    </a>
+                
+                    <a href="cargos.html#ferrochrome">
+                        Ferroalloy,
+                    </a>
+                
+                    <a href="cargos.html#fish_and_meat">
+                        Fish &amp; Meat,
+                    </a>
+                
+                    <a href="cargos.html#food">
+                        Food,
+                    </a>
+                
+                    <a href="cargos.html#glass">
+                        Glass,
+                    </a>
+                
+                    <a href="cargos.html#goods">
+                        Goods,
+                    </a>
+                
+                    <a href="cargos.html#grain">
+                        Grain,
+                    </a>
+                
+                    <a href="cargos.html#hydrogen">
+                        Hydrogen,
+                    </a>
+                
+                    <a href="cargos.html#pig_iron">
+                        Iron,
+                    </a>
+                
+                    <a href="cargos.html#iron_ore">
+                        Iron Ore,
+                    </a>
+                
+                    <a href="cargos.html#limestone">
+                        Limestone,
+                    </a>
+                
+                    <a href="cargos.html#livestock">
+                        Livestock,
+                    </a>
+                
+                    <a href="cargos.html#mail">
+                        Mail,
+                    </a>
+                
+                    <a href="cargos.html#metal_parts">
+                        Metal Parts,
+                    </a>
+                
+                    <a href="cargos.html#steel_wire_rod">
+                        Metal Wire,
+                    </a>
+                
+                    <a href="cargos.html#ethylene">
+                        Monomer,
+                    </a>
+                
+                    <a href="cargos.html#nitrogen">
+                        Nitrogen,
+                    </a>
+                
+                    <a href="cargos.html#oil">
+                        Oil,
+                    </a>
+                
+                    <a href="cargos.html#oxygen">
+                        Oxygen,
+                    </a>
+                
+                    <a href="cargos.html#packaging">
+                        Packaging,
+                    </a>
+                
+                    <a href="cargos.html#paints_and_coatings">
+                        Paints &amp; Coatings,
+                    </a>
+                
+                    <a href="cargos.html#passengers">
+                        Passengers,
+                    </a>
+                
+                    <a href="cargos.html#petrol">
+                        Petroleum Fuels,
+                    </a>
+                
+                    <a href="cargos.html#plastic_parts">
+                        Plastic Parts,
+                    </a>
+                
+                    <a href="cargos.html#plastics">
+                        Plastics,
+                    </a>
+                
+                    <a href="cargos.html#fruits">
+                        Produce,
+                    </a>
+                
+                    <a href="cargos.html#pyrite_ore">
+                        Pyrite Ore,
+                    </a>
+                
+                    <a href="cargos.html#quicklime">
+                        Quicklime,
+                    </a>
+                
+                    <a href="cargos.html#recyclables">
+                        Recyclables,
+                    </a>
+                
+                    <a href="cargos.html#chemicals">
+                        Refined Oil,
+                    </a>
+                
+                    <a href="cargos.html#rubber">
+                        Rubber,
+                    </a>
+                
+                    <a href="cargos.html#tyres">
+                        Rubber Parts,
+                    </a>
+                
+                    <a href="cargos.html#salt">
+                        Salt,
+                    </a>
+                
+                    <a href="cargos.html#sand">
+                        Sand,
+                    </a>
+                
+                    <a href="cargos.html#scrap_metal">
+                        Scrap Metal,
+                    </a>
+                
+                    <a href="cargos.html#slag">
+                        Slag,
+                    </a>
+                
+                    <a href="cargos.html#soda_ash">
+                        Soda Ash,
+                    </a>
+                
+                    <a href="cargos.html#lye">
+                        Sodium Hydroxide,
+                    </a>
+                
+                    <a href="cargos.html#steel_sheet">
+                        Steel Sheet,
+                    </a>
+                
+                    <a href="cargos.html#sulphur">
+                        Sulphur,
+                    </a>
+                
+                    <a href="cargos.html#coal_tar">
+                        Tar,
+                    </a>
+                
+                    <a href="cargos.html#vehicle_bodies">
+                        Vehicle Bodies,
+                    </a>
+                
+                    <a href="cargos.html#vehicle_engines">
+                        Vehicle Engines,
+                    </a>
+                
+                    <a href="cargos.html#vehicle_parts">
+                        Vehicle Parts,
+                    </a>
+                
+                    <a href="cargos.html#vehicles">
+                        Vehicles,
+                    </a>
+                
+                    <a href="cargos.html#zinc">
+                        Zinc
+                    </a>
+                
+
+                <h4>83 Industries</h4>
+                
+                    <a href="industries.html#stockyard">Abattoir,</a>
+                
+                    <a href="industries.html#sulphuric_acid_plant">Acid Plant,</a>
+                
+                    <a href="industries.html#alumina_refinery">Alumina Refinery,</a>
+                
+                    <a href="industries.html#aluminium_plant">Aluminium Plant,</a>
+                
+                    <a href="industries.html#ammonia_plant">Ammonia Plant,</a>
+                
+                    <a href="industries.html#appliance_factory">Appliance Factory,</a>
+                
+                    <a href="industries.html#arable_farm">Arable Farm,</a>
+                
+                    <a href="industries.html#assembly_plant">Assembly Plant,</a>
+                
+                    <a href="industries.html#basic_oxygen_furnace">Basic Oxygen Furnace,</a>
+                
+                    <a href="industries.html#bauxite_mine">Bauxite Mine,</a>
+                
+                    <a href="industries.html#biorefinery">Biorefinery,</a>
+                
+                    <a href="industries.html#blast_furnace">Blast Furnace,</a>
+                
+                    <a href="industries.html#body_plant">Body Plant,</a>
+                
+                    <a href="industries.html#bulk_terminal">Bulk Terminal,</a>
+                
+                    <a href="industries.html#food_processor">Cannery,</a>
+                
+                    <a href="industries.html#carbon_black_plant">Carbon Black Plant,</a>
+                
+                    <a href="industries.html#cement_plant">Cement Plant,</a>
+                
+                    <a href="industries.html#chlor_alkali_plant">Chlor-alkali Plant,</a>
+                
+                    <a href="industries.html#civil_explosives_facility">Civil Explosives Facility,</a>
+                
+                    <a href="industries.html#cleaning_products_factory">Cleaning Products Factory,</a>
+                
+                    <a href="industries.html#fischer_tropsch_plant">Coal Liquefaction Plant,</a>
+                
+                    <a href="industries.html#coal_mine">Coal Mine,</a>
+                
+                    <a href="industries.html#coke_oven">Coke Oven,</a>
+                
+                    <a href="industries.html#component_factory">Component Factory,</a>
+                
+                    <a href="industries.html#builders_yard">Construction Plant,</a>
+                
+                    <a href="industries.html#copper_refinery">Copper Smelter,</a>
+                
+                    <a href="industries.html#cryo_plant">Cryo Plant,</a>
+                
+                    <a href="industries.html#dredging_site">Dredging Site,</a>
+                
+                    <a href="industries.html#electric_arc_furnace">Electric Arc Furnace,</a>
+                
+                    <a href="industries.html#electrical_works">Electrical Works,</a>
+                
+                    <a href="industries.html#engine_plant">Engine Plant,</a>
+                
+                    <a href="industries.html#supply_yard">Engineering Supply Yard,</a>
+                
+                    <a href="industries.html#farm_supply_yard">Farm Supply Yard,</a>
+                
+                    <a href="industries.html#fertiliser_plant">Fertiliser Plant,</a>
+                
+                    <a href="industries.html#fish_farm">Fish Farm,</a>
+                
+                    <a href="industries.html#fishing_grounds">Fishing Grounds,</a>
+                
+                    <a href="industries.html#flour_mill">Flour Mill,</a>
+                
+                    <a href="industries.html#iron_works">Forge and Foundry,</a>
+                
+                    <a href="industries.html#fruit_packing_plant">Fruit Packing Plant,</a>
+                
+                    <a href="industries.html#fruit_plantation">Fruit Plantation,</a>
+                
+                    <a href="industries.html#general_store">General Store,</a>
+                
+                    <a href="industries.html#glass_works">Glass Works,</a>
+                
+                    <a href="industries.html#food_market">Grocer's Shop,</a>
+                
+                    <a href="industries.html#hardware_store">Hardware Store,</a>
+                
+                    <a href="industries.html#iron_ore_mine">Iron Ore Mine,</a>
+                
+                    <a href="industries.html#lime_kiln">Lime Kiln,</a>
+                
+                    <a href="industries.html#limestone_mine">Limestone Mine,</a>
+                
+                    <a href="industries.html#liquids_terminal">Liquids Terminal,</a>
+                
+                    <a href="industries.html#machine_shop">Machinery Factory,</a>
+                
+                    <a href="industries.html#meat_packing_plant">Meat Packing Plant,</a>
+                
+                    <a href="industries.html#metal_workshop">Metal Workshop,</a>
+                
+                    <a href="industries.html#farm">Mixed Farm,</a>
+                
+                    <a href="industries.html#plastics_plant">Moulding Plant,</a>
+                
+                    <a href="industries.html#ethylene_cracker">Naphtha Cracker,</a>
+                
+                    <a href="industries.html#oil_refinery">Oil Refinery,</a>
+                
+                    <a href="industries.html#oil_rig">Oil Rig,</a>
+                
+                    <a href="industries.html#oil_wells">Oil Wells,</a>
+                
+                    <a href="industries.html#orchard_piggery">Orchard and Piggery,</a>
+                
+                    <a href="industries.html#paint_factory">Paint Factory,</a>
+                
+                    <a href="industries.html#petrol_pump">Petrol Station,</a>
+                
+                    <a href="industries.html#polyethylene_plant">Polymerisation Plant,</a>
+                
+                    <a href="industries.html#port">Port,</a>
+                
+                    <a href="industries.html#power_plant">Power Plant,</a>
+                
+                    <a href="industries.html#pyrite_mine">Pyrite Mine,</a>
+                
+                    <a href="industries.html#pyrite_smelter">Pyrite Smelter,</a>
+                
+                    <a href="industries.html#quarry">Quarry,</a>
+                
+                    <a href="industries.html#recycling_depot">Recycling Depot,</a>
+                
+                    <a href="industries.html#recycling_plant">Recycling Plant,</a>
+                
+                    <a href="industries.html#salt_evaporator">Salt Evaporator,</a>
+                
+                    <a href="industries.html#salt_mine">Salt Mine,</a>
+                
+                    <a href="industries.html#junk_yard">Scrap Yard,</a>
+                
+                    <a href="industries.html#seaweed_farm">Seaweed Farm,</a>
+                
+                    <a href="industries.html#sheet_and_pipe_mill">Sheet Mill,</a>
+                
+                    <a href="industries.html#trading_post">Shipbreaker,</a>
+                
+                    <a href="industries.html#slag_grinding_plant">Slag Grinding Plant,</a>
+                
+                    <a href="industries.html#soda_ash_mine">Soda Ash Mine,</a>
+                
+                    <a href="industries.html#solvay_plant">Solvay Plant,</a>
+                
+                    <a href="industries.html#polypropylene_plant">Synthetic Rubber Plant,</a>
+                
+                    <a href="industries.html#tar_sands_mine">Tar Sands Mine,</a>
+                
+                    <a href="industries.html#tyre_plant">Tyre and Rubber Plant,</a>
+                
+                    <a href="industries.html#vehicle_distributor">Vehicle Distributor,</a>
+                
+                    <a href="industries.html#wharf">Wharf,</a>
+                
+                    <a href="industries.html#wire_and_section_mill">Wire and Section Mill</a>
+                
+            </div>
+            <div class="col-xs-12">
+                <div style="margin-top: 40px; margin-bottom: 40px;">
+                    <h4>Cargo Flow</h4>
+                    <object style="max-width:100%;" data="steel_city.dot.svg" type="image/svg+xml"></object>
+                </div>
+
+                <div class="pull-right">
+                    <a href="cargoflow_steel_city.html">
+                        <i class="fa fa-search-plus"></i> View Cargo Flow Larger
+                    </a>
+                    |
+                    <a href="steel_city.dot"><small>Download Cargo Flow as .dot</small></a>
+                </div>
+            </div>
+        </div>
+        <hr />
+    
+        <div class="row" id="tropical_paradise"  style="padding-bottom:20px;">
+            <div class="col-xs-12 col-sm-4">
+                <h3 class="firs-title-with-anchor">
+                    <a href="#tropical_paradise">Tropical Paradise</a>
+                </h3>
+                <p class="lead">Simple economy. Inspired by Argentina, Peru and Chile. Best used with Sub-Tropic climate.</p>
+            </div>
+            <div class="col-xs-12 col-sm-8" style="padding-top:16px;">
+
+                <h4>64 Cargos</h4>
+                
+                    <a href="cargos.html#acetic_acid">
+                        Acetic Acid,
+                    </a>
+                
+                    <a href="cargos.html#alcohol">
+                        Alcohol,
+                    </a>
+                
+                    <a href="cargos.html#biomass">
+                        Biomass,
+                    </a>
+                
+                    <a href="cargos.html#building_materials">
+                        Building Materials,
+                    </a>
+                
+                    <a href="cargos.html#clay">
+                        Clay,
+                    </a>
+                
+                    <a href="cargos.html#cleaning_agents">
+                        Cleaning Agents,
+                    </a>
+                
+                    <a href="cargos.html#coal">
+                        Coal,
+                    </a>
+                
+                    <a href="cargos.html#coke">
+                        Coke,
+                    </a>
+                
+                    <a href="cargos.html#copper">
+                        Copper,
+                    </a>
+                
+                    <a href="cargos.html#copper_concentrate">
+                        Copper Concentrate,
+                    </a>
+                
+                    <a href="cargos.html#copper_ore">
+                        Copper Ore,
+                    </a>
+                
+                    <a href="cargos.html#edible_oil">
+                        Edible Oil,
+                    </a>
+                
+                    <a href="cargos.html#engineering_supplies">
+                        Engineering Supplies,
+                    </a>
+                
+                    <a href="cargos.html#explosives">
+                        Explosives,
+                    </a>
+                
+                    <a href="cargos.html#farm_supplies">
+                        Farm Supplies,
+                    </a>
+                
+                    <a href="cargos.html#fertiliser">
+                        Fertiliser,
+                    </a>
+                
+                    <a href="cargos.html#plant_fibres">
+                        Fibres,
+                    </a>
+                
+                    <a href="cargos.html#fish">
+                        Fish,
+                    </a>
+                
+                    <a href="cargos.html#flour">
+                        Flour,
+                    </a>
+                
+                    <a href="cargos.html#food">
+                        Food,
+                    </a>
+                
+                    <a href="cargos.html#food_additives">
+                        Food Additives,
+                    </a>
+                
+                    <a href="cargos.html#glass">
+                        Glass,
+                    </a>
+                
+                    <a href="cargos.html#goods">
+                        Goods,
+                    </a>
+                
+                    <a href="cargos.html#grain">
+                        Grain,
+                    </a>
+                
+                    <a href="cargos.html#pig_iron">
+                        Iron,
+                    </a>
+                
+                    <a href="cargos.html#iron_ore">
+                        Iron Ore,
+                    </a>
+                
+                    <a href="cargos.html#limestone">
+                        Limestone,
+                    </a>
+                
+                    <a href="cargos.html#livestock">
+                        Livestock,
+                    </a>
+                
+                    <a href="cargos.html#logs">
+                        Logs,
+                    </a>
+                
+                    <a href="cargos.html#mail">
+                        Mail,
+                    </a>
+                
+                    <a href="cargos.html#meat">
+                        Meat,
+                    </a>
+                
+                    <a href="cargos.html#metal_parts">
+                        Metal Parts,
+                    </a>
+                
+                    <a href="cargos.html#milk">
+                        Milk,
+                    </a>
+                
+                    <a href="cargos.html#nitrates">
+                        Nitrates,
+                    </a>
+                
+                    <a href="cargos.html#oil">
+                        Oil,
+                    </a>
+                
+                    <a href="cargos.html#oil_seeds">
+                        Oil Seeds,
+                    </a>
+                
+                    <a href="cargos.html#packaging">
+                        Packaging,
+                    </a>
+                
+                    <a href="cargos.html#paints_and_coatings">
+                        Paints &amp; Coatings,
+                    </a>
+                
+                    <a href="cargos.html#passengers">
+                        Passengers,
+                    </a>
+                
+                    <a href="cargos.html#petrol">
+                        Petroleum Fuels,
+                    </a>
+                
+                    <a href="cargos.html#phosphate">
+                        Phosphate,
+                    </a>
+                
+                    <a href="cargos.html#phosphoric_acid">
+                        Phosphoric Acid,
+                    </a>
+                
+                    <a href="cargos.html#plastics">
+                        Plastics,
+                    </a>
+                
+                    <a href="cargos.html#fruits">
+                        Produce,
+                    </a>
+                
+                    <a href="cargos.html#quicklime">
+                        Quicklime,
+                    </a>
+                
+                    <a href="cargos.html#rare_metals">
+                        Rare Metals,
+                    </a>
+                
+                    <a href="cargos.html#recyclables">
+                        Recyclables,
+                    </a>
+                
+                    <a href="cargos.html#chemicals">
+                        Refined Oil,
+                    </a>
+                
+                    <a href="cargos.html#rubber">
+                        Rubber,
+                    </a>
+                
+                    <a href="cargos.html#tyres">
+                        Rubber Parts,
+                    </a>
+                
+                    <a href="cargos.html#salt">
+                        Salt,
+                    </a>
+                
+                    <a href="cargos.html#sand">
+                        Sand,
+                    </a>
+                
+                    <a href="cargos.html#scrap_metal">
+                        Scrap Metal,
+                    </a>
+                
+                    <a href="cargos.html#slag">
+                        Slag,
+                    </a>
+                
+                    <a href="cargos.html#soda_ash">
+                        Soda Ash,
+                    </a>
+                
+                    <a href="cargos.html#steel">
+                        Steel,
+                    </a>
+                
+                    <a href="cargos.html#sugar">
+                        Sugar,
+                    </a>
+                
+                    <a href="cargos.html#sugarcane">
+                        Sugar Cane,
+                    </a>
+                
+                    <a href="cargos.html#sulphur">
+                        Sulphur,
+                    </a>
+                
+                    <a href="cargos.html#sulphuric_acid">
+                        Sulphuric Acid,
+                    </a>
+                
+                    <a href="cargos.html#textiles">
+                        Textiles,
+                    </a>
+                
+                    <a href="cargos.html#timber">
+                        Timber,
+                    </a>
+                
+                    <a href="cargos.html#vehicle_parts">
+                        Vehicle Parts,
+                    </a>
+                
+                    <a href="cargos.html#vehicles">
+                        Vehicles
+                    </a>
+                
+
+                <h4>86 Industries</h4>
+                
+                    <a href="industries.html#stockyard">Abattoir,</a>
+                
+                    <a href="industries.html#sulphuric_acid_plant">Acid Plant,</a>
+                
+                    <a href="industries.html#appliance_factory">Appliance Factory,</a>
+                
+                    <a href="industries.html#arable_farm">Arable Farm,</a>
+                
+                    <a href="industries.html#assembly_plant">Assembly Plant,</a>
+                
+                    <a href="industries.html#bakery">Bakery,</a>
+                
+                    <a href="industries.html#basic_oxygen_furnace">Basic Oxygen Furnace,</a>
+                
+                    <a href="industries.html#biorefinery">Biorefinery,</a>
+                
+                    <a href="industries.html#blast_furnace">Blast Furnace,</a>
+                
+                    <a href="industries.html#brewery">Brewery,</a>
+                
+                    <a href="industries.html#brick_works">Brick Works,</a>
+                
+                    <a href="industries.html#bulk_terminal">Bulk Terminal,</a>
+                
+                    <a href="industries.html#food_processor">Cannery,</a>
+                
+                    <a href="industries.html#cement_plant">Cement Plant,</a>
+                
+                    <a href="industries.html#chemical_plant">Chemical Plant,</a>
+                
+                    <a href="industries.html#civil_explosives_facility">Civil Explosives Facility,</a>
+                
+                    <a href="industries.html#clay_pit">Clay Pit,</a>
+                
+                    <a href="industries.html#cleaning_products_factory">Cleaning Products Factory,</a>
+                
+                    <a href="industries.html#coal_mine">Coal Mine,</a>
+                
+                    <a href="industries.html#coke_oven">Coke Oven,</a>
+                
+                    <a href="industries.html#component_factory">Component Factory,</a>
+                
+                    <a href="industries.html#copper_concentrator">Copper Concentrator,</a>
+                
+                    <a href="industries.html#copper_mine">Copper Mine,</a>
+                
+                    <a href="industries.html#copper_refinery">Copper Smelter,</a>
+                
+                    <a href="industries.html#ranch">Cotton Farm,</a>
+                
+                    <a href="industries.html#dairy">Dairy,</a>
+                
+                    <a href="industries.html#dairy_farm">Dairy Farm,</a>
+                
+                    <a href="industries.html#cider_mill">Distillery and Winery,</a>
+                
+                    <a href="industries.html#dredging_site">Dredging Site,</a>
+                
+                    <a href="industries.html#edible_oil_refinery">Edible Oil Refinery,</a>
+                
+                    <a href="industries.html#electrical_works">Electrical Works,</a>
+                
+                    <a href="industries.html#supply_yard">Engineering Supply Yard,</a>
+                
+                    <a href="industries.html#farm_supply_yard">Farm Supply Yard,</a>
+                
+                    <a href="industries.html#fertiliser_plant">Fertiliser Plant,</a>
+                
+                    <a href="industries.html#fish_farm">Fish Farm,</a>
+                
+                    <a href="industries.html#fishing_grounds">Fishing Grounds,</a>
+                
+                    <a href="industries.html#fishing_harbour">Fishing Harbour,</a>
+                
+                    <a href="industries.html#flour_mill">Flour Mill,</a>
+                
+                    <a href="industries.html#forest">Forest,</a>
+                
+                    <a href="industries.html#iron_works">Forge and Foundry,</a>
+                
+                    <a href="industries.html#fruit_packing_plant">Fruit Packing Plant,</a>
+                
+                    <a href="industries.html#fruit_plantation">Fruit Plantation,</a>
+                
+                    <a href="industries.html#furniture_factory">Furniture Factory,</a>
+                
+                    <a href="industries.html#general_store">General Store,</a>
+                
+                    <a href="industries.html#glass_works">Glass Works,</a>
+                
+                    <a href="industries.html#hardware_store">Hardware Store,</a>
+                
+                    <a href="industries.html#iron_ore_mine">Iron Ore Mine,</a>
+                
+                    <a href="industries.html#lime_kiln">Lime Kiln,</a>
+                
+                    <a href="industries.html#limestone_mine">Limestone Mine,</a>
+                
+                    <a href="industries.html#liquids_terminal">Liquids Terminal,</a>
+                
+                    <a href="industries.html#machine_shop">Machinery Factory,</a>
+                
+                    <a href="industries.html#meat_packing_plant">Meat Packing Plant,</a>
+                
+                    <a href="industries.html#metal_workshop">Metal Workshop,</a>
+                
+                    <a href="industries.html#farm">Mixed Farm,</a>
+                
+                    <a href="industries.html#plastics_plant">Moulding Plant,</a>
+                
+                    <a href="industries.html#nitrate_mine">Nitrate Mine,</a>
+                
+                    <a href="industries.html#oil_refinery">Oil Refinery,</a>
+                
+                    <a href="industries.html#oil_rig">Oil Rig,</a>
+                
+                    <a href="industries.html#oil_wells">Oil Wells,</a>
+                
+                    <a href="industries.html#paint_factory">Paint Factory,</a>
+                
+                    <a href="industries.html#paper_mill">Paper Mill,</a>
+                
+                    <a href="industries.html#petrol_pump">Petrol Station,</a>
+                
+                    <a href="industries.html#phosphate_mine">Phosphate Mine,</a>
+                
+                    <a href="industries.html#phosphoric_acid_plant">Phosphoric Acid Plant,</a>
+                
+                    <a href="industries.html#polyethylene_plant">Polymerisation Plant,</a>
+                
+                    <a href="industries.html#port">Port,</a>
+                
+                    <a href="industries.html#power_plant">Power Plant,</a>
+                
+                    <a href="industries.html#quarry">Quarry,</a>
+                
+                    <a href="industries.html#recycling_depot">Recycling Depot,</a>
+                
+                    <a href="industries.html#recycling_plant">Recycling Plant,</a>
+                
+                    <a href="industries.html#rubber_plantation">Rubber Plantation,</a>
+                
+                    <a href="industries.html#salt_evaporator">Salt Evaporator,</a>
+                
+                    <a href="industries.html#salt_mine">Salt Mine,</a>
+                
+                    <a href="industries.html#sawmill">Sawmill,</a>
+                
+                    <a href="industries.html#junk_yard">Scrap Yard,</a>
+                
+                    <a href="industries.html#seaweed_farm">Seaweed Farm,</a>
+                
+                    <a href="industries.html#sheep_farm">Sheep Farm,</a>
+                
+                    <a href="industries.html#trading_post">Shipbreaker,</a>
+                
+                    <a href="industries.html#solvay_plant">Solvay Plant,</a>
+                
+                    <a href="industries.html#coffee_estate">Spice Plantation,</a>
+                
+                    <a href="industries.html#sugar_refinery">Sugar Refinery,</a>
+                
+                    <a href="industries.html#textile_mill">Textile Mill,</a>
+                
+                    <a href="industries.html#lumber_yard">Timber Yard,</a>
+                
+                    <a href="industries.html#tyre_plant">Tyre and Rubber Plant,</a>
+                
+                    <a href="industries.html#vehicle_distributor">Vehicle Distributor,</a>
+                
+                    <a href="industries.html#vineyard">Vineyard</a>
+                
+            </div>
+            <div class="col-xs-12">
+                <div style="margin-top: 40px; margin-bottom: 40px;">
+                    <h4>Cargo Flow</h4>
+                    <object style="max-width:100%;" data="tropical_paradise.dot.svg" type="image/svg+xml"></object>
+                </div>
+
+                <div class="pull-right">
+                    <a href="cargoflow_tropical_paradise.html">
+                        <i class="fa fa-search-plus"></i> View Cargo Flow Larger
+                    </a>
+                    |
+                    <a href="tropical_paradise.dot"><small>Download Cargo Flow as .dot</small></a>
+                </div>
+            </div>
+        </div>
+        <hr />
+    
+</div>
+    </div>
+    <div style="margin-top:30px; text-align:center; color:#999; padding:5px; background-color:#eee; border-top:solid 1px #ddd; box-shadow: inset 0px 1px 1px #ddd">
+        FIRS, with thanks to all who helped
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

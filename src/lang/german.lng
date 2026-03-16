@@ -25,11 +25,8 @@ STR_PARAM_NAME_EXPERIMENTAL_FEATURES                                            
 STR_PARAM_DESC_EXPERIMENTAL_FEATURES                                            :Aktiviert/Deaktiviert experimentelle Features.
 
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       :UNVOLLSTÄNDIG einfach, für gemäßigtes Klima
-STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC                                          :UNVOLLSTÄNDIG einfach, für arktisches Klima
 STR_PARAM_VALUE_ECONOMIES_BASIC_TROPIC                                          :'Tropisches Paradies'
 STR_PARAM_VALUE_ECONOMIES_TROPICAL_PARADISE                                     :'Tropisches Paradies'
-STR_PARAM_VALUE_ECONOMIES_BETTER_LIVING_THROUGH_CHEMISTRY                       :UNVOLLSTÄNDIG 'Besser Leben durch Chemie'
-STR_PARAM_VALUE_ECONOMIES_IN_A_HOT_COUNTRY                                      :UNVOLLSTÄNDIG 'In einem heißen Land'
 STR_PARAM_VALUE_ECONOMIES_STEELTOWN                                             :'Stahlstadt'
 
 STR_CARGO_SUBTYPE_DISPLAY_CARGO_SUPPLIED_FLAG                                   : {BLACK}(geliefert)

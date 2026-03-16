@@ -2064,6 +2064,10 @@ class IndustrySecondary(Industry):
             "combined_cargos_boost_prod", False
         )
         self.base_processing_cap = kwargs.get("base_processing_cap", 0)  # 0 = no warehouse
+        # required_input_cargos: cargo labels that MUST be in warehouse for production to happen
+        # remaining cargos in accept list are optional efficiency boosters
+        # e.g. ["MILK", "PACK"] — dairy won't produce unless both are in warehouse
+        self.required_input_cargos = kwargs.get("required_input_cargos", [])
         # scale_bonus_cargos: list of (cargo_label, {level: ratio}) unlocked at scale levels
         # e.g. [("BIOM", {"medium": 1, "high": 2})]
         self.scale_bonus_cargos = kwargs.get("scale_bonus_cargos", [])
@@ -2110,6 +2114,16 @@ class IndustrySecondary(Industry):
                 + self.id
                 + "; secondary industries should not set prospect_chance"
             )
+
+    def get_required_cargo_warehouse_indices(self, economy):
+        """Return 1-based warehouse slot indices for required input cargos in this economy."""
+        accept_list = self.get_property('accept_cargos_with_input_ratios', economy)
+        labels = [c[0] for c in accept_list]
+        indices = []
+        for req_label in self.required_input_cargos:
+            if req_label in labels:
+                indices.append(labels.index(req_label) + 1)
+        return indices
 
     def _ensure_scale_scan_tile(self):
         """Ensure at least one tile has TILE_LOOP trigger for scale scanning.

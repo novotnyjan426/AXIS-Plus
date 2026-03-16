@@ -17,9 +17,6 @@ industry = IndustryTertiary(
 )
 
 
-industry.economy_variations["BASIC_ARCTIC"].enabled = True
-industry.economy_variations["BASIC_ARCTIC"].accept_cargo_types = ["PEAT"]
-
 industry.economy_variations["STEELTOWN"].enabled = True
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True

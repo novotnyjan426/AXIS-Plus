@@ -13,7 +13,6 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_REFINERY)",
 )
 
-industry.economy_variations['BETTER_LIVING_THROUGH_CHEMISTRY'].enabled = True
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
@@ -27,7 +26,6 @@ industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_rati
     ("CTAR", 2),
 ]
 
-# industry.economy_variations['IN_A_HOT_COUNTRY'].enabled = True
 
 industry.add_tile(
     id="fischer_tropsch_plant_tile_1",
@@ -87,7 +85,6 @@ sprite_smoke_big_1 = industry.add_smoke_sprite(
     yoffset=5,
     zoffset=104,
 )
-
 
 
 industry.add_spritelayout(

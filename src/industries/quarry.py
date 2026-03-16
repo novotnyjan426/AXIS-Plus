@@ -15,7 +15,6 @@ industry = IndustryPrimaryExtractive(
     pollution_and_squalor_factor=1,
 )
 
-industry.economy_variations['BETTER_LIVING_THROUGH_CHEMISTRY'].enabled = True
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_multipliers = [
@@ -23,11 +22,6 @@ industry.economy_variations["STEELTOWN"].prod_cargo_types_with_multipliers = [
     ("LIME", 14),
 ]
 
-industry.economy_variations["IN_A_HOT_COUNTRY"].enabled = True
-industry.economy_variations["IN_A_HOT_COUNTRY"].prod_cargo_types_with_multipliers = [
-    ("SAND", 14),
-    ("GRVL", 14),
-]
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_multipliers = [
@@ -37,9 +31,6 @@ industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_multipliers = 
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 
-
-
-# industry.economy_variations['IN_A_HOT_COUNTRY'].prod_cargo_types_with_multipliers = [('LIME', 16)]
 
 # 2 tiles for this industry: pit outer tile cannot be on slopes; pit inner tiles and processor tiles can be
 # cases for both tiles ensure that tiles can only be built at same height as north tile

@@ -17,19 +17,6 @@ industry = IndustryPrimaryPort(
 )
 
 
-industry.economy_variations['BETTER_LIVING_THROUGH_CHEMISTRY'].enabled = True
-industry.economy_variations['BETTER_LIVING_THROUGH_CHEMISTRY'].accept_cargo_types = []
-industry.economy_variations['BETTER_LIVING_THROUGH_CHEMISTRY'].prod_cargo_types_with_multipliers = [('OIL_', 20)]
-
-
-industry.economy_variations["IN_A_HOT_COUNTRY"].enabled = True
-industry.economy_variations["IN_A_HOT_COUNTRY"].accept_cargo_types = ["EOIL", "OIL_"]
-# industry.economy_variations['IN_A_HOT_COUNTRY'].prod_cargo_types_with_multipliers = [('NH3_', 16)]
-industry.economy_variations["IN_A_HOT_COUNTRY"].prod_cargo_types_with_multipliers = [
-    ("RFPR", 11),
-    ("PETR", 7),
-]
-
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargo_types = ["PETR", "NH3_", "CHLO", "COAT"]
 industry.economy_variations['STEELTOWN'].prod_cargo_types_with_multipliers = [('OIL_', 20), ('RUBR', 20),('ACID', 20), ('RFPR', 20)]
@@ -42,7 +29,6 @@ industry.economy_variations['BASIC_TROPIC'].prod_cargo_types_with_multipliers = 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargo_types = ["CHLO", "RUBR", "EOIL", "PETR"]
 industry.economy_variations['BASIC_TEMPERATE'].prod_cargo_types_with_multipliers = [('OIL_', 20), ('ACID', 20), ('RFPR', 18), ('COAT', 18)]
-
 
 
 industry.add_tile(

@@ -14,9 +14,6 @@ industry = IndustryPrimaryExtractive(
     pollution_and_squalor_factor=1,
 )
 
-# industry.economy_variations['BASIC_ARCTIC'].enabled = True
-
-
 
 industry.add_tile(
     id="potash_mine_tile_1",

@@ -13,8 +13,6 @@ industry = IndustrySecondary(
     fund_cost_multiplier="120",
 )
 
-# industry.economy_variations['IN_A_HOT_COUNTRY'].enabled = True
-
 
 industry.add_tile(
     id="ferrochrome_smelter_tile_1",

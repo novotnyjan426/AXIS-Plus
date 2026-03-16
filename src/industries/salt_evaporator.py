@@ -24,9 +24,6 @@ industry = IndustryPrimaryExtractive(
     pollution_and_squalor_factor=1,
 )
 
-industry.economy_variations["BASIC_ARCTIC"].enabled = True
-
-industry.economy_variations['BETTER_LIVING_THROUGH_CHEMISTRY'].enabled = True
 
 industry.economy_variations["STEELTOWN"].enabled = True
 

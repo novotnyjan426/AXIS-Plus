@@ -13,8 +13,6 @@ industry = IndustrySecondary(
     pollution_and_squalor_factor=1,
 )
 
-industry.economy_variations["IN_A_HOT_COUNTRY"].enabled = True
-industry.economy_variations["BASIC_ARCTIC"].enabled = True
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 

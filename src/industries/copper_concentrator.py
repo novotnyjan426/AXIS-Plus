@@ -27,12 +27,6 @@ industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios 
 ]
 
 
-# industry.economy_variations['IN_A_HOT_COUNTRY'].enabled = True
-
-
-
-
-
 industry.add_tile(
     id="copper_concentrator_tile_1",
     animation_length=47,

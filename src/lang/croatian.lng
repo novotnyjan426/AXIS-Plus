@@ -21,9 +21,7 @@ STR_PARAM_NAME_PRIMARY_LEVEL2_BONUS                                             
 STR_PARAM_DESC_PRIMARY_LEVEL_BONUS                                              :Proizvodnja na farmama, u rudnicima i sličnim industrijama kada su potrebe dostave zadovoljene (kao postotak {SILVER}Normalnog {BLACK} nivoa proizvodnje).
 
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       :Osnovna - umjerena klima
-STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC                                          :Osnovna - arktička klima
 STR_PARAM_VALUE_ECONOMIES_BASIC_TROPIC                                          :Osnovna - tropska klima
-STR_PARAM_VALUE_ECONOMIES_IN_A_HOT_COUNTRY                                          :U vrućoj zemlji
 STR_PARAM_VALUE_ECONOMIES_STEELTOWN                                             :Grad od Čelika
 
 STR_CARGO_NAME_ACID                                                             :Kiselina

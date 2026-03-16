@@ -15,7 +15,6 @@ industry = IndustryPrimaryOrganic(
     fund_cost_multiplier="88",
 )
 
-industry.economy_variations["BASIC_ARCTIC"].enabled = True
 
 industry.add_tile(
     id="herding_coop_tile_1",

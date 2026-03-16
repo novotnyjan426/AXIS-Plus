@@ -10,22 +10,42 @@
 <tal:capped_extra condition="python: getattr(industry, 'base_processing_cap', 0) > 0">
     <!--! warehouse scale info: tile_count(0x100), bonus%(0x101), next_threshold(0x102)
           state: 0=none, 1=low, 2=medium, 3=max -->
-    switch (FEAT_INDUSTRIES, SELF, ${industry.id}_extra_text, [
-            STORE_TEMP(LOAD_PERM(${get_perm_num("scale_tile_count")}), 0x100),
-            STORE_TEMP(max(LOAD_PERM(${get_perm_num("scale_multiplier")}), 100) - 100, 0x101),
-            STORE_TEMP(
-                (LOAD_PERM(${get_perm_num("scale_tile_count")}) < scale_threshold_low) ? scale_threshold_low
-                : (LOAD_PERM(${get_perm_num("scale_tile_count")}) < scale_threshold_medium) ? scale_threshold_medium
-                : scale_threshold_high,
-                0x102),
-            (LOAD_PERM(${get_perm_num("scale_tile_count")}) >= scale_threshold_high) ? 3
-            : (LOAD_PERM(${get_perm_num("scale_tile_count")}) >= scale_threshold_low) ? 1
-            : 0
-        ]) {
-        0: return string(STR_WAREHOUSE_SCALE_NONE);
-        3: return string(STR_WAREHOUSE_SCALE_MAX);
-        return string(STR_WAREHOUSE_SCALE_MID);
-    }
+    <tal:has_required condition="python: len(industry.required_input_cargos) > 0">
+        switch (FEAT_INDUSTRIES, SELF, ${industry.id}_extra_text, [
+                STORE_TEMP(LOAD_PERM(${get_perm_num("scale_tile_count")}), 0x100),
+                STORE_TEMP(max(LOAD_PERM(${get_perm_num("scale_multiplier")}), 100) - 100, 0x101),
+                STORE_TEMP(
+                    (LOAD_PERM(${get_perm_num("scale_tile_count")}) < scale_threshold_low) ? scale_threshold_low
+                    : (LOAD_PERM(${get_perm_num("scale_tile_count")}) < scale_threshold_medium) ? scale_threshold_medium
+                    : scale_threshold_high,
+                    0x102),
+                (LOAD_PERM(${get_perm_num("scale_tile_count")}) >= scale_threshold_high) ? 3
+                : (LOAD_PERM(${get_perm_num("scale_tile_count")}) >= scale_threshold_low) ? 1
+                : 0
+            ]) {
+            0: return string(STR_WAREHOUSE_SCALE_NONE_REQ);
+            3: return string(STR_WAREHOUSE_SCALE_MAX_REQ);
+            return string(STR_WAREHOUSE_SCALE_MID_REQ);
+        }
+    </tal:has_required>
+    <tal:no_required condition="python: len(industry.required_input_cargos) == 0">
+        switch (FEAT_INDUSTRIES, SELF, ${industry.id}_extra_text, [
+                STORE_TEMP(LOAD_PERM(${get_perm_num("scale_tile_count")}), 0x100),
+                STORE_TEMP(max(LOAD_PERM(${get_perm_num("scale_multiplier")}), 100) - 100, 0x101),
+                STORE_TEMP(
+                    (LOAD_PERM(${get_perm_num("scale_tile_count")}) < scale_threshold_low) ? scale_threshold_low
+                    : (LOAD_PERM(${get_perm_num("scale_tile_count")}) < scale_threshold_medium) ? scale_threshold_medium
+                    : scale_threshold_high,
+                    0x102),
+                (LOAD_PERM(${get_perm_num("scale_tile_count")}) >= scale_threshold_high) ? 3
+                : (LOAD_PERM(${get_perm_num("scale_tile_count")}) >= scale_threshold_low) ? 1
+                : 0
+            ]) {
+            0: return string(STR_WAREHOUSE_SCALE_NONE);
+            3: return string(STR_WAREHOUSE_SCALE_MAX);
+            return string(STR_WAREHOUSE_SCALE_MID);
+        }
+    </tal:no_required>
 </tal:capped_extra>
 
 
@@ -38,17 +58,49 @@
     <!--! up to 8 cargos, n.b. supplied_flag_cargo_n register names are indexed to 1 not 0 -->
     <tal:cargos repeat="input_cargo industry.get_property('accept_cargos_with_input_ratios', economy)">
         <tal:warehouse condition="python: getattr(industry, 'base_processing_cap', 0) > 0">
-            <!--! warehouse-capped: combined full/supplied state — 0=normal, 1=supplied, 2=full, 3=full+supplied -->
-            switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${input_cargo[0]}_economy_${economy.numeric_id}, [
-                    STORE_TEMP(LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}), 0x100),
-                    STORE_TEMP(${industry.warehouse_max}, 0x101),
-                    (LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}) >= ${industry.warehouse_max} ? 2 : 0)
-                        + (LOAD_PERM(${get_perm_num("supplied_cycles_remaining_cargo_" + str(repeat.input_cargo.number))}) > 0 ? 1 : 0)
-                ]) {
-                0: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE);
-                1: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_SUPPLIED);
-                return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_FULL);
-            }
+            <tal:required condition="python: input_cargo[0] in industry.required_input_cargos">
+                <!--! required cargo: state = full(4) + supplied(2) + empty(1)
+                      0=has stock, 1=empty, 2=supplied, 3=supplied+empty, 4+=full -->
+                switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${input_cargo[0]}_economy_${economy.numeric_id}, [
+                        STORE_TEMP(LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}), 0x100),
+                        STORE_TEMP(${industry.warehouse_max}, 0x101),
+                        (LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}) >= ${industry.warehouse_max} ? 4 : 0)
+                            + (LOAD_PERM(${get_perm_num("supplied_cycles_remaining_cargo_" + str(repeat.input_cargo.number))}) > 0 ? 2 : 0)
+                            + (LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}) == 0 ? 1 : 0)
+                    ]) {
+                    0: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED);
+                    1: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_EMPTY);
+                    2: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_SUPPLIED);
+                    3: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_SUPPLIED);
+                    return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_FULL);
+                }
+            </tal:required>
+            <tal:booster condition="python: len(industry.required_input_cargos) > 0 and input_cargo[0] not in industry.required_input_cargos">
+                <!--! booster cargo: same as normal warehouse but with booster label -->
+                switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${input_cargo[0]}_economy_${economy.numeric_id}, [
+                        STORE_TEMP(LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}), 0x100),
+                        STORE_TEMP(${industry.warehouse_max}, 0x101),
+                        (LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}) >= ${industry.warehouse_max} ? 2 : 0)
+                            + (LOAD_PERM(${get_perm_num("supplied_cycles_remaining_cargo_" + str(repeat.input_cargo.number))}) > 0 ? 1 : 0)
+                    ]) {
+                    0: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_BOOSTER);
+                    1: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_BOOSTER_SUPPLIED);
+                    return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_FULL);
+                }
+            </tal:booster>
+            <tal:normal condition="python: len(industry.required_input_cargos) == 0">
+                <!--! no required cargos defined: original warehouse display -->
+                switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${input_cargo[0]}_economy_${economy.numeric_id}, [
+                        STORE_TEMP(LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}), 0x100),
+                        STORE_TEMP(${industry.warehouse_max}, 0x101),
+                        (LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}) >= ${industry.warehouse_max} ? 2 : 0)
+                            + (LOAD_PERM(${get_perm_num("supplied_cycles_remaining_cargo_" + str(repeat.input_cargo.number))}) > 0 ? 1 : 0)
+                    ]) {
+                    0: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE);
+                    1: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_SUPPLIED);
+                    return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_FULL);
+                }
+            </tal:normal>
         </tal:warehouse>
         <tal:no_warehouse condition="python: getattr(industry, 'base_processing_cap', 0) == 0">
             switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${input_cargo[0]}_economy_${economy.numeric_id}, [

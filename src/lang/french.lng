@@ -20,9 +20,7 @@ STR_PARAM_NAME_PRIMARY_LEVEL2_BONUS                                             
 STR_PARAM_DESC_PRIMARY_LEVEL_BONUS                                              :Production des fermes, mines et industries similaires, quand les besoins en matières premières sont satisfaits (% du niveau {SILVER}Normal{BLACK}).
 
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       :Basique - Environnement tempéré
-STR_PARAM_VALUE_ECONOMIES_BASIC_ARCTIC                                          :Basique - Environnement arctique
 STR_PARAM_VALUE_ECONOMIES_BASIC_TROPIC                                          :Basique - Environnement tropical
-STR_PARAM_VALUE_ECONOMIES_IN_A_HOT_COUNTRY                                          :Dans un pays chaud
 STR_PARAM_VALUE_ECONOMIES_STEELTOWN                                             :Cité de l'acier
 
 STR_CARGO_NAME_ACID                                                             :Acide
