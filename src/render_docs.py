@@ -328,6 +328,19 @@ class DocHelper(object):
                     return "medium+"
         return ""
 
+    def cargos_produced_sorted(self, industry, economy):
+        """Return produced cargos sorted: base cargos first, then scale bonus cargos by level."""
+        cargos = self.cargos_produced_by_industry(industry, economy)
+        base = []
+        scale = []
+        for cargo in cargos:
+            info = self.get_cargo_scale_info(industry, cargo)
+            if info:
+                scale.append(cargo)
+            else:
+                base.append(cargo)
+        return base + scale
+
     def get_cargo_input_ratio(self, industry, cargo, economy):
         """Return the input ratio for an accepted cargo, or 0."""
         accept_list = industry.get_property('accept_cargos_with_input_ratios', economy)
