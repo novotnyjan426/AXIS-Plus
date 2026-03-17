@@ -301,14 +301,22 @@ class DocHelper(object):
         return ["farm_supplies", "engineering_supplies"]
 
     def is_cargo_required(self, industry, cargo):
-        """Check if a cargo is in the industry's required_input_cargos list."""
+        """Check if a cargo is in the industry's required_input_cargos (AND) list."""
         if not hasattr(industry, 'required_input_cargos'):
             return False
         return cargo.cargo_label in industry.required_input_cargos
 
+    def is_cargo_required_any(self, industry, cargo):
+        """Check if a cargo is in the industry's required_any_input_cargos (OR) list."""
+        if not hasattr(industry, 'required_any_input_cargos'):
+            return False
+        return cargo.cargo_label in industry.required_any_input_cargos
+
     def has_required_cargos(self, industry):
-        """Check if industry has any required input cargos."""
-        return hasattr(industry, 'required_input_cargos') and len(industry.required_input_cargos) > 0
+        """Check if industry has any required input cargos (AND or OR)."""
+        has_and = hasattr(industry, 'required_input_cargos') and len(industry.required_input_cargos) > 0
+        has_or = hasattr(industry, 'required_any_input_cargos') and len(industry.required_any_input_cargos) > 0
+        return has_and or has_or
 
     def is_warehouse_industry(self, industry):
         """Check if industry uses warehouse model."""
@@ -320,12 +328,18 @@ class DocHelper(object):
             return ""
         for label, levels in industry.scale_bonus_cargos:
             if label == cargo.cargo_label:
-                if "medium" in levels and "high" in levels:
+                # find lowest active level
+                lowest = None
+                for key in ("low", "medium", "high"):
+                    if key in levels:
+                        if lowest is None:
+                            lowest = key
+                if lowest == "low":
+                    return "low+"
+                elif lowest == "medium":
                     return "medium+"
-                elif "high" in levels:
+                elif lowest == "high":
                     return "high"
-                elif "medium" in levels:
-                    return "medium+"
         return ""
 
     def cargos_produced_sorted(self, industry, economy):
