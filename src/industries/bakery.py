@@ -18,9 +18,16 @@ industry = IndustrySecondary(
     name="string(STR_IND_BAKERY)",
     nearby_station_name="string(STR_STATION_MILL)",
     fund_cost_multiplier="50",
+    base_processing_cap=32,
+    required_input_cargos=["BAKE", "SUGR"],
+    scale_bonus_cargos=[("BIOM", {"low": 1, "medium": 2, "high": 3})],
 )
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
+industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
+    ("FOOD", 8),
+    ("BIOM", 1),
+]
 
 
 

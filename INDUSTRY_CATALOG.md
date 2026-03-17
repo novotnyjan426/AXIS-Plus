@@ -702,22 +702,25 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Livestock [LVST] ×6
-  ◀ Packaging [MNSP] ×2
+  ◀ Livestock [LVST] ×6 ★required
+  ◀ Packaging [MNSP] ×1
+  ◀ Salt [SALT] ×1
 
   ▶ Food [FOOD] ×8
-  ▶ Biomass [BIOM] ×2 (scale: medium+)
+  ▶ Biomass [BIOM] ×2 (scale: medium) ×3 (scale: high)
 
 **Tropical Paradise**
-  ◀ Livestock [LVST] ×8
-  ◀ Cleaning Agents [SOAP] ×2
+  ◀ Livestock [LVST] ×6 ★required
+  ◀ Cleaning Agents [SOAP] ×1
+  ◀ Salt [SALT] ×1
 
   ▶ Meat [MEAT] ×8
-  ▶ Biomass [BIOM] ×2 (scale: medium+)
+  ▶ Biomass [BIOM] ×2 (scale: medium) ×3 (scale: high)
 
 **Steel City**
-  ◀ Livestock [LVST] ×6
-  ◀ Cleaning Agents [SOAP] ×2
+  ◀ Livestock [LVST] ×6 ★required
+  ◀ Cleaning Agents [SOAP] ×1
+  ◀ Salt [SALT] ×1
 
   ▶ Food [FOOD] ×8
 ---
@@ -890,13 +893,14 @@ cargos at a constant rate unrelated to deliveries.
 ### Bakery (`bakery`)
 **Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise
 
-  ◀ Flour [BAKE] ×3
-  ◀ Sugar [SUGR] ×2
+  ◀ Flour [BAKE] ×3 ★required
+  ◀ Sugar [SUGR] ×2 ★required
   ◀ Food Additives [ENUM] ×1
   ◀ Edible Oil [EOIL] ×1
   ◀ Packaging [MNSP] ×1
 
   ▶ Food [FOOD] ×8
+  ▶ Biomass [BIOM] ×1 (scale: low) ×2 (scale: medium) ×3 (scale: high)
 
 ---
 
@@ -1007,15 +1011,15 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise
 
 **Extreme Classic**
-  ◀ Grain [GRAI] ×4
-  ◀ Produce [FRUT] ×3
+  ◀ Grain [GRAI] ×4 ★required
+  ◀ Produce [FRUT] ×2
   ◀ Packaging [MNSP] ×2
 
   ▶ Alcohol [BEER] ×6
   ▶ Biomass [BIOM] ×2
 
 **Tropical Paradise**
-  ◀ Grain [GRAI] ×4
+  ◀ Grain [GRAI] ×4 ★required
   ◀ Sugar [SUGR] ×2
   ◀ Packaging [MNSP] ×1
   ◀ Food Additives [ENUM] ×1
@@ -1040,27 +1044,29 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Produce [FRUT] ×4
-  ◀ Fish [FISH] ×4
-  ◀ Edible Oil [EOIL] ×4
+  ◀ Produce [FRUT] ×4 ★required-any
+  ◀ Fish [FISH] ×4 ★required-any
+  ◀ Edible Oil [EOIL] ×2
   ◀ Packaging [MNSP] ×2
   ◀ Salt [SALT] ×2
 
   ▶ Food [FOOD] ×8
+  ▶ Biomass [BIOM] ×2 (scale: medium+)
 
 **Tropical Paradise**
-  ◀ Sugar [SUGR] ×6
-  ◀ Produce [FRUT] ×6
-  ◀ Meat [MEAT] ×6
-  ◀ Food Additives [ENUM] ×2
-  ◀ Edible Oil [EOIL] ×2
+  ◀ Produce [FRUT] ×6 ★required-any
+  ◀ Meat [MEAT] ×4 ★required-any
+  ◀ Sugar [SUGR] ×3
   ◀ Packaging [MNSP] ×2
+  ◀ Food Additives [ENUM] ×1
+  ◀ Edible Oil [EOIL] ×1
 
   ▶ Food [FOOD] ×8
+  ▶ Biomass [BIOM] ×2 (scale: medium+)
 
 **Steel City**
-  ◀ Produce [FRUT] ×4
-  ◀ Fish [FISH] ×4
+  ◀ Produce [FRUT] ×4 ★required-any
+  ◀ Fish [FISH] ×4 ★required-any
   ◀ Packaging [MNSP] ×2
   ◀ Salt [SALT] ×2
 
@@ -1343,39 +1349,35 @@ cargos at a constant rate unrelated to deliveries.
 
   ◀ Milk [MILK] ×6 ★required
   ◀ Packaging [MNSP] ×2 ★required
+  ◀ Salt [SALT] ×1
 
   ▶ Food [FOOD] ×8
-  ▶ Edible Oil [EOIL] ×2
+  ▶ Edible Oil [EOIL] ×2 (scale: low+)
+  ▶ Biomass [BIOM] ×1 (scale: high)
 ---
 
 ### Distillery and Winery (`cider_mill`)
 **Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise
 
-  ◀ Produce [FRUT] ×3
-  ◀ Sugar Cane [SGCN] ×3
+  ◀ Produce [FRUT] ×3 ★required-any
+  ◀ Sugar Cane [SGCN] ×3 ★required-any
   ◀ Packaging [MNSP] ×1
   ◀ Food Additives [ENUM] ×1
 
   ▶ Alcohol [BEER] ×6
-  ▶ Acetic Acid [ACET] ×3
-  ▶ Biomass [BIOM] ×2
+  ▶ Acetic Acid [ACET] ×2 (scale: low) ×3 (scale: high)
+  ▶ Biomass [BIOM] ×1 (scale: low) ×2 (scale: high)
 
 ---
 
 ### Edible Oil Refinery (`edible_oil_refinery`)
-**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Tropical Paradise
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise
 
-**Extreme Classic**
-  ◀ Oil Seeds [OLSD] ×4
-
-  ▶ Edible Oil [EOIL] ×4
-  ▶ Biomass [BIOM] ×1
-
-**Tropical Paradise**
-  ◀ Oil Seeds [OLSD] ×6
+  ◀ Oil Seeds [OLSD] ×6 ★required
+  ◀ Packaging [MNSP] ×2
 
   ▶ Edible Oil [EOIL] ×4
-  ▶ Biomass [BIOM] ×1
+  ▶ Biomass [BIOM] ×2
 
 ---
 
@@ -1542,20 +1544,21 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Grain [GRAI] ×6
-  ◀ Packaging [MNSP] ×4
+  ◀ Grain [GRAI] ×6 ★required
+  ◀ Packaging [MNSP] ×2
 
   ▶ Food [FOOD] ×6
-  ▶ Edible Oil [EOIL] ×4
+  ▶ Edible Oil [EOIL] ×2 (scale: low) ×3 (scale: medium) ×4 (scale: high)
 
 **Tropical Paradise**
-  ◀ Grain [GRAI] ×6
+  ◀ Grain [GRAI] ×6 ★required
+  ◀ Packaging [MNSP] ×2
 
   ▶ Flour [BAKE] ×6
 
 **Steel City**
-  ◀ Grain [GRAI] ×6
-  ◀ Packaging [MNSP] ×4
+  ◀ Grain [GRAI] ×6 ★required
+  ◀ Packaging [MNSP] ×2
 
   ▶ Food [FOOD] ×6
 
@@ -1592,18 +1595,20 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise, Steel City
 
 **Tropical Paradise**
-  ◀ Produce [FRUT] ×4
-  ◀ Flour [BAKE] ×4
+  ◀ Produce [FRUT] ×5 ★required
+  ◀ Flour [BAKE] ×3
   ◀ Packaging [MNSP] ×2
-  ◀ Acetic Acid [ACET] ×2
+  ◀ Acetic Acid [ACET] ×1
 
   ▶ Food [FOOD] ×8
+  ▶ Biomass [BIOM] ×2 (scale: medium+)
 
 **Steel City**
-  ◀ Produce [FRUT] ×6
-  ◀ Packaging [MNSP] ×3
+  ◀ Produce [FRUT] ×6 ★required
+  ◀ Packaging [MNSP] ×2
 
   ▶ Food [FOOD] ×8
+  ▶ Biomass [BIOM] ×2 (scale: medium+)
 
 ---
 
@@ -1729,17 +1734,18 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise, Steel City
 
 **Tropical Paradise**
-  ◀ Meat [MEAT] ×4
+  ◀ Meat [MEAT] ×5 ★required
   ◀ Packaging [MNSP] ×2
-  ◀ Food Additives [ENUM] ×2
+  ◀ Salt [SALT] ×2
+  ◀ Food Additives [ENUM] ×1
 
-  ▶ Food [FOOD] ×6
-  ▶ Edible Oil [EOIL] ×4
-  ▶ Biomass [BIOM] ×2
+  ▶ Food [FOOD] ×7
+  ▶ Edible Oil [EOIL] ×2 (scale: low) ×3 (scale: high)
+  ▶ Biomass [BIOM] ×2 (scale: medium+)
 
 **Steel City**
-  ◀ Fish [FISH] ×6
-  ◀ Packaging [MNSP] ×3
+  ◀ Fish [FISH] ×6 ★required
+  ◀ Packaging [MNSP] ×2
   ◀ Salt [SALT] ×2
 
   ▶ Food [FOOD] ×8
@@ -2106,19 +2112,20 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise
 
 **Extreme Classic**
-  ◀ Packaging [MNSP] ×3
-  ◀ Sugar Beet [SGBT] ×5
+  ◀ Sugar Beet [SGBT] ×6 ★required
+  ◀ Packaging [MNSP] ×2
+  ◀ Limestone [LIME] ×1
 
   ▶ Food [FOOD] ×6
-  ▶ Biomass [BIOM] ×2
+  ▶ Biomass [BIOM] ×2 (scale: low+)
 
 **Tropical Paradise**
-  ◀ Sugar Cane [SGCN] ×6
+  ◀ Sugar Cane [SGCN] ×6 ★required
   ◀ Phosphate [PHOS] ×1
   ◀ Food Additives [ENUM] ×1
 
   ▶ Sugar [SUGR] ×6
-  ▶ Biomass [BIOM] ×2
+  ▶ Biomass [BIOM] ×2 (scale: low+)
 
 ---
 

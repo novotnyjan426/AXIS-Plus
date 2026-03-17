@@ -2068,6 +2068,9 @@ class IndustrySecondary(Industry):
         # remaining cargos in accept list are optional efficiency boosters
         # e.g. ["MILK", "PACK"] — dairy won't produce unless both are in warehouse
         self.required_input_cargos = kwargs.get("required_input_cargos", [])
+        # required_any_input_cargos: at least ONE of these must be in warehouse (OR gate)
+        # e.g. ["FRUT", "FISH"] — cannery produces if fruit OR fish (or both) present
+        self.required_any_input_cargos = kwargs.get("required_any_input_cargos", [])
         # scale_bonus_cargos: list of (cargo_label, {level: ratio}) unlocked at scale levels
         # e.g. [("BIOM", {"medium": 1, "high": 2})]
         self.scale_bonus_cargos = kwargs.get("scale_bonus_cargos", [])
@@ -2116,11 +2119,21 @@ class IndustrySecondary(Industry):
             )
 
     def get_required_cargo_warehouse_indices(self, economy):
-        """Return 1-based warehouse slot indices for required input cargos in this economy."""
+        """Return 1-based warehouse slot indices for required input cargos in this economy (AND gate)."""
         accept_list = self.get_property('accept_cargos_with_input_ratios', economy)
         labels = [c[0] for c in accept_list]
         indices = []
         for req_label in self.required_input_cargos:
+            if req_label in labels:
+                indices.append(labels.index(req_label) + 1)
+        return indices
+
+    def get_required_any_cargo_warehouse_indices(self, economy):
+        """Return 1-based warehouse slot indices for required-any input cargos in this economy (OR gate)."""
+        accept_list = self.get_property('accept_cargos_with_input_ratios', economy)
+        labels = [c[0] for c in accept_list]
+        indices = []
+        for req_label in self.required_any_input_cargos:
             if req_label in labels:
                 indices.append(labels.index(req_label) + 1)
         return indices
@@ -2182,30 +2195,46 @@ class IndustrySecondary(Industry):
 
     def get_bonus_cargo_ratio_expression(self, cargo_label):
         """Return NML expression for a bonus cargo's output ratio based on scale level.
-        Returns e.g. '(LOAD_PERM(22) >= primary_scale_bonus_medium ? (LOAD_PERM(22) >= primary_scale_bonus_high ? 2 : 1) : 0)'"""
+        Supports keys: "low", "medium", "high". Each maps to a GRF parameter threshold.
+        The ratio at each level persists upward unless overridden by a higher level.
+        E.g. {"low": 2} means ratio 2 at low, medium, and high.
+             {"medium": 2, "high": 3} means 0 below medium, 2 at medium, 3 at high."""
         for label, levels in self.scale_bonus_cargos:
             if label == cargo_label:
                 exp_reg = self.get_perm_num("scale_multiplier")
-                # build nested ternary: check highest level first
-                if "high" in levels and "medium" in levels:
-                    return (
-                        "(LOAD_PERM({reg}) >= primary_scale_bonus_high ? {high}"
-                        " : LOAD_PERM({reg}) >= primary_scale_bonus_medium ? {med}"
-                        " : 0)"
-                    ).format(reg=exp_reg, high=levels["high"], med=levels["medium"])
-                elif "medium" in levels:
-                    return (
-                        "(LOAD_PERM({reg}) >= primary_scale_bonus_medium ? {med} : 0)"
-                    ).format(reg=exp_reg, med=levels["medium"])
-                elif "high" in levels:
-                    return (
-                        "(LOAD_PERM({reg}) >= primary_scale_bonus_high ? {high} : 0)"
-                    ).format(reg=exp_reg, high=levels["high"])
+                # collect thresholds in descending order, building nested ternary
+                thresholds = []
+                if "high" in levels:
+                    thresholds.append(("primary_scale_bonus_high", levels["high"]))
+                if "medium" in levels:
+                    thresholds.append(("primary_scale_bonus_medium", levels["medium"]))
+                if "low" in levels:
+                    thresholds.append(("primary_scale_bonus_low", levels["low"]))
+                if not thresholds:
+                    return "0"
+                # build from innermost (lowest threshold) outward
+                # the fallback when no threshold is met is 0
+                expr = "0"
+                for param, ratio in reversed(thresholds):
+                    expr = "(LOAD_PERM({reg}) >= {param} ? {ratio} : {fallback})".format(
+                        reg=exp_reg, param=param, ratio=ratio, fallback=expr
+                    )
+                return expr
         return "0"
 
     def is_bonus_cargo(self, cargo_label):
-        """Check if a cargo is an scale-unlocked bonus cargo."""
+        """Check if a cargo is a scale-unlocked bonus cargo."""
         return any(label == cargo_label for label, _ in self.scale_bonus_cargos)
+
+    def get_bonus_cargo_unlock_param(self, cargo_label):
+        """Return the GRF parameter name at which this bonus cargo first becomes active.
+        E.g. 'primary_scale_bonus_low' for a cargo with {"low": 2}."""
+        for label, levels in self.scale_bonus_cargos:
+            if label == cargo_label:
+                for key in ("low", "medium", "high"):
+                    if key in levels:
+                        return "primary_scale_bonus_" + key
+        return "primary_scale_bonus_medium"  # fallback
 
     def get_extra_text_string_warehouse(self, economy):
         """Warehouse variant of extra_text: includes throughput info."""

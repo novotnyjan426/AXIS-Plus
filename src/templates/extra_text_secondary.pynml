@@ -59,7 +59,7 @@
     <tal:cargos repeat="input_cargo industry.get_property('accept_cargos_with_input_ratios', economy)">
         <tal:warehouse condition="python: getattr(industry, 'base_processing_cap', 0) > 0">
             <tal:required condition="python: input_cargo[0] in industry.required_input_cargos">
-                <!--! required cargo: state = full(4) + supplied(2) + empty(1)
+                <!--! AND-required cargo: state = full(4) + supplied(2) + empty(1)
                       0=has stock, 1=empty, 2=supplied, 3=supplied+empty, 4+=full -->
                 switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${input_cargo[0]}_economy_${economy.numeric_id}, [
                         STORE_TEMP(LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}), 0x100),
@@ -75,7 +75,23 @@
                     return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_FULL);
                 }
             </tal:required>
-            <tal:booster condition="python: len(industry.required_input_cargos) > 0 and input_cargo[0] not in industry.required_input_cargos">
+            <tal:required_any condition="python: input_cargo[0] in industry.required_any_input_cargos and input_cargo[0] not in industry.required_input_cargos">
+                <!--! OR-required cargo: at least one of these must be present -->
+                switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${input_cargo[0]}_economy_${economy.numeric_id}, [
+                        STORE_TEMP(LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}), 0x100),
+                        STORE_TEMP(${industry.warehouse_max}, 0x101),
+                        (LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}) >= ${industry.warehouse_max} ? 4 : 0)
+                            + (LOAD_PERM(${get_perm_num("supplied_cycles_remaining_cargo_" + str(repeat.input_cargo.number))}) > 0 ? 2 : 0)
+                            + (LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}) == 0 ? 1 : 0)
+                    ]) {
+                    0: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_ANY);
+                    1: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_ANY_EMPTY);
+                    2: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_ANY_SUPPLIED);
+                    3: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_ANY_SUPPLIED);
+                    return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_FULL);
+                }
+            </tal:required_any>
+            <tal:booster condition="python: (len(industry.required_input_cargos) > 0 or len(industry.required_any_input_cargos) > 0) and input_cargo[0] not in industry.required_input_cargos and input_cargo[0] not in industry.required_any_input_cargos">
                 <!--! booster cargo: same as normal warehouse but with booster label -->
                 switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${input_cargo[0]}_economy_${economy.numeric_id}, [
                         STORE_TEMP(LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}), 0x100),
@@ -88,7 +104,7 @@
                     return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_FULL);
                 }
             </tal:booster>
-            <tal:normal condition="python: len(industry.required_input_cargos) == 0">
+            <tal:normal condition="python: len(industry.required_input_cargos) == 0 and len(industry.required_any_input_cargos) == 0">
                 <!--! no required cargos defined: original warehouse display -->
                 switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${input_cargo[0]}_economy_${economy.numeric_id}, [
                         STORE_TEMP(LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.input_cargo.number))}), 0x100),
@@ -117,7 +133,7 @@
             switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${output_cargo[0]}_economy_${economy.numeric_id},
                 LOAD_PERM(${get_perm_num("scale_multiplier")})) {
                 0: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_BONUS_LOCKED);
-                1 .. primary_scale_bonus_medium - 1: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_BONUS_LOCKED);
+                1 .. ${industry.get_bonus_cargo_unlock_param(output_cargo[0])} - 1: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_BONUS_LOCKED);
                 return 0x3800 + string(STR_EMPTY);
             }
         </tal:is_bonus>

@@ -14,20 +14,23 @@ industry = IndustrySecondary(
     fund_cost_multiplier="115",
     pollution_and_squalor_factor=2,
     base_processing_cap=22,
-    scale_bonus_cargos=[("BIOM", {"medium": 1, "high": 2})],
+    required_input_cargos=["LVST"],
+    scale_bonus_cargos=[("BIOM", {"medium": 2, "high": 3})],
 )
 
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
     ("LVST", 6),
-    ("MNSP", 2),  
+    ("MNSP", 1),
+    ("SALT", 1),
 ]
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
-    ("LVST", 8),
-    ("SOAP", 2),
+    ("LVST", 6),
+    ("SOAP", 1),
+    ("SALT", 1),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("MEAT", 8),
@@ -38,7 +41,8 @@ industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
     ("LVST", 6),
-    ("SOAP", 2),
+    ("SOAP", 1),
+    ("SALT", 1),
 ]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("FOOD", 8),

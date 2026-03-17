@@ -308,7 +308,7 @@ switch (FEAT_INDUSTRIES, SELF, ${industry.id}_produce_cargo_arrival, economy) {
             STORE_PERM_ALT(${get_perm_num("total_cargo_produced_this_cycle")}, 0),
             <!--! calculate production ratio from supplied flags -->
             ${industry.id}_produce_calculate_current_production_level_${economy.numeric_id}(),
-            <!--! required cargos gate: if any required cargo has 0 in warehouse, block all production
+            <!--! required cargos AND gate: if any required cargo has 0 in warehouse, block all production
                   temp register 0x10 holds the gate flag (1=OK, 0=blocked) -->
             STORE_TEMP(1, 0x10),
             <tal:required_check repeat="req_idx industry.get_required_cargo_warehouse_indices(economy)">
@@ -317,6 +317,18 @@ switch (FEAT_INDUSTRIES, SELF, ${industry.id}_produce_cargo_arrival, economy) {
                     0x10
                 ),
             </tal:required_check>
+            <!--! required-any cargos OR gate: at least one must be in warehouse, else block
+                  only applied if required_any_input_cargos is non-empty -->
+            <tal:has_any_required condition="python: len(industry.get_required_any_cargo_warehouse_indices(economy)) > 0">
+                STORE_TEMP(
+                    LOAD_TEMP(0x10) * ((0
+                        <tal:any_check repeat="req_idx industry.get_required_any_cargo_warehouse_indices(economy)">
+                            + (LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(req_idx))}) > 0)
+                        </tal:any_check>
+                    ) > 0),
+                    0x10
+                ),
+            </tal:has_any_required>
             <!--! for each input cargo: process min(warehouse, expanded_cap)
                  expanded_cap = base_cap * scale_multiplier / 100
                  gated by required cargos flag in TEMP(0x10) -->

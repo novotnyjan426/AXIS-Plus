@@ -11,16 +11,23 @@ industry = IndustrySecondary(
     name="string(STR_IND_CANNERY)",
     nearby_station_name="string(STR_STATION_CANNERY)",
     fund_cost_multiplier="65",
+    base_processing_cap=32,
+    required_any_input_cargos=["FRUT", "FISH", "MEAT"],
+    scale_bonus_cargos=[("BIOM", {"medium": 2})],
 )
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
-    ("SUGR", 6),
     ("FRUT", 6),
-    ("MEAT", 6),
-    ("ENUM", 2),
-    ("EOIL", 2),
+    ("MEAT", 4),
+    ("SUGR", 3),
     ("MNSP", 2),
+    ("ENUM", 1),
+    ("EOIL", 1),
+]
+industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
+    ("FOOD", 8),
+    ("BIOM", 2),
 ]
 
 
@@ -30,17 +37,19 @@ industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
     ("FISH", 4),
     ("MNSP", 2),
     ("SALT", 2),
-
 ]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
     ("FRUT", 4),
     ("FISH", 4),
-    ("EOIL", 4),
+    ("EOIL", 2),
     ("MNSP", 2),
     ("SALT", 2),
-
+]
+industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
+    ("FOOD", 8),
+    ("BIOM", 2),
 ]
 
 industry.add_tile(

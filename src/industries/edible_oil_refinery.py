@@ -2,22 +2,22 @@ from industry import IndustrySecondary, TileLocationChecks
 
 industry = IndustrySecondary(
     id="edible_oil_refinery",
-    accept_cargos_with_input_ratios=[("OLSD", 6)],
-    prod_cargo_types_with_output_ratios=[("EOIL", 4), ("BIOM", 1)],
+    accept_cargos_with_input_ratios=[("OLSD", 6), ("MNSP", 2)],
+    combined_cargos_boost_prod=True,
+    prod_cargo_types_with_output_ratios=[("EOIL", 4), ("BIOM", 2)],
     prob_in_game="7",
     prob_map_gen="7",
     map_colour="163",
     name="string(STR_IND_EDIBLE_OIL_REFINERY)",
     nearby_station_name="string(STR_STATION_OIL_PRESS)",
     fund_cost_multiplier="118",
+    base_processing_cap=32,
+    required_input_cargos=["OLSD"],
 )
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
-industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ("OLSD", 4),
-]
 
 
 industry.add_tile(

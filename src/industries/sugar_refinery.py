@@ -2,7 +2,7 @@ from industry import IndustrySecondary, TileLocationChecks
 
 industry = IndustrySecondary(
     id="sugar_refinery",
-    accept_cargos_with_input_ratios=[("MNSP", 3), ("SGBT", 5)],
+    accept_cargos_with_input_ratios=[("SGBT", 6), ("MNSP", 2), ("LIME", 1)],
     combined_cargos_boost_prod=True,
     prod_cargo_types_with_output_ratios=[("FOOD", 8)],
     prob_in_game="3",
@@ -17,7 +17,10 @@ industry = IndustrySecondary(
             ["arable_farm"],
             72,
         ]
-    )
+    ),
+    base_processing_cap=32,
+    required_input_cargos=["SGBT", "SGCN"],
+    scale_bonus_cargos=[("BIOM", {"low": 2})],
 )
 
 # deliberately not in BLTC, requires sugar beet, which is too climate-specific for BLTC
@@ -38,6 +41,8 @@ industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_rati
     ("FOOD", 6),
     ("BIOM", 2),
 ]
+
+
 
 
 industry.add_tile(

@@ -2,8 +2,8 @@ from industry import IndustrySecondary, TileLocationChecks
 
 industry = IndustrySecondary(
     id="fruit_packing_plant",
-    accept_cargos_with_input_ratios=[("FRUT", 6), ("MNSP", 3)],
-    prod_cargo_types_with_output_ratios=[("FOOD", 8)],
+    accept_cargos_with_input_ratios=[("FRUT", 6), ("MNSP", 2)],
+    prod_cargo_types_with_output_ratios=[("FOOD", 8), ("BIOM", 2)],
     combined_cargos_boost_prod=True,
     prob_in_game="7",
     prob_map_gen="7",
@@ -17,6 +17,9 @@ industry = IndustrySecondary(
         ]
     ),
     fund_cost_multiplier="118",
+    base_processing_cap=32,
+    required_input_cargos=["FRUT"],
+    scale_bonus_cargos=[("BIOM", {"medium": 2})],
 )
 
 industry.economy_variations["STEELTOWN"].enabled = True
@@ -24,13 +27,14 @@ industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
-    ("FRUT", 4),
-    ("BAKE", 4),
+    ("FRUT", 5),
+    ("BAKE", 3),
     ("MNSP", 2),
-    ("ACET", 2),
+    ("ACET", 1),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("FOOD", 8),
+    ("BIOM", 2),
 ]
 
 
