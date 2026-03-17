@@ -352,6 +352,39 @@ class DocHelper(object):
                     return " / ".join(parts)
         return ""
 
+    def cargos_produced_base(self, industry, economy):
+        """Return produced cargos that are NOT scale bonus."""
+        return [c for c in self.cargos_produced_by_industry(industry, economy)
+                if not self.get_cargo_scale_info(industry, c)]
+
+    def has_scale_bonus_outputs(self, industry, economy):
+        """Check if industry has any scale bonus output cargos in this economy."""
+        return any(self.get_cargo_scale_info(industry, c)
+                   for c in self.cargos_produced_by_industry(industry, economy))
+
+    def get_scale_levels_with_cargos(self, industry, economy):
+        """Return list of (level_name, [(cargo, ratio)]) for all defined scale levels.
+        Each level shows the cargos that have that specific level defined."""
+        if not hasattr(industry, 'scale_bonus_cargos'):
+            return []
+        prod_cargos = self.cargos_produced_by_industry(industry, economy)
+        prod_labels = {c.cargo_label: c for c in prod_cargos}
+        levels_data = {}  # {level_name: [(cargo, ratio)]}
+        for label, levels in industry.scale_bonus_cargos:
+            if label not in prod_labels:
+                continue
+            cargo = prod_labels[label]
+            for key in ("low", "medium", "high"):
+                if key in levels:
+                    if key not in levels_data:
+                        levels_data[key] = []
+                    levels_data[key].append((cargo, levels[key]))
+        result = []
+        for key in ("low", "medium", "high"):
+            if key in levels_data:
+                result.append((key, levels_data[key]))
+        return result
+
     def cargos_produced_sorted(self, industry, economy):
         """Return produced cargos sorted: base cargos first, then scale bonus cargos by level."""
         cargos = self.cargos_produced_by_industry(industry, economy)

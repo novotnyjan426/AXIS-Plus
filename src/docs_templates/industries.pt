@@ -65,7 +65,7 @@
                                     <td>
                                         <tal:has_groups condition="doc_helper.has_required_cargos(industry)">
                                             <tal:req_all define="req_cargos doc_helper.cargos_accepted_required_all(industry, economy)" condition="len(req_cargos) > 0">
-                                                <strong style="font-size:10px; color:#999;">REQUIRED (all):</strong><br />
+                                                <strong style="font-size:11px; color:#333;">REQUIRED (all):</strong><br />
                                                 <tal:cargos repeat="cargo req_cargos">
                                                     <tal:cargo_entry define="ratio doc_helper.get_cargo_input_ratio(industry, cargo, economy)">
                                                         <span style="white-space:nowrap;"><a href="cargos.html#${cargo.id}">${doc_helper.get_cargo_name(cargo)}</a><tal:ratio condition="ratio"> &times;${ratio}</tal:ratio></span><br />
@@ -73,7 +73,7 @@
                                                 </tal:cargos>
                                             </tal:req_all>
                                             <tal:req_any define="any_cargos doc_helper.cargos_accepted_required_any(industry, economy)" condition="len(any_cargos) > 0">
-                                                <strong style="font-size:10px; color:#999;">REQUIRED (any):</strong><br />
+                                                <strong style="font-size:11px; color:#333;">REQUIRED (any):</strong><br />
                                                 <tal:cargos repeat="cargo any_cargos">
                                                     <tal:cargo_entry define="ratio doc_helper.get_cargo_input_ratio(industry, cargo, economy)">
                                                         <span style="white-space:nowrap;"><a href="cargos.html#${cargo.id}">${doc_helper.get_cargo_name(cargo)}</a><tal:ratio condition="ratio"> &times;${ratio}</tal:ratio></span><br />
@@ -81,7 +81,7 @@
                                                 </tal:cargos>
                                             </tal:req_any>
                                             <tal:boosters define="boost_cargos doc_helper.cargos_accepted_boosters(industry, economy)" condition="len(boost_cargos) > 0">
-                                                <strong style="font-size:10px; color:#999;">BOOSTERS:</strong><br />
+                                                <strong style="font-size:11px; color:#333;">BOOSTERS:</strong><br />
                                                 <tal:cargos repeat="cargo boost_cargos">
                                                     <tal:cargo_entry define="ratio doc_helper.get_cargo_input_ratio(industry, cargo, economy)">
                                                         <span style="white-space:nowrap;"><a href="cargos.html#${cargo.id}">${doc_helper.get_cargo_name(cargo)}</a><tal:ratio condition="ratio"> &times;${ratio}</tal:ratio></span><br />
@@ -101,11 +101,21 @@
                                         </tal:no_cargos>
                                     </td>
                                     <td>
-                                        <tal:cargos repeat="cargo doc_helper.cargos_produced_sorted(industry, economy)">
-                                            <tal:cargo_entry define="ratio doc_helper.get_cargo_output_ratio(industry, cargo, economy); scale doc_helper.get_cargo_scale_info(industry, cargo)">
-                                                <span style="white-space:nowrap;"><a href="cargos.html#${cargo.id}">${doc_helper.get_cargo_name(cargo)}</a><tal:no_scale condition="not:scale"><tal:ratio condition="ratio"> &times;${ratio}</tal:ratio></tal:no_scale><tal:scale condition="scale"> <span class="label label-warning" title="Scale-dependent output">${scale}</span></tal:scale></span><br tal:condition="not: repeat.cargo.end" />
+                                        <tal:base_cargos repeat="cargo doc_helper.cargos_produced_base(industry, economy)">
+                                            <tal:cargo_entry define="ratio doc_helper.get_cargo_output_ratio(industry, cargo, economy)">
+                                                <span style="white-space:nowrap;"><a href="cargos.html#${cargo.id}">${doc_helper.get_cargo_name(cargo)}</a><tal:ratio condition="ratio"> &times;${ratio}</tal:ratio></span><br />
                                             </tal:cargo_entry>
-                                        </tal:cargos>
+                                        </tal:base_cargos>
+                                        <tal:scale_levels repeat="level_entry doc_helper.get_scale_levels_with_cargos(industry, economy)">
+                                            <tal:level define="level_name python:level_entry[0]; level_cargos python:level_entry[1]">
+                                                <strong style="font-size:11px; color:#333;">SCALE ${level_name.upper()}:</strong><br />
+                                                <tal:cargos repeat="cargo_pair level_cargos">
+                                                    <tal:cargo define="cargo python:cargo_pair[0]; ratio python:cargo_pair[1]">
+                                                        <span style="white-space:nowrap;"><a href="cargos.html#${cargo.id}">${doc_helper.get_cargo_name(cargo)}</a> &times;${ratio}</span><br />
+                                                    </tal:cargo>
+                                                </tal:cargos>
+                                            </tal:level>
+                                        </tal:scale_levels>
                                         <tal:no_cargos condition="len(doc_helper.cargos_produced_by_industry(industry, economy)) == 0">
                                             <span class="muted">Nothing</span>
                                         </tal:no_cargos>
