@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
-    <title >FIRS Industry Replacement Set</title>
+    <title >AXIS+ Industry Set</title>
     <meta http-equiv="Content-Type" content="text/html;" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +43,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="get_started.html">FIRS</a>
+                <a class="navbar-brand" href="get_started.html">AXIS+</a>
             </div>
 
             <div class="collapse navbar-collapse" id="firs-navbar-collapse-1">
@@ -68,7 +68,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="${doc_helper.get_active_nav(doc_name, 'translations')}">
-                        <a href="translations.html"><i class="fa fa-globe icon-white"></i> Help Translate FIRS</a>
+                        <a href="translations.html"><i class="fa fa-globe icon-white"></i> Help Translate AXIS+</a>
                     </li>
                     <li>
                         <a href="${metadata['dev_thread_url']}"><i class="fa fa-comments icon-white"></i> Discuss at TT-Forums.net</a>
@@ -79,7 +79,7 @@
     </div>
     <div class="hero-unit subhead">
         <div class="container text-center">
-            <h1 style="font-size:48px; padding-top:30px;">FIRS Industry Replacement Set</h1>
+            <h1 style="font-size:48px; padding-top:30px;">AXIS+ Industry Set</h1>
             <p class="lead">New Industries and Cargos for OpenTTD</p>
             <br />
             <br />
@@ -108,7 +108,7 @@
         </metal:block>
     </div>
     <div style="margin-top:30px; text-align:center; color:#999; padding:5px; background-color:#eee; border-top:solid 1px #ddd; box-shadow: inset 0px 1px 1px #ddd">
-        FIRS, with thanks to all who helped
+        AXIS+, forked from FIRS, with thanks to all who helped
     </div>
 </body>
 </html>

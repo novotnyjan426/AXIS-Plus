@@ -75,7 +75,7 @@
                                     <td>
                                         <tal:cargos repeat="cargo doc_helper.cargos_produced_sorted(industry, economy)">
                                             <tal:cargo_entry define="ratio doc_helper.get_cargo_output_ratio(industry, cargo, economy); scale doc_helper.get_cargo_scale_info(industry, cargo)">
-                                                <span style="white-space:nowrap;"><a href="cargos.html#${cargo.id}">${doc_helper.get_cargo_name(cargo)}</a><tal:ratio condition="ratio"> &times;${ratio}</tal:ratio><tal:scale condition="scale"> <span class="label label-warning" title="Unlocked at scale level ${scale}">scale: ${scale}</span></tal:scale></span><br tal:condition="not: repeat.cargo.end" />
+                                                <span style="white-space:nowrap;"><a href="cargos.html#${cargo.id}">${doc_helper.get_cargo_name(cargo)}</a><tal:no_scale condition="not:scale"><tal:ratio condition="ratio"> &times;${ratio}</tal:ratio></tal:no_scale><tal:scale condition="scale"> <span class="label label-warning" title="Scale-dependent output">${scale}</span></tal:scale></span><br tal:condition="not: repeat.cargo.end" />
                                             </tal:cargo_entry>
                                         </tal:cargos>
                                         <tal:no_cargos condition="len(doc_helper.cargos_produced_by_industry(industry, economy)) == 0">

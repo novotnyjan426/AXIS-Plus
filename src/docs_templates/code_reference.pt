@@ -13,8 +13,8 @@
     </div>
     <div id="source">
         <h3>Obtaining Source</h3>
-        <p>Source checkout available from <a href="${metadata['repo_url']}">the FIRS Repo on GitHub</a>.</p>
-        <p>FIRS is licensed under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL(v2)</a>.</p>
+        <p>Source checkout available from <a href="${metadata['repo_url']}">the AXIS+ Repo on GitHub</a>.</p>
+        <p>AXIS+ is licensed under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL(v2)</a>.</p>
     </div>
     <br />
     <hr />
@@ -22,7 +22,7 @@
     <div id="compiling">
         <h3>Compiling</h3>
         <p>
-           FIRS source includes a makefile for convenient building.
+           AXIS+ source includes a makefile for convenient building.
            This requires '<a href="https://en.wikipedia.org/wiki/Make_(software)">Make</a>',
            typically provided by the ports tree on Linux / Unix, <a href="http://www.mingw.org/wiki/msys">MSYS</a>  on Windows
            and <a href="https://developer.apple.com/xcode/">Xcode</a> on macOS.
@@ -46,7 +46,7 @@
             <a href="http://newgrf-specs.tt-wiki.net/wiki/NML:Cargos#Cargo_IDs">&#187; NML Reference for NewGRF cargos</a>
         </p>
         <p><small>* Price Factor is a base value, will be automatically adjusted per economy to ensure no prices overlap.</small></p>
-        <p><small>** Town growth effects: apart from TOWNGROWTH_PASSENGERS and TOWNGROWTH_MAIL, FIRS does not set any town growth effects; this has the intended effect of disabling food / water requirements for towns in desert and above snowline.</small></p>
+        <p><small>** Town growth effects: apart from TOWNGROWTH_PASSENGERS and TOWNGROWTH_MAIL, AXIS+ does not set any town growth effects; this has the intended effect of disabling food / water requirements for towns in desert and above snowline.</small></p>
         <table class="table table-striped tablesorter firs-table">
             <thead>
                 <tr>

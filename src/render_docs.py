@@ -323,23 +323,18 @@ class DocHelper(object):
         return hasattr(industry, 'base_processing_cap') and industry.base_processing_cap > 0
 
     def get_cargo_scale_info(self, industry, cargo):
-        """Return scale level info for a bonus cargo, or empty string if not a bonus cargo."""
+        """Return scale level detail for a bonus cargo, or empty string.
+        Returns e.g. '×2 low / ×3 high' showing per-level ratios."""
         if not hasattr(industry, 'scale_bonus_cargos'):
             return ""
         for label, levels in industry.scale_bonus_cargos:
             if label == cargo.cargo_label:
-                # find lowest active level
-                lowest = None
+                parts = []
                 for key in ("low", "medium", "high"):
                     if key in levels:
-                        if lowest is None:
-                            lowest = key
-                if lowest == "low":
-                    return "low+"
-                elif lowest == "medium":
-                    return "medium+"
-                elif lowest == "high":
-                    return "high"
+                        parts.append("\u00d7{} {}".format(levels[key], key))
+                if parts:
+                    return " / ".join(parts)
         return ""
 
     def cargos_produced_sorted(self, industry, economy):

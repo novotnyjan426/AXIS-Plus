@@ -47,7 +47,7 @@
                     </h3>
                     <p class="lead">${doc_helper.get_cargo_extra_info(cargo)}</p>
                     <tal:unused condition="doc_helper.cargo_is_unused_in_any_economy(cargo) and cargo.id != 'mail'">
-                        <p>This cargo is currently unused in FIRS</p>
+                        <p>This cargo is currently unused in AXIS+</p>
                     </tal:unused>
                 </div>
                 <div class="col-xs-12 col-sm-8">
