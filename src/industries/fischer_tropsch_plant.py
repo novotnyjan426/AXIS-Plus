@@ -11,19 +11,28 @@ industry = IndustrySecondary(
     fund_cost_multiplier="200",
     name="string(STR_IND_FISCHER_TROPSCH_PLANT)",
     nearby_station_name="string(STR_STATION_REFINERY)",
+    base_processing_cap=32,
+    required_input_cargos=["COAL"],
+    scale_bonus_cargos=[("PETR", {"high": 1})],
 )
 
 
 industry.economy_variations["STEELTOWN"].enabled = True
+industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
+    ("COAL", 6),
+    ("O2__", 2),
+]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("RFPR", 6),
     ("H2__", 2),
+    ("PETR", 1),
 ]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("RFPR", 6),
     ("CTAR", 2),
+    ("PETR", 1),
 ]
 
 

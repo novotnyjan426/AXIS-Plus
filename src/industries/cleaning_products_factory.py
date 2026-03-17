@@ -17,16 +17,17 @@ industry = IndustrySecondary(
     name="string(STR_IND_SOAP_FACTORY)",
     nearby_station_name="string(STR_STATION_INDUSTRY_ESTATE_1)",
     fund_cost_multiplier="95",
+    base_processing_cap=32,
+    required_input_cargos=["LYE_", "SASH", "PHAC"],
 )
 
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
-    ("LYE_", 2),
-    ("SASH", 2),
-    ("SALT", 2),
-    ("NH3_", 2),
-    ("MNSP", 2),
+    ("LYE_", 3),
+    ("SASH", 3),
+    ("NH3_", 1),
+    ("MNSP", 1),
 ]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("SOAP", 6),
@@ -35,14 +36,14 @@ industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
-    ("SASH", 2), 
-    ("PHAC", 2),  
-    ("ACET", 2),  
-    ("EOIL", 2),  
+    ("SASH", 2),
+    ("PHAC", 2),
+    ("ACET", 2),
+    ("EOIL", 2),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("SOAP", 6),
-    ("GOOD", 6),
+    ("GOOD", 4),
 ]
 
 

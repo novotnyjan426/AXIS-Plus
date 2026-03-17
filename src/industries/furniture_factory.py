@@ -11,6 +11,9 @@ industry = IndustrySecondary(
     name="string(STR_IND_FURNITURE_FACTORY)",
     nearby_station_name="string(STR_STATION_JOINERS_SHOP)",
     fund_cost_multiplier="95",
+    base_processing_cap=32,
+    required_input_cargos=["WDPR", "TEXT"],
+    scale_bonus_cargos=[("RCYC", {"low": 1, "high": 2})],
 )
 
 
@@ -18,12 +21,13 @@ industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
     ("WDPR", 4),
     ("TEXT", 2),
-    ("MPAR", 2),
-    ("GLAS", 2),
-    ("COAT", 2),
+    ("MPAR", 1),
+    ("GLAS", 1),
+    ("COAT", 1),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("GOOD", 6),
+    ("RCYC", 1),
 ]
 
 
@@ -31,11 +35,13 @@ industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
     ("WDPR", 4),
     ("TEXT", 2),
-    ("MPAR", 2),
-    ("GLAS", 2),
+    ("MPAR", 1),
+    ("GLAS", 1),
+    ("COAT", 1),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("GOOD", 6),
+    ("RCYC", 1),
 ]
 
 industry.add_tile(

@@ -12,13 +12,17 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_HEAVY_INDUSTRY_2)",
     fund_cost_multiplier="170",
     pollution_and_squalor_factor=2,
+    base_processing_cap=32,
+    required_input_cargos=["SALT", "NITR", "RFPR"],
+    scale_bonus_cargos=[("ENUM", {"low": 4})],
 )
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
     ("SALT", 2),
-    ("NITR", 2),  
-    ("RFPR", 2),  
+    ("NITR", 2),
+    ("RFPR", 2),
+    ("SUAC", 2),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("ACET", 6),

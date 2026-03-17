@@ -729,21 +729,18 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Sulphur [SULP] ×5
-  ◀ Nitrates [NITR] ×5
-  ◀ Refined Oil [RFPR] ×2
+  ◀ Sulphur [SULP] ×8 ★required
 
   ▶ Acid [ACID] ×8
 
 **Tropical Paradise**
-  ◀ Sulphur [SULP] ×8
+  ◀ Sulphur [SULP] ×8 ★required
 
-  ▶ Sulphuric Acid [SUAC] ×6
+  ▶ Sulphuric Acid [SUAC] ×8
 
 **Steel City**
-  ◀ Sulphur [SULP] ×5
-  ◀ Nitrogen [N7__] ×1
-  ◀ Hydrogen [H2__] ×2
+  ◀ Sulphur [SULP] ×6 ★required
+  ◀ Oxygen [O2__] ×2
 
   ▶ Acid [ACID] ×8
 
@@ -752,8 +749,8 @@ cargos at a constant rate unrelated to deliveries.
 ### Alumina Refinery (`alumina_refinery`)
 **Type**: Secondary (🔗 ALL) | **Economies**: Steel City
 
-  ◀ Bauxite [AORE] ×6
-  ◀ Sodium Hydroxide [LYE_] ×2
+  ◀ Bauxite [AORE] ×6 ★required
+  ◀ Sodium Hydroxide [LYE_] ×2 ★required
 
   ▶ Alumina [ALO_] ×8
 
@@ -763,16 +760,16 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Steel City
 
 **Extreme Classic**
-  ◀ Bauxite [AORE] ×4
-  ◀ Scrap Metal [SCMT] ×4
+  ◀ Bauxite [AORE] ×5 ★required
+  ◀ Scrap Metal [SCMT] ×2
   ◀ Coke [COKE] ×2
-  ◀ Acid [ACID] ×2
+  ◀ Acid [ACID] ×1
 
   ▶ Aluminium [ALUM] ×7
   ▶ Slag [SLAG] ×1
 
 **Steel City**
-  ◀ Alumina [ALO_] ×4
+  ◀ Alumina [ALO_] ×4 ★required
   ◀ Scrap Metal [SCMT] ×2
   ◀ Coke [COKE] ×2
 
@@ -785,18 +782,17 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Steel City
 
 **Extreme Classic**
-  ◀ Refined Oil [RFPR] ×2
-  ◀ Nitrates [NITR] ×4
-  ◀ Biomass [BIOM] ×2
+  ◀ Nitrates [NITR] ×4 ★required
+  ◀ Refined Oil [RFPR] ×2 ★required
   ◀ Acid [ACID] ×2
 
   ▶ Fertiliser [FERT] ×5
-  ▶ Explosives [BOOM] ×3
+  ▶ Explosives [BOOM] ×2 (scale: low) ×4 (scale: high)
 
 **Steel City**
+  ◀ Nitrogen [N7__] ×2 ★required
+  ◀ Hydrogen [H2__] ×4 ★required
   ◀ Refined Oil [RFPR] ×2
-  ◀ Nitrogen [N7__] ×4
-  ◀ Hydrogen [H2__] ×2
 
   ▶ Ammonia [NH3_] ×8
 
@@ -860,33 +856,37 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Steel [STEL] ×3
-  ◀ Glass [GLAS] ×2
-  ◀ Vehicle Parts [VPTS] ×2
+  ◀ Steel [STEL] ×4 ★required
+  ◀ Vehicle Parts [VPTS] ×3 ★required
   ◀ Metal Parts [MPAR] ×2
   ◀ Rubber Parts [TYRE] ×2
-  ◀ Paints & Coatings [COAT] ×2
+  ◀ Glass [GLAS] ×1
+  ◀ Paints & Coatings [COAT] ×1
 
   ▶ Vehicles [VEHI] ×6
+  ▶ Recyclables [RCYC] ×1 (scale: low) ×2 (scale: medium) ×3 (scale: high)
 
 **Tropical Paradise**
-  ◀ Steel [STEL] ×2
-  ◀ Glass [GLAS] ×2
-  ◀ Vehicle Parts [VPTS] ×2
+  ◀ Steel [STEL] ×4 ★required
+  ◀ Vehicle Parts [VPTS] ×2 ★required
+  ◀ Glass [GLAS] ×1
   ◀ Rubber Parts [TYRE] ×1
   ◀ Paints & Coatings [COAT] ×1
 
   ▶ Vehicles [VEHI] ×6
+  ▶ Recyclables [RCYC] ×1 (scale: low) ×2 (scale: medium) ×3 (scale: high)
 
 **Steel City**
-  ◀ Vehicle Parts [VPTS] ×2
-  ◀ Vehicle Bodies [VBOD] ×2
-  ◀ Vehicle Engines [VENG] ×2
-  ◀ Rubber Parts [TYRE] ×4
+  ◀ Vehicle Bodies [VBOD] ×3 ★required
+  ◀ Vehicle Engines [VENG] ×3 ★required
+  ◀ Vehicle Parts [VPTS] ×2 ★required
+  ◀ Rubber Parts [TYRE] ×2
+  ◀ Glass [GLAS] ×1
 
-  ▶ Vehicles [VEHI] ×6
-  ▶ Engineering Supplies [ENSP] ×1
-  ▶ Farm Supplies [FMSP] ×1
+  ▶ Vehicles [VEHI] ×8
+  ▶ Engineering Supplies [ENSP] ×1 (scale: low) ×2 (scale: high)
+  ▶ Farm Supplies [FMSP] ×1 (scale: low) ×2 (scale: high)
+  ▶ Recyclables [RCYC] ×1 (scale: low) ×2 (scale: medium) ×3 (scale: high)
 
 ---
 
@@ -908,16 +908,17 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Iron [IRON] ×4
-  ◀ Quicklime [QLME] ×2
-  ◀ Rare Metals [RAMT] ×2
+  ◀ Iron [IRON] ×4 ★required
+  ◀ Scrap Metal [SCMT] ×2
+  ◀ Quicklime [QLME] ×1
+  ◀ Rare Metals [RAMT] ×1
 
   ▶ Steel [STEL] ×6
   ▶ Slag [SLAG] ×2
 
 **Tropical Paradise**
-  ◀ Iron [IRON] ×3
-  ◀ Scrap Metal [SCMT] ×3
+  ◀ Iron [IRON] ×4 ★required
+  ◀ Scrap Metal [SCMT] ×2
   ◀ Quicklime [QLME] ×1
   ◀ Rare Metals [RAMT] ×1
 
@@ -925,40 +926,40 @@ cargos at a constant rate unrelated to deliveries.
   ▶ Slag [SLAG] ×2
 
 **Steel City**
-  ◀ Iron [IRON] ×4
+  ◀ Iron [IRON] ×4 ★required
   ◀ Ferroalloy [FECR] ×2
   ◀ Quicklime [QLME] ×1
   ◀ Oxygen [O2__] ×1
 
-  ▶ Carbon Steel [STCB] ×3
-  ▶ Alloy Steel [STAL] ×3
+  ▶ Carbon Steel [STCB] ×4
+  ▶ Alloy Steel [STAL] ×2
   ▶ Slag [SLAG] ×2
 
 ---
 
 ### Biorefinery (`biorefinery`)
-**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Sugar Beet [SGBT] ×6
-  ◀ Biomass [BIOM] ×6
-  ◀ Oil Seeds [OLSD] ×6
+  ◀ Sugar Beet [SGBT] ×6 ★required
+  ◀ Biomass [BIOM] ×6 ★required
+  ◀ Oil Seeds [OLSD] ×4
 
   ▶ Refined Oil [RFPR] ×5
-  ▶ Petroleum Fuels [PETR] ×4
-  ▶ Plastics [PLAS] ×3
+  ▶ Petroleum Fuels [PETR] ×5
+  ▶ Plastics [PLAS] ×1 (scale: medium+)
 
 **Tropical Paradise**
-  ◀ Biomass [BIOM] ×6
-  ◀ Oil Seeds [OLSD] ×6
-  ◀ Grain [GRAI] ×6
+  ◀ Biomass [BIOM] ×6 ★required
+  ◀ Oil Seeds [OLSD] ×4
+  ◀ Grain [GRAI] ×4
 
   ▶ Refined Oil [RFPR] ×4
   ▶ Petroleum Fuels [PETR] ×4
 
 **Steel City**
   ◀ Grain [GRAI] ×4
-  ◀ Produce [FRUT] ×4
+  ◀ Produce [FRUT] ×4 ★required
 
   ▶ Refined Oil [RFPR] ×2
   ▶ Petroleum Fuels [PETR] ×3
@@ -970,24 +971,24 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Iron Ore [IORE] ×4
-  ◀ Coke [COKE] ×3
+  ◀ Iron Ore [IORE] ×4 ★required
+  ◀ Coke [COKE] ×3 ★required
   ◀ Limestone [LIME] ×2
 
   ▶ Iron [IRON] ×6
   ▶ Slag [SLAG] ×2
 
 **Tropical Paradise**
-  ◀ Iron Ore [IORE] ×4
-  ◀ Coke [COKE] ×3
+  ◀ Iron Ore [IORE] ×4 ★required
+  ◀ Coke [COKE] ×3 ★required
   ◀ Limestone [LIME] ×2
 
   ▶ Iron [IRON] ×6
   ▶ Slag [SLAG] ×2
 
 **Steel City**
-  ◀ Iron Ore [IORE] ×3
-  ◀ Coke [COKE] ×3
+  ◀ Iron Ore [IORE] ×3 ★required
+  ◀ Coke [COKE] ×3 ★required
   ◀ Limestone [LIME] ×2
 
   ▶ Iron [IRON] ×6
@@ -998,9 +999,9 @@ cargos at a constant rate unrelated to deliveries.
 ### Body Plant (`body_plant`)
 **Type**: Secondary (🔗 ALL) | **Economies**: Steel City
 
-  ◀ Steel Sheet [STSH] ×4
-  ◀ Paints & Coatings [COAT] ×2
-  ◀ Glass [GLAS] ×2
+  ◀ Steel Sheet [STSH] ×5 ★required
+  ◀ Paints & Coatings [COAT] ×2 ★required
+  ◀ Zinc [ZINC] ×1
 
   ▶ Vehicle Bodies [VBOD] ×7
   ▶ Scrap Metal [SCMT] ×1
@@ -1075,12 +1076,14 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Carbon Black Plant (`carbon_black_plant`)
-**Type**: Secondary (⚡ ANY) | **Economies**: Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Steel City
 
-  ◀ Tar [CTAR] ×8
+  ◀ Tar [CTAR] ×6 ★required
+  ◀ Refined Oil [RFPR] ×2
 
   ▶ Carbon Black [CBLK] ×4
   ▶ Coke [COKE] ×4
+  ▶ Hydrogen [H2__] ×1 (scale: high)
 
 ---
 
@@ -1119,26 +1122,29 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise
 
 **Tropical Paradise**
-  ◀ Salt [SALT] ×2
-  ◀ Nitrates [NITR] ×2
-  ◀ Refined Oil [RFPR] ×2
+  ◀ Salt [SALT] ×2 ★required
+  ◀ Nitrates [NITR] ×2 ★required
+  ◀ Refined Oil [RFPR] ×2 ★required
+  ◀ Sulphuric Acid [SUAC] ×2
 
   ▶ Acetic Acid [ACET] ×6
-  ▶ Food Additives [ENUM] ×4
+  ▶ Food Additives [ENUM] ×4 (scale: low+)
 
 ---
 
 ### Chlor-alkali Plant (`chlor_alkali_plant`)
-**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Steel City
 
 **Extreme Classic**
-  ◀ Salt [SALT] ×8
+  ◀ Salt [SALT] ×6 ★required
+  ◀ Electrical Parts [POWR] ×2
 
   ▶ Acid [ACID] ×4
   ▶ Chlorine [CHLO] ×4
 
 **Steel City**
-  ◀ Salt [SALT] ×8
+  ◀ Salt [SALT] ×6 ★required
+  ◀ Electrical Parts [POWR] ×2
 
   ▶ Acid [ACID] ×2
   ▶ Chlorine [CHLO] ×2
@@ -1151,21 +1157,21 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise, Steel City
 
 **Tropical Paradise**
-  ◀ Nitrates [NITR] ×2
-  ◀ Sulphuric Acid [SUAC] ×2
+  ◀ Nitrates [NITR] ×2 ★required
+  ◀ Sulphuric Acid [SUAC] ×2 ★required
   ◀ Refined Oil [RFPR] ×2
 
   ▶ Explosives [BOOM] ×6
-  ▶ Fertiliser [FERT] ×4
+  ▶ Fertiliser [FERT] ×2 (scale: low) ×3 (scale: medium) ×4 (scale: high)
 
 **Steel City**
-  ◀ Ammonia [NH3_] ×4
-  ◀ Acid [ACID] ×2
+  ◀ Ammonia [NH3_] ×4 ★required
+  ◀ Acid [ACID] ×2 ★required
   ◀ Plastics [PLAS] ×1
   ◀ Petroleum Fuels [PETR] ×1
 
   ▶ Ammonium Nitrate [NHNO] ×6
-  ▶ Engineering Supplies [ENSP] ×2
+  ▶ Engineering Supplies [ENSP] ×1 (scale: low) ×2 (scale: medium) ×3 (scale: high)
 
 ---
 
@@ -1173,20 +1179,19 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise, Steel City
 
 **Tropical Paradise**
-  ◀ Soda Ash [SASH] ×2
-  ◀ Phosphoric Acid [PHAC] ×2
+  ◀ Soda Ash [SASH] ×2 ★required
+  ◀ Phosphoric Acid [PHAC] ×2 ★required
   ◀ Acetic Acid [ACET] ×2
   ◀ Edible Oil [EOIL] ×2
 
   ▶ Cleaning Agents [SOAP] ×6
-  ▶ Goods [GOOD] ×6
+  ▶ Goods [GOOD] ×4
 
 **Steel City**
-  ◀ Sodium Hydroxide [LYE_] ×2
-  ◀ Soda Ash [SASH] ×2
-  ◀ Salt [SALT] ×2
-  ◀ Ammonia [NH3_] ×2
-  ◀ Packaging [MNSP] ×2
+  ◀ Sodium Hydroxide [LYE_] ×3 ★required
+  ◀ Soda Ash [SASH] ×3 ★required
+  ◀ Ammonia [NH3_] ×1
+  ◀ Packaging [MNSP] ×1
 
   ▶ Cleaning Agents [SOAP] ×6
   ▶ Goods [GOOD] ×4
@@ -1207,43 +1212,49 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Coal Liquefaction Plant (`fischer_tropsch_plant`)
-**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Steel City
 
 **Extreme Classic**
-  ◀ Coal [COAL] ×8
+  ◀ Coal [COAL] ×8 ★required
 
   ▶ Refined Oil [RFPR] ×6
   ▶ Tar [CTAR] ×2
+  ▶ Petroleum Fuels [PETR] ×1 (scale: high)
 
 **Steel City**
-  ◀ Coal [COAL] ×8
+  ◀ Coal [COAL] ×6 ★required
+  ◀ Oxygen [O2__] ×2
 
   ▶ Refined Oil [RFPR] ×6
   ▶ Hydrogen [H2__] ×2
+  ▶ Petroleum Fuels [PETR] ×1 (scale: high)
 
 ---
 
 ### Coke Oven (`coke_oven`)
-**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Coal [COAL] ×8
+  ◀ Coal [COAL] ×8 ★required
 
   ▶ Coke [COKE] ×6
-  ▶ Sulphur [SULP] ×2
+  ▶ Tar [CTAR] ×1 (scale: low+)
+  ▶ Sulphur [SULP] ×1 (scale: medium+)
 
 **Tropical Paradise**
-  ◀ Coal [COAL] ×8
+  ◀ Coal [COAL] ×8 ★required
 
   ▶ Coke [COKE] ×6
-  ▶ Sulphur [SULP] ×2
+  ▶ Tar [CTAR] ×1 (scale: low+)
+  ▶ Sulphur [SULP] ×1 (scale: medium+)
 
 **Steel City**
-  ◀ Coal [COAL] ×8
+  ◀ Coal [COAL] ×8 ★required
 
-  ▶ Coke [COKE] ×6
-  ▶ Tar [CTAR] ×1
-  ▶ Sulphur [SULP] ×1
+  ▶ Coke [COKE] ×5
+  ▶ Tar [CTAR] ×1 (scale: low+)
+  ▶ Sulphur [SULP] ×1 (scale: medium+)
+  ▶ Hydrogen [H2__] ×1 (scale: high)
 
 ---
 
@@ -1251,29 +1262,32 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Metal Parts [MPAR] ×2
+  ◀ Metal Parts [MPAR] ×3 ★required
+  ◀ Electrical Parts [POWR] ×2 ★required
   ◀ Plastics [PLAS] ×2
-  ◀ Textiles [TEXT] ×2
-  ◀ Electrical Parts [POWR] ×2
+  ◀ Textiles [TEXT] ×1
 
   ▶ Vehicle Parts [VPTS] ×8
+  ▶ Recyclables [RCYC] ×1 (scale: medium+)
 
 **Tropical Paradise**
-  ◀ Metal Parts [MPAR] ×2
+  ◀ Metal Parts [MPAR] ×3 ★required
+  ◀ Plastics [PLAS] ×2 ★required
   ◀ Rubber Parts [TYRE] ×2
-  ◀ Plastics [PLAS] ×2
   ◀ Textiles [TEXT] ×2
-  ◀ Paints & Coatings [COAT] ×2
+  ◀ Paints & Coatings [COAT] ×1
 
   ▶ Vehicle Parts [VPTS] ×8
+  ▶ Recyclables [RCYC] ×1 (scale: medium+)
 
 **Steel City**
-  ◀ Metal Parts [MPAR] ×2
+  ◀ Alloy Steel [STAL] ×3 ★required
+  ◀ Metal Parts [MPAR] ×2 ★required
   ◀ Plastic Parts [PPAR] ×2
-  ◀ Alloy Steel [STAL] ×2
-  ◀ Electrical Parts [POWR] ×2
+  ◀ Electrical Parts [POWR] ×1
 
   ▶ Vehicle Parts [VPTS] ×8
+  ▶ Recyclables [RCYC] ×1 (scale: medium+)
 
 ---
 
@@ -1304,12 +1318,12 @@ cargos at a constant rate unrelated to deliveries.
 ### Copper Concentrator (`copper_concentrator`)
 **Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise
 
-  ◀ Copper Ore [CORE] ×4
+  ◀ Copper Ore [CORE] ×4 ★required
   ◀ Sulphuric Acid [SUAC] ×2
   ◀ Quicklime [QLME] ×2
 
-  ▶ Copper Concentrate [COCO] ×6
-  ▶ Rare Metals [RAMT] ×3
+  ▶ Copper Concentrate [COCO] ×7
+  ▶ Rare Metals [RAMT] ×2
 
 ---
 
@@ -1317,15 +1331,16 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Copper Ore [CORE] ×4
+  ◀ Copper Ore [CORE] ×4 ★required
   ◀ Scrap Metal [SCMT] ×2
   ◀ Acid [ACID] ×2
 
-  ▶ Copper [COPR] ×7
+  ▶ Copper [COPR] ×6
   ▶ Slag [SLAG] ×1
+  ▶ Sulphur [SULP] ×1
 
 **Tropical Paradise**
-  ◀ Copper Concentrate [COCO] ×4
+  ◀ Copper Concentrate [COCO] ×4 ★required
   ◀ Scrap Metal [SCMT] ×2
   ◀ Coke [COKE] ×2
 
@@ -1334,7 +1349,7 @@ cargos at a constant rate unrelated to deliveries.
   ▶ Sulphuric Acid [SUAC] ×2
 
 **Steel City**
-  ◀ Copper Concentrate [COCO] ×4
+  ◀ Copper Concentrate [COCO] ×4 ★required
   ◀ Scrap Metal [SCMT] ×2
   ◀ Acid [ACID] ×2
 
@@ -1385,14 +1400,15 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Steel City
 
 **Extreme Classic**
-  ◀ Scrap Metal [SCMT] ×4
+  ◀ Scrap Metal [SCMT] ×4 ★required
   ◀ Quicklime [QLME] ×2
+  ◀ Coal [COAL] ×2
 
   ▶ Steel [STEL] ×6
   ▶ Slag [SLAG] ×2
 
 **Steel City**
-  ◀ Scrap Metal [SCMT] ×4
+  ◀ Scrap Metal [SCMT] ×4 ★required
   ◀ Ferroalloy [FECR] ×2
   ◀ Quicklime [QLME] ×1
   ◀ Oxygen [O2__] ×1
@@ -1407,28 +1423,28 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Copper [COPR] ×2
-  ◀ Rubber Parts [TYRE] ×2
-  ◀ Plastics [PLAS] ×2
+  ◀ Copper [COPR] ×3 ★required
+  ◀ Plastics [PLAS] ×2 ★required
   ◀ Rare Metals [RAMT] ×2
+  ◀ Rubber Parts [TYRE] ×1
 
   ▶ Electrical Parts [POWR] ×6
 
 **Tropical Paradise**
-  ◀ Copper [COPR] ×2
-  ◀ Sulphuric Acid [SUAC] ×2
-  ◀ Plastics [PLAS] ×2
-  ◀ Rare Metals [RAMT] ×2
+  ◀ Copper [COPR] ×3 ★required
+  ◀ Plastics [PLAS] ×2 ★required
+  ◀ Rare Metals [RAMT] ×1
+  ◀ Steel [STEL] ×2
 
   ▶ Vehicle Parts [VPTS] ×6
   ▶ Goods [GOOD] ×6
 
 **Steel City**
-  ◀ Alloy Steel [STAL] ×3
-  ◀ Copper [COPR] ×2
+  ◀ Copper [COPR] ×3 ★required
+  ◀ Plastic Parts [PPAR] ×2 ★required
+  ◀ Rare Metals [RAMT] ×2
+  ◀ Steel Sheet [STSH] ×1
   ◀ Refined Oil [RFPR] ×1
-  ◀ Metal Wire [STWR] ×1
-  ◀ Plastic Parts [PPAR] ×1
 
   ▶ Electrical Parts [POWR] ×8
 
@@ -1437,12 +1453,14 @@ cargos at a constant rate unrelated to deliveries.
 ### Engine Plant (`engine_plant`)
 **Type**: Secondary (🔗 ALL) | **Economies**: Steel City
 
-  ◀ Metal Parts [MPAR] ×2
-  ◀ Aluminium [ALUM] ×2
-  ◀ Rubber Parts [TYRE] ×2
-  ◀ Refined Oil [RFPR] ×2
+  ◀ Aluminium [ALUM] ×3 ★required
+  ◀ Metal Parts [MPAR] ×3 ★required
+  ◀ Rubber Parts [TYRE] ×1
+  ◀ Refined Oil [RFPR] ×1
+  ◀ Alloy Steel [STAL] ×1
 
   ▶ Vehicle Engines [VENG] ×8
+  ▶ Scrap Metal [SCMT] ×1 (scale: medium+)
 
 ---
 
@@ -1509,14 +1527,15 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise, Steel City
 
 **Tropical Paradise**
-  ◀ Phosphoric Acid [PHAC] ×4
-  ◀ Biomass [BIOM] ×2
-  ◀ Slag [SLAG] ×2
+  ◀ Phosphoric Acid [PHAC] ×3 ★required
+  ◀ Nitrates [NITR] ×3 ★required
+  ◀ Biomass [BIOM] ×1
+  ◀ Slag [SLAG] ×1
 
   ▶ Fertiliser [FERT] ×6
 
 **Steel City**
-  ◀ Ammonium Nitrate [NHNO] ×6
+  ◀ Ammonium Nitrate [NHNO] ×6 ★required
   ◀ Slag [SLAG] ×2
   ◀ Acid [ACID] ×2
 
@@ -1568,23 +1587,27 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Iron [IRON] ×3
-  ◀ Aluminium [ALUM] ×2
-  ◀ Sand [SAND] ×2
-
-  ▶ Metal Parts [MPAR] ×6
-
-**Tropical Paradise**
-  ◀ Iron [IRON] ×3
-  ◀ Coal [COAL] ×2
-  ◀ Sand [SAND] ×2
-
-  ▶ Metal Parts [MPAR] ×6
-
-**Steel City**
-  ◀ Iron [IRON] ×3
+  ◀ Iron [IRON] ×4 ★required
   ◀ Aluminium [ALUM] ×3
   ◀ Sand [SAND] ×2
+  ◀ Coke [COKE] ×1
+
+  ▶ Metal Parts [MPAR] ×7
+  ▶ Slag [SLAG] ×1
+
+**Tropical Paradise**
+  ◀ Iron [IRON] ×4 ★required
+  ◀ Coal [COAL] ×3
+  ◀ Sand [SAND] ×2
+
+  ▶ Metal Parts [MPAR] ×7
+  ▶ Slag [SLAG] ×1
+
+**Steel City**
+  ◀ Iron [IRON] ×4 ★required
+  ◀ Aluminium [ALUM] ×3
+  ◀ Sand [SAND] ×2
+  ◀ Coke [COKE] ×1
 
   ▶ Metal Parts [MPAR] ×7
   ▶ Slag [SLAG] ×1
@@ -1616,21 +1639,24 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise
 
 **Extreme Classic**
-  ◀ Timber [WDPR] ×4
-  ◀ Textiles [TEXT] ×2
-  ◀ Metal Parts [MPAR] ×2
-  ◀ Glass [GLAS] ×2
+  ◀ Timber [WDPR] ×4 ★required
+  ◀ Textiles [TEXT] ×2 ★required
+  ◀ Metal Parts [MPAR] ×1
+  ◀ Glass [GLAS] ×1
+  ◀ Paints & Coatings [COAT] ×1
 
   ▶ Goods [GOOD] ×6
+  ▶ Recyclables [RCYC] ×1 (scale: low) ×2 (scale: high)
 
 **Tropical Paradise**
-  ◀ Timber [WDPR] ×4
-  ◀ Textiles [TEXT] ×2
-  ◀ Metal Parts [MPAR] ×2
-  ◀ Glass [GLAS] ×2
-  ◀ Paints & Coatings [COAT] ×2
+  ◀ Timber [WDPR] ×4 ★required
+  ◀ Textiles [TEXT] ×2 ★required
+  ◀ Metal Parts [MPAR] ×1
+  ◀ Glass [GLAS] ×1
+  ◀ Paints & Coatings [COAT] ×1
 
   ▶ Goods [GOOD] ×6
+  ▶ Recyclables [RCYC] ×1 (scale: low) ×2 (scale: high)
 
 ---
 
@@ -1697,36 +1723,36 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Electrical Parts [POWR] ×3
-  ◀ Vehicle Parts [VPTS] ×2
+  ◀ Vehicle Parts [VPTS] ×3 ★required
+  ◀ Electrical Parts [POWR] ×2 ★required
   ◀ Metal Parts [MPAR] ×2
-  ◀ Rubber Parts [TYRE] ×2
-  ◀ Glass [GLAS] ×2
-
-  ▶ Goods [GOOD] ×4
-  ▶ Engineering Supplies [ENSP] ×2
-  ▶ Farm Supplies [FMSP] ×2
-
-**Tropical Paradise**
-  ◀ Steel [STEL] ×3
-  ◀ Glass [GLAS] ×2
-  ◀ Vehicle Parts [VPTS] ×2
   ◀ Rubber Parts [TYRE] ×1
 
   ▶ Goods [GOOD] ×4
   ▶ Engineering Supplies [ENSP] ×2
   ▶ Farm Supplies [FMSP] ×2
+  ▶ Scrap Metal [SCMT] ×1 (scale: medium+)
 
-**Steel City**
-  ◀ Electrical Parts [POWR] ×2
-  ◀ Vehicle Engines [VENG] ×2
-  ◀ Vehicle Parts [VPTS] ×2
-  ◀ Metal Parts [MPAR] ×1
-  ◀ Paints & Coatings [COAT] ×1
+**Tropical Paradise**
+  ◀ Steel [STEL] ×4 ★required
+  ◀ Vehicle Parts [VPTS] ×2 ★required
+  ◀ Rubber Parts [TYRE] ×1
 
   ▶ Goods [GOOD] ×4
   ▶ Engineering Supplies [ENSP] ×2
   ▶ Farm Supplies [FMSP] ×2
+  ▶ Scrap Metal [SCMT] ×1 (scale: medium+)
+
+**Steel City**
+  ◀ Vehicle Engines [VENG] ×3 ★required
+  ◀ Vehicle Parts [VPTS] ×2 ★required
+  ◀ Electrical Parts [POWR] ×2
+  ◀ Metal Parts [MPAR] ×1
+
+  ▶ Engineering Supplies [ENSP] ×3
+  ▶ Farm Supplies [FMSP] ×3
+  ▶ Goods [GOOD] ×2
+  ▶ Scrap Metal [SCMT] ×1 (scale: medium+)
 
 ---
 
@@ -1756,31 +1782,33 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Steel [STEL] ×6
-  ◀ Aluminium [ALUM] ×6
+  ◀ Steel [STEL] ×6 ★required
+  ◀ Aluminium [ALUM] ×4
   ◀ Paints & Coatings [COAT] ×2
 
   ▶ Metal Parts [MPAR] ×8
   ▶ Packaging [MNSP] ×6
+  ▶ Recyclables [RCYC] ×1 (scale: medium+)
 
 **Tropical Paradise**
-  ◀ Steel [STEL] ×2
+  ◀ Steel [STEL] ×4 ★required
   ◀ Copper [COPR] ×2
-  ◀ Rare Metals [RAMT] ×2
-  ◀ Cleaning Agents [SOAP] ×2
+  ◀ Rare Metals [RAMT] ×1
+  ◀ Cleaning Agents [SOAP] ×1
 
   ▶ Metal Parts [MPAR] ×6
   ▶ Goods [GOOD] ×4
+  ▶ Recyclables [RCYC] ×1 (scale: medium+)
 
 **Steel City**
-  ◀ Steel Sheet [STSH] ×2
+  ◀ Steel Sheet [STSH] ×3 ★required
   ◀ Paints & Coatings [COAT] ×2
-  ◀ Zinc [ZINC] ×2
+  ◀ Zinc [ZINC] ×1
   ◀ Metal Wire [STWR] ×2
 
   ▶ Packaging [MNSP] ×3
   ▶ Metal Parts [MPAR] ×4
-  ▶ Scrap Metal [SCMT] ×1
+  ▶ Scrap Metal [SCMT] ×1 (scale: low) ×2 (scale: medium)
 
 ---
 
@@ -1788,21 +1816,23 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Plastics [PLAS] ×5
-  ◀ Metal Parts [MPAR] ×3
+  ◀ Plastics [PLAS] ×5 ★required
+  ◀ Metal Parts [MPAR] ×3 ★required
 
   ▶ Packaging [MNSP] ×6
+  ▶ Recyclables [RCYC] ×1 (scale: low) ×2 (scale: medium) ×3 (scale: high)
 
 **Tropical Paradise**
-  ◀ Plastics [PLAS] ×2
-  ◀ Steel [STEL] ×2
+  ◀ Plastics [PLAS] ×2 ★required
+  ◀ Steel [STEL] ×2 ★required
   ◀ Glass [GLAS] ×2
 
   ▶ Packaging [MNSP] ×6
+  ▶ Recyclables [RCYC] ×1 (scale: low) ×2 (scale: medium) ×3 (scale: high)
 
 **Steel City**
-  ◀ Plastics [PLAS] ×5
-  ◀ Metal Parts [MPAR] ×3
+  ◀ Plastics [PLAS] ×5 ★required
+  ◀ Metal Parts [MPAR] ×3 ★required
 
   ▶ Plastic Parts [PPAR] ×6
   ▶ Packaging [MNSP] ×5
@@ -1813,19 +1843,20 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Steel City
 
 **Extreme Classic**
-  ◀ Refined Oil [RFPR] ×4
-  ◀ Tar [CTAR] ×4
+  ◀ Refined Oil [RFPR] ×4 ★required
+  ◀ Tar [CTAR] ×4 ★required
 
   ▶ Petroleum Fuels [PETR] ×5
   ▶ Coke [COKE] ×3
   ▶ Sulphur [SULP] ×2
 
 **Steel City**
-  ◀ Refined Oil [RFPR] ×5
-  ◀ Tar [CTAR] ×3
+  ◀ Refined Oil [RFPR] ×5 ★required
+  ◀ Tar [CTAR] ×3 ★required
 
   ▶ Monomer [C2H4] ×5
   ▶ Petroleum Fuels [PETR] ×3
+  ▶ Hydrogen [H2__] ×1 (scale: medium+)
 
 ---
 
@@ -1874,28 +1905,28 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Refined Oil [RFPR] ×2
-  ◀ Quicklime [QLME] ×2
-  ◀ Plastics [PLAS] ×2
+  ◀ Refined Oil [RFPR] ×2 ★required
+  ◀ Quicklime [QLME] ×2 ★required
+  ◀ Plastics [PLAS] ×2 ★required
   ◀ Packaging [MNSP] ×2
 
   ▶ Paints & Coatings [COAT] ×6
   ▶ Goods [GOOD] ×4
 
 **Tropical Paradise**
-  ◀ Refined Oil [RFPR] ×2
-  ◀ Quicklime [QLME] ×2
-  ◀ Acetic Acid [ACET] ×2
-  ◀ Plastics [PLAS] ×2
+  ◀ Refined Oil [RFPR] ×2 ★required
+  ◀ Quicklime [QLME] ×2 ★required
+  ◀ Acetic Acid [ACET] ×2 ★required
+  ◀ Plastics [PLAS] ×2 ★required
 
   ▶ Paints & Coatings [COAT] ×6
   ▶ Goods [GOOD] ×4
 
 **Steel City**
-  ◀ Refined Oil [RFPR] ×2
-  ◀ Quicklime [QLME] ×2
+  ◀ Refined Oil [RFPR] ×2 ★required
+  ◀ Quicklime [QLME] ×2 ★required
+  ◀ Plastics [PLAS] ×2 ★required
   ◀ Carbon Black [CBLK] ×2
-  ◀ Plastics [PLAS] ×2
   ◀ Packaging [MNSP] ×2
 
   ▶ Paints & Coatings [COAT] ×6
@@ -1928,11 +1959,11 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Tropical Paradise
 
 **Tropical Paradise**
-  ◀ Phosphate [PHOS] ×4
-  ◀ Sulphuric Acid [SUAC] ×4
+  ◀ Phosphate [PHOS] ×3 ★required
+  ◀ Sulphuric Acid [SUAC] ×5 ★required
 
   ▶ Phosphoric Acid [PHAC] ×6
-  ▶ Food Additives [ENUM] ×2
+  ▶ Food Additives [ENUM] ×2 (scale: low+)
 
 ---
 
@@ -1940,26 +1971,28 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Refined Oil [RFPR] ×6
+  ◀ Refined Oil [RFPR] ×6 ★required
   ◀ Chlorine [CHLO] ×2
   ◀ Acid [ACID] ×2
 
   ▶ Plastics [PLAS] ×5
   ▶ Rubber [RUBR] ×3
-  ▶ Fibres [FICR] ×3
+  ▶ Fibres [FICR] ×1 (scale: low) ×2 (scale: medium)
 
 **Tropical Paradise**
-  ◀ Refined Oil [RFPR] ×6
+  ◀ Refined Oil [RFPR] ×6 ★required
   ◀ Acetic Acid [ACET] ×2
 
   ▶ Plastics [PLAS] ×5
   ▶ Rubber [RUBR] ×3
+  ▶ Fibres [FICR] ×1 (scale: low) ×2 (scale: medium)
 
 **Steel City**
-  ◀ Monomer [C2H4] ×5
+  ◀ Monomer [C2H4] ×5 ★required
   ◀ Chlorine [CHLO] ×3
 
   ▶ Plastics [PLAS] ×8
+  ▶ Rubber [RUBR] ×2
 
 ---
 
@@ -1978,22 +2011,25 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Steel City
 
 **Extreme Classic**
-  ◀ Pyrite Ore [PORE] ×6
+  ◀ Pyrite Ore [PORE] ×6 ★required
   ◀ Coke [COKE] ×2
   ◀ Acid [ACID] ×2
 
   ▶ Zinc [ZINC] ×4
-  ▶ Rare Metals [RAMT] ×3
+  ▶ Rare Metals [RAMT] ×2
+  ▶ Slag [SLAG] ×1 (scale: low) ×2 (scale: high)
+  ▶ Sulphur [SULP] ×1 (scale: medium) ×2 (scale: high)
 
 **Steel City**
-  ◀ Pyrite Ore [PORE] ×6
+  ◀ Pyrite Ore [PORE] ×6 ★required
   ◀ Coke [COKE] ×1
   ◀ Cleaning Agents [SOAP] ×1
 
   ▶ Zinc [ZINC] ×2
   ▶ Copper Concentrate [COCO] ×3
-  ▶ Slag [SLAG] ×1
-  ▶ Ferroalloy [FECR] ×2
+  ▶ Iron Ore [IORE] ×2
+  ▶ Slag [SLAG] ×1 (scale: low) ×2 (scale: high)
+  ▶ Sulphur [SULP] ×1 (scale: medium) ×2 (scale: high)
 
 ---
 
@@ -2040,35 +2076,41 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Steel City
 
 **Extreme Classic**
-  ◀ Steel [STEL] ×4
-  ◀ Zinc [ZINC] ×3
+  ◀ Steel [STEL] ×4 ★required
+  ◀ Zinc [ZINC] ×2
   ◀ Acid [ACID] ×2
 
   ▶ Metal Parts [MPAR] ×6
-  ▶ Building Materials [BDMT] ×6
+  ▶ Building Materials [BDMT] ×4
+  ▶ Scrap Metal [SCMT] ×1 (scale: medium+)
 
 **Steel City**
-  ◀ Carbon Steel [STCB] ×4
+  ◀ Carbon Steel [STCB] ×4 ★required
   ◀ Zinc [ZINC] ×2
   ◀ Acid [ACID] ×2
 
   ▶ Steel Sheet [STSH] ×8
+  ▶ Scrap Metal [SCMT] ×1 (scale: medium+)
 
 ---
 
 ### Slag Grinding Plant (`slag_grinding_plant`)
-**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Steel City
 
 **Extreme Classic**
-  ◀ Slag [SLAG] ×8
+  ◀ Slag [SLAG] ×6 ★required
+  ◀ Quicklime [QLME] ×2
+  ◀ Coke [COKE] ×2
 
-  ▶ Cement [CMNT] ×8
-  ▶ Fertiliser [FERT] ×5
+  ▶ Cement [CMNT] ×6
+  ▶ Fertiliser [FERT] ×3
 
 **Steel City**
-  ◀ Slag [SLAG] ×8
+  ◀ Slag [SLAG] ×6 ★required
+  ◀ Quicklime [QLME] ×2
+  ◀ Coke [COKE] ×1
 
-  ▶ Cement [CMNT] ×8
+  ▶ Cement [CMNT] ×6
 
 ---
 
@@ -2081,23 +2123,23 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Salt [SALT] ×4
-  ◀ Limestone [LIME] ×2
-  ◀ Refined Oil [RFPR] ×2
+  ◀ Salt [SALT] ×4 ★required
+  ◀ Limestone [LIME] ×2 ★required
+  ◀ Refined Oil [RFPR] ×2 ★required
 
   ▶ Soda Ash [SASH] ×8
 
 **Tropical Paradise**
-  ◀ Salt [SALT] ×4
-  ◀ Limestone [LIME] ×2
-  ◀ Refined Oil [RFPR] ×2
+  ◀ Salt [SALT] ×4 ★required
+  ◀ Limestone [LIME] ×2 ★required
+  ◀ Refined Oil [RFPR] ×2 ★required
 
   ▶ Soda Ash [SASH] ×8
 
 **Steel City**
-  ◀ Salt [SALT] ×4
-  ◀ Limestone [LIME] ×2
-  ◀ Ammonia [NH3_] ×2
+  ◀ Salt [SALT] ×4 ★required
+  ◀ Limestone [LIME] ×2 ★required
+  ◀ Ammonia [NH3_] ×2 ★required
 
   ▶ Soda Ash [SASH] ×8
 
@@ -2133,7 +2175,7 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Steel City
 
 **Steel City**
-  ◀ Monomer [C2H4] ×5
+  ◀ Monomer [C2H4] ×5 ★required
   ◀ Acid [ACID] ×3
 
   ▶ Rubber [RUBR] ×8
@@ -2144,19 +2186,20 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise
 
 **Extreme Classic**
-  ◀ Fibres [FICR] ×4
-  ◀ Paints & Coatings [COAT] ×2
+  ◀ Fibres [FICR] ×5 ★required
+  ◀ Paints & Coatings [COAT] ×1
+  ◀ Plastics [PLAS] ×1
 
   ▶ Textiles [TEXT] ×7
-  ▶ Goods [GOOD] ×4
+  ▶ Goods [GOOD] ×1 (scale: low) ×2 (scale: medium) ×3 (scale: high)
 
 **Tropical Paradise**
-  ◀ Fibres [FICR] ×5
+  ◀ Fibres [FICR] ×5 ★required
   ◀ Plastics [PLAS] ×2
   ◀ Acetic Acid [ACET] ×1
 
   ▶ Textiles [TEXT] ×7
-  ▶ Goods [GOOD] ×4
+  ▶ Goods [GOOD] ×1 (scale: low) ×2 (scale: medium) ×3 (scale: high)
 
 ---
 
@@ -2186,42 +2229,49 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Rubber [RUBR] ×4
-  ◀ Metal Parts [MPAR] ×2
+  ◀ Rubber [RUBR] ×4 ★required
   ◀ Sulphur [SULP] ×2
+  ◀ Metal Parts [MPAR] ×1
 
   ▶ Rubber Parts [TYRE] ×8
-  ▶ Goods [GOOD] ×4
+  ▶ Recyclables [RCYC] ×1 (scale: low)
+  ▶ Goods [GOOD] ×1 (scale: medium)
+  ▶ Plastics [PLAS] ×2 (scale: high)
 
 **Tropical Paradise**
-  ◀ Rubber [RUBR] ×4
-  ◀ Metal Parts [MPAR] ×2
+  ◀ Rubber [RUBR] ×4 ★required
   ◀ Sulphur [SULP] ×2
+  ◀ Metal Parts [MPAR] ×1
 
   ▶ Rubber Parts [TYRE] ×8
-  ▶ Plastics [PLAS] ×4
+  ▶ Recyclables [RCYC] ×1 (scale: low)
+  ▶ Goods [GOOD] ×1 (scale: medium)
+  ▶ Plastics [PLAS] ×2 (scale: high)
 
 **Steel City**
-  ◀ Rubber [RUBR] ×2
-  ◀ Carbon Black [CBLK] ×2
-  ◀ Sulphur [SULP] ×2
-  ◀ Metal Wire [STWR] ×2
+  ◀ Rubber [RUBR] ×4 ★required
+  ◀ Carbon Black [CBLK] ×2 ★required
+  ◀ Sulphur [SULP] ×1
+  ◀ Metal Wire [STWR] ×1
 
   ▶ Rubber Parts [TYRE] ×8
+  ▶ Recyclables [RCYC] ×1 (scale: low)
+  ▶ Goods [GOOD] ×1 (scale: medium)
+  ▶ Plastics [PLAS] ×2 (scale: high)
 
 ---
 
 ### Wire and Section Mill (`wire_and_section_mill`)
 **Type**: Secondary (🔗 ALL) | **Economies**: Steel City
 
-  ◀ Carbon Steel [STCB] ×3
-  ◀ Cleaning Agents [SOAP] ×1
+  ◀ Carbon Steel [STCB] ×3 ★required
   ◀ Aluminium [ALUM] ×2
   ◀ Copper [COPR] ×2
+  ◀ Cleaning Agents [SOAP] ×1
 
   ▶ Metal Parts [MPAR] ×4
   ▶ Metal Wire [STWR] ×3
-  ▶ Scrap Metal [SCMT] ×1
+  ▶ Scrap Metal [SCMT] ×1 (scale: low+)
 
 ---
 

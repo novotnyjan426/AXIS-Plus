@@ -13,48 +13,50 @@ industry = IndustrySecondary(
     fund_cost_multiplier="145",
     intro_year=1790,
     graphics_change_dates=[1920, 1945, 1970, 1990, 2010],
+    base_processing_cap=32,
+    required_input_cargos=["VENG", "VPTS", "STEL", "POWR"],
+    scale_bonus_cargos=[("SCMT", {"medium": 1})],
 )
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
-    ("POWR", 2),
-    ("VENG", 2),
+    ("VENG", 3),
     ("VPTS", 2),
+    ("POWR", 2),
     ("MPAR", 1),
-    ("COAT", 1),
 ]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
-    ("GOOD", 4),
-    ("ENSP", 2),
-    ("FMSP", 2),
+    ("ENSP", 3),
+    ("FMSP", 3),
+    ("GOOD", 2),
+    ("SCMT", 1),
 ]
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
-    ("STEL", 3),
-    ("GLAS", 2),
+    ("STEL", 4),
     ("VPTS", 2),
     ("TYRE", 1),
-#    ("COAT", 1),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("GOOD", 4),
     ("ENSP", 2),
     ("FMSP", 2),
+    ("SCMT", 1),
 ]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ("POWR", 3),
-    ("VPTS", 2),
+    ("VPTS", 3),
+    ("POWR", 2),
     ("MPAR", 2),
-    ("TYRE", 2),
-    ("GLAS", 2),
+    ("TYRE", 1),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("GOOD", 4),
     ("ENSP", 2),
     ("FMSP", 2),
+    ("SCMT", 1),
 ]
 
 industry.add_tile(

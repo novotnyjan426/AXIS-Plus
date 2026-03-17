@@ -11,14 +11,17 @@ industry = IndustrySecondary(
     name="string(STR_IND_FORGE_AND_FOUNDRY)",
     nearby_station_name="string(STR_STATION_FURNACE)",
     fund_cost_multiplier="69",
+    base_processing_cap=32,
+    required_input_cargos=["IRON"],
 )
 
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
-    ("IRON", 3),
+    ("IRON", 4),
     ("ALUM", 3),
     ("SAND", 2),
+    ("COKE", 1),
 ]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("MPAR", 7),
@@ -28,22 +31,25 @@ industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
-    ("IRON", 3),
-    ("COAL", 2),
+    ("IRON", 4),
+    ("COAL", 3),
     ("SAND", 2),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
-    ("MPAR", 6),
+    ("MPAR", 7),
+    ("SLAG", 1),
 ]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ("IRON", 3),
-    ("ALUM", 2),
+    ("IRON", 4),
+    ("ALUM", 3),
     ("SAND", 2),
+    ("COKE", 1),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
-    ("MPAR", 6),
+    ("MPAR", 7),
+    ("SLAG", 1),
 ]
 
 # not animated tiles

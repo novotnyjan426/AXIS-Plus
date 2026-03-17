@@ -12,6 +12,9 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_MOULDINGS)",
     fund_cost_multiplier="125",
     intro_year="1900",
+    base_processing_cap=32,
+    required_input_cargos=["PLAS", "MPAR", "STEL"],
+    scale_bonus_cargos=[("RCYC", {"low": 1, "medium": 2, "high": 3})],
 )
 
 
@@ -33,7 +36,7 @@ industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("MNSP", 6),
-#    ("GOOD", 4),
+    ("RCYC", 1),
 ]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
@@ -43,6 +46,7 @@ industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios =
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("MNSP", 6),
+    ("RCYC", 1),
 ]
 
 industry.add_tile(

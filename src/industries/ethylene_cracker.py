@@ -12,23 +12,27 @@ industry = IndustrySecondary(
     name="string(STR_IND_ETHYLENE_CRACKER)",
     nearby_station_name="string(STR_STATION_HEAVY_INDUSTRY_2)",
     fund_cost_multiplier="170",
+    base_processing_cap=32,
+    required_input_cargos=["RFPR", "CTAR"],
+    scale_bonus_cargos=[("H2__", {"medium": 1})],
 )
 
 
 industry.economy_variations['STEELTOWN'].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
-    ('RFPR', 5), 
-    ('CTAR', 3)
+    ('RFPR', 5),
+    ('CTAR', 3),
 ]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("C2H4", 5),
     ("PETR", 3),
+    ("H2__", 1),
 ]
 
 industry.economy_variations['BASIC_TEMPERATE'].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ('RFPR', 4), 
-    ('CTAR', 4)
+    ('RFPR', 4),
+    ('CTAR', 4),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("PETR", 5),

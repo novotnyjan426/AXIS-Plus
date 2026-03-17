@@ -12,6 +12,9 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_POLYMERS)",
     fund_cost_multiplier="125",
     intro_year="1900",
+    base_processing_cap=32,
+    required_input_cargos=["C2H4", "RFPR"],
+    scale_bonus_cargos=[("FICR", {"low": 1, "medium": 2})],
 )
 
 
@@ -22,6 +25,7 @@ industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
 ]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("PLAS", 8),
+    ("RUBR", 2),
 ]
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
@@ -32,6 +36,7 @@ industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("PLAS", 5),
     ("RUBR", 3),
+    ("FICR", 1),
 ]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
@@ -43,7 +48,7 @@ industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios =
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("PLAS", 5),
     ("RUBR", 3),
-    ("FICR", 3),    
+    ("FICR", 2),
 ]
 
 

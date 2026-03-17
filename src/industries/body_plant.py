@@ -2,7 +2,7 @@ from industry import IndustrySecondary, TileLocationChecks
 
 industry = IndustrySecondary(
     id="body_plant",
-    accept_cargos_with_input_ratios=[("STSH", 4), ("COAT", 2), ("GLAS", 2)],
+    accept_cargos_with_input_ratios=[("STSH", 5), ("COAT", 2), ("ZINC", 1)],
     combined_cargos_boost_prod=True,
     prod_cargo_types_with_output_ratios=[("VBOD", 7), ("SCMT", 1)],
     prob_in_game="3",
@@ -12,6 +12,8 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_HEAVY_INDUSTRY_2)",
     fund_cost_multiplier="120",
     pollution_and_squalor_factor=1,
+    base_processing_cap=32,
+    required_input_cargos=["STSH", "COAT"],
 )
 
 

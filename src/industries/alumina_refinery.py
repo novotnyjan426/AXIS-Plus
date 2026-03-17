@@ -12,6 +12,8 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_SMELTER)",
     fund_cost_multiplier="200",
     graphics_change_dates=[],
+    base_processing_cap=32,
+    required_input_cargos=["AORE", "LYE_"],
 )
 
 industry.economy_variations['STEELTOWN'].enabled = True

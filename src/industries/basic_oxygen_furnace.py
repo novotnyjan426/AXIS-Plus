@@ -9,7 +9,7 @@ industry = IndustrySecondary(
         ("O2__", 1),
     ],
     combined_cargos_boost_prod=True,
-    prod_cargo_types_with_output_ratios=[("STCB", 3), ("STAL", 3), ("SLAG", 2)],
+    prod_cargo_types_with_output_ratios=[("STCB", 4), ("STAL", 2), ("SLAG", 2)],
     prob_in_game="3",
     prob_map_gen="5",
     map_colour="49",
@@ -22,6 +22,8 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_FURNACE)",
     fund_cost_multiplier="160",
     pollution_and_squalor_factor=2,
+    base_processing_cap=32,
+    required_input_cargos=["IRON"],
 )
 
 industry.economy_variations["STEELTOWN"].enabled = True
@@ -34,10 +36,10 @@ industry.economy_variations[
     "BASIC_TROPIC"
 ].prob_in_game = "0"  # do not build during gameplay
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
-    ("IRON", 3),
-    ("SCMT", 3),  
+    ("IRON", 4),
+    ("SCMT", 2),
     ("QLME", 1),
-    ("RAMT", 1),  
+    ("RAMT", 1),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("STEL", 6),
@@ -49,9 +51,10 @@ industry.economy_variations[
     "BASIC_TEMPERATE"
 ].prob_in_game = "0"  # do not build during gameplay
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ("IRON", 4),  
-    ("QLME", 2),
-    ("RAMT", 2),  
+    ("IRON", 4),
+    ("SCMT", 2),
+    ("QLME", 1),
+    ("RAMT", 1),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("STEL", 6),

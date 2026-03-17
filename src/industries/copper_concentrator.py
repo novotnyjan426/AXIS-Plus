@@ -18,12 +18,14 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_SMELTER)",
     fund_cost_multiplier="200",
     graphics_change_dates=[],
+    base_processing_cap=32,
+    required_input_cargos=["CORE"],
 )
 
 industry.economy_variations['BASIC_TROPIC'].enabled = True
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
-    ("COCO", 6),
-    ("RAMT", 3),
+    ("COCO", 7),
+    ("RAMT", 2),
 ]
 
 

@@ -12,6 +12,8 @@ industry = IndustrySecondary(
     name="string(STR_IND_SOLVAY_PLANT)",
     nearby_station_name="string(STR_STATION_BRINE_WORKS)",
     fund_cost_multiplier="170",
+    base_processing_cap=32,
+    required_input_cargos=["SALT", "LIME", "NH3_", "RFPR"],
 )
 
 

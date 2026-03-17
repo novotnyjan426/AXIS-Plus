@@ -16,6 +16,8 @@ industry = IndustrySecondary(
     name="string(STR_IND_PAINT_FACTORY)",
     nearby_station_name="string(STR_STATION_INDUSTRY_ESTATE_1)",
     fund_cost_multiplier="95",
+    base_processing_cap=32,
+    required_input_cargos=["RFPR", "QLME", "PLAS", "ACET"],
 )
 
 

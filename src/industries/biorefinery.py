@@ -3,6 +3,7 @@ from industry import IndustrySecondary, TileLocationChecks
 industry = IndustrySecondary(
     id="biorefinery",
     accept_cargos_with_input_ratios=[("GRAI", 6), ("SGBT", 6)],
+    combined_cargos_boost_prod=True,
     prod_cargo_types_with_output_ratios=[("RFPR", 4), ("PETR", 4)],
     prob_in_game="3",
     prob_map_gen="5",
@@ -11,12 +12,17 @@ industry = IndustrySecondary(
     name="string(STR_IND_BIOREFINERY)",
     nearby_station_name="string(STR_STATION_REFINERY)",
     fund_cost_multiplier="170",
+    base_processing_cap=32,
+    # GRAI not in required list to avoid forcing it as REQ in TROPIC (where it's BOOST)
+    # STEELTOWN: FRUT required gate is sufficient
+    required_input_cargos=["FRUT", "BIOM", "SGBT"],
+    scale_bonus_cargos=[("PLAS", {"medium": 1})],
 )
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
     ("GRAI", 4),
-    ("FRUT", 4),  
+    ("FRUT", 4),
 ]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("RFPR", 2),
@@ -27,20 +33,20 @@ industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
     ("BIOM", 6),
-    ("OLSD", 6),  
-    ("GRAI", 6),
+    ("OLSD", 4),
+    ("GRAI", 4),
 ]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
     ("SGBT", 6),
-    ("BIOM", 6),  
-    ("OLSD", 6),
+    ("BIOM", 6),
+    ("OLSD", 4),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("RFPR", 5),
-    ("PETR", 4),
-    ("PLAS", 3),
+    ("PETR", 5),
+    ("PLAS", 1),
 ]
 
 industry.add_tile(

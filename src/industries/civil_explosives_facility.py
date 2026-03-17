@@ -12,6 +12,9 @@ industry = IndustrySecondary(
     name="string(STR_IND_CIVIL_EXPLOSIVES_FACILITY)",
     nearby_station_name="string(STR_STATION_HEAVY_INDUSTRY_2)",
     fund_cost_multiplier="170",
+    base_processing_cap=32,
+    required_input_cargos=["NH3_", "ACID", "NITR", "SUAC"],
+    scale_bonus_cargos=[("ENSP", {"low": 1, "medium": 2, "high": 3}), ("FERT", {"low": 2, "medium": 3, "high": 4})],
 )
 
 
@@ -24,19 +27,19 @@ industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
 ]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("NHNO", 6),
-    ("ENSP", 2),
+    ("ENSP", 1),
 ]
 
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
     ("NITR", 2),
-    ("SUAC", 2),  
-    ("RFPR", 2),  
+    ("SUAC", 2),
+    ("RFPR", 2),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("BOOM", 6),
-    ("FERT", 4),
+    ("FERT", 2),
 ]
 
 industry.add_tile(

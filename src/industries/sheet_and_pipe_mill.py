@@ -4,7 +4,7 @@ industry = IndustrySecondary(
     id="sheet_and_pipe_mill",
     accept_cargos_with_input_ratios=[("STCB", 4), ("ZINC", 2), ("ACID", 2)],
     combined_cargos_boost_prod=True,
-    prod_cargo_types_with_output_ratios=[("STSH", 8)],
+    prod_cargo_types_with_output_ratios=[("STSH", 8), ("SCMT", 1)],
     prob_in_game="3",
     prob_map_gen="5",
     map_colour="160",
@@ -12,6 +12,9 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_GALVANISING)",
     fund_cost_multiplier="120",
     pollution_and_squalor_factor=1,
+    base_processing_cap=32,
+    required_input_cargos=["STCB", "STEL"],
+    scale_bonus_cargos=[("SCMT", {"medium": 1})],
 )
 
 
@@ -26,12 +29,13 @@ industry.economy_variations[
 ].prob_in_game = "0"  # do not build during gameplay
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
     ("STEL", 4),
-    ("ZINC", 3),
-    ("ACID", 2),  
+    ("ZINC", 2),
+    ("ACID", 2),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("MPAR", 6),
-    ("BDMT", 6),
+    ("BDMT", 4),
+    ("SCMT", 1),
 ]
 
 

@@ -18,23 +18,31 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_BANK_TOP)",
     fund_cost_multiplier="120",
     pollution_and_squalor_factor=2,
+    base_processing_cap=32,
+    required_input_cargos=["COAL"],
+    scale_bonus_cargos=[("CTAR", {"low": 1}), ("SULP", {"medium": 1}), ("H2__", {"high": 1})],
 )
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations[
     "STEELTOWN"
 ].prob_in_game = "0"  # do not build during gameplay
-
+industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
+    ("COKE", 5),
+    ("CTAR", 1),
+    ("SULP", 1),
+    ("H2__", 1),
+]
 
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations[
     "BASIC_TROPIC"
 ].prob_in_game = "0"  # do not build during gameplay
-
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("COKE", 6),
-    ("SULP", 2),
+    ("CTAR", 1),
+    ("SULP", 1),
 ]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
@@ -43,7 +51,8 @@ industry.economy_variations[
 ].prob_in_game = "0"  # do not build during gameplay
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("COKE", 6),
-    ("SULP", 2),
+    ("CTAR", 1),
+    ("SULP", 1),
 ]
 
 

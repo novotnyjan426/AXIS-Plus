@@ -3,7 +3,7 @@ from industry import IndustrySecondary, TileLocationChecks
 industry = IndustrySecondary(
     id="sulphuric_acid_plant",
     accept_cargos_with_input_ratios=[("SULP", 8)],
-    prod_cargo_types_with_output_ratios=[("SUAC", 6)],
+    prod_cargo_types_with_output_ratios=[("SUAC", 8)],
     combined_cargos_boost_prod=True,
     prob_in_game="3",
     prob_map_gen="5",
@@ -12,14 +12,15 @@ industry = IndustrySecondary(
     name="string(STR_IND_SULPHURIC_ACID_PLANT)",
     nearby_station_name="string(STR_STATION_HEAVY_INDUSTRY_2)",
     fund_cost_multiplier="170",
+    base_processing_cap=32,
+    required_input_cargos=["SULP"],
 )
 
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
-    ("SULP", 5),
-    ("N7__", 1),  
-    ("H2__", 2),  
+    ("SULP", 6),
+    ("O2__", 2),
 ]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("ACID", 8),
@@ -29,9 +30,7 @@ industry.economy_variations["BASIC_TROPIC"].enabled = True
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ("SULP", 5),
-    ("NITR", 5),  
-    ("RFPR", 2),  
+    ("SULP", 8),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("ACID", 8),

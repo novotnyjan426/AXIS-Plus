@@ -2,8 +2,9 @@ from industry import IndustrySecondary, TileLocationChecks
 
 industry = IndustrySecondary(
     id="slag_grinding_plant",
-    accept_cargos_with_input_ratios=[("SLAG", 8)],
-    prod_cargo_types_with_output_ratios=[("CMNT", 8)],
+    accept_cargos_with_input_ratios=[("SLAG", 6), ("QLME", 2), ("COKE", 1)],
+    combined_cargos_boost_prod=True,
+    prod_cargo_types_with_output_ratios=[("CMNT", 6)],
     prob_in_game="3",
     prob_map_gen="5",
     map_colour="19",
@@ -17,8 +18,10 @@ industry = IndustrySecondary(
     ),
     name="string(STR_IND_SLAG_GRINDING_PLANT)",
     nearby_station_name="string(STR_STATION_SILO)",
-    fund_cost_multiplier="100 ",
+    fund_cost_multiplier="100",
     pollution_and_squalor_factor=2,
+    base_processing_cap=32,
+    required_input_cargos=["SLAG"],
 )
 
 industry.economy_variations["STEELTOWN"].enabled = True
@@ -27,9 +30,14 @@ industry.economy_variations[
 ].prob_in_game = "0"  # do not build during gameplay
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
+industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
+    ("SLAG", 6),
+    ("QLME", 2),
+    ("COKE", 2),
+]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
-    ("CMNT", 8),
-    ("FERT", 5),
+    ("CMNT", 6),
+    ("FERT", 3),
 ]
 
 industry.add_tile(

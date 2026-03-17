@@ -12,6 +12,8 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_SMELTER)",
     fund_cost_multiplier="200",
     graphics_change_dates=[1942, 1980],
+    base_processing_cap=32,
+    required_input_cargos=["ALO_", "AORE"],
 )
 
 
@@ -28,10 +30,10 @@ industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ("AORE", 4),
-    ("SCMT", 4),
+    ("AORE", 5),
+    ("SCMT", 2),
     ("COKE", 2),
-    ("ACID", 2),
+    ("ACID", 1),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("ALUM", 7),

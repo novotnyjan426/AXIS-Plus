@@ -16,6 +16,9 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_ROD_MILL)",
     fund_cost_multiplier="120",
     pollution_and_squalor_factor=1,
+    base_processing_cap=32,
+    required_input_cargos=["STCB"],
+    scale_bonus_cargos=[("SCMT", {"low": 1})],
 )
 
 

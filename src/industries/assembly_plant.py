@@ -3,19 +3,27 @@ from industry import IndustrySecondary, TileLocationChecks
 industry = IndustrySecondary(
     id="assembly_plant",
     accept_cargos_with_input_ratios=[
+        ("VBOD", 3),
+        ("VENG", 3),
         ("VPTS", 2),
-        ("VBOD", 2),
-        ("VENG", 2),
-        ("TYRE", 4),
+        ("TYRE", 2),
+        ("GLAS", 1),
     ],
     combined_cargos_boost_prod=True,
-    prod_cargo_types_with_output_ratios=[("VEHI", 6), ("ENSP", 1), ("FMSP", 1)],
+    prod_cargo_types_with_output_ratios=[("VEHI", 8), ("ENSP", 1), ("FMSP", 1), ("RCYC", 1)],
     prob_in_game="3",
     prob_map_gen="5",
     map_colour="141",
     name="string(STR_IND_ASSEMBLY_PLANT)",
     nearby_station_name="string(STR_STATION_AUTOMOTIVE)",
     fund_cost_multiplier="145",
+    base_processing_cap=32,
+    required_input_cargos=["VBOD", "VENG", "VPTS", "STEL"],
+    scale_bonus_cargos=[
+        ("ENSP", {"low": 1, "high": 2}),
+        ("FMSP", {"low": 1, "high": 2}),
+        ("RCYC", {"low": 1, "medium": 2, "high": 3}),
+    ],
 )
 
 industry.economy_variations["STEELTOWN"].enabled = True
@@ -29,14 +37,15 @@ industry.economy_variations[
     "BASIC_TROPIC"
 ].prob_in_game = "1"  # low chance of build during gameplay
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
-    ("STEL", 2),
-    ("GLAS", 2),  
+    ("STEL", 4),
     ("VPTS", 2),
-    ("TYRE", 1),  
-    ("COAT", 1),  
+    ("GLAS", 1),
+    ("TYRE", 1),
+    ("COAT", 1),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("VEHI", 6),
+    ("RCYC", 1),
 ]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
@@ -44,16 +53,16 @@ industry.economy_variations[
     "BASIC_TEMPERATE"
 ].prob_in_game = "1"  # low chance of build during gameplay
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ("STEL", 3),
-    ("GLAS", 2),  
-    ("VPTS", 2),
-    ("MPAR", 2), 
-    ("TYRE", 2),  
-    ("COAT", 2),  
-    
+    ("STEL", 4),
+    ("VPTS", 3),
+    ("MPAR", 2),
+    ("TYRE", 2),
+    ("GLAS", 1),
+    ("COAT", 1),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("VEHI", 6),
+    ("RCYC", 1),
 ]
 
 

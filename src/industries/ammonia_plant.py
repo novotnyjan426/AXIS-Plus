@@ -14,14 +14,17 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_HEAVY_INDUSTRY_2)",
     fund_cost_multiplier="170",
     graphics_change_dates=[1952],
+    base_processing_cap=32,
+    required_input_cargos=["N7__", "H2__", "NITR", "RFPR"],
+    scale_bonus_cargos=[("BOOM", {"low": 2, "high": 4})],
 )
 
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
+    ("N7__", 2),
+    ("H2__", 4),
     ("RFPR", 2),
-    ("N7__", 4),
-    ("H2__", 2),
 ]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("NH3_", 8),
@@ -29,14 +32,13 @@ industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ("RFPR", 2),
     ("NITR", 4),
-    ("BIOM", 2),
+    ("RFPR", 2),
     ("ACID", 2),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("FERT", 5),
-    ("BOOM", 3),    
+    ("BOOM", 3),
 ]
 
 

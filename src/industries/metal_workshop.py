@@ -12,42 +12,47 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_STAMP_AND_PLATE)",
     fund_cost_multiplier="120",
     pollution_and_squalor_factor=1,
+    base_processing_cap=32,
+    required_input_cargos=["STSH", "STEL"],
+    scale_bonus_cargos=[("SCMT", {"low": 1, "medium": 2}), ("RCYC", {"medium": 1})],
 )
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
     ("STEL", 6),
-    ("ALUM", 6),
+    ("ALUM", 4),
     ("COAT", 2),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("MPAR", 8),
     ("MNSP", 6),
+    ("RCYC", 1),
 ]
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
-    ("STSH", 2),
+    ("STSH", 3),
     ("COAT", 2),
-    ("ZINC", 2),
+    ("ZINC", 1),
     ("STWR", 2),
 ]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("MNSP", 3),
-    ("MPAR", 4),  
-    ("SCMT", 1),  
+    ("MPAR", 4),
+    ("SCMT", 1),
 ]
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
-    ("STEL", 2),
+    ("STEL", 4),
     ("COPR", 2),
-    ("RAMT", 2),
-    ("SOAP", 2),
+    ("RAMT", 1),
+    ("SOAP", 1),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("MPAR", 6),
     ("GOOD", 4),
+    ("RCYC", 1),
 ]
 
 industry.add_tile(

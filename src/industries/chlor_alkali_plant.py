@@ -2,7 +2,8 @@ from industry import IndustrySecondary, TileLocationChecks
 
 industry = IndustrySecondary(
     id="chlor_alkali_plant",
-    accept_cargos_with_input_ratios=[("SALT", 8)],
+    accept_cargos_with_input_ratios=[("SALT", 6), ("POWR", 2)],
+    combined_cargos_boost_prod=True,
     prod_cargo_types_with_output_ratios=[("ACID", 2), ("CHLO", 2), ("LYE_", 2), ("H2__", 2)],
     prob_in_game="3",
     prob_map_gen="5",
@@ -12,6 +13,8 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_BRINE_WORKS)",
     fund_cost_multiplier="170",
     pollution_and_squalor_factor=2,
+    base_processing_cap=32,
+    required_input_cargos=["SALT"],
 )
 
 

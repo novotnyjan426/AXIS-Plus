@@ -4,7 +4,13 @@ from industry import IndustrySecondary, TileLocationChecks
 
 industry = IndustrySecondary(
     id="electrical_works",
-    accept_cargos_with_input_ratios=[("STAL", 3), ("COPR", 2), ("RFPR", 1), ("STWR", 1), ("PPAR", 1)],
+    accept_cargos_with_input_ratios=[
+        ("COPR", 3),
+        ("PPAR", 2),
+        ("RAMT", 2),
+        ("STSH", 1),
+        ("RFPR", 1),
+    ],
     combined_cargos_boost_prod=True,
     prod_cargo_types_with_output_ratios=[("POWR", 8)],
     prob_in_game="3",
@@ -13,6 +19,8 @@ industry = IndustrySecondary(
     name="string(STR_IND_ELECTRICAL_WORKS)",
     nearby_station_name="string(STR_STATION_DYNAMO)",
     fund_cost_multiplier="120",
+    base_processing_cap=32,
+    required_input_cargos=["COPR", "PPAR", "PLAS"],
 )
 
 industry.economy_variations['STEELTOWN'].enabled = True
@@ -20,10 +28,10 @@ industry.economy_variations['STEELTOWN'].enabled = True
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
-    ("COPR", 2),
-    ("SUAC", 2),
+    ("COPR", 3),
     ("PLAS", 2),
-    ("RAMT", 2),
+    ("RAMT", 1),
+    ("STEL", 2),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("VPTS", 6),
@@ -32,10 +40,10 @@ industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios 
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ("COPR", 2),
-    ("TYRE", 2),
+    ("COPR", 3),
     ("PLAS", 2),
     ("RAMT", 2),
+    ("TYRE", 1),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("POWR", 6),

@@ -3,13 +3,13 @@ from industry import IndustrySecondary, TileLocationChecks
 industry = IndustrySecondary(
     id="tyre_plant",
     accept_cargos_with_input_ratios=[
-        ("RUBR", 2),
+        ("RUBR", 4),
         ("CBLK", 2),
-        ("SULP", 2),
-        ("STWR", 2),
+        ("SULP", 1),
+        ("STWR", 1),
     ],
     combined_cargos_boost_prod=True,
-    prod_cargo_types_with_output_ratios=[("TYRE", 8)],
+    prod_cargo_types_with_output_ratios=[("TYRE", 8), ("RCYC", 1), ("GOOD", 1), ("PLAS", 2)],
     prob_in_game="3",
     prob_map_gen="5",
     map_colour="143",
@@ -17,6 +17,9 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_RUBBER_COMPANY)",
     fund_cost_multiplier="130",
     pollution_and_squalor_factor=1,
+    base_processing_cap=32,
+    required_input_cargos=["RUBR", "CBLK"],
+    scale_bonus_cargos=[("RCYC", {"low": 1}), ("GOOD", {"medium": 1}), ("PLAS", {"high": 2})],
 )
 
 industry.economy_variations["STEELTOWN"].enabled = True
@@ -27,23 +30,27 @@ industry.economy_variations[
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
     ("RUBR", 4),
-    ("MPAR", 2),
     ("SULP", 2),
+    ("MPAR", 1),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("TYRE", 8),
-    ("PLAS", 4),
+    ("RCYC", 1),
+    ("GOOD", 1),
+    ("PLAS", 2),
 ]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
     ("RUBR", 4),
-    ("MPAR", 2),
     ("SULP", 2),
+    ("MPAR", 1),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("TYRE", 8),
-    ("GOOD", 4),
+    ("RCYC", 1),
+    ("GOOD", 1),
+    ("PLAS", 2),
 ]
 
 

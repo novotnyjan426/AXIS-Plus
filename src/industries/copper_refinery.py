@@ -13,6 +13,8 @@ industry = IndustrySecondary(
     fund_cost_multiplier="200",
     graphics_change_dates=[],
     pollution_and_squalor_factor=2,
+    base_processing_cap=32,
+    required_input_cargos=["COCO", "CORE"],
 )
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
@@ -47,8 +49,9 @@ industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios =
     ("ACID", 2),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
-    ("COPR", 7),
+    ("COPR", 6),
     ("SLAG", 1),
+    ("SULP", 1),
 ]
 
 

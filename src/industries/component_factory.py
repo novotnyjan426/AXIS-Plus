@@ -3,13 +3,13 @@ from industry import IndustrySecondary, TileLocationChecks
 industry = IndustrySecondary(
     id="component_factory",
     accept_cargos_with_input_ratios=[
+        ("STAL", 3),
         ("MPAR", 2),
         ("PPAR", 2),
-        ("STAL", 2),
-        ("POWR", 2),
+        ("POWR", 1),
     ],
     combined_cargos_boost_prod=True,
-    prod_cargo_types_with_output_ratios=[("VPTS", 8)],
+    prod_cargo_types_with_output_ratios=[("VPTS", 8), ("RCYC", 1)],
     prob_in_game="7",
     prob_map_gen="8",
     map_colour="166",
@@ -17,6 +17,9 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_COMPONENTS)",
     fund_cost_multiplier="95",
     pollution_and_squalor_factor=1,
+    base_processing_cap=32,
+    required_input_cargos=["STAL", "MPAR", "PLAS", "POWR"],
+    scale_bonus_cargos=[("RCYC", {"medium": 1})],
 )
 
 industry.economy_variations["STEELTOWN"].enabled = True
@@ -27,20 +30,19 @@ industry.economy_variations[
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
-    ("MPAR", 2),
-    ("TYRE", 2),  
-    ("PLAS", 2),  
-    ("TEXT", 2),  
-    ("COAT", 2),  
+    ("MPAR", 3),
+    ("PLAS", 2),
+    ("TYRE", 2),
+    ("TEXT", 2),
+    ("COAT", 1),
 ]
-
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ("MPAR", 2),
-    ("PLAS", 2),  
-    ("TEXT", 2),  
-    ("POWR", 2),  
+    ("MPAR", 3),
+    ("POWR", 2),
+    ("PLAS", 2),
+    ("TEXT", 1),
 ]
 
 industry.add_tile(

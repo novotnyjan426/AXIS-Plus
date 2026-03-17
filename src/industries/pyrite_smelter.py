@@ -13,6 +13,9 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_SMELTER)",
     fund_cost_multiplier="120",
     pollution_and_squalor_factor=2,
+    base_processing_cap=32,
+    required_input_cargos=["PORE"],
+    scale_bonus_cargos=[("SLAG", {"low": 1, "high": 2}), ("SULP", {"medium": 1, "high": 2})],
 )
 
 industry.economy_variations["STEELTOWN"].enabled = True
@@ -24,8 +27,9 @@ industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("ZINC", 2),
     ("COCO", 3),
+    ("IORE", 2),
     ("SLAG", 1),
-    ("FECR", 2),
+    ("SULP", 1),
 ]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
@@ -36,9 +40,9 @@ industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios =
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("ZINC", 4),
-    ("RAMT", 3),
-    # ("FECR", 2),
-    # ("SULP", 2),
+    ("RAMT", 2),
+    ("SLAG", 1),
+    ("SULP", 1),
 ]
 
 
