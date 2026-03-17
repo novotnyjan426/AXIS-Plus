@@ -3,7 +3,7 @@ from industry import IndustrySecondary, TileLocationChecks
 industry = IndustrySecondary(
     id="junk_yard",
     accept_cargos_with_input_ratios=[("RCYC", 6)],
-    prod_cargo_types_with_output_ratios=[("SCMT", 3)],
+    prod_cargo_types_with_output_ratios=[("SCMT", 4), ("RAMT", 1)],
     prob_in_game="3",
     prob_map_gen="10",
     map_colour="64",
@@ -12,17 +12,15 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_BONEYARD)",
     fund_cost_multiplier="110",
     graphics_change_dates=[1949, 1960, 1980, 2000],
+    base_processing_cap=32,
+    required_input_cargos=["RCYC"],
+    scale_bonus_cargos=[("RAMT", {"low": 1, "high": 2})],
 )
 
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
-industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
-    ("SCMT", 4),
-    ("RAMT", 1),
-]
-
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].prob_map_gen = "14"
