@@ -1108,3 +1108,38 @@ by one anchor tile in an arbitrary corner or center.
     industries, the effective scan zone may be 14x14 instead of the full
     expanded bounding box. This is acceptable for gameplay but means the
     scan zone is smaller than intended for tiny industries.
+
+---
+
+## Future Feature: Fishing Grounds — Distance-from-Land Production Bonus
+
+### Concept
+Fishing grounds production scales with distance from land. Further offshore
+= more fish. This is determined **once at construction time** and stored
+permanently — it becomes the base production factor the player sees.
+
+### Technical Approach
+1. **At `build_prod_change` callback** — instead of random `base_prod_factor`,
+   calculate a "water depth score" based on surrounding tiles.
+2. **Scan from FEAT_INDUSTRYTILES** (signed offsets ±7) — count water tiles
+   vs land tiles in the surrounding area.
+3. **Map water percentage → production factor:**
+   - >90% water (deep sea): factor 32-36 (high production)
+   - 60-90% water (offshore): factor 16-24 (medium production)
+   - <60% water (coastal): factor 8-12 (low production)
+4. **Store in `base_prod_factor` perm register** — used by existing
+   `produce_primary_no_supplies.pynml` formula:
+   `output = cargo_multiplier × production_level × base_prod_factor / (16×16)`
+
+### Implementation Steps
+- Create `fishing_grounds_depth_scan.pynml` template
+- Override `build_prod_change` in fishing_grounds industry template
+- Scan ±7 from each industry tile, count `nearby_tile_class == TILE_CLASS_WATER`
+- Convert count to factor, store in perm storage
+- No changes needed to production template (uses existing base_prod_factor)
+
+### Display
+- The production level shown in industry window naturally reflects the
+  water depth score — deep sea fishing grounds show higher initial production.
+- Consider adding extra text string: "Deep Sea" / "Offshore" / "Coastal"
+  based on the stored factor.
