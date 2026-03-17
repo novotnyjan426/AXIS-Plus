@@ -2,8 +2,8 @@ from industry import IndustrySecondary, TileLocationChecks
 
 industry = IndustrySecondary(
     id="sawmill",
-    accept_cargos_with_input_ratios=[("WOOD", 6)],
-    prod_cargo_types_with_output_ratios=[("WDPR", 8)],
+    accept_cargos_with_input_ratios=[("WOOD", 8)],
+    prod_cargo_types_with_output_ratios=[("WDPR", 7), ("BIOM", 1)],
     prob_in_game="3",
     prob_map_gen="5",
     map_colour="194",
@@ -11,6 +11,9 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_MILL)",
     fund_cost_multiplier="97",
     pollution_and_squalor_factor=1,
+    base_processing_cap=32,
+    required_input_cargos=["WOOD"],
+    scale_bonus_cargos=[("BIOM", {"low": 1, "high": 2})],
 )
 
 

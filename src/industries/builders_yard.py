@@ -3,12 +3,13 @@ from industry import IndustrySecondary, TileLocationChecks
 industry = IndustrySecondary(
     id="builders_yard",
     accept_cargos_with_input_ratios=[
-        ("CMNT", 2),
-        ("MPAR", 2),
+        ("CMNT", 3),
         ("STWR", 2),
-        ("GLAS", 2),
+        ("MPAR", 2),
+        ("GLAS", 1),
     ],
-    prod_cargo_types_with_output_ratios=[("GOOD", 8)],
+    combined_cargos_boost_prod=True,
+    prod_cargo_types_with_output_ratios=[("GOOD", 8), ("RCYC", 1)],
     prob_in_game="12",
     prob_map_gen="18",
     prod_multiplier="[0, 0]",
@@ -17,6 +18,9 @@ industry = IndustrySecondary(
     name="string(STR_IND_BUILDERS_YARD)",
     nearby_station_name="string(STR_STATION_MERCHANTS_LANE)",
     fund_cost_multiplier="16",
+    base_processing_cap=32,
+    required_input_cargos=["CMNT", "STWR"],
+    scale_bonus_cargos=[("RCYC", {"low": 1, "high": 2})],
 )
 
 

@@ -1033,11 +1033,12 @@ cargos at a constant rate unrelated to deliveries.
 ### Brick Works (`brick_works`)
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise
 
-  ◀ Clay [CLAY] ×4
-  ◀ Sand [SAND] ×3
-  ◀ Coal [COAL] ×2
+  ◀ Clay [CLAY] ×4 ★required
+  ◀ Coal [COAL] ×2 ★required
+  ◀ Sand [SAND] ×1
 
   ▶ Building Materials [BDMT] ×6
+  ▶ Cement [CMNT] ×1 (scale: medium+)
 
 ---
 
@@ -1292,26 +1293,15 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Construction Plant (`builders_yard`)
-**Type**: Secondary (⚡ ANY) | **Economies**: Steel City
-
-  ◀ Cement [CMNT] ×2
-  ◀ Metal Parts [MPAR] ×2
-  ◀ Metal Wire [STWR] ×2
-  ◀ Glass [GLAS] ×2
-
-  ▶ Goods [GOOD] ×8
-
----
-
-### Construction Plant (`construction_plant`)
 **Type**: Secondary (🔗 ALL) | **Economies**: Steel City
 
-  ◀ Cement [CMNT] ×2
+  ◀ Cement [CMNT] ×3 ★required
+  ◀ Metal Wire [STWR] ×2 ★required
   ◀ Metal Parts [MPAR] ×2
-  ◀ Metal Wire [STWR] ×2
-  ◀ Glass [GLAS] ×2
+  ◀ Glass [GLAS] ×1
 
   ▶ Goods [GOOD] ×8
+  ▶ Recyclables [RCYC] ×1 (scale: low) ×2 (scale: high)
 
 ---
 
@@ -1465,29 +1455,32 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Engineering Supply Yard (`supply_yard`)
-**Type**: Secondary (⚡ ANY) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Vehicles [VEHI] ×8
-  ◀ Petroleum Fuels [PETR] ×8
+  ◀ Vehicles [VEHI] ×8 ★required
+  ◀ Petroleum Fuels [PETR] ×8 ★required
   ◀ Explosives [BOOM] ×8
 
   ▶ Engineering Supplies [ENSP] ×8
+  ▶ Farm Supplies [FMSP] ×2 (scale: low) ×4 (scale: high)
 
 **Tropical Paradise**
-  ◀ Vehicles [VEHI] ×8
-  ◀ Petroleum Fuels [PETR] ×8
+  ◀ Vehicles [VEHI] ×8 ★required
+  ◀ Petroleum Fuels [PETR] ×8 ★required
   ◀ Explosives [BOOM] ×8
 
   ▶ Engineering Supplies [ENSP] ×8
+  ▶ Farm Supplies [FMSP] ×2 (scale: low) ×4 (scale: high)
 
 **Steel City**
+  ◀ Vehicles [VEHI] ×8 ★required
+  ◀ Petroleum Fuels [PETR] ×8 ★required
   ◀ Ammonium Nitrate [NHNO] ×8
-  ◀ Vehicles [VEHI] ×8
-  ◀ Petroleum Fuels [PETR] ×8
-  ◀ Rubber Parts [TYRE] ×8
+  ◀ Rubber Parts [TYRE] ×4
 
   ▶ Engineering Supplies [ENSP] ×8
+  ▶ Farm Supplies [FMSP] ×2 (scale: low) ×4 (scale: high)
 
 ---
 
@@ -1664,29 +1657,33 @@ cargos at a constant rate unrelated to deliveries.
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Sand [SAND] ×6
-  ◀ Soda Ash [SASH] ×2
-  ◀ Quicklime [QLME] ×2
+  ◀ Sand [SAND] ×6 ★required
+  ◀ Soda Ash [SASH] ×2 ★required
+  ◀ Quicklime [QLME] ×2 ★required
 
   ▶ Glass [GLAS] ×8
-  ▶ Packaging [MNSP] ×8
+  ▶ Recyclables [RCYC] ×1 (scale: low+)
+  ▶ Packaging [MNSP] ×2 (scale: low) ×4 (scale: medium) ×6 (scale: high)
 
 **Tropical Paradise**
-  ◀ Sand [SAND] ×4
-  ◀ Soda Ash [SASH] ×2
-  ◀ Quicklime [QLME] ×1
+  ◀ Sand [SAND] ×4 ★required
+  ◀ Soda Ash [SASH] ×2 ★required
+  ◀ Quicklime [QLME] ×1 ★required
   ◀ Plastics [PLAS] ×1
 
   ▶ Glass [GLAS] ×8
+  ▶ Recyclables [RCYC] ×1 (scale: low+)
+  ▶ Packaging [MNSP] ×2 (scale: low) ×4 (scale: medium) ×6 (scale: high)
 
 **Steel City**
-  ◀ Sand [SAND] ×4
-  ◀ Soda Ash [SASH] ×2
-  ◀ Quicklime [QLME] ×1
+  ◀ Sand [SAND] ×4 ★required
+  ◀ Soda Ash [SASH] ×2 ★required
+  ◀ Quicklime [QLME] ×1 ★required
   ◀ Plastics [PLAS] ×1
 
   ▶ Glass [GLAS] ×6
-  ▶ Packaging [MNSP] ×4
+  ▶ Recyclables [RCYC] ×1 (scale: low+)
+  ▶ Packaging [MNSP] ×2 (scale: low) ×4 (scale: medium) ×6 (scale: high)
 
 ---
 
@@ -1999,11 +1996,12 @@ cargos at a constant rate unrelated to deliveries.
 ### Printing Plant (`printing_plant`)
 **Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic
 
-  ◀ Paper [PAPR] ×6
+  ◀ Paper [PAPR] ×6 ★required
   ◀ Paints & Coatings [COAT] ×2
 
-  ▶ Goods [GOOD] ×6
-  ▶ Mail [MAIL] ×6
+  ▶ Goods [GOOD] ×5
+  ▶ Mail [MAIL] ×5
+  ▶ Recyclables [RCYC] ×1 (scale: low) ×2 (scale: high)
 
 ---
 

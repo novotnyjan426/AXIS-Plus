@@ -13,27 +13,30 @@ industry = IndustrySecondary(
     nearby_station_name="string(STR_STATION_SILO)",
     fund_cost_multiplier="203",
     pollution_and_squalor_factor=2,
+    base_processing_cap=32,
+    required_input_cargos=["LIME", "SAND", "COKE"],
+    scale_bonus_cargos=[("BDMT", {"low": 2, "medium": 4, "high": 6})],
 )
 
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
-    ("PETR", 2),
-    ("SAND", 2),
     ("LIME", 4),
+    ("SAND", 2),
+    ("PETR", 2),
 ]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
-    ("QLME", 6),
     ("CMNT", 6),
+    ("QLME", 4),
 ]
 
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
+    ("LIME", 4),
     ("COKE", 2),
-    ("SAND", 2),  
-    ("LIME", 2),  
-    ("SLAG", 2),  
+    ("SAND", 1),
+    ("SLAG", 1),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("BDMT", 6),
@@ -42,14 +45,14 @@ industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios 
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ("CMNT", 2), 
+    ("LIME", 4),
     ("COKE", 2),
-    ("SAND", 2),  
-    ("LIME", 2),  
+    ("SAND", 2),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
-    ("BDMT", 6),
+    ("CMNT", 6),
     ("QLME", 2),
+    ("BDMT", 2),
 ]
 
 

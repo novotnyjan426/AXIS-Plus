@@ -3,8 +3,9 @@ from industry import IndustrySecondary, TileLocationChecks
 industry = IndustrySecondary(
     id="lime_kiln",
     accept_cargos_with_input_ratios=[
-        ("LIME", 8)
-    ],  # no fuel source, at least in Steeltown, it's better for gameplay - assume natural gas fuel
+        ("LIME", 6),
+        ("PETR", 2),
+    ],
     combined_cargos_boost_prod=True,
     prod_cargo_types_with_output_ratios=[("QLME", 6), ("FMSP", 2)],
     prob_in_game="3",
@@ -15,37 +16,29 @@ industry = IndustrySecondary(
     fund_cost_multiplier="45",
     graphics_change_dates=[1952, 1978],
     pollution_and_squalor_factor=2,
+    base_processing_cap=32,
+    required_input_cargos=["LIME"],
+    scale_bonus_cargos=[("FERT", {"low": 1, "medium": 2})],
 )
 
 industry.economy_variations["STEELTOWN"].enabled = True
 industry.economy_variations[
     "STEELTOWN"
 ].prob_in_game = "1"  # low probability of build during gameplay
-industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
-    ("LIME", 6),
-    ("PETR", 2),
-]
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("QLME", 8),
 ]
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
-industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
-    ("LIME", 6),
-    ("PETR", 2),
-]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("QLME", 6),
     ("FERT", 2),
 ]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
-industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ("LIME", 6),
-    ("PETR", 2),
-]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("QLME", 6),
+    ("FERT", 1),
 ]
 
 

@@ -14,6 +14,9 @@ industry = IndustrySecondary(
     name="TTD_STR_INDUSTRY_NAME_PAPER_MILL",
     override="14",
     pollution_and_squalor_factor=2,
+    base_processing_cap=32,
+    required_input_cargos=["WOOD"],
+    scale_bonus_cargos=[("RCYC", {"low": 1})],
 )
 
 
@@ -21,22 +24,23 @@ industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
     ("WOOD", 4),
     ("CLAY", 2),
-    ("SUAC", 2),
+    ("SUAC", 1),
 ]
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("GOOD", 4),
-    ("MNSP", 7),
+    ("MNSP", 6),
 ]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
-    ("CLAY", 2),
     ("WOOD", 4),
     ("SULP", 2),
+    ("CLAY", 2),
 ]
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("PAPR", 6),
-    ("MNSP", 8),
+    ("MNSP", 5),
+    ("RCYC", 1),
 ]
 
 # industry uses layouts and sprites from default game, no custom layouts etc
