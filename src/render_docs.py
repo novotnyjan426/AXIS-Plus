@@ -318,6 +318,21 @@ class DocHelper(object):
         has_or = hasattr(industry, 'required_any_input_cargos') and len(industry.required_any_input_cargos) > 0
         return has_and or has_or
 
+    def cargos_accepted_required_all(self, industry, economy):
+        """Return accepted cargos that are AND-required for this economy."""
+        return [c for c in self.cargos_accepted_by_industry(industry, economy)
+                if self.is_cargo_required(industry, c)]
+
+    def cargos_accepted_required_any(self, industry, economy):
+        """Return accepted cargos that are OR-required for this economy."""
+        return [c for c in self.cargos_accepted_by_industry(industry, economy)
+                if self.is_cargo_required_any(industry, c) and not self.is_cargo_required(industry, c)]
+
+    def cargos_accepted_boosters(self, industry, economy):
+        """Return accepted cargos that are boosters (not required) for this economy."""
+        return [c for c in self.cargos_accepted_by_industry(industry, economy)
+                if not self.is_cargo_required(industry, c) and not self.is_cargo_required_any(industry, c)]
+
     def is_warehouse_industry(self, industry):
         """Check if industry uses warehouse model."""
         return hasattr(industry, 'base_processing_cap') and industry.base_processing_cap > 0
