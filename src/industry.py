@@ -2141,10 +2141,12 @@ class IndustrySecondary(Industry):
     def _ensure_scale_scan_tile(self):
         """Ensure at least one tile has TILE_LOOP trigger for scale scanning.
         Reuses same logic as IndustryPrimary."""
+        # Already has a first_frame_is_0 tile → nothing to do
         for tile in self.tiles:
             ac = getattr(tile, "custom_animation_control", None)
             if ac and ac.get("macro") == "first_frame_is_0":
                 return
+        # Try to find an unanimated tile to add the trigger to
         for tile in self.tiles:
             if tile.custom_animation_control is None and tile.animation_length <= 1:
                 tile.animation_length = 2
@@ -2160,6 +2162,17 @@ class IndustrySecondary(Industry):
                     "macro": "first_frame_is_0",
                     "animation_triggers": "bitmask(ANIM_TRIGGER_INDTILE_TILE_LOOP)",
                 }
+                return
+        # All tiles have animation — add TILE_LOOP to the first tile's existing triggers
+        # so scale scanning can piggyback on the existing animation system
+        for tile in self.tiles:
+            ac = tile.custom_animation_control
+            if ac and "animation_triggers" in ac:
+                if "ANIM_TRIGGER_INDTILE_TILE_LOOP" not in ac["animation_triggers"]:
+                    ac["animation_triggers"] = ac["animation_triggers"].replace(
+                        ")", ", ANIM_TRIGGER_INDTILE_TILE_LOOP)"
+                    )
+                ac["macro"] = "first_frame_is_0"
                 return
 
     @property
@@ -2235,6 +2248,48 @@ class IndustrySecondary(Industry):
                     if key in levels:
                         return "primary_scale_bonus_" + key
         return "primary_scale_bonus_medium"  # fallback
+
+    def get_output_stockpile_cap_expression(self, cargo_ratio, economy):
+        """Return NML expression for a specific output cargo's stockpile cap.
+        Cap = 1 month of production at current scale for this cargo.
+        Formula: (base_cap * ratio * max(scale_mult, 100) * 9) / (100 * total_ratio)
+        No warehouse_month_buffer — stockpile is always 1-month based."""
+        output_cargos = self.get_property('prod_cargo_types_with_output_ratios', economy)
+        total_ratio = sum(r for _, r in output_cargos)
+        if total_ratio == 0:
+            return "0"
+        scale_reg = self.get_perm_num("scale_multiplier")
+        return "({base} * {ratio} * max(LOAD_PERM({scale}), 100) * 9 / ({denom}))".format(
+            base=self.base_processing_cap,
+            ratio=cargo_ratio,
+            scale=scale_reg,
+            denom=100 * total_ratio,
+        )
+
+    def get_non_bonus_output_cargos(self, economy):
+        """Return list of (label, ratio) for output cargos that are NOT scale bonus cargos."""
+        return [(label, ratio) for label, ratio in
+                self.get_property('prod_cargo_types_with_output_ratios', economy)
+                if not self.is_bonus_cargo(label)]
+
+    def get_required_gate_expression(self, economy):
+        """Return NML expression that evaluates to 1 if all required cargos are supplied, 0 if any isn't.
+        Uses supplied_cycles_remaining (persists ~3 months) instead of warehouse level,
+        because warehouse can temporarily hit 0 during processing even when actively supplied."""
+        indices = self.get_required_cargo_warehouse_indices(economy)
+        if not indices:
+            return "1"
+        parts = ["(LOAD_PERM({}) > 0)".format(
+            self.get_perm_num("supplied_cycles_remaining_cargo_" + str(idx))) for idx in indices]
+        return " * ".join(parts)
+
+    def get_output_stockpile_register_num(self, cargo_label, economy):
+        """Return 1-based index into output_stockpile_N registers for a non-bonus output cargo."""
+        non_bonus = self.get_non_bonus_output_cargos(economy)
+        for i, (label, _) in enumerate(non_bonus):
+            if label == cargo_label:
+                return i + 1
+        return 1  # fallback
 
     def get_extra_text_string_warehouse(self, economy):
         """Warehouse variant of extra_text: includes throughput info."""

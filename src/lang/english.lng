@@ -400,25 +400,26 @@ STR_PARAM_VALUE_ECONOMIES_STEELTOWN                                             
 
 STR_CARGO_SUBTYPE_DISPLAY_CARGO_SUPPLIED_FLAG                                   : {BLACK}(supplied)
 STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE                                             : {BLACK}[{COMMA}/{COMMA}]
-STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_SUPPLIED                                    : {BLACK}(supplied) [{COMMA}/{COMMA}]
-STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_FULL                                        : {RED}FULL [{COMMA}/{COMMA}]
-STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED                                    : {BLACK}required [{COMMA}/{COMMA}]
-STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_SUPPLIED                           : {BLACK}required, supplied [{COMMA}/{COMMA}]
+STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_SUPPLIED                                    : {GREEN}(supplied) [{COMMA}/{COMMA}]
+STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_FULL                                        : {RED}full [{COMMA}/{COMMA}]
+STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED                                    : {ORANGE}required [{COMMA}/{COMMA}]
+STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_SUPPLIED                           : {GREEN}required, supplied [{COMMA}/{COMMA}]
 STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_EMPTY                              : {ORANGE}required [{COMMA}/{COMMA}]
-STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_ANY                                : {BLACK}required(any) [{COMMA}/{COMMA}]
-STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_ANY_SUPPLIED                       : {BLACK}required(any), supplied [{COMMA}/{COMMA}]
-STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_ANY_EMPTY                          : {ORANGE}required(any) [{COMMA}/{COMMA}]
-STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_BOOSTER                                     : {BLACK}booster [{COMMA}/{COMMA}]
-STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_BOOSTER_SUPPLIED                            : {BLACK}booster, supplied [{COMMA}/{COMMA}]
+STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_ANY                                : {ORANGE}required [{COMMA}/{COMMA}]
+STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_ANY_SUPPLIED                       : {GREEN}required, supplied [{COMMA}/{COMMA}]
+STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_REQUIRED_ANY_EMPTY                          : {ORANGE}required [{COMMA}/{COMMA}]
+STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_BOOSTER                                     : {LTBLUE}booster [{COMMA}/{COMMA}]
+STR_CARGO_SUBTYPE_DISPLAY_WAREHOUSE_BOOSTER_SUPPLIED                            : {LTBLUE}booster, supplied [{COMMA}/{COMMA}]
 STR_CARGO_SUBTYPE_DISPLAY_BONUS_LOCKED                                          : {ORANGE}expand to unlock
+STR_CARGO_SUBTYPE_DISPLAY_TRANSPORT_SLOW                                         : {RED}slowing
 STR_EXTRA_TEXT_SECONDARY_NON_COMBINATORY                                        :{BLACK}Produces at maximum rate if {WHITE}any {BLACK}required cargo is supplied.
 STR_EXTRA_TEXT_SECONDARY_COMBINATORY                                            :{BLACK}For maximum production rate, supply {WHITE}all {BLACK}required cargos at least once every three months.
-STR_WAREHOUSE_SCALE_NONE                                                    :{BLACK}Nearby scale buildings: {YELLOW}{COMMA}{BLACK} (~7 tile radius).{}Place {WHITE}{SKIP}{SKIP}{COMMA}{BLACK} buildings for scale bonus.
-STR_WAREHOUSE_SCALE_MID                                                     :{BLACK}Nearby scale buildings: {YELLOW}{COMMA}{BLACK}. Scale bonus: {YELLOW}+{COMMA}%{BLACK}.{}Next level at {WHITE}{COMMA}{BLACK} buildings.
-STR_WAREHOUSE_SCALE_MAX                                                     :{BLACK}Nearby scale buildings: {YELLOW}{COMMA}{BLACK}. Scale bonus: {YELLOW}+{COMMA}%{BLACK} (max).
-STR_WAREHOUSE_SCALE_NONE_REQ                                                :{BLACK}Nearby scale buildings: {YELLOW}{COMMA}{BLACK} (~7 tile radius).{}Place {WHITE}{SKIP}{SKIP}{COMMA}{BLACK} buildings for scale bonus.{}{BLACK}Cargos marked {WHITE}required{BLACK} must be in warehouse for production. {WHITE}Booster{BLACK} cargos increase efficiency.
-STR_WAREHOUSE_SCALE_MID_REQ                                                 :{BLACK}Nearby scale buildings: {YELLOW}{COMMA}{BLACK}. Scale bonus: {YELLOW}+{COMMA}%{BLACK}.{}Next level at {WHITE}{COMMA}{BLACK} buildings.{}{BLACK}Cargos marked {WHITE}required{BLACK} must be in warehouse for production. {WHITE}Booster{BLACK} cargos increase efficiency.
-STR_WAREHOUSE_SCALE_MAX_REQ                                                 :{BLACK}Nearby scale buildings: {YELLOW}{COMMA}{BLACK}. Scale bonus: {YELLOW}+{COMMA}%{BLACK} (max).{}{BLACK}Cargos marked {WHITE}required{BLACK} must be in warehouse for production. {WHITE}Booster{BLACK} cargos increase efficiency.
+STR_WAREHOUSE_SCALE_NONE                                                    :{BLACK}Scale: {YELLOW}+0%{BLACK} ({SKIP}{SKIP}{YELLOW}{COMMA}{BLACK} buildings, place {WHITE}{COMMA}{BLACK} for bonus){}{GRAY}-------------------------------{}{BLACK}Current efficiency: {WHITE}{COMMA}%
+STR_WAREHOUSE_SCALE_NONE_SLOW                                               :{BLACK}Scale: {YELLOW}+0%{BLACK} ({SKIP}{SKIP}{YELLOW}{COMMA}{BLACK} buildings, place {WHITE}{COMMA}{BLACK} for bonus){}{GRAY}-------------------------------{}{BLACK}Current efficiency: {RED}{COMMA}%{}{BLACK}Output cargo {RED}slowing{BLACK} production. Transport it to increase efficiency.
+STR_WAREHOUSE_SCALE_MID                                                     :{BLACK}Scale: {YELLOW}+{COMMA}%{BLACK} ({YELLOW}{COMMA}{BLACK} buildings, next at {WHITE}{COMMA}{BLACK}){}{GRAY}-------------------------------{}{BLACK}Current efficiency: {WHITE}{COMMA}%
+STR_WAREHOUSE_SCALE_MID_SLOW                                                :{BLACK}Scale: {YELLOW}+{COMMA}%{BLACK} ({YELLOW}{COMMA}{BLACK} buildings, next at {WHITE}{COMMA}{BLACK}){}{GRAY}-------------------------------{}{BLACK}Current efficiency: {RED}{COMMA}%{}{BLACK}Output cargo {RED}slowing{BLACK} production. Transport it to increase efficiency.
+STR_WAREHOUSE_SCALE_MAX                                                     :{BLACK}Scale: {YELLOW}+{COMMA}%{BLACK} ({YELLOW}{COMMA}{BLACK} buildings, max){}{SKIP}{SKIP}{GRAY}-------------------------------{}{BLACK}Current efficiency: {WHITE}{COMMA}%
+STR_WAREHOUSE_SCALE_MAX_SLOW                                                :{BLACK}Scale: {YELLOW}+{COMMA}%{BLACK} ({YELLOW}{COMMA}{BLACK} buildings, max){}{SKIP}{SKIP}{GRAY}-------------------------------{}{BLACK}Current efficiency: {RED}{COMMA}%{}{BLACK}Output cargo {RED}slowing{BLACK} production. Transport it to increase efficiency.
 STR_EXTRA_TEXT_TOWN_PRODUCER                                                    :{BLACK}Production is proportional to town population. At least {WHITE}{SIGNED_WORD} units{BLACK} and not more than {WHITE}{SIGNED_WORD} units{BLACK} of cargo will be produced every month.
 STR_PRIMARY_PRODUCTION_1X                                                       :{BLACK}Current production: {YELLOW}Normal {}{}{BLACK}For {WHITE}Enhanced {BLACK}production deliver {SIGNED_WORD} crates of supplies at least once every three months.{}For {WHITE}Crankin' It {BLACK}production deliver {SIGNED_WORD} crates.{}{}{BLACK}Nearby scale buildings: {YELLOW}{SIGNED_WORD}{BLACK} (~7 tile radius){}Scale bonus: {YELLOW}{SIGNED_WORD}%
 STR_PRIMARY_PRODUCTION_2X                                                       :{BLACK}Current production: {YELLOW}Enhanced {}{}{BLACK}To keep this level, deliver {SIGNED_WORD} crates of supplies at least once every three months.{}For {WHITE}Crankin' It {BLACK}production deliver {SIGNED_WORD} crates.{}{}{BLACK}Nearby scale buildings: {YELLOW}{SIGNED_WORD}{BLACK} (~7 tile radius){}Scale bonus: {YELLOW}{SIGNED_WORD}%

@@ -8,44 +8,46 @@
     }
 </tal:uncapped_extra>
 <tal:capped_extra condition="python: getattr(industry, 'base_processing_cap', 0) > 0">
-    <!--! warehouse scale info: tile_count(0x100), bonus%(0x101), next_threshold(0x102)
-          state: 0=none, 1=low, 2=medium, 3=max -->
-    <tal:has_required condition="python: len(industry.required_input_cargos) > 0">
-        switch (FEAT_INDUSTRIES, SELF, ${industry.id}_extra_text, [
-                STORE_TEMP(LOAD_PERM(${get_perm_num("scale_tile_count")}), 0x100),
-                STORE_TEMP(max(LOAD_PERM(${get_perm_num("scale_multiplier")}), 100) - 100, 0x101),
+    <!--! Scale + Efficiency + Output slow warning
+          TEMP: 0x100=tile_count/bonus%, 0x101=bonus%/threshold, 0x102=threshold, 0x103=efficiency%
+          Switch value: scale_state (0=none,1=mid,2=max) + slow_flag (4 if any output <25% transported)
+          String {COMMA} order: NONE: tile_count, SKIP,SKIP, threshold, efficiency
+                                MID: bonus%, tile_count, threshold, efficiency
+                                MAX: bonus%, tile_count, efficiency -->
+    switch (FEAT_INDUSTRIES, SELF, ${industry.id}_extra_text, [
+            <!--! TEMP layout: 0x100=bonus%, 0x101=tile_count, 0x102=threshold, 0x103=efficiency% -->
+            STORE_TEMP(max(LOAD_PERM(${get_perm_num("scale_multiplier")}), 100) - 100, 0x100),
+            STORE_TEMP(LOAD_PERM(${get_perm_num("scale_tile_count")}), 0x101),
+            STORE_TEMP(
+                (LOAD_PERM(${get_perm_num("scale_tile_count")}) < scale_threshold_low) ? scale_threshold_low
+                : (LOAD_PERM(${get_perm_num("scale_tile_count")}) < scale_threshold_medium) ? scale_threshold_medium
+                : scale_threshold_high,
+                0x102),
+            <!--! efficiency = ratio * required_gate * 100 / 8
+                  required_gate = 0 if any required cargo has empty warehouse, else 1 -->
+            STORE_TEMP(LOAD_PERM(${get_perm_num("current_production_ratio")}) * ${industry.get_required_gate_expression(industry.economies_enabled_for_industry[0])} * 100 / 8, 0x103),
+            <!--! detect output slow: any non-bonus output with <25% transported and production > 0 -->
+            STORE_TEMP(0, 0x11),
+            <tal:output_check repeat="cargo python:[(l,r) for l,r in industry.get_property('prod_cargo_types_with_output_ratios', industry.economies_enabled_for_industry[0]) if not industry.is_bonus_cargo(l)]">
                 STORE_TEMP(
-                    (LOAD_PERM(${get_perm_num("scale_tile_count")}) < scale_threshold_low) ? scale_threshold_low
-                    : (LOAD_PERM(${get_perm_num("scale_tile_count")}) < scale_threshold_medium) ? scale_threshold_medium
-                    : scale_threshold_high,
-                    0x102),
-                (LOAD_PERM(${get_perm_num("scale_tile_count")}) >= scale_threshold_high) ? 3
-                : (LOAD_PERM(${get_perm_num("scale_tile_count")}) >= scale_threshold_low) ? 1
-                : 0
-            ]) {
-            0: return string(STR_WAREHOUSE_SCALE_NONE_REQ);
-            3: return string(STR_WAREHOUSE_SCALE_MAX_REQ);
-            return string(STR_WAREHOUSE_SCALE_MID_REQ);
-        }
-    </tal:has_required>
-    <tal:no_required condition="python: len(industry.required_input_cargos) == 0">
-        switch (FEAT_INDUSTRIES, SELF, ${industry.id}_extra_text, [
-                STORE_TEMP(LOAD_PERM(${get_perm_num("scale_tile_count")}), 0x100),
-                STORE_TEMP(max(LOAD_PERM(${get_perm_num("scale_multiplier")}), 100) - 100, 0x101),
-                STORE_TEMP(
-                    (LOAD_PERM(${get_perm_num("scale_tile_count")}) < scale_threshold_low) ? scale_threshold_low
-                    : (LOAD_PERM(${get_perm_num("scale_tile_count")}) < scale_threshold_medium) ? scale_threshold_medium
-                    : scale_threshold_high,
-                    0x102),
-                (LOAD_PERM(${get_perm_num("scale_tile_count")}) >= scale_threshold_high) ? 3
-                : (LOAD_PERM(${get_perm_num("scale_tile_count")}) >= scale_threshold_low) ? 1
-                : 0
-            ]) {
-            0: return string(STR_WAREHOUSE_SCALE_NONE);
-            3: return string(STR_WAREHOUSE_SCALE_MAX);
-            return string(STR_WAREHOUSE_SCALE_MID);
-        }
-    </tal:no_required>
+                    LOAD_TEMP(0x11) | ((last_month_production("${cargo[0]}") > 0 && transported_last_month_pct("${cargo[0]}") < 64) ? 1 : 0),
+                    0x11
+                ),
+            </tal:output_check>
+            <!--! combine: scale_state + slow_flag*4 -->
+            ((LOAD_PERM(${get_perm_num("scale_tile_count")}) >= scale_threshold_high) ? 2
+            : (LOAD_PERM(${get_perm_num("scale_tile_count")}) >= scale_threshold_low) ? 1
+            : 0)
+            + (LOAD_TEMP(0x11) * 4)
+        ]) {
+        0: return string(STR_WAREHOUSE_SCALE_NONE);
+        4: return string(STR_WAREHOUSE_SCALE_NONE_SLOW);
+        2: return string(STR_WAREHOUSE_SCALE_MAX);
+        6: return string(STR_WAREHOUSE_SCALE_MAX_SLOW);
+        1: return string(STR_WAREHOUSE_SCALE_MID);
+        5: return string(STR_WAREHOUSE_SCALE_MID_SLOW);
+        return string(STR_WAREHOUSE_SCALE_MID);
+    }
 </tal:capped_extra>
 
 
@@ -127,28 +129,54 @@
             }
         </tal:no_warehouse>
     </tal:cargos>
-    <!--! scale bonus output cargos: show locked/unlocked status -->
-    <tal:bonus_cargos repeat="output_cargo industry.get_property('prod_cargo_types_with_output_ratios', economy)">
-        <tal:is_bonus condition="python: industry.is_bonus_cargo(output_cargo[0])">
-            switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${output_cargo[0]}_economy_${economy.numeric_id},
-                LOAD_PERM(${get_perm_num("scale_multiplier")})) {
-                0: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_BONUS_LOCKED);
-                1 .. ${industry.get_bonus_cargo_unlock_param(output_cargo[0])} - 1: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_BONUS_LOCKED);
-                return 0x3800 + string(STR_EMPTY);
-            }
-        </tal:is_bonus>
-    </tal:bonus_cargos>
+    <!--! output cargo stockpile display: show [waiting/cap] or FULL for all output cargos -->
+    <tal:output_cargos repeat="output_cargo industry.get_property('prod_cargo_types_with_output_ratios', economy)">
+        <tal:capped_output condition="python: getattr(industry, 'base_processing_cap', 0) > 0">
+            <tal:not_bonus condition="python: not industry.is_bonus_cargo(output_cargo[0])">
+                <!--! non-bonus output cargo: only show warning when transport is slow.
+                      OpenTTD natively shows "(X% transported)" for output cargos. -->
+                switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${output_cargo[0]}_economy_${economy.numeric_id},
+                        (last_month_production("${output_cargo[0]}") > 0 && transported_last_month_pct("${output_cargo[0]}") < 64) ? 1 : 0
+                    ) {
+                    1: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_TRANSPORT_SLOW);
+                    return CB_RESULT_NO_TEXT;
+                }
+            </tal:not_bonus>
+            <tal:is_bonus condition="python: industry.is_bonus_cargo(output_cargo[0])">
+                <!--! bonus output cargo: locked / unlocked -->
+                switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${output_cargo[0]}_economy_${economy.numeric_id},
+                    LOAD_PERM(${get_perm_num("scale_multiplier")})) {
+                    0: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_BONUS_LOCKED);
+                    1 .. ${industry.get_bonus_cargo_unlock_param(output_cargo[0])} - 1: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_BONUS_LOCKED);
+                    return 0x3800 + string(STR_EMPTY);
+                }
+            </tal:is_bonus>
+        </tal:capped_output>
+        <tal:uncapped_output condition="python: getattr(industry, 'base_processing_cap', 0) == 0">
+            <tal:is_bonus condition="python: industry.is_bonus_cargo(output_cargo[0])">
+                switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_cargo_${output_cargo[0]}_economy_${economy.numeric_id},
+                    LOAD_PERM(${get_perm_num("scale_multiplier")})) {
+                    0: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_BONUS_LOCKED);
+                    1 .. ${industry.get_bonus_cargo_unlock_param(output_cargo[0])} - 1: return 0x3800 + string(STR_CARGO_SUBTYPE_DISPLAY_BONUS_LOCKED);
+                    return 0x3800 + string(STR_EMPTY);
+                }
+            </tal:is_bonus>
+        </tal:uncapped_output>
+    </tal:output_cargos>
     switch (FEAT_INDUSTRIES, SELF, ${industry.id}_cargo_subtype_display_switch_cargo_economy_${economy.numeric_id}, getbits(extra_callback_info2, 16, 8)) {
-        <!--! up to 8 cargos, indexed to 1 not 0 -->
+        <!--! input cargos -->
         <tal:cargos repeat="input_cargo industry.get_property('accept_cargos_with_input_ratios', economy)">
             ${input_cargo[0]}: ${industry.id}_cargo_subtype_display_cargo_${input_cargo[0]}_economy_${economy.numeric_id};
         </tal:cargos>
-        <!--! bonus output cargos -->
-        <tal:bonus_cargos repeat="output_cargo industry.get_property('prod_cargo_types_with_output_ratios', economy)">
-            <tal:is_bonus condition="python: industry.is_bonus_cargo(output_cargo[0])">
+        <!--! output cargos: all for capped industries, bonus-only for uncapped -->
+        <tal:output_cargos repeat="output_cargo industry.get_property('prod_cargo_types_with_output_ratios', economy)">
+            <tal:capped_dispatch condition="python: getattr(industry, 'base_processing_cap', 0) > 0">
                 ${output_cargo[0]}: ${industry.id}_cargo_subtype_display_cargo_${output_cargo[0]}_economy_${economy.numeric_id};
-            </tal:is_bonus>
-        </tal:bonus_cargos>
+            </tal:capped_dispatch>
+            <tal:uncapped_dispatch condition="python: getattr(industry, 'base_processing_cap', 0) == 0 and industry.is_bonus_cargo(output_cargo[0])">
+                ${output_cargo[0]}: ${industry.id}_cargo_subtype_display_cargo_${output_cargo[0]}_economy_${economy.numeric_id};
+            </tal:uncapped_dispatch>
+        </tal:output_cargos>
         return CB_RESULT_NO_TEXT;
     }
 </tal:economies>

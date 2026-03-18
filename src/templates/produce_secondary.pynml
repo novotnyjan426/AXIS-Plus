@@ -308,6 +308,17 @@ switch (FEAT_INDUSTRIES, SELF, ${industry.id}_produce_cargo_arrival, economy) {
             STORE_PERM_ALT(${get_perm_num("total_cargo_produced_this_cycle")}, 0),
             <!--! calculate production ratio from supplied flags -->
             ${industry.id}_produce_calculate_current_production_level_${economy.numeric_id}(),
+            <!--! output transport penalty: if any non-bonus output cargo has <25% transported
+                  last month (and was actually produced), halve the production ratio.
+                  This slows production when player doesn't transport output. -->
+            <tal:output_penalty repeat="cargo industry.get_non_bonus_output_cargos(economy)">
+                STORE_PERM_ALT(
+                    ${get_perm_num("current_production_ratio")},
+                    (last_month_production("${cargo[0]}") > 0 && transported_last_month_pct("${cargo[0]}") < 64)
+                    ? LOAD_PERM(${get_perm_num("current_production_ratio")}) / 2
+                    : LOAD_PERM(${get_perm_num("current_production_ratio")})
+                ),
+            </tal:output_penalty>
             <!--! required cargos AND gate: if any required cargo has 0 in warehouse, block all production
                   temp register 0x10 holds the gate flag (1=OK, 0=blocked) -->
             STORE_TEMP(1, 0x10),
@@ -388,6 +399,7 @@ switch (FEAT_INDUSTRIES, SELF, ${industry.id}_produce_cargo_arrival, economy) {
         ]) {
         ${industry.id}_produce_256_ticks_produce_${economy.numeric_id};
     }
+
 </tal:economies>
 
 <!--! Supplied cycles countdown for 256-tick (same as uncapped) -->
