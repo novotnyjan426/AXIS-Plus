@@ -15,14 +15,24 @@ spriteset(${obj.id}_ground_t${tile['x']}_${tile['y']}, "${obj.sprite_file}") {
 </tal:has_sprite>
 <!--! Building spritesets for tile ${tile['x']},${tile['y']} -->
 <tal:bldg_spritesets repeat="bldg tile.get('buildings', [])">
+<tal:static_bldg condition="python:bldg.get('coords') and not bldg.get('anim_coords')">
 spriteset(${obj.id}_bldg_t${tile['x']}_${tile['y']}_${repeat.bldg.index}, "${obj.sprite_file}") {
     [${bldg['coords'][0]}, ${bldg['coords'][1]}, ${bldg['coords'][2]}, ${bldg['coords'][3]}, ${bldg['coords'][4]}, ${bldg['coords'][5]}]
 }
+</tal:static_bldg>
+<tal:anim_bldg condition="python:bldg.get('anim_coords')">
+spriteset(${obj.id}_bldg_t${tile['x']}_${tile['y']}_${repeat.bldg.index}, "${obj.sprite_file}") {
+    <tal:frames repeat="frame bldg['anim_coords']">
+    [${frame[0]}, ${frame[1]}, ${frame[2]}, ${frame[3]}, ${frame[4]}, ${frame[5]}]
+    </tal:frames>
+}
+</tal:anim_bldg>
+<!--! sprite_expr buildings have no spriteset — they use base game sprite expressions -->
 </tal:bldg_spritesets>
 
 spritelayout ${obj.id}_layout_t${tile['x']}_${tile['y']} {
     ground {
-        sprite: GROUNDSPRITE_NORMAL;
+        sprite: ${obj.ground_sprite};
     }
     <tal:overlay condition="tile.get('sprite')">
     childsprite {
@@ -31,11 +41,32 @@ spritelayout ${obj.id}_layout_t${tile['x']}_${tile['y']} {
     }
     </tal:overlay>
     <tal:bldgs repeat="bldg tile.get('buildings', [])">
+    <tal:spriteset_bldg condition="python:bldg.get('coords') or bldg.get('anim_coords')">
     building {
+        <tal:static condition="python:bldg.get('coords') and not bldg.get('anim_coords')">
         sprite: ${obj.id}_bldg_t${tile['x']}_${tile['y']}_${repeat.bldg.index}(0);
+        </tal:static>
+        <tal:animated condition="python:bldg.get('anim_coords')">
+        sprite: ${obj.id}_bldg_t${tile['x']}_${tile['y']}_${repeat.bldg.index}(animation_frame % ${len(bldg['anim_coords'])});
+        </tal:animated>
         recolour_mode: RECOLOUR_REMAP;
         palette: PALETTE_USE_DEFAULT;
     }
+    </tal:spriteset_bldg>
+    <tal:expr_bldg condition="python:bldg.get('sprite_expr')">
+    building {
+        sprite: ${bldg['sprite_expr']};
+        <tal:hide condition="python:bldg.get('hide_sprite')">
+        hide_sprite: ${bldg['hide_sprite']};
+        </tal:hide>
+        xoffset: ${bldg.get('xoffset', 0)};
+        yoffset: ${bldg.get('yoffset', 0)};
+        zoffset: ${bldg.get('zoffset', 0)};
+        xextent: ${bldg.get('xextent', 16)};
+        yextent: ${bldg.get('yextent', 16)};
+        zextent: ${bldg.get('zextent', 7)};
+    }
+    </tal:expr_bldg>
     </tal:bldgs>
 }
 </tal:tiles>
@@ -43,7 +74,7 @@ spritelayout ${obj.id}_layout_t${tile['x']}_${tile['y']} {
 <!--! Purchase preview: all tiles composited with isometric offsets -->
 spritelayout ${obj.id}_purchase_layout {
     ground {
-        sprite: GROUNDSPRITE_NORMAL;
+        sprite: ${obj.ground_sprite};
     }
     <tal:ptiles repeat="tile obj.tile_grid_items()">
     <tal:poverlay condition="tile.get('sprite')">
@@ -58,6 +89,7 @@ spritelayout ${obj.id}_purchase_layout {
     }
     </tal:poverlay>
     <tal:pbldgs repeat="bldg tile.get('buildings', [])">
+    <tal:pbldg_spriteset condition="python:bldg.get('coords') or bldg.get('anim_coords')">
     building {
         sprite: ${obj.id}_bldg_t${tile['x']}_${tile['y']}_${repeat.bldg.index}(0);
         recolour_mode: RECOLOUR_REMAP;
@@ -65,6 +97,7 @@ spritelayout ${obj.id}_purchase_layout {
         xoffset: ${(tile['x'] - obj.size[0] // 2) * 16};
         yoffset: ${(tile['y'] - obj.size[1] // 2) * 16};
     }
+    </tal:pbldg_spriteset>
     </tal:pbldgs>
     </tal:ptiles>
 }
@@ -265,6 +298,9 @@ item(FEAT_OBJECTS, ${obj.id}, ${obj.numeric_id}) {
     graphics {
         <tal:tiled_gfx condition="obj.has_tile_grid()">
         purchase: ${obj.id}_purchase_layout;
+        <tal:tiled_anim condition="obj.has_animation()">
+        anim_control: return CB_RESULT_NEXT_FRAME;
+        </tal:tiled_anim>
         default: ${obj.id}_tile_switch;
         </tal:tiled_gfx>
         <tal:anim_gfx condition="python:obj.has_animation() and not obj.has_tile_grid()">

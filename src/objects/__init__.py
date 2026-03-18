@@ -307,3 +307,70 @@ forest_expansion.log_pile_alt.register()
 from objects import recycling_depot_expansion
 recycling_depot_expansion.shed.register()
 recycling_depot_expansion.containers.register()
+
+# Food Processing Expansions — Stockyard
+from objects import stockyard_expansion
+stockyard_expansion.factory.register()
+stockyard_expansion.outbuildings.register()
+
+# Food Processing Expansions — Dairy
+from objects import dairy_expansion
+dairy_expansion.processing_block.register()
+dairy_expansion.office_block.register()
+
+# Food Processing Expansions — Bakery
+from objects import bakery_expansion
+bakery_expansion.oven_house.register()
+bakery_expansion.warehouse.register()
+
+# Food Processing Expansions — Flour Mill
+from objects import flour_mill_expansion
+flour_mill_expansion.shed.register()
+flour_mill_expansion.mill_building.register()
+flour_mill_expansion.grain_silo.register()
+flour_mill_expansion.silo_equipment.register()
+
+# Food Processing Expansions — Food Processor
+from objects import food_processor_expansion
+food_processor_expansion.factory.register()
+food_processor_expansion.tanks.register()
+food_processor_expansion.loading_dock.register()
+
+# Food Processing Expansions — Fruit Packing Plant
+from objects import fruit_packing_plant_expansion
+fruit_packing_plant_expansion.warehouse.register()
+fruit_packing_plant_expansion.silo.register()
+
+# Food Processing Expansions — Meat Packing Plant
+from objects import meat_packing_plant_expansion
+meat_packing_plant_expansion.factory_block.register()
+meat_packing_plant_expansion.tanks.register()
+
+# Food Processing Expansions — Cider Mill
+from objects import cider_mill_expansion
+cider_mill_expansion.chimney.register()
+cider_mill_expansion.building.register()
+cider_mill_expansion.tanks.register()
+
+# Food Processing Expansions — Sugar Refinery
+from objects import sugar_refinery_expansion
+sugar_refinery_expansion.chimney.register()
+sugar_refinery_expansion.factory.register()
+sugar_refinery_expansion.brick_building.register()
+sugar_refinery_expansion.silos.register()
+
+# Food Processing Expansions — Edible Oil Refinery
+from objects import edible_oil_refinery_expansion
+edible_oil_refinery_expansion.warehouse.register()
+edible_oil_refinery_expansion.loading_yard.register()
+edible_oil_refinery_expansion.tanks.register()
+
+# Food Processing Expansions — Brewery
+from objects import brewery_expansion
+brewery_expansion.chimney_building.register()
+brewery_expansion.hall.register()
+
+# Docks Expansions — Fishing Harbour
+from objects import fishing_harbour_expansion
+fishing_harbour_expansion.harbour_building.register()
+fishing_harbour_expansion.dock_shed.register()

@@ -61,7 +61,15 @@ class ExpansionObject:
         return self.buildings is not None and len(self.buildings) > 0
 
     def has_animation(self):
-        return (self.animation_frames is not None and len(self.animation_frames) > 1) or self.animation_length > 0
+        if (self.animation_frames is not None and len(self.animation_frames) > 1) or self.animation_length > 0:
+            return True
+        # Check tile_grid for animated buildings
+        if self.tile_grid:
+            for tile in self.tile_grid:
+                for bldg in tile.get('buildings', []):
+                    if bldg.get('anim_coords'):
+                        return True
+        return False
 
     def has_slope_buildings(self):
         return self.slope_buildings is not None and len(self.slope_buildings) > 0
@@ -110,6 +118,12 @@ class ExpansionObject:
             return len(self.animation_frames)
         if self.animation_length > 0:
             return self.animation_length
+        # Check tile_grid for animated buildings
+        if self.tile_grid:
+            for tile in self.tile_grid:
+                for bldg in tile.get('buildings', []):
+                    if bldg.get('anim_coords'):
+                        return len(bldg['anim_coords'])
         return 0
 
     def register(self):

@@ -231,6 +231,38 @@ STR_OBJECT_FOREST_CRANE_ALT                                                     
 STR_OBJECT_FOREST_EQUIPMENT                                                      :Logging Equipment
 STR_OBJECT_FOREST_LOGS                                                           :Log Pile
 STR_OBJECT_FOREST_LOGS_ALT                                                       :Log Pile (alt)
+STR_OBJECT_CLASS_FOOD_PROCESSING                                                 :  Food Processing Scale
+STR_OBJECT_STOCKYARD_BUILDING                                                    :Stockyard Factory
+STR_OBJECT_STOCKYARD_COLD_STORAGE                                                :Stockyard Outbuilding
+STR_OBJECT_DAIRY_PROCESSING                                                      :Dairy Processing Block
+STR_OBJECT_DAIRY_OFFICE                                                          :Dairy Office & Storage
+STR_OBJECT_BAKERY_OVEN_HOUSE                                                     :Bakery Oven House
+STR_OBJECT_BAKERY_WAREHOUSE                                                      :Bakery Warehouse
+STR_OBJECT_FLOUR_MILL_SILO                                                       :Grain Silo
+STR_OBJECT_FLOUR_MILL_BUILDING                                                   :Mill Building
+STR_OBJECT_FLOUR_MILL_SHED                                                       :Mill Shed
+STR_OBJECT_FLOUR_MILL_SILO_EQUIPMENT                                             :Silo Equipment
+STR_OBJECT_FOOD_PROCESSOR_FACTORY                                                :Cannery Building
+STR_OBJECT_FOOD_PROCESSOR_TANKS                                                  :Cannery Storage Tanks
+STR_OBJECT_FOOD_PROCESSOR_LOADING                                                :Cannery Loading Dock
+STR_OBJECT_FRUIT_PACKING_WAREHOUSE                                               :Packing Warehouse
+STR_OBJECT_FRUIT_PACKING_SILO                                                    :Packing Silo
+STR_OBJECT_FISHING_HARBOUR_BUILDING                                              :Harbour Building
+STR_OBJECT_FISHING_HARBOUR_SHED                                                  :Dock Shed
+STR_OBJECT_MEAT_PACKING_FACTORY                                                  :Meat Packing Factory
+STR_OBJECT_MEAT_PACKING_TANKS                                                    :Cold Storage Tanks
+STR_OBJECT_CIDER_MILL_CHIMNEY                                                    :Cider Mill Chimney
+STR_OBJECT_CIDER_MILL_BUILDING                                                   :Cider Mill Building
+STR_OBJECT_CIDER_MILL_TANKS                                                      :Cider Mill Tanks
+STR_OBJECT_SUGAR_REFINERY_CHIMNEY                                                :Sugar Refinery Chimney
+STR_OBJECT_SUGAR_REFINERY_FACTORY                                                :Sugar Refinery
+STR_OBJECT_SUGAR_REFINERY_BRICK                                                  :Refinery Brick Building
+STR_OBJECT_SUGAR_REFINERY_SILOS                                                  :Refinery Silos
+STR_OBJECT_EDIBLE_OIL_WAREHOUSE                                                  :Oil Refinery Warehouse
+STR_OBJECT_EDIBLE_OIL_LOADING                                                    :Oil Loading Yard
+STR_OBJECT_EDIBLE_OIL_TANKS                                                      :Oil Storage Tanks
+STR_OBJECT_BREWERY_CHIMNEY                                                       :Brewery Chimney
+STR_OBJECT_BREWERY_HALL                                                          :Brewery Hall
 
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       :Extreme Classic
 STR_PARAM_VALUE_ECONOMIES_BASIC_TROPIC                                          :Tropical Paradise

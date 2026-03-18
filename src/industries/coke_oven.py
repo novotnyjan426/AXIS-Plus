@@ -41,9 +41,10 @@ industry.economy_variations[
 ].prob_in_game = "0"  # do not build during gameplay
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("COKE", 6),
-    ("CTAR", 1),
-    ("SULP", 1),
+    ("SULP", 2),
 ]
+# CTAR not available in BASIC_TROPIC
+industry.economy_variations["BASIC_TROPIC"].scale_bonus_cargos = [("SULP", {"medium": 1})]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations[
