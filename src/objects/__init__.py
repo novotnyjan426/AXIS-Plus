@@ -374,3 +374,310 @@ brewery_expansion.hall.register()
 from objects import fishing_harbour_expansion
 fishing_harbour_expansion.harbour_building.register()
 fishing_harbour_expansion.dock_shed.register()
+
+# Manufacturing Expansions — Appliance Factory
+from objects import appliance_factory_expansion
+appliance_factory_expansion.chimney.register()
+appliance_factory_expansion.offices.register()
+appliance_factory_expansion.warehouse.register()
+
+# Manufacturing Expansions — Assembly Plant
+from objects import assembly_plant_expansion
+assembly_plant_expansion.offices.register()
+assembly_plant_expansion.assembly_hall.register()
+assembly_plant_expansion.vehicles_lot.register()
+
+# Manufacturing Expansions — Body Plant
+from objects import body_plant_expansion
+body_plant_expansion.factory.register()
+body_plant_expansion.shed.register()
+
+# Manufacturing Expansions — Component Factory
+from objects import component_factory_expansion
+component_factory_expansion.factory.register()
+component_factory_expansion.workshop.register()
+
+# Manufacturing Expansions — Engine Plant
+from objects import engine_plant_expansion
+engine_plant_expansion.factory.register()
+engine_plant_expansion.shed.register()
+
+# Manufacturing Expansions — Furniture Factory
+from objects import furniture_factory_expansion
+furniture_factory_expansion.workshop.register()
+furniture_factory_expansion.warehouse.register()
+
+# Manufacturing Expansions — Machine Shop
+from objects import machine_shop_expansion
+machine_shop_expansion.chimney.register()
+machine_shop_expansion.workshop.register()
+machine_shop_expansion.shed.register()
+
+# Manufacturing Expansions — Metal Workshop
+from objects import metal_workshop_expansion
+metal_workshop_expansion.workshop.register()
+metal_workshop_expansion.shed.register()
+
+# Chemical & Refinery Expansions — Ammonia Plant
+from objects import ammonia_plant_expansion
+ammonia_plant_expansion.chimney.register()
+ammonia_plant_expansion.warehouse.register()
+
+# Chemical & Refinery Expansions — Biorefinery
+from objects import biorefinery_expansion
+biorefinery_expansion.tower.register()
+biorefinery_expansion.building.register()
+
+# Chemical & Refinery Expansions — Carbon Black Plant
+from objects import carbon_black_plant_expansion
+carbon_black_plant_expansion.chimneys.register()
+carbon_black_plant_expansion.tanks.register()
+
+# Chemical & Refinery Expansions — Chemical Plant
+from objects import chemical_plant_expansion
+chemical_plant_expansion.chimney.register()
+chemical_plant_expansion.building.register()
+chemical_plant_expansion.tanks.register()
+
+# Chemical & Refinery Expansions — Chlor-Alkali Plant
+from objects import chlor_alkali_plant_expansion
+chlor_alkali_plant_expansion.chimney.register()
+chlor_alkali_plant_expansion.tanks.register()
+
+# Chemical & Refinery Expansions — Ethylene Cracker
+from objects import ethylene_cracker_expansion
+ethylene_cracker_expansion.chimney.register()
+ethylene_cracker_expansion.columns.register()
+
+# Chemical & Refinery Expansions — Fertiliser Plant
+from objects import fertiliser_plant_expansion
+fertiliser_plant_expansion.chimney.register()
+fertiliser_plant_expansion.tanks.register()
+
+# Chemical & Refinery Expansions — Fischer-Tropsch Plant
+from objects import fischer_tropsch_plant_expansion
+fischer_tropsch_plant_expansion.quench_tower.register()
+fischer_tropsch_plant_expansion.oven.register()
+
+# Chemical & Refinery Expansions — Oil Refinery
+from objects import oil_refinery_expansion
+oil_refinery_expansion.tower.register()
+oil_refinery_expansion.tanks.register()
+
+# Chemical & Refinery Expansions — Phosphoric Acid Plant
+from objects import phosphoric_acid_plant_expansion
+phosphoric_acid_plant_expansion.chimney.register()
+phosphoric_acid_plant_expansion.building.register()
+
+# Chemical & Refinery Expansions — Plastics Plant
+from objects import plastics_plant_expansion
+plastics_plant_expansion.factory.register()
+
+# Chemical & Refinery Expansions — Polyethylene Plant
+from objects import polyethylene_plant_expansion
+polyethylene_plant_expansion.tower.register()
+
+# Chemical & Refinery Expansions — Polypropylene Plant
+from objects import polypropylene_plant_expansion
+polypropylene_plant_expansion.tower.register()
+polypropylene_plant_expansion.tanks.register()
+
+# Chemical & Refinery Expansions — Solvay Plant
+from objects import solvay_plant_expansion
+solvay_plant_expansion.chimneys.register()
+solvay_plant_expansion.silos.register()
+
+# Chemical & Refinery Expansions — Sulphuric Acid Plant
+from objects import sulphuric_acid_plant_expansion
+sulphuric_acid_plant_expansion.chimney.register()
+sulphuric_acid_plant_expansion.tanks.register()
+
+# Heavy Industry Expansions — Alumina Refinery
+from objects import alumina_refinery_expansion
+alumina_refinery_expansion.chimney.register()
+alumina_refinery_expansion.building.register()
+
+# Heavy Industry Expansions — Aluminium Plant
+from objects import aluminium_plant_expansion
+aluminium_plant_expansion.building.register()
+aluminium_plant_expansion.tower.register()
+
+# Heavy Industry Expansions — Basic Oxygen Furnace
+from objects import basic_oxygen_furnace_expansion
+basic_oxygen_furnace_expansion.furnace.register()
+basic_oxygen_furnace_expansion.tanks.register()
+
+# Heavy Industry Expansions — Blast Furnace
+from objects import blast_furnace_expansion
+blast_furnace_expansion.furnace.register()
+blast_furnace_expansion.building.register()
+
+# Heavy Industry Expansions — Copper Concentrator
+from objects import copper_concentrator_expansion
+copper_concentrator_expansion.chimney.register()
+copper_concentrator_expansion.building.register()
+
+# Heavy Industry Expansions — Copper Refinery
+from objects import copper_refinery_expansion
+copper_refinery_expansion.chimney.register()
+copper_refinery_expansion.building.register()
+
+# Heavy Industry Expansions — Electric Arc Furnace
+from objects import electric_arc_furnace_expansion
+electric_arc_furnace_expansion.shed.register()
+electric_arc_furnace_expansion.tanks.register()
+
+# Heavy Industry Expansions — Integrated Steel Mill
+from objects import integrated_steel_mill_expansion
+integrated_steel_mill_expansion.furnace.register()
+integrated_steel_mill_expansion.building.register()
+
+# Heavy Industry Expansions — Iron Works
+from objects import iron_works_expansion
+iron_works_expansion.factory.register()
+iron_works_expansion.shed.register()
+
+# Heavy Industry Expansions — Pyrite Smelter
+from objects import pyrite_smelter_expansion
+pyrite_smelter_expansion.chimney.register()
+pyrite_smelter_expansion.roaster.register()
+
+# Heavy Industry Expansions — Sheet and Pipe Mill
+from objects import sheet_and_pipe_mill_expansion
+sheet_and_pipe_mill_expansion.factory.register()
+sheet_and_pipe_mill_expansion.workshop.register()
+
+# Heavy Industry Expansions — Slag Grinding Plant
+from objects import slag_grinding_plant_expansion
+slag_grinding_plant_expansion.tower.register()
+slag_grinding_plant_expansion.silos.register()
+
+# Heavy Industry Expansions — Steel Mill
+from objects import steel_mill_expansion
+steel_mill_expansion.factory.register()
+steel_mill_expansion.shed.register()
+
+# Heavy Industry Expansions — Tinplate Works
+from objects import tinplate_works_expansion
+tinplate_works_expansion.factory.register()
+tinplate_works_expansion.shed.register()
+
+# Heavy Industry Expansions — Wire and Section Mill
+from objects import wire_and_section_mill_expansion
+wire_and_section_mill_expansion.factory.register()
+wire_and_section_mill_expansion.workshop.register()
+
+# Heavy Industry Expansions — Coke Oven
+from objects import coke_oven_expansion
+coke_oven_expansion.quench_tower.register()
+coke_oven_expansion.silo.register()
+
+# Heavy Industry Expansions — Smithy Forge
+from objects import smithy_forge_expansion
+smithy_forge_expansion.forge.register()
+smithy_forge_expansion.workshop.register()
+
+# Heavy Industry Expansions — Ferrochrome Smelter
+from objects import ferrochrome_smelter_expansion
+ferrochrome_smelter_expansion.chimney.register()
+ferrochrome_smelter_expansion.roaster.register()
+
+# Heavy Industry Expansions — Electrical Works
+from objects import electrical_works_expansion
+electrical_works_expansion.factory.register()
+electrical_works_expansion.shed.register()
+
+# Building Materials Expansions — Brick Works
+from objects import brick_works_expansion
+brick_works_expansion.kiln.register()
+brick_works_expansion.building.register()
+
+# Building Materials Expansions — Builders Yard
+from objects import builders_yard_expansion
+builders_yard_expansion.shed.register()
+builders_yard_expansion.silo.register()
+
+# Building Materials Expansions — Cement Plant
+from objects import cement_plant_expansion
+cement_plant_expansion.chimney.register()
+cement_plant_expansion.building.register()
+
+# Building Materials Expansions — Glass Works
+from objects import glass_works_expansion
+glass_works_expansion.factory.register()
+glass_works_expansion.building.register()
+
+# Building Materials Expansions — Junk Yard
+from objects import junk_yard_expansion
+junk_yard_expansion.shed.register()
+junk_yard_expansion.scrap.register()
+
+# Building Materials Expansions — Lime Kiln
+from objects import lime_kiln_expansion
+lime_kiln_expansion.kiln.register()
+lime_kiln_expansion.shed.register()
+
+# Building Materials Expansions — Lumber Yard
+from objects import lumber_yard_expansion
+lumber_yard_expansion.warehouse.register()
+lumber_yard_expansion.shed.register()
+
+# Building Materials Expansions — Printing Plant
+from objects import printing_plant_expansion
+printing_plant_expansion.building.register()
+printing_plant_expansion.warehouse.register()
+
+# Building Materials Expansions — Recycling Plant
+from objects import recycling_plant_expansion
+recycling_plant_expansion.building.register()
+recycling_plant_expansion.shed.register()
+
+# Building Materials Expansions — Sawmill
+from objects import sawmill_expansion
+sawmill_expansion.shed.register()
+sawmill_expansion.logs.register()
+
+# Other Industry Expansions — Latex Processor
+from objects import latex_processor_expansion
+latex_processor_expansion.factory.register()
+latex_processor_expansion.building.register()
+
+# Other Industry Expansions — Paper Mill
+from objects import paper_mill_expansion
+paper_mill_expansion.chimney.register()
+paper_mill_expansion.building.register()
+
+# Other Industry Expansions — Paint Factory
+from objects import paint_factory_expansion
+paint_factory_expansion.factory.register()
+paint_factory_expansion.shed.register()
+
+# Other Industry Expansions — Cleaning Products Factory
+from objects import cleaning_products_factory_expansion
+cleaning_products_factory_expansion.chimney.register()
+cleaning_products_factory_expansion.building.register()
+
+# Other Industry Expansions — Civil Explosives Facility
+from objects import civil_explosives_facility_expansion
+civil_explosives_facility_expansion.chimney.register()
+civil_explosives_facility_expansion.building.register()
+
+# Other Industry Expansions — Tyre Plant
+from objects import tyre_plant_expansion
+tyre_plant_expansion.factory.register()
+tyre_plant_expansion.building.register()
+
+# Other Industry Expansions — Textile Mill
+from objects import textile_mill_expansion
+textile_mill_expansion.chimney.register()
+textile_mill_expansion.warehouse.register()
+
+# Other Industry Expansions — Farm Supply Yard
+from objects import farm_supply_yard_expansion
+farm_supply_yard_expansion.shed.register()
+farm_supply_yard_expansion.warehouse.register()
+
+# Other Industry Expansions — Supply Yard
+from objects import supply_yard_expansion
+supply_yard_expansion.shed.register()
+supply_yard_expansion.warehouse.register()

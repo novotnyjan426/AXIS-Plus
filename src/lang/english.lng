@@ -263,6 +263,135 @@ STR_OBJECT_EDIBLE_OIL_LOADING                                                   
 STR_OBJECT_EDIBLE_OIL_TANKS                                                      :Oil Storage Tanks
 STR_OBJECT_BREWERY_CHIMNEY                                                       :Brewery Chimney
 STR_OBJECT_BREWERY_HALL                                                          :Brewery Hall
+STR_OBJECT_CLASS_MANUFACTURING                                                   :  Manufacturing Scale
+STR_OBJECT_APPLIANCE_FACTORY_CHIMNEY                                             :Appliance Factory Chimney
+STR_OBJECT_APPLIANCE_FACTORY_OFFICES                                             :Appliance Factory Offices
+STR_OBJECT_APPLIANCE_FACTORY_WAREHOUSE                                           :Appliance Factory Warehouse
+STR_OBJECT_ASSEMBLY_PLANT_OFFICES                                                :Assembly Plant Offices
+STR_OBJECT_ASSEMBLY_PLANT_HALL                                                   :Assembly Hall
+STR_OBJECT_ASSEMBLY_PLANT_VEHICLES                                               :Vehicles Lot
+STR_OBJECT_BODY_PLANT_FACTORY                                                    :Body Plant Factory
+STR_OBJECT_BODY_PLANT_SHED                                                       :Body Plant Shed
+STR_OBJECT_COMPONENT_FACTORY_BUILDING                                            :Component Factory
+STR_OBJECT_COMPONENT_FACTORY_WORKSHOP                                            :Component Workshop
+STR_OBJECT_ENGINE_PLANT_FACTORY                                                  :Engine Plant Factory
+STR_OBJECT_ENGINE_PLANT_SHED                                                     :Engine Plant Shed
+STR_OBJECT_FURNITURE_FACTORY_WORKSHOP                                            :Furniture Workshop
+STR_OBJECT_FURNITURE_FACTORY_WAREHOUSE                                           :Furniture Warehouse
+STR_OBJECT_MACHINE_SHOP_CHIMNEY                                                  :Machine Shop Chimney
+STR_OBJECT_MACHINE_SHOP_WORKSHOP                                                 :Machine Shop Workshop
+STR_OBJECT_MACHINE_SHOP_SHED                                                     :Machine Shop Shed
+STR_OBJECT_METAL_WORKSHOP_BUILDING                                               :Metal Workshop
+STR_OBJECT_METAL_WORKSHOP_SHED                                                   :Metal Workshop Shed
+STR_OBJECT_CLASS_CHEMICAL                                                        :  Chemical & Refinery Scale
+STR_OBJECT_AMMONIA_PLANT_CHIMNEY                                                 :Ammonia Plant Chimney
+STR_OBJECT_AMMONIA_PLANT_WAREHOUSE                                               :Ammonia Plant Warehouse
+STR_OBJECT_BIOREFINERY_TOWER                                                     :Biorefinery Tower
+STR_OBJECT_BIOREFINERY_BUILDING                                                  :Biorefinery Building
+STR_OBJECT_CARBON_BLACK_CHIMNEYS                                                 :Carbon Black Chimneys
+STR_OBJECT_CARBON_BLACK_TANKS                                                    :Carbon Black Tanks
+STR_OBJECT_CHEMICAL_PLANT_CHIMNEY                                                :Chemical Plant Chimney
+STR_OBJECT_CHEMICAL_PLANT_BUILDING                                               :Chemical Plant Building
+STR_OBJECT_CHEMICAL_PLANT_TANKS                                                  :Chemical Plant Tanks
+STR_OBJECT_CHLOR_ALKALI_CHIMNEY                                                  :Chlor-Alkali Chimney
+STR_OBJECT_CHLOR_ALKALI_TANKS                                                    :Chlor-Alkali Tanks
+STR_OBJECT_ETHYLENE_CRACKER_CHIMNEY                                              :Ethylene Cracker Chimney
+STR_OBJECT_ETHYLENE_CRACKER_COLUMNS                                              :Ethylene Cracker Columns
+STR_OBJECT_FERTILISER_PLANT_CHIMNEY                                              :Fertiliser Plant Chimney
+STR_OBJECT_FERTILISER_PLANT_TANKS                                                :Fertiliser Plant Tanks
+STR_OBJECT_FISCHER_TROPSCH_TOWER                                                 :Fischer-Tropsch Tower
+STR_OBJECT_FISCHER_TROPSCH_OVEN                                                  :Fischer-Tropsch Oven
+STR_OBJECT_OIL_REFINERY_TOWER                                                    :Oil Refinery Tower
+STR_OBJECT_OIL_REFINERY_TANKS                                                    :Oil Refinery Tanks
+STR_OBJECT_PHOSPHORIC_ACID_CHIMNEY                                               :Phosphoric Acid Chimney
+STR_OBJECT_PHOSPHORIC_ACID_BUILDING                                              :Phosphoric Acid Building
+STR_OBJECT_PLASTICS_PLANT_FACTORY                                                :Plastics Factory
+STR_OBJECT_POLYETHYLENE_PLANT_TOWER                                              :Polyethylene Tower
+STR_OBJECT_POLYPROPYLENE_PLANT_TOWER                                             :Polypropylene Tower
+STR_OBJECT_POLYPROPYLENE_PLANT_TANKS                                             :Polypropylene Tanks
+STR_OBJECT_SOLVAY_PLANT_CHIMNEYS                                                 :Solvay Plant Chimneys
+STR_OBJECT_SOLVAY_PLANT_SILOS                                                    :Solvay Plant Silos
+STR_OBJECT_SULPHURIC_ACID_CHIMNEY                                                :Sulphuric Acid Chimney
+STR_OBJECT_SULPHURIC_ACID_TANKS                                                  :Sulphuric Acid Tanks
+STR_OBJECT_CLASS_HEAVY_INDUSTRY                                                  :  Heavy Industry Scale
+STR_OBJECT_ALUMINA_REFINERY_CHIMNEY                                              :Alumina Refinery Chimney
+STR_OBJECT_ALUMINA_REFINERY_BUILDING                                             :Alumina Refinery Building
+STR_OBJECT_ALUMINIUM_PLANT_BUILDING                                              :Aluminium Plant Building
+STR_OBJECT_ALUMINIUM_PLANT_TOWER                                                 :Aluminium Plant Tower
+STR_OBJECT_BOF_FURNACE                                                           :BOF Furnace
+STR_OBJECT_BOF_TANKS                                                             :BOF Tanks
+STR_OBJECT_BLAST_FURNACE_BUILDING                                                :Blast Furnace
+STR_OBJECT_BLAST_FURNACE_BRICK                                                   :Blast Furnace Building
+STR_OBJECT_COPPER_CONCENTRATOR_CHIMNEY                                           :Copper Concentrator Chimney
+STR_OBJECT_COPPER_CONCENTRATOR_BUILDING                                          :Copper Concentrator Building
+STR_OBJECT_COPPER_REFINERY_CHIMNEY                                               :Copper Refinery Chimney
+STR_OBJECT_COPPER_REFINERY_BUILDING                                              :Copper Refinery Building
+STR_OBJECT_EAF_SHED                                                              :Arc Furnace Shed
+STR_OBJECT_EAF_TANKS                                                             :Arc Furnace Tanks
+STR_OBJECT_INTEGRATED_STEEL_FURNACE                                              :Steel Mill Furnace
+STR_OBJECT_INTEGRATED_STEEL_BUILDING                                             :Steel Mill Building
+STR_OBJECT_IRON_WORKS_FACTORY                                                    :Iron Works Factory
+STR_OBJECT_IRON_WORKS_SHED                                                       :Iron Works Shed
+STR_OBJECT_PYRITE_SMELTER_CHIMNEY                                                :Pyrite Smelter Chimney
+STR_OBJECT_PYRITE_SMELTER_ROASTER                                                :Pyrite Smelter Roaster
+STR_OBJECT_SHEET_PIPE_FACTORY                                                    :Sheet & Pipe Factory
+STR_OBJECT_SHEET_PIPE_WORKSHOP                                                   :Sheet & Pipe Workshop
+STR_OBJECT_SLAG_GRINDING_TOWER                                                   :Slag Grinding Tower
+STR_OBJECT_SLAG_GRINDING_SILOS                                                   :Slag Grinding Silos
+STR_OBJECT_STEEL_MILL_FACTORY                                                    :Steel Mill Factory
+STR_OBJECT_STEEL_MILL_SHED                                                       :Steel Mill Shed
+STR_OBJECT_TINPLATE_FACTORY                                                      :Tinplate Factory
+STR_OBJECT_TINPLATE_SHED                                                         :Tinplate Shed
+STR_OBJECT_WIRE_SECTION_FACTORY                                                  :Wire Mill Factory
+STR_OBJECT_WIRE_SECTION_WORKSHOP                                                 :Wire Mill Workshop
+STR_OBJECT_COKE_OVEN_TOWER                                                       :Coke Oven Tower
+STR_OBJECT_COKE_OVEN_SILO                                                        :Coke Oven Silo
+STR_OBJECT_SMITHY_FORGE_BUILDING                                                 :Smithy Forge
+STR_OBJECT_SMITHY_FORGE_WORKSHOP                                                 :Smithy Workshop
+STR_OBJECT_FERROCHROME_CHIMNEY                                                   :Ferrochrome Chimney
+STR_OBJECT_FERROCHROME_ROASTER                                                   :Ferrochrome Roaster
+STR_OBJECT_ELECTRICAL_WORKS_FACTORY                                              :Electrical Works Factory
+STR_OBJECT_ELECTRICAL_WORKS_SHED                                                 :Electrical Works Shed
+STR_OBJECT_CLASS_BUILDING_MATERIALS                                              :  Building Materials Scale
+STR_OBJECT_BRICK_WORKS_KILN                                                      :Brick Works Kiln
+STR_OBJECT_BRICK_WORKS_BUILDING                                                  :Brick Works Building
+STR_OBJECT_BUILDERS_YARD_SHED                                                    :Builders Yard Shed
+STR_OBJECT_BUILDERS_YARD_SILO                                                    :Builders Yard Silo
+STR_OBJECT_CEMENT_PLANT_CHIMNEY                                                  :Cement Plant Chimney
+STR_OBJECT_CEMENT_PLANT_BUILDING                                                 :Cement Plant Building
+STR_OBJECT_GLASS_WORKS_FACTORY                                                   :Glass Works Factory
+STR_OBJECT_GLASS_WORKS_BUILDING                                                  :Glass Works Building
+STR_OBJECT_JUNK_YARD_SHED                                                        :Junk Yard Shed
+STR_OBJECT_JUNK_YARD_SCRAP                                                       :Scrap Pile
+STR_OBJECT_LIME_KILN_BUILDING                                                    :Lime Kiln
+STR_OBJECT_LIME_KILN_SHED                                                        :Lime Kiln Shed
+STR_OBJECT_LUMBER_YARD_WAREHOUSE                                                 :Lumber Yard Warehouse
+STR_OBJECT_LUMBER_YARD_SHED                                                      :Lumber Yard Shed
+STR_OBJECT_PRINTING_PLANT_BUILDING                                               :Printing Plant Building
+STR_OBJECT_PRINTING_PLANT_WAREHOUSE                                              :Printing Plant Warehouse
+STR_OBJECT_RECYCLING_PLANT_BUILDING                                              :Recycling Plant Building
+STR_OBJECT_RECYCLING_PLANT_SHED                                                  :Recycling Plant Shed
+STR_OBJECT_SAWMILL_SHED                                                          :Sawmill Hut
+STR_OBJECT_SAWMILL_LOGS                                                          :Log Pile
+STR_OBJECT_CLASS_OTHER_INDUSTRY                                                  :  Other Industry Scale
+STR_OBJECT_LATEX_PROCESSOR_FACTORY                                               :Latex Processor Factory
+STR_OBJECT_LATEX_PROCESSOR_BUILDING                                              :Latex Processor Building
+STR_OBJECT_PAPER_MILL_CHIMNEY                                                    :Paper Mill Chimney
+STR_OBJECT_PAPER_MILL_BUILDING                                                   :Paper Mill Building
+STR_OBJECT_PAINT_FACTORY_BUILDING                                                :Paint Factory
+STR_OBJECT_PAINT_FACTORY_SHED                                                    :Paint Factory Shed
+STR_OBJECT_CLEANING_PRODUCTS_CHIMNEY                                             :Cleaning Products Chimney
+STR_OBJECT_CLEANING_PRODUCTS_BUILDING                                            :Cleaning Products Building
+STR_OBJECT_CIVIL_EXPLOSIVES_CHIMNEY                                              :Explosives Plant Chimney
+STR_OBJECT_CIVIL_EXPLOSIVES_BUILDING                                             :Explosives Plant Building
+STR_OBJECT_TYRE_PLANT_FACTORY                                                    :Tyre Plant Factory
+STR_OBJECT_TYRE_PLANT_BUILDING                                                   :Tyre Plant Building
+STR_OBJECT_TEXTILE_MILL_CHIMNEY                                                  :Textile Mill Chimney
+STR_OBJECT_TEXTILE_MILL_WAREHOUSE                                                :Textile Mill Warehouse
+STR_OBJECT_FARM_SUPPLY_SHED                                                      :Farm Supply Shed
+STR_OBJECT_FARM_SUPPLY_WAREHOUSE                                                 :Farm Supply Warehouse
+STR_OBJECT_SUPPLY_YARD_SHED                                                      :Supply Yard Shed
+STR_OBJECT_SUPPLY_YARD_WAREHOUSE                                                 :Supply Yard Warehouse
 
 STR_PARAM_VALUE_ECONOMIES_BASIC_TEMPERATE                                       :Extreme Classic
 STR_PARAM_VALUE_ECONOMIES_BASIC_TROPIC                                          :Tropical Paradise

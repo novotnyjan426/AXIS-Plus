@@ -1,7 +1,7 @@
 from objects.base_object import ExpansionObject
 
 SPRITE_FILE = "src/graphics/industries/fishing_harbour_1.png"
-CLASS_ID = "AXPD"
+CLASS_ID = "AXPP"
 CLASS_NAME = "STR_OBJECT_CLASS_PORT_EXPANSIONS"
 GROUND = "GROUNDSPRITE_CONCRETE"
 
