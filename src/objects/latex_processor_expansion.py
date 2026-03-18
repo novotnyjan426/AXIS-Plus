@@ -6,7 +6,7 @@ CLASS_NAME = "STR_OBJECT_CLASS_OTHER_INDUSTRY"
 GROUND = "GROUNDSPRITE_CONCRETE"
 SMOKE = "3701 + (animation_frame % 8)"
 
-# Factory with smoke
+# 2x1 factory: sp1 (back) + sp2 (front)
 factory = ExpansionObject(
     id="latex_processor_exp_factory",
     numeric_id=441,
@@ -14,9 +14,26 @@ factory = ExpansionObject(
     class_id=CLASS_ID,
     class_name_string=CLASS_NAME,
     sprite_file=SPRITE_FILE,
+    size=[2, 1],
+    ground_sprite=GROUND,
+    height=12,
+    tile_grid=[
+        {"x": 0, "y": 0, "buildings": [{"coords": [10, 60, 64, 90, -31, -59]}]},   # sp1
+        {"x": 1, "y": 0, "buildings": [{"coords": [80, 60, 64, 90, -31, -71]}]},   # sp2
+    ],
+)
+
+# sp3: chimney building with smoke
+building = ExpansionObject(
+    id="latex_processor_exp_building",
+    numeric_id=442,
+    name_string="STR_OBJECT_LATEX_PROCESSOR_BUILDING",
+    class_id=CLASS_ID,
+    class_name_string=CLASS_NAME,
+    sprite_file=SPRITE_FILE,
     size=[1, 1],
     ground_sprite=GROUND,
-    height=10,
+    height=12,
     animation_length=8,
     animation_speed=3,
     tile_grid=[
@@ -26,17 +43,4 @@ factory = ExpansionObject(
              "xextent": 15, "yextent": 7, "zextent": 7},
         ]},
     ],
-)
-
-# Static building
-building = ExpansionObject(
-    id="latex_processor_exp_building",
-    numeric_id=442,
-    name_string="STR_OBJECT_LATEX_PROCESSOR_BUILDING",
-    class_id=CLASS_ID,
-    class_name_string=CLASS_NAME,
-    sprite_file=SPRITE_FILE,
-    sprite_coords=[80, 60, 64, 90, -31, -71],
-    ground_sprite=GROUND,
-    height=10,
 )

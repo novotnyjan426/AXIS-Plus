@@ -36,7 +36,7 @@ building = ExpansionObject(
     class_id=CLASS_ID,
     class_name_string=CLASS_NAME,
     sprite_file=SPRITE_FILE,
-    sprite_coords=[710, 10, 64, 110, -31, -61],
+    sprite_coords=[150, 10, 64, 64, -31, -31],
     ground_sprite=GROUND,
     height=14,
 )

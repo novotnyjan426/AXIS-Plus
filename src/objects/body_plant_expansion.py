@@ -6,7 +6,7 @@ CLASS_NAME = "STR_OBJECT_CLASS_MANUFACTURING"
 GROUND = "GROUNDSPRITE_CONCRETE"
 SMOKE = "3701 + (animation_frame % 8)"
 
-# sp1: tall factory building
+# 2x1 factory: sp1 (back) + sp2 (front) — complete building
 factory = ExpansionObject(
     id="body_plant_exp_factory",
     numeric_id=339,
@@ -14,9 +14,13 @@ factory = ExpansionObject(
     class_id=CLASS_ID,
     class_name_string=CLASS_NAME,
     sprite_file=SPRITE_FILE,
-    sprite_coords=[10, 60, 64, 70, -31, -35],
+    size=[2, 1],
     ground_sprite=GROUND,
     height=8,
+    tile_grid=[
+        {"x": 0, "y": 0, "buildings": [{"coords": [10, 60, 64, 70, -31, -35]}]},   # sp1
+        {"x": 1, "y": 0, "buildings": [{"coords": [80, 60, 64, 70, -31, -35]}]},   # sp2
+    ],
 )
 
 # sp4: shed with smoke
