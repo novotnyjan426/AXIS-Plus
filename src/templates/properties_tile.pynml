@@ -41,9 +41,7 @@
         		    anim_control: ${tile.id}_anim_control;
                 </tal:block>
     		</tal:anim_control>
-            <tal:warehouse_accept condition="python: getattr(industry, 'base_processing_cap', 0) > 0">
-                cargo_amount_accept: ${industry.id}_cargo_amount_accept;
-            </tal:warehouse_accept>
+            <!--! cargo_amount_accept removed: stop_accept_cargo handles per-cargo acceptance without 16-bit limit -->
             <tal:random_trigger condition="tile.random_trigger is not None">
                 random_trigger: ${tile.random_trigger};
             </tal:random_trigger>

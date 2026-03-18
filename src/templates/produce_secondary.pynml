@@ -477,7 +477,7 @@ switch(FEAT_INDUSTRIES, SELF, ${industry.id}_produce_256_ticks,
         <tal:input_cargos repeat="cargo industry.get_property('accept_cargos_with_input_ratios', economy)">
             ${industry.get_cargo_ctt_index(cargo[0], economy)}: (LOAD_PERM(${get_perm_num("warehouse_cargo_" + str(repeat.cargo.number))}) >= ${industry.warehouse_max}) ? 0 : 1;
         </tal:input_cargos>
-        1; <!--! default: accept unknown cargos -->
+        0; <!--! default: refuse cargos not in this economy -->
     }
 </tal:economies>
 
