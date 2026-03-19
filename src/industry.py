@@ -2272,6 +2272,24 @@ class IndustrySecondary(Industry):
                 self.get_property('prod_cargo_types_with_output_ratios', economy)
                 if not self.is_bonus_cargo(label)]
 
+    def get_accepted_cargo_labels_for_economy(self, economy):
+        """Return ordered list of accepted cargo labels for a specific economy."""
+        return [c[0] for c in self.get_property('accept_cargos_with_input_ratios', economy)]
+
+    def get_packed_cargo_amount_accept_per_economy(self, economy):
+        """Return NML expression for packed cargo_amount_accept with per-economy slot ordering.
+        Slot order matches per-economy accepted_cargos (not the union)."""
+        economy_cargos = self.get_property('accept_cargos_with_input_ratios', economy)
+        parts = []
+        for i, cargo in enumerate(economy_cargos):
+            warehouse_idx = i + 1
+            perm_num = self.get_perm_num("warehouse_cargo_" + str(warehouse_idx))
+            expr = '(LOAD_PERM({}) < {} ? 8 : 0)'.format(perm_num, self.warehouse_max)
+            if i > 0:
+                expr = '({} << {})'.format(expr, i * 4)
+            parts.append(expr)
+        return " | ".join(parts)
+
     def get_required_gate_expression(self, economy):
         """Return NML expression that evaluates to 1 if all required cargos are supplied, 0 if any isn't.
         Uses supplied_cycles_remaining (persists ~3 months) instead of warehouse level,

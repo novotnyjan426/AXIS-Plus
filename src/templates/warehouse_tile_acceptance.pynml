@@ -1,25 +1,13 @@
 <!--! Tile-level acceptance callbacks for warehouse-capped industries.
-     Only generated when industry.base_processing_cap > 0.
-     Cargo types are declared via accepted_cargos property in properties_tile.pynml.
-     cargo_amount_accept handles first 4 cargo slots (16-bit callback limit).
-     stop_accept_cargo (in produce_secondary.pynml) handles overflow slots + warehouse full. -->
+     Per-economy cargo_amount_accept: slot order matches per-economy accepted_cargos.
+     Each tile item references its economy's callback directly (no economy dispatch needed). -->
 
 <tal:block condition="python: getattr(industry, 'base_processing_cap', 0) > 0">
 
-    <!--! cargo_amount_accept (0x2B): packed acceptance amounts per economy
-         Format: amt1 | (amt2 << 4) | (amt3 << 8) — 4 bits per slot, each 0 or 8
-         Returns 8 (accept) when cargo is in this economy and warehouse has space, 0 otherwise.
-         Limited to first 4 cargo slots (16-bit). Slots 5+ handled by stop_accept_cargo. -->
     <tal:economies repeat="economy industry.economies_enabled_for_industry">
         switch(FEAT_INDUSTRYTILES, PARENT, ${industry.id}_cargo_amount_accept_${economy.numeric_id}, 0) {
-            return ${industry.get_packed_cargo_amount_accept(economy)};
+            return ${industry.get_packed_cargo_amount_accept_per_economy(economy)};
         }
     </tal:economies>
-
-    switch(FEAT_INDUSTRYTILES, PARENT, ${industry.id}_cargo_amount_accept, economy) {
-        <tal:economies repeat="economy industry.economies_enabled_for_industry">
-            ${economy.numeric_id}: ${industry.id}_cargo_amount_accept_${economy.numeric_id};
-        </tal:economies>
-    }
 
 </tal:block>
