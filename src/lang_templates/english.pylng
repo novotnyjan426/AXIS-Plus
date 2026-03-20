@@ -1,4 +1,4 @@
-STR_GRF_NAME                                                    :AXIS+ (AXIS Plus) 0.1.1
+STR_GRF_NAME                                                    :AXIS+ (AXIS Plus) 0.1.1 build ${git_info.get_revision()}
 STR_GRF_DOCS_URL                                                :https://github.com/novotnyjan426/AXIS-Plus
 <!--! empty string is not translated :) -->
 STR_EMPTY                                                       :

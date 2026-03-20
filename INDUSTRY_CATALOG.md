@@ -799,33 +799,35 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Appliance Factory (`appliance_factory`)
-**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
+**Type**: Secondary (🏭 cap 32) | **Economies**: Extreme Classic, Tropical Paradise, Steel City
 
 **Extreme Classic**
-  ◀ Metal Parts [MPAR] ×4
-  ◀ Electrical Parts [POWR] ×4
+  ◀ Metal Parts [MPAR] ×4 ★required
+  ◀ Electrical Parts [POWR] ×2 ★required
   ◀ Glass [GLAS] ×2
   ◀ Plastics [PLAS] ×2
 
   ▶ Goods [GOOD] ×8
+  ▶ Recyclables [RCYC] ×1–2 (scale: low=1, high=2)
 
 **Tropical Paradise**
-  ◀ Metal Parts [MPAR] ×4
+  ◀ Metal Parts [MPAR] ×4 ★required
+  ◀ Plastics [PLAS] ×2 ★required
   ◀ Glass [GLAS] ×2
-  ◀ Plastics [PLAS] ×2
   ◀ Rubber Parts [TYRE] ×2
 
   ▶ Goods [GOOD] ×8
+  ▶ Recyclables [RCYC] ×1–2 (scale: low=1, high=2)
 
 **Steel City**
-  ◀ Alloy Steel [STAL] ×2
-  ◀ Steel Sheet [STSH] ×2
+  ◀ Steel Sheet [STSH] ×4 ★required
+  ◀ Electrical Parts [POWR] ×2 ★required
   ◀ Glass [GLAS] ×1
   ◀ Plastic Parts [PPAR] ×1
-  ◀ Electrical Parts [POWR] ×1
   ◀ Rubber Parts [TYRE] ×1
 
   ▶ Goods [GOOD] ×8
+  ▶ Recyclables [RCYC] ×1–2 (scale: low=1, high=2)
 
 ---
 
@@ -1537,16 +1539,19 @@ cargos at a constant rate unrelated to deliveries.
 ---
 
 ### Fishing Harbour (`fishing_harbour`)
-**Type**: Secondary (🔗 ALL) | **Economies**: Extreme Classic, Tropical Paradise
+**Type**: Secondary (🏭 cap 32) | **Economies**: Extreme Classic, Tropical Paradise
 
 **Extreme Classic**
-  ◀ Fish [FISH] ×6
+  ◀ Fish [FISH] ×6 ★required
+  ◀ Salt [SALT] ×2
   ◀ Packaging [MNSP] ×1
 
   ▶ Food [FOOD] ×8
+  ▶ Edible Oil [EOIL] ×1–2 (scale: low=1, high=2)
 
 **Tropical Paradise**
-  ◀ Fish [FISH] ×6
+  ◀ Fish [FISH] ×6 ★required
+  ◀ Salt [SALT] ×1
 
   ▶ Meat [MEAT] ×8
 

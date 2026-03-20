@@ -1109,6 +1109,47 @@ by one anchor tile in an arbitrary corner or center.
     expanded bounding box. This is acceptable for gameplay but means the
     scan zone is smaller than intended for tiny industries.
 
+13. **Warehouse-full cargo delivery: cargo disappears instead of staying on train.**
+    When a warehouse secondary industry is full, `stop_accept_cargo` (CB 0x3D)
+    correctly refuses the cargo at the industry level — the warehouse level
+    does not increase beyond the cap, and the player does not get paid. However,
+    the train still unloads the cargo at the station, and it vanishes.
+
+    **Root cause:** Vehicle unloading is gated by the station's `Acceptance` flag
+    (checked in `PrepareUnload()`), which is recalculated every 250 ticks based
+    on **tile** acceptance — not industry callbacks. `stop_accept_cargo` only runs
+    later during `ForAcceptingIndustries()` after the cargo has already left the
+    vehicle. The proper tile-level mechanism is `cargo_amount_accept` (CB 0x2B),
+    which can return 0 to clear station acceptance and prevent unloading. But this
+    callback packs 4-bit nibbles into a 16-bit return value, limiting it to 3
+    cargo slots. 27 of 63 warehouse industries accept 4-6 cargos per economy
+    and cannot be fully covered.
+
+    **Current workaround:** Warehouse storage is capped via `min()` in
+    `produce_cargo_arrival`, and `stop_accept_cargo` prevents the industry from
+    processing excess cargo (player is not paid). Cargo above the cap is lost.
+
+    **Proper fix:** Requires an engine-level extension to support dynamic tile
+    acceptance for more than 3 cargo slots. Feature request submitted to JGRPP:
+    either a wider return value for CB 0x2B (e.g. 32-bit for 8 slots), or a new
+    per-cargo tile callback. See `jgrpp_feature_request.md`.
+
+    **Impact:** Trains waste trips delivering to full warehouses. The cargo is
+    lost but the player is not paid, so there is no exploit — just inefficiency.
+    Players should use conditional orders to check station cargo waiting levels.
+
+14. **Object class filtering not yet active in expansion scan.**
+    The scale scan (`scale_scan_tile.pynml`) currently checks
+    `nearby_tile_class == TILE_CLASS_OBJECTS`, counting ALL objects regardless
+    of class. This means a coal mine counts farm expansion objects (class AXPA)
+    the same as mine objects (AXPM). A JGRPP patch adding var 0x63
+    (`nearby_tile_object_class` for FEAT_INDUSTRYTILES) has been prototyped
+    locally but requires NML support for the raw 60+x variable encoding.
+    Industry classes are already assigned: `IndustryPrimaryExtractive` → AXPM,
+    `IndustryPrimaryOrganic` → AXPA, `IndustryPrimaryPort` → AXPP,
+    `IndustrySecondary` → AXSH. See `industry.py` `expansion_object_class`
+    attribute.
+
 ---
 
 ## Future Feature: Fishing Grounds — Distance-from-Land Production Bonus

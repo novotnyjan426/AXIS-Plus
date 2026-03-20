@@ -6,11 +6,15 @@ Any changes made here are liable to be over-written.
 
 #!/usr/bin/env python3
 
+import os
 import subprocess
 
 
 def exe_cmd(cmd):
     try:
+        if cmd and cmd[0] == "git":
+            repo_dir = os.getcwd().replace("\\", "/")
+            cmd = ["git", "-c", f"safe.directory={repo_dir}"] + cmd[1:]
         output = subprocess.run(
             cmd,
             env=None,
@@ -34,7 +38,7 @@ def get_revision():
 
 def get_version():
     # for the version we just use git describe, which gives us a recent tag or so
-    return exe_cmd(["git", "describe"])[0]
+    return exe_cmd(["git", "describe", "--tags"])[0]
 
 
 def get_tag_exact_match():

@@ -1203,8 +1203,8 @@ class Industry(object):
         registered_industries.append(self)
 
     def add_tile(self, *args, **kwargs):
-        # for capped industries, disable INDTILE_FLAG_ACCEPT_ALL so tile-level
-        # cargo_type_accept and cargo_amount_accept callbacks take effect
+        # For capped industries, disable INDTILE_FLAG_ACCEPT_ALL so tile acceptance
+        # is driven by explicit per-economy accepted_cargos.
         if getattr(self, 'base_processing_cap', 0) > 0:
             kwargs.setdefault('accept_all_flag', False)
         new_tile = Tile(self.id, *args, **kwargs)
@@ -1713,8 +1713,10 @@ class Industry(object):
                             row_dxs.append(dx)
                     if row_dxs:
                         suffix = "n" + str(abs(dy)) if dy < 0 else str(dy)
+                        # precompute var 0x63 offset param for each (dx, dy)
+                        offsets = [((dy & 0xF) << 4) | (dx & 0xF) for dx in row_dxs]
                         scan_rows_list.append(
-                            {"dy": dy, "suffix": suffix, "dxs": row_dxs}
+                            {"dy": dy, "suffix": suffix, "dxs": row_dxs, "offsets": offsets}
                         )
 
                 if best_tile in scanner_by_coord:
@@ -1766,6 +1768,14 @@ class Industry(object):
     def get_perm_num(self, identifier):
         # just a silly pass-through to perm_storage_mappings.get_perm_num
         return get_perm_num(identifier, industry_type=self.__class__.__name__)
+
+    @property
+    def expansion_object_class_le(self):
+        """Return the expansion object class as a little-endian uint32 hex string.
+        JGRPP var 0x63 returns global_id which is byteswapped from GRF big-endian."""
+        import struct
+        label = getattr(self, "expansion_object_class", "AXPM").encode("ascii")
+        return "0x{:08X}".format(struct.unpack("<I", label)[0])
 
     def render_nml(
         self, incompatible_industries
@@ -1961,6 +1971,7 @@ class IndustryPrimaryExtractive(IndustryPrimary):
         kwargs["accept_cargo_types"] = ["ENSP"]
         kwargs["life_type"] = "IND_LIFE_TYPE_EXTRACTIVE"
         super().__init__(**kwargs)
+        self.expansion_object_class = "AXPM"
         self.supply_requirements = [
             0,
             "PRIMARY",
@@ -1978,6 +1989,7 @@ class IndustryPrimaryOrganic(IndustryPrimary):
         kwargs["accept_cargo_types"] = ["FMSP"]
         kwargs["life_type"] = "IND_LIFE_TYPE_ORGANIC"
         super().__init__(**kwargs)
+        self.expansion_object_class = "AXPA"
         self.supply_requirements = [
             0,
             "PRIMARY",
@@ -1994,6 +2006,7 @@ class IndustryPrimaryPort(IndustryPrimary):
     def __init__(self, **kwargs):
         kwargs["life_type"] = "IND_LIFE_TYPE_BLACK_HOLE"
         super().__init__(**kwargs)
+        self.expansion_object_class = "AXPP"
         self.supply_requirements = [
             0,
             "PORT",
@@ -2006,6 +2019,7 @@ class IndustryPrimaryNoSupplies(IndustryPrimary):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.expansion_object_class = "AXPM"
         self.template = kwargs.get("template", "industry_primary_no_supplies.pynml")
         self.supply_requirements = None  # supplies do not boost this type of primary
 
@@ -2074,6 +2088,8 @@ class IndustrySecondary(Industry):
         # scale_bonus_cargos: list of (cargo_label, {level: ratio}) unlocked at scale levels
         # e.g. [("BIOM", {"medium": 1, "high": 2})]
         self.scale_bonus_cargos = kwargs.get("scale_bonus_cargos", [])
+        # expansion object class for scale scan filtering (JGRPP var 0x63)
+        self.expansion_object_class = kwargs.get("expansion_object_class", "AXSH")
         register_perm_storage_mapping(
             self.__class__.__name__,
             [

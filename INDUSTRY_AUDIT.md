@@ -108,7 +108,7 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 ## Cross-Cutting Issues
 
 ### Fix Priority (Bugs/Errors)
-1. **Tyres/TYRE misuse**: Remove from Appliance Factory, Engine Plant, Electrical Works, Component Factory — tyres are vehicle-only
+1. **Rubber Parts/TYRE note**: TYRE cargo represents rubber parts, not literal tyres — valid for non-vehicle industries (gaskets, seals, dampeners). Review Engine Plant, Electrical Works, Component Factory on case-by-case basis
 2. **Cement Plant TEMPERATE**: Accepts Cement/CMNT as input — circular dependency, cement plant should not accept cement
 3. **Sulphuric Acid Plant STEELTOWN**: Nitrogen/N7__ and Hydrogen/H2__ are chemically wrong for contact process (uses Oxygen/O2__, not N2/H2)
 4. **Sulphuric Acid Plant TEMPERATE**: Nitrates/NITR and Chemicals/RFPR are chemically wrong — same reason
@@ -130,11 +130,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 1.1 Stockyard — Slaughterhouse / Meat Processing
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TEMPERATE | Livestock/LVST(6), Packaging/MNSP(2) | Livestock/LVST(6) REQ, Packaging/MNSP(1) BOOST, Salt/SALT(1) BOOST | Food/FOOD(8), Biomass/BIOM(2) | Food/FOOD(8), Biomass/BIOM(2) SCALE |
-| TROPIC | Livestock/LVST(8), Cleaning Agents/SOAP(2) | Livestock/LVST(6) REQ, Cleaning Agents/SOAP(2) BOOST, Salt/SALT(2) BOOST | Meat/MEAT(8), Biomass/BIOM(2) | Meat/MEAT(8), Biomass/BIOM(2) SCALE |
-| STEELTOWN | Livestock/LVST(6), Cleaning Agents/SOAP(2) | Livestock/LVST(6) REQ, Cleaning Agents/SOAP(1) BOOST, Salt/SALT(1) BOOST | Food/FOOD(8) | Food/FOOD(8) |
+| Economy   | Current Accept                             | Rec. Accept                                                              | Current Produce               | Rec. Produce                                                            |
+| --------- | ------------------------------------------ | ------------------------------------------------------------------------ | ----------------------------- | ----------------------------------------------------------------------- |
+| TEMPERATE | Livestock/LVST(6), Packaging/MNSP(2)       | Livestock/LVST(6) REQ, Packaging/MNSP(1) BOOST, Salt/SALT(1) BOOST       | Food/FOOD(8), Biomass/BIOM(2) | Food/FOOD(8), SCALE medium: Biomass/BIOM(2) SCALE high Biomass/BIOM(3)  |
+| TROPIC    | Livestock/LVST(8), Cleaning Agents/SOAP(2) | Livestock/LVST(6) REQ, Cleaning Agents/SOAP(1) BOOST, Salt/SALT(1) BOOST | Meat/MEAT(8), Biomass/BIOM(2) | Meat/MEAT(8),  SCALE medium: Biomass/BIOM(2) SCALE high Biomass/BIOM(3) |
+| STEELTOWN | Livestock/LVST(6), Cleaning Agents/SOAP(2) | Livestock/LVST(6) REQ, Cleaning Agents/SOAP(1) BOOST, Salt/SALT(1) BOOST | Food/FOOD(8)                  | Food/FOOD(8)                                                            |
 
 **Reasoning:**
 - Livestock/LVST is the only required input — no animals, no meat
@@ -145,10 +145,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 1.2 Dairy — Milk Processing (Cheese, Butter, Yogurt)
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TEMPERATE | Milk/MILK(6), Packaging/MNSP(2) | Milk/MILK(6) REQ, Packaging/MNSP(2) REQ, Salt/SALT(1) BOOST | Food/FOOD(8), Edible Oil/EOIL(2) | Food/FOOD(8), Edible Oil/EOIL(2) |
-| TROPIC | Milk/MILK(6), Packaging/MNSP(2) | Milk/MILK(6) REQ, Packaging/MNSP(2) REQ, Salt/SALT(1) BOOST | Food/FOOD(8), Edible Oil/EOIL(2) | Food/FOOD(8), Edible Oil/EOIL(2) |
+| Economy   | Current Accept                  | Rec. Accept                                                 | Current Produce                  | Rec. Produce                                                    |
+| --------- | ------------------------------- | ----------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------- |
+| TEMPERATE | Milk/MILK(6), Packaging/MNSP(2) | Milk/MILK(6) REQ, Packaging/MNSP(2) REQ, Salt/SALT(1) BOOST | Food/FOOD(8), Edible Oil/EOIL(2) | Food/FOOD(8), Edible SCALE low: Oil/EOIL(2) SCALE high: BIOM(1) |
+| TROPIC    | Milk/MILK(6), Packaging/MNSP(2) | Milk/MILK(6) REQ, Packaging/MNSP(2) REQ, Salt/SALT(1) BOOST | Food/FOOD(8), Edible Oil/EOIL(2) | Food/FOOD(8), SCALE low: Oil/EOIL(2) SCALE high: BIOM(1)        |
 
 **Reasoning:**
 - Milk/MILK and Packaging/MNSP are both required (currently enforced in code) — correct, dairy needs packaging
@@ -159,9 +159,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 1.3 Bakery — Industrial Bread & Pastry Production
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Flour/BAKE(3), Sugar/SUGR(2), Food Additives/ENUM(1), Edible Oil/EOIL(1), Packaging/MNSP(1) | no change | Food/FOOD(8) | Food/FOOD(8), Biomass/BIOM(1) SCALE |
+| Economy | Current Accept                                                                              | Rec. Accept | Current Produce | Rec. Produce                                                                              |
+| ------- | ------------------------------------------------------------------------------------------- | ----------- | --------------- | ----------------------------------------------------------------------------------------- |
+| TROPIC  | Flour/BAKE(3), Sugar/SUGR(2), Food Additives/ENUM(1), Edible Oil/EOIL(1), Packaging/MNSP(1) | no change   | Food/FOOD(8)    | Food/FOOD(8), SCALE low: Biomass/BIOM(1) SCALE SCALE medium: BIOM(2): SCALE high: BIOM(3) |
+|         |                                                                                             |             |                 |                                                                                           |
 
 **Reasoning:**
 - One of the best-designed industries. Five inputs with clear differentiation.
@@ -174,11 +175,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 1.4 Flour Mill — Grain Milling
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Grain/GRAI(6) | Grain/GRAI(6) REQ, Packaging/MNSP(2) BOOST | Flour/BAKE(6) | Flour/BAKE(6) |
-| STEELTOWN | Grain/GRAI(6), Packaging/MNSP(4) | Grain/GRAI(6) REQ, Packaging/MNSP(2) BOOST | Food/FOOD(6) | Food/FOOD(6) |
-| TEMPERATE | Grain/GRAI(6), Packaging/MNSP(4) | Grain/GRAI(6) REQ, Oil Seeds/OLSD(3) REQ, Packaging/MNSP(2) BOOST | Food/FOOD(6), Edible Oil/EOIL(4) | Food/FOOD(6), Edible Oil/EOIL(3) |
+| Economy   | Current Accept                   | Rec. Accept                                | Current Produce                  | Rec. Produce                                                                       |
+| --------- | -------------------------------- | ------------------------------------------ | -------------------------------- | ---------------------------------------------------------------------------------- |
+| TROPIC    | Grain/GRAI(6)                    | Grain/GRAI(6) REQ, Packaging/MNSP(2) BOOST | Flour/BAKE(6)                    | Flour/BAKE(6)                                                                      |
+| STEELTOWN | Grain/GRAI(6), Packaging/MNSP(4) | Grain/GRAI(6) REQ, Packaging/MNSP(2) BOOST | Food/FOOD(6)                     | Food/FOOD(6)                                                                       |
+| TEMPERATE | Grain/GRAI(6), Packaging/MNSP(4) | Grain/GRAI(6) REQ, Packaging/MNSP(2) BOOST | Food/FOOD(6), Edible Oil/EOIL(4) | Food/FOOD(6), Scale low: Edible Oil/EOIL(2) Scale medium EOIL/3 Scale high EOIL(4) |
 
 **Reasoning:**
 - Grain/GRAI is the sole required input — grain milling is a simple process
@@ -188,11 +189,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 1.5 Food Processor — Cannery / Food Factory
 
-| Economy   | Current Accept                                       | Rec. Accept                                                                          | Current Produce | Rec. Produce |
-| --------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------ | --------------- | ------------ |
-| TROPIC    | Sugar/SUGR(6), Fruits/FRUT(6), Meat/MEAT(6), Food Additives/ENUM(2), Edible Oil/EOIL(2), Packaging/MNSP(2) | Fruits/FRUT(6) REQ, Meat/MEAT(4) REQ, Sugar/SUGR(3) BOOST, Packaging/MNSP(2) BOOST, Food Additives/ENUM(1) BOOST, Edible Oil/EOIL(1) BOOST | Food/FOOD(8)         | Food/FOOD(8)      |
-| STEELTOWN | Fruits/FRUT(4), Fish/FISH(4), Packaging/MNSP(2), Salt/SALT(2)                   | no change                                                                            | Food/FOOD(8)         | Food/FOOD(8)      |
-| TEMPERATE | Fruits/FRUT(4), Fish/FISH(4), Edible Oil/EOIL(4), Packaging/MNSP(2), Salt/SALT(2)          | Fruits/FRUT(4) REQ, Fish/FISH(4) REQ, Edible Oil/EOIL(2) BOOST, Packaging/MNSP(2) BOOST, Salt/SALT(2) BOOST                | Food/FOOD(8)         | Food/FOOD(8)      |
+| Economy   | Current Accept                                                                                             | Rec. Accept                                                                                                                                | Current Produce | Rec. Produce                       |
+| --------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | ---------------------------------- |
+| TROPIC    | Sugar/SUGR(6), Fruits/FRUT(6), Meat/MEAT(6), Food Additives/ENUM(2), Edible Oil/EOIL(2), Packaging/MNSP(2) | Fruits/FRUT(6) REQ, Meat/MEAT(4) REQ, Sugar/SUGR(3) BOOST, Packaging/MNSP(2) BOOST, Food Additives/ENUM(1) BOOST, Edible Oil/EOIL(1) BOOST | Food/FOOD(8)    | Food/FOOD(8) SCALE medium: BIOM(2) |
+| STEELTOWN | Fruits/FRUT(4), Fish/FISH(4), Packaging/MNSP(2), Salt/SALT(2)                                              | no change                                                                                                                                  | Food/FOOD(8)    | Food/FOOD(8)                       |
+| TEMPERATE | Fruits/FRUT(4), Fish/FISH(4), Edible Oil/EOIL(4), Packaging/MNSP(2), Salt/SALT(2)                          | Fruits/FRUT(4) REQ, Fish/FISH(4) REQ, Edible Oil/EOIL(2) BOOST, Packaging/MNSP(2) BOOST, Salt/SALT(2) BOOST                                | Food/FOOD(8)    | Food/FOOD(8) SCALE medium: BIOM(2) |
 
 **Reasoning:**
 - STEELTOWN variant is the best designed — two primary food inputs + processing inputs. No changes.
@@ -202,10 +203,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 1.6 Fruit Packing Plant — Fruit Sorting, Packing, Preserving
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Fruits/FRUT(6), Packaging/MNSP(3) | Fruits/FRUT(6) REQ, Packaging/MNSP(2) BOOST | Food/FOOD(8) | Food/FOOD(8) |
-| TROPIC | Fruits/FRUT(4), Flour/BAKE(4), Packaging/MNSP(2), Acetic Acid/ACET(2) | Fruits/FRUT(5) REQ, Flour/BAKE(3) BOOST, Packaging/MNSP(2) BOOST, Acetic Acid/ACET(1) BOOST | Food/FOOD(8) | Food/FOOD(8) |
+| Economy   | Current Accept                                                        | Rec. Accept                                                                                 | Current Produce | Rec. Produce |     |
+| --------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------- | ------------ | --- |
+| STEELTOWN | Fruits/FRUT(6), Packaging/MNSP(3)                                     | Fruits/FRUT(6) REQ, Packaging/MNSP(2) BOOST                                                 | Food/FOOD(8)    | Food/FOOD(8) |     |
+| TROPIC    | Fruits/FRUT(4), Flour/BAKE(4), Packaging/MNSP(2), Acetic Acid/ACET(2) | Fruits/FRUT(5) REQ, Flour/BAKE(3) BOOST, Packaging/MNSP(2) BOOST, Acetic Acid/ACET(1) BOOST | Food/FOOD(8)    | Food/FOOD(8) |     |
 
 **Reasoning:**
 - STEELTOWN: Packaging/MNSP(3) slightly high → reduce to 2
@@ -228,10 +229,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 1.8 Meat Packing Plant — Meat Processing & Packaging
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Fish/FISH(6), Packaging/MNSP(3), Salt/SALT(2) | Fish/FISH(6) REQ, Packaging/MNSP(2) BOOST, Salt/SALT(2) BOOST | Food/FOOD(8) | Food/FOOD(8) |
-| TROPIC | Meat/MEAT(4), Packaging/MNSP(2), Food Additives/ENUM(2) | Meat/MEAT(5) REQ, Packaging/MNSP(2) BOOST, Salt/SALT(2) BOOST, Food Additives/ENUM(1) BOOST | Food/FOOD(6), Edible Oil/EOIL(4), Biomass/BIOM(2) | Food/FOOD(7), Edible Oil/EOIL(2), Biomass/BIOM(2) SCALE |
+| Economy   | Current Accept                                          | Rec. Accept                                                                                 | Current Produce                                   | Rec. Produce                                                                                |
+| --------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| STEELTOWN | Fish/FISH(6), Packaging/MNSP(3), Salt/SALT(2)           | Fish/FISH(6) REQ, Packaging/MNSP(2) BOOST, Salt/SALT(2) BOOST                               | Food/FOOD(8)                                      | Food/FOOD(8)                                                                                |
+| TROPIC    | Meat/MEAT(4), Packaging/MNSP(2), Food Additives/ENUM(2) | Meat/MEAT(5) REQ, Packaging/MNSP(2) BOOST, Salt/SALT(2) BOOST, Food Additives/ENUM(1) BOOST | Food/FOOD(6), Edible Oil/EOIL(4), Biomass/BIOM(2) | Food/FOOD(7), SCALE low Edible Oil/EOIL(2), Biomass/BIOM(2) SCALE medium SCALE high EOIL(3) |
 
 **Reasoning:**
 - STEELTOWN: Name says "meat" but accepts Fish/FISH — either rename or add Livestock/LVST. Packaging/MNSP(3→2).
@@ -239,9 +240,9 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 1.9 Cider Mill — Fruit & Sugarcane Fermentation
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Fruits/FRUT(3), Sugarcane/SGCN(3), Packaging/MNSP(1), Food Additives/ENUM(1) | no change | Alcohol/BEER(6), Acetic Acid/ACET(3), Biomass/BIOM(2) | Alcohol/BEER(6), Acetic Acid/ACET(2), Biomass/BIOM(1), BIOM SCALE med=1 high=2 |
+| Economy | Current Accept                                                               | Rec. Accept | Current Produce                                       | Rec. Produce                                                                                                  |
+| ------- | ---------------------------------------------------------------------------- | ----------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| TROPIC  | Fruits/FRUT(3), Sugarcane/SGCN(3), Packaging/MNSP(1), Food Additives/ENUM(1) | no change   | Alcohol/BEER(6), Acetic Acid/ACET(3), Biomass/BIOM(2) | Alcohol/BEER(6), scale low: Acetic Acid/ACET(2), Biomass/BIOM(1), BIOM SCALE med=1 high=2; scale high acID(3) |
 
 **Reasoning:**
 - Dual primary inputs (Fruits/FRUT + Sugarcane/SGCN) at equal ratio is good — tropical distillery works with either/both
@@ -253,10 +254,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 1.10 Sugar Refinery — Sugar Processing from Cane/Beet
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Sugarcane/SGCN(6), Phosphate/PHOS(1), Food Additives/ENUM(1) | no change | Sugar/SUGR(6), Biomass/BIOM(2) | no change |
-| TEMPERATE | Packaging/MNSP(3), Sugar Beet/SGBT(5) | Sugar Beet/SGBT(6) REQ, Packaging/MNSP(2) BOOST, Limestone/LIME(1) BOOST | Food/FOOD(6), Biomass/BIOM(2) | Food/FOOD(6), Biomass/BIOM(2) |
+| Economy   | Current Accept                                               | Rec. Accept                                                              | Current Produce                | Rec. Produce                              |
+| --------- | ------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------ | ----------------------------------------- |
+| TROPIC    | Sugarcane/SGCN(6), Phosphate/PHOS(1), Food Additives/ENUM(1) | Sugarcane/SGCN(6), Phosphate/PHOS(1), Food BOOST Additives/ENUM(1) BOOST | Sugar/SUGR(6), Biomass/BIOM(2) | Sugar/SUGR(6), Scale low: Biomass/BIOM(2) |
+| TEMPERATE | Packaging/MNSP(3), Sugar Beet/SGBT(5)                        | Sugar Beet/SGBT(6) REQ, Packaging/MNSP(2) BOOST, Limestone/LIME(1) BOOST | Food/FOOD(6), Biomass/BIOM(2)  | Food/FOOD(6), Scale low: Biomass/BIOM(2)  |
 
 **Reasoning:**
 - TROPIC: Well designed. Phosphate/PHOS for sugar clarification (phosphatation process) is excellent thematic detail. Biomass/BIOM for bagasse is perfect — every sugar mill produces it.
@@ -264,9 +265,9 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 1.11 Edible Oil Refinery — Oilseed Crushing & Refining
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Oil Seeds/OLSD(6) | Oil Seeds/OLSD(6) REQ, Packaging/MNSP(2) BOOST | Edible Oil/EOIL(4), Biomass/BIOM(1) | Edible Oil/EOIL(4), Biomass/BIOM(2) |
+| Economy   | Current Accept    | Rec. Accept                                    | Current Produce                     | Rec. Produce                        |
+| --------- | ----------------- | ---------------------------------------------- | ----------------------------------- | ----------------------------------- |
+| TROPIC    | Oil Seeds/OLSD(6) | Oil Seeds/OLSD(6) REQ, Packaging/MNSP(2) BOOST | Edible Oil/EOIL(4), Biomass/BIOM(1) | Edible Oil/EOIL(4), Biomass/BIOM(2) |
 | TEMPERATE | Oil Seeds/OLSD(4) | Oil Seeds/OLSD(6) REQ, Packaging/MNSP(2) BOOST | Edible Oil/EOIL(4), Biomass/BIOM(1) | Edible Oil/EOIL(4), Biomass/BIOM(2) |
 
 **Reasoning:**
@@ -276,10 +277,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 1.12 Brewery — Beer & Spirits Production
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Grain/GRAI(4), Sugar/SUGR(2), Packaging/MNSP(1), Food Additives/ENUM(1) | no change | Alcohol/BEER(6), Biomass/BIOM(2) | no change |
-| TEMPERATE | Grain/GRAI(4), Fruits/FRUT(3), Packaging/MNSP(2) | Grain/GRAI(4) REQ, Fruits/FRUT(2) BOOST, Packaging/MNSP(2) BOOST | Alcohol/BEER(6), Biomass/BIOM(2) | Alcohol/BEER(6), Biomass/BIOM(2) |
+| Economy   | Current Accept                                                          | Rec. Accept                                                                                   | Current Produce                  | Rec. Produce                     |
+| --------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | -------------------------------- | -------------------------------- |
+| TROPIC    | Grain/GRAI(4), Sugar/SUGR(2), Packaging/MNSP(1), Food Additives/ENUM(1) | Grain/GRAI(4), REQ Sugar/SUGR(2), BOOST Packaging/MNSP(1), Food BOOST Additives/ENUM(1) BOOST | Alcohol/BEER(6), Biomass/BIOM(2) | no change                        |
+| TEMPERATE | Grain/GRAI(4), Fruits/FRUT(3), Packaging/MNSP(2)                        | Grain/GRAI(4) REQ, Fruits/FRUT(2) BOOST, Packaging/MNSP(2) BOOST                              | Alcohol/BEER(6), Biomass/BIOM(2) | Alcohol/BEER(6), Biomass/BIOM(2) |
 
 **Reasoning:**
 - TROPIC: Well designed. Grain/GRAI(4) REQ, Sugar/SUGR(2) BOOST, Packaging/MNSP(1) BOOST, Food Additives/ENUM(1) BOOST (yeast, hops).
@@ -292,11 +293,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 2.1 Blast Furnace — Iron Ore Smelting
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Iron Ore/IORE(3), Coke/COKE(3), Limestone/LIME(2) | Iron Ore/IORE(3) REQ, Coke/COKE(3) REQ, Limestone/LIME(2) BOOST | Pig Iron/IRON(6), Slag/SLAG(2) | no change |
-| TROPIC | Iron Ore/IORE(4), Coke/COKE(3), Limestone/LIME(2) | Iron Ore/IORE(4) REQ, Coke/COKE(3) REQ, Limestone/LIME(2) BOOST | Pig Iron/IRON(6), Slag/SLAG(2) | no change |
-| TEMPERATE | Iron Ore/IORE(4), Coke/COKE(3), Limestone/LIME(2) | Iron Ore/IORE(4) REQ, Coke/COKE(3) REQ, Limestone/LIME(2) BOOST | Pig Iron/IRON(6), Slag/SLAG(2) | no change |
+| Economy   | Current Accept                                    | Rec. Accept                                                     | Current Produce                | Rec. Produce |
+| --------- | ------------------------------------------------- | --------------------------------------------------------------- | ------------------------------ | ------------ |
+| STEELTOWN | Iron Ore/IORE(3), Coke/COKE(3), Limestone/LIME(2) | Iron Ore/IORE(3) REQ, Coke/COKE(3) REQ, Limestone/LIME(2) BOOST | Pig Iron/IRON(6), Slag/SLAG(2) | no change    |
+| TROPIC    | Iron Ore/IORE(4), Coke/COKE(3), Limestone/LIME(2) | Iron Ore/IORE(4) REQ, Coke/COKE(3) REQ, Limestone/LIME(2) BOOST | Pig Iron/IRON(6), Slag/SLAG(2) | no change    |
+| TEMPERATE | Iron Ore/IORE(4), Coke/COKE(3), Limestone/LIME(2) | Iron Ore/IORE(4) REQ, Coke/COKE(3) REQ, Limestone/LIME(2) BOOST | Pig Iron/IRON(6), Slag/SLAG(2) | no change    |
 
 **Reasoning:**
 - Metallurgically accurate across all economies. Iron Ore/IORE and Coke/COKE are both essential (ore is the feed, coke is both fuel and chemical reductant). Limestone/LIME is flux — improves slag chemistry but furnace can technically run without deliberate flux.
@@ -305,11 +306,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 2.2 Basic Oxygen Furnace (BOF) — Pig Iron to Steel Conversion
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Pig Iron/IRON(4), Ferrochrome/FECR(2), Quicklime/QLME(1), Oxygen/O2__(1) | Pig Iron/IRON(4) REQ, Ferrochrome/FECR(2) BOOST, Quicklime/QLME(1) BOOST, Oxygen/O2__(1) BOOST | Carbon Steel/STCB(3), Alloy Steel/STAL(3), Slag/SLAG(2) | Carbon Steel/STCB(4), Alloy Steel/STAL(2), Slag/SLAG(2) |
-| TROPIC | Pig Iron/IRON(3), Scrap Metal/SCMT(3), Quicklime/QLME(1), Rare Metals/RAMT(1) | Pig Iron/IRON(4) REQ, Scrap Metal/SCMT(2) BOOST, Quicklime/QLME(1) BOOST, Rare Metals/RAMT(1) BOOST | Steel/STEL(6), Slag/SLAG(2) | no change |
-| TEMPERATE | Pig Iron/IRON(4), Quicklime/QLME(2), Rare Metals/RAMT(2) | Pig Iron/IRON(4) REQ, Scrap Metal/SCMT(2) BOOST, Quicklime/QLME(1) BOOST, Rare Metals/RAMT(1) BOOST | Steel/STEL(6), Slag/SLAG(2) | no change |
+| Economy   | Current Accept                                                                | Rec. Accept                                                                                         | Current Produce                                         | Rec. Produce                                            |
+| --------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| STEELTOWN | Pig Iron/IRON(4), Ferrochrome/FECR(2), Quicklime/QLME(1), Oxygen/O2__(1)      | Pig Iron/IRON(4) REQ, Ferrochrome/FECR(2) BOOST, Quicklime/QLME(1) BOOST, Oxygen/O2__(1) BOOST      | Carbon Steel/STCB(3), Alloy Steel/STAL(3), Slag/SLAG(2) | Carbon Steel/STCB(4), Alloy Steel/STAL(2), Slag/SLAG(2) |
+| TROPIC    | Pig Iron/IRON(3), Scrap Metal/SCMT(3), Quicklime/QLME(1), Rare Metals/RAMT(1) | Pig Iron/IRON(4) REQ, Scrap Metal/SCMT(2) BOOST, Quicklime/QLME(1) BOOST, Rare Metals/RAMT(1) BOOST | Steel/STEL(6), Slag/SLAG(2)                             | no change                                               |
+| TEMPERATE | Pig Iron/IRON(4), Quicklime/QLME(2), Rare Metals/RAMT(2)                      | Pig Iron/IRON(4) REQ, Scrap Metal/SCMT(2) BOOST, Quicklime/QLME(1) BOOST, Rare Metals/RAMT(1) BOOST | Steel/STEL(6), Slag/SLAG(2)                             | no change                                               |
 
 **Reasoning:**
 - Pig Iron/IRON is the only required input — pig iron is the primary metallic charge (70-80% of BOF)
@@ -320,10 +321,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 2.3 Electric Arc Furnace (EAF) — Scrap Steel Recycling
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Scrap Metal/SCMT(4), Ferrochrome/FECR(2), Quicklime/QLME(1), Oxygen/O2__(1) | Scrap Metal/SCMT(4) REQ, Ferrochrome/FECR(2) BOOST, Quicklime/QLME(1) BOOST, Oxygen/O2__(1) BOOST | Carbon Steel/STCB(4), Alloy Steel/STAL(2), Slag/SLAG(2) | no change |
-| TEMPERATE | Scrap Metal/SCMT(4), Quicklime/QLME(2) | Scrap Metal/SCMT(4) REQ, Quicklime/QLME(2) BOOST, Coal/COAL(2) BOOST | Steel/STEL(6), Slag/SLAG(2) | no change |
+| Economy   | Current Accept                                                              | Rec. Accept                                                                                       | Current Produce                                         | Rec. Produce |
+| --------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | ------------ |
+| STEELTOWN | Scrap Metal/SCMT(4), Ferrochrome/FECR(2), Quicklime/QLME(1), Oxygen/O2__(1) | Scrap Metal/SCMT(4) REQ, Ferrochrome/FECR(2) BOOST, Quicklime/QLME(1) BOOST, Oxygen/O2__(1) BOOST | Carbon Steel/STCB(4), Alloy Steel/STAL(2), Slag/SLAG(2) | no change    |
+| TEMPERATE | Scrap Metal/SCMT(4), Quicklime/QLME(2)                                      | Scrap Metal/SCMT(4) REQ, Quicklime/QLME(2) BOOST, Coal/COAL(2) BOOST                              | Steel/STEL(6), Slag/SLAG(2)                             | no change    |
 
 **Reasoning:**
 - STEELTOWN: Well designed. Scrap Metal/SCMT dominant (EAF is defined by scrap-melting), Ferrochrome/FECR for alloy grades, Quicklime/QLME flux, Oxygen/O2__ for decarburization. No changes.
@@ -331,11 +332,12 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 2.4 Iron Works — Forge & Foundry
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Pig Iron/IRON(3), Aluminium/ALUM(3), Sand/SAND(2) | Pig Iron/IRON(3) REQ, Aluminium/ALUM(2) BOOST, Sand/SAND(2) BOOST, Coke/COKE(1) BOOST | Metal Parts/MPAR(7), Slag/SLAG(1) | no change |
-| TROPIC | Pig Iron/IRON(3), Coal/COAL(2), Sand/SAND(2) | Pig Iron/IRON(3) REQ, Coal/COAL(2) BOOST, Sand/SAND(2) BOOST | Metal Parts/MPAR(6) | Metal Parts/MPAR(6), Slag/SLAG(1) |
-| TEMPERATE | Pig Iron/IRON(3), Aluminium/ALUM(2), Sand/SAND(2) | Pig Iron/IRON(3) REQ, Aluminium/ALUM(2) BOOST, Sand/SAND(2) BOOST | Metal Parts/MPAR(6) | Metal Parts/MPAR(6), Slag/SLAG(1) |
+| Economy   | Current Accept                                    | Rec. Accept                                                                           | Current Produce                   | Rec. Produce                      |
+| --------- | ------------------------------------------------- | ------------------------------------------------------------------------------------- | --------------------------------- | --------------------------------- |
+| STEELTOWN | Pig Iron/IRON(3), Aluminium/ALUM(3), Sand/SAND(2) | Pig Iron/IRON(4) REQ, Aluminium/ALUM(3) BOOST, Sand/SAND(2) BOOST, Coke/COKE(1) BOOST | Metal Parts/MPAR(7), Slag/SLAG(1) | no change                         |
+| TROPIC    | Pig Iron/IRON(3), Coal/COAL(2), Sand/SAND(2)      | Pig Iron/IRON(4) REQ, Coal/COAL(3) BOOST, Sand/SAND(2) BOOST                          | Metal Parts/MPAR(6)               | Metal Parts/MPAR(7), Slag/SLAG(1) |
+| TEMPERATE | Pig Iron/IRON(3), Aluminium/ALUM(2), Sand/SAND(2) | Pig Iron/IRON(4) REQ, Aluminium/ALUM(3) BOOST, Sand/SAND(2) BOOST, COKE(1) BOOST      | Metal Parts/MPAR(6)               | Metal Parts/MPAR(7), Slag/SLAG(1) |
+
 
 **Reasoning:**
 - Pig Iron/IRON is required — pig iron is the primary metal for castings and forgings
@@ -347,10 +349,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 2.5 Sheet & Pipe Mill — Steel Rolling & Galvanizing
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Carbon Steel/STCB(4), Zinc/ZINC(2), Acid/ACID(2) | Carbon Steel/STCB(4) REQ, Zinc/ZINC(2) BOOST, Acid/ACID(2) BOOST | Steel Sheet/STSH(8) | Steel Sheet/STSH(8), Scrap Metal/SCMT(1) SCALE |
-| TEMPERATE | Steel/STEL(4), Zinc/ZINC(3), Acid/ACID(2) | Steel/STEL(4) REQ, Zinc/ZINC(2) BOOST, Acid/ACID(2) BOOST | Metal Parts/MPAR(6), Building Mat./BDMT(6) | Metal Parts/MPAR(4), Building Mat./BDMT(4) |
+| Economy   | Current Accept                                   | Rec. Accept                                                      | Current Produce                            | Rec. Produce                                                                |
+| --------- | ------------------------------------------------ | ---------------------------------------------------------------- | ------------------------------------------ | --------------------------------------------------------------------------- |
+| STEELTOWN | Carbon Steel/STCB(4), Zinc/ZINC(2), Acid/ACID(2) | Carbon Steel/STCB(4) REQ, Zinc/ZINC(2) BOOST, Acid/ACID(2) BOOST | Steel Sheet/STSH(8)                        | Steel Sheet/STSH(8), Scrap Metal/SCMT(1) SCALE medium                       |
+| TEMPERATE | Steel/STEL(4), Zinc/ZINC(3), Acid/ACID(2)        | Steel/STEL(4) REQ, Zinc/ZINC(2) BOOST, Acid/ACID(2) BOOST        | Metal Parts/MPAR(6), Building Mat./BDMT(6) | Metal Parts/MPAR(6), Building Mat./BDMT(4) Scrap Metal/SCMT(1) SCALE medium |
 
 **Reasoning:**
 - STEELTOWN: Metallurgically accurate — steel billets rolled, zinc for galvanizing, acid for pickling. No input changes.
@@ -359,9 +361,9 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 2.6 Wire & Section Mill — Wire Drawing & Structural Rolling
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Carbon Steel/STCB(3), Cleaning Agents/SOAP(1), Aluminium/ALUM(2), Copper/COPR(2) | Carbon Steel/STCB(3) REQ, Aluminium/ALUM(2) BOOST, Copper/COPR(2) BOOST, Cleaning Agents/SOAP(1) BOOST | Metal Parts/MPAR(4), Wire Rod/STWR(3), Scrap Metal/SCMT(1) | no change |
+| Economy   | Current Accept                                                                   | Rec. Accept                                                                                            | Current Produce                                                       | Rec. Produce |
+| --------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------- | ------------ |
+| STEELTOWN | Carbon Steel/STCB(3), Cleaning Agents/SOAP(1), Aluminium/ALUM(2), Copper/COPR(2) | Carbon Steel/STCB(3) REQ, Aluminium/ALUM(2) BOOST, Copper/COPR(2) BOOST, Cleaning Agents/SOAP(1) BOOST | Metal Parts/MPAR(4), Wire Rod/STWR(3), Scale low: Scrap Metal/SCMT(1) | no change    |
 
 **Reasoning:**
 - Well designed. Carbon Steel/STCB for steel wire rod + sections, Aluminium/ALUM for aluminium extrusions, Copper/COPR for copper wire, Cleaning Agents/SOAP for wire drawing lubricant (realistic detail).
@@ -370,9 +372,9 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 2.7 Alumina Refinery — Bayer Process (Bauxite to Alumina)
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Bauxite/AORE(6), Lye/LYE_(2) | Bauxite/AORE(6) REQ, Lye/LYE_(2) REQ | Aluminia/ALO_(8) | no change |
+| Economy   | Current Accept               | Rec. Accept                          | Current Produce  | Rec. Produce |
+| --------- | ---------------------------- | ------------------------------------ | ---------------- | ------------ |
+| STEELTOWN | Bauxite/AORE(6), Lye/LYE_(2) | Bauxite/AORE(6) REQ, Lye/LYE_(2) REQ | Aluminia/ALO_(8) | no change    |
 
 **Reasoning:**
 - Textbook Bayer process: bauxite + caustic soda → alumina. Both inputs are truly required — the process fundamentally needs NaOH to dissolve alumina from bauxite.
@@ -381,10 +383,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 2.8 Aluminium Plant — Hall-Héroult Smelting
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Aluminia/ALO_(4), Scrap Metal/SCMT(2), Coke/COKE(2) | Aluminia/ALO_(4) REQ, Scrap Metal/SCMT(2) BOOST, Coke/COKE(2) BOOST | Aluminium/ALUM(7), Slag/SLAG(1) | no change |
-| TEMPERATE | Bauxite/AORE(4), Scrap Metal/SCMT(4), Coke/COKE(2), Acid/ACID(2) | Bauxite/AORE(5) REQ, Scrap Metal/SCMT(2) BOOST, Coke/COKE(2) BOOST, Acid/ACID(1) BOOST | Aluminium/ALUM(7), Slag/SLAG(1) | no change |
+| Economy   | Current Accept                                                   | Rec. Accept                                                                            | Current Produce                 | Rec. Produce |
+| --------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------- | ------------ |
+| STEELTOWN | Aluminia/ALO_(4), Scrap Metal/SCMT(2), Coke/COKE(2)              | Aluminia/ALO_(4) REQ, Scrap Metal/SCMT(2) BOOST, Coke/COKE(2) BOOST                    | Aluminium/ALUM(7), Slag/SLAG(1) | no change    |
+| TEMPERATE | Bauxite/AORE(4), Scrap Metal/SCMT(4), Coke/COKE(2), Acid/ACID(2) | Bauxite/AORE(5) REQ, Scrap Metal/SCMT(2) BOOST, Coke/COKE(2) BOOST, Acid/ACID(1) BOOST | Aluminium/ALUM(7), Slag/SLAG(1) | no change    |
 
 **Reasoning:**
 - STEELTOWN: Aluminia/ALO_ is primary alumina feed, Coke/COKE represents carbon anodes, Scrap Metal/SCMT for scrap remelting. Good design.
@@ -393,9 +395,9 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 2.9 Copper Concentrator — Ore Crushing & Flotation
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Copper Ore/CORE(4), Sulphuric Acid/SUAC(2), Quicklime/QLME(2) | Copper Ore/CORE(4) REQ, Sulphuric Acid/SUAC(2) BOOST, Quicklime/QLME(2) BOOST | Copper Conc./COCO(6), Rare Metals/RAMT(3) | Copper Conc./COCO(7), Rare Metals/RAMT(2) |
+| Economy | Current Accept                                                | Rec. Accept                                                                   | Current Produce                           | Rec. Produce                              |
+| ------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| TROPIC  | Copper Ore/CORE(4), Sulphuric Acid/SUAC(2), Quicklime/QLME(2) | Copper Ore/CORE(4) REQ, Sulphuric Acid/SUAC(2) BOOST, Quicklime/QLME(2) BOOST | Copper Conc./COCO(6), Rare Metals/RAMT(3) | Copper Conc./COCO(7), Rare Metals/RAMT(2) |
 
 **Reasoning:**
 - Copper Ore/CORE is required — copper ore is the sole metallic feed
@@ -405,11 +407,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 2.10 Copper Refinery — Smelting & Electrolytic Refining
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Copper Conc./COCO(4), Scrap Metal/SCMT(2), Coke/COKE(2) | Copper Conc./COCO(4) REQ, Scrap Metal/SCMT(2) BOOST, Coke/COKE(2) BOOST | Copper/COPR(5), Slag/SLAG(1), Sulphuric Acid/SUAC(2) | no change |
-| STEELTOWN | Copper Conc./COCO(4), Scrap Metal/SCMT(2), Acid/ACID(2) | Copper Conc./COCO(4) REQ, Scrap Metal/SCMT(2) BOOST, Acid/ACID(2) BOOST | Copper/COPR(6), Slag/SLAG(1), Sulphur/SULP(1) | no change |
-| TEMPERATE | Copper Ore/CORE(4), Scrap Metal/SCMT(2), Acid/ACID(2) | Copper Ore/CORE(4) REQ, Scrap Metal/SCMT(2) BOOST, Acid/ACID(2) BOOST | Copper/COPR(7), Slag/SLAG(1) | Copper/COPR(6), Slag/SLAG(1), Sulphur/SULP(1) |
+| Economy   | Current Accept                                          | Rec. Accept                                                             | Current Produce                                      | Rec. Produce                                  |
+| --------- | ------------------------------------------------------- | ----------------------------------------------------------------------- | ---------------------------------------------------- | --------------------------------------------- |
+| TROPIC    | Copper Conc./COCO(4), Scrap Metal/SCMT(2), Coke/COKE(2) | Copper Conc./COCO(4) REQ, Scrap Metal/SCMT(2) BOOST, Coke/COKE(2) BOOST | Copper/COPR(5), Slag/SLAG(1), Sulphuric Acid/SUAC(2) | no change                                     |
+| STEELTOWN | Copper Conc./COCO(4), Scrap Metal/SCMT(2), Acid/ACID(2) | Copper Conc./COCO(4) REQ, Scrap Metal/SCMT(2) BOOST, Acid/ACID(2) BOOST | Copper/COPR(6), Slag/SLAG(1), Sulphur/SULP(1)        | no change                                     |
+| TEMPERATE | Copper Ore/CORE(4), Scrap Metal/SCMT(2), Acid/ACID(2)   | Copper Ore/CORE(4) REQ, Scrap Metal/SCMT(2) BOOST, Acid/ACID(2) BOOST   | Copper/COPR(7), Slag/SLAG(1)                         | Copper/COPR(6), Slag/SLAG(1), Sulphur/SULP(1) |
 
 **Reasoning:**
 - All economies well designed. Copper Conc./COCO or Copper Ore/CORE as primary, Scrap Metal/SCMT for scrap remelting, Coke/COKE or Acid/ACID for process.
@@ -418,10 +420,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 2.11 Pyrite Smelter — Polymetallic Ore Roasting
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
+| Economy   | Current Accept                                            | Rec. Accept                                                               | Current Produce                                                       | Rec. Produce                                                           |
+| --------- | --------------------------------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | STEELTOWN | Pyrite Ore/PORE(6), Coke/COKE(1), Cleaning Agents/SOAP(1) | Pyrite Ore/PORE(6) REQ, Coke/COKE(1) BOOST, Cleaning Agents/SOAP(1) BOOST | Zinc/ZINC(2), Copper Conc./COCO(3), Slag/SLAG(1), Ferrochrome/FECR(2) | Zinc/ZINC(2), Copper Conc./COCO(3), Slag/SLAG(1), **Iron Ore/IORE(2)** |
-| TEMPERATE | Pyrite Ore/PORE(6), Coke/COKE(2), Acid/ACID(2) | Pyrite Ore/PORE(6) REQ, Coke/COKE(2) BOOST, Acid/ACID(2) BOOST | Zinc/ZINC(4), Rare Metals/RAMT(3) | Zinc/ZINC(4), Rare Metals/RAMT(2), Sulphur/SULP(2) |
+| TEMPERATE | Pyrite Ore/PORE(6), Coke/COKE(2), Acid/ACID(2)            | Pyrite Ore/PORE(6) REQ, Coke/COKE(2) BOOST, Acid/ACID(2) BOOST            | Zinc/ZINC(4), Rare Metals/RAMT(3)                                     | Zinc/ZINC(4), Rare Metals/RAMT(2), Sulphur/SULP(2)                     |
 
 **Reasoning:**
 - Pyrite Ore/PORE is required in both — pyrite ore is the sole metallic feed
@@ -443,11 +445,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 2.13 Coke Oven — Coal Carbonization
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Coal/COAL(8) | no change | Coke/COKE(6), Coal Tar/CTAR(1), Sulphur/SULP(1) | Coke/COKE(5), Coal Tar/CTAR(1), Sulphur/SULP(1), Hydrogen/H2__(1) |
-| TROPIC | Coal/COAL(8) | no change | Coke/COKE(6), Sulphur/SULP(2) | no change |
-| TEMPERATE | Coal/COAL(8) | no change | Coke/COKE(6), Sulphur/SULP(2) | Coke/COKE(6), Coal Tar/CTAR(1), Sulphur/SULP(1) |
+| Economy   | Current Accept | Rec. Accept | Current Produce                                 | Rec. Produce                                                      |
+| --------- | -------------- | ----------- | ----------------------------------------------- | ----------------------------------------------------------------- |
+| STEELTOWN | Coal/COAL(8)   | no change   | Coke/COKE(6), Coal Tar/CTAR(1), Sulphur/SULP(1) | Coke/COKE(5), Coal Tar/CTAR(1), Sulphur/SULP(1), Hydrogen/H2__(1) |
+| TROPIC    | Coal/COAL(8)   | no change   | Coke/COKE(6), Sulphur/SULP(2)                   | no change                                                         |
+| TEMPERATE | Coal/COAL(8)   | no change   | Coke/COKE(6), Sulphur/SULP(2)                   | Coke/COKE(6), Coal Tar/CTAR(1), Sulphur/SULP(1)                   |
 
 **Reasoning:**
 - Coal/COAL is the sole required input in all economies — correct, coking coal is the only feedstock.
@@ -461,11 +463,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.1 Oil Refinery — Crude Oil Distillation & Cracking
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Oil/OIL_(7), Hydrogen/H2__(1) | Oil/OIL_(7) REQ, Hydrogen/H2__(1) BOOST | Chemicals/RFPR(4), Petrol/PETR(2), Coal Tar/CTAR(1), Sulphur/SULP(1) | no change |
-| TROPIC | Oil/OIL_(8) | Oil/OIL_(8) REQ | Chemicals/RFPR(6), Petrol/PETR(4), Sulphur/SULP(2) | no change |
-| TEMPERATE | Oil/OIL_(8) | Oil/OIL_(8) REQ | Chemicals/RFPR(6), Petrol/PETR(4), Coal Tar/CTAR(4) | Chemicals/RFPR(6), Petrol/PETR(4), Coal Tar/CTAR(2), Sulphur/SULP(2) |
+| Economy   | Current Accept                | Rec. Accept                             | Current Produce                                                      | Rec. Produce                                                         |
+| --------- | ----------------------------- | --------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| STEELTOWN | Oil/OIL_(7), Hydrogen/H2__(1) | Oil/OIL_(7) REQ, Hydrogen/H2__(1) BOOST | Chemicals/RFPR(4), Petrol/PETR(2), Coal Tar/CTAR(1), Sulphur/SULP(1) | Chemicals/RFPR(6), Petrol/PETR(4), Coal Tar/CTAR(2), Sulphur/SULP(1) |
+| TROPIC    | Oil/OIL_(8)                   | Oil/OIL_(8) REQ                         | Chemicals/RFPR(6), Petrol/PETR(4), Sulphur/SULP(2)                   | no change                                                            |
+| TEMPERATE | Oil/OIL_(8)                   | Oil/OIL_(8) REQ                         | Chemicals/RFPR(6), Petrol/PETR(4), Coal Tar/CTAR(4)                  | Chemicals/RFPR(6), Petrol/PETR(4), Coal Tar/CTAR(2), Sulphur/SULP(2) |
 
 **Reasoning:**
 - STEELTOWN: Hydrogen/H2__ for hydrocracking is a real refinery upgrade — chemically accurate. Excellent design.
@@ -474,11 +476,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.2 Biorefinery — Biomass to Biofuels & Chemicals
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Grain/GRAI(4), Fruits/FRUT(4) | Grain/GRAI(4) REQ, Fruits/FRUT(4) REQ | Chemicals/RFPR(2), Petrol/PETR(3), Ethylene/C2H4(3) | no change |
-| TROPIC | Biomass/BIOM(6), Oil Seeds/OLSD(6), Grain/GRAI(6) | Biomass/BIOM(6) REQ, Oil Seeds/OLSD(4) BOOST, Grain/GRAI(4) BOOST | Chemicals/RFPR(4), Petrol/PETR(4) | no change |
-| TEMPERATE | Sugar Beet/SGBT(6), Biomass/BIOM(6), Oil Seeds/OLSD(6) | Sugar Beet/SGBT(6) REQ, Biomass/BIOM(6) REQ, Oil Seeds/OLSD(4) BOOST | Chemicals/RFPR(5), Petrol/PETR(4), Plastics/PLAS(3) | Chemicals/RFPR(5), Petrol/PETR(5), Plastics/PLAS(1) SCALE |
+| Economy   | Current Accept                                         | Rec. Accept                                                          | Current Produce                                     | Rec. Produce                                                     |
+| --------- | ------------------------------------------------------ | -------------------------------------------------------------------- | --------------------------------------------------- | ---------------------------------------------------------------- |
+| STEELTOWN | Grain/GRAI(4), Fruits/FRUT(4)                          | Grain/GRAI(4) REQ, Fruits/FRUT(4) REQ                                | Chemicals/RFPR(2), Petrol/PETR(3), Ethylene/C2H4(3) | no change                                                        |
+| TROPIC    | Biomass/BIOM(6), Oil Seeds/OLSD(6), Grain/GRAI(6)      | Biomass/BIOM(6) REQ, Oil Seeds/OLSD(4) BOOST, Grain/GRAI(4) BOOST    | Chemicals/RFPR(4), Petrol/PETR(4)                   | no change                                                        |
+| TEMPERATE | Sugar Beet/SGBT(6), Biomass/BIOM(6), Oil Seeds/OLSD(6) | Sugar Beet/SGBT(6) REQ, Biomass/BIOM(6) REQ, Oil Seeds/OLSD(4) BOOST | Chemicals/RFPR(5), Petrol/PETR(4), Plastics/PLAS(3) | Chemicals/RFPR(5), Petrol/PETR(5), Plastics/PLAS(1) SCALE medium |
 
 **Reasoning:**
 - All inputs at ratio 6 in TROPIC/TEMPERATE is flat — Biomass/BIOM should dominate as bulk cellulosic feedstock.
@@ -487,9 +489,9 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.3 Chemical Plant — General Chemical Synthesis
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Salt/SALT(2), Nitrates/NITR(2), Chemicals/RFPR(2) | Salt/SALT(2) REQ, Nitrates/NITR(2) REQ, Chemicals/RFPR(2) REQ, Sulphuric Acid/SUAC(2) BOOST | Acetic Acid/ACET(6), Food Additives/ENUM(4) | no change |
+| Economy | Current Accept                                    | Rec. Accept                                                                                 | Current Produce                                         | Rec. Produce |
+| ------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------- | ------------ |
+| TROPIC  | Salt/SALT(2), Nitrates/NITR(2), Chemicals/RFPR(2) | Salt/SALT(2) REQ, Nitrates/NITR(2) REQ, Chemicals/RFPR(2) REQ, Sulphuric Acid/SUAC(2) BOOST | Acetic Acid/ACET(6), Food; Scale low: Additives/ENUM(4) | no change    |
 
 **Reasoning:**
 - General-purpose synthesis facility. Salt/SALT for chlor-chemistry, Nitrates/NITR for amines, Chemicals/RFPR as hydrocarbon feedstock — all required.
@@ -498,10 +500,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.4 Chlor-Alkali Plant — Brine Electrolysis
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Salt/SALT(8) | Salt/SALT(6) REQ, Elec. Parts/POWR(2) BOOST | Acid/ACID(2), Chlorine/CHLO(2), Lye/LYE_(2), Hydrogen/H2__(2) | no change |
-| TEMPERATE | Salt/SALT(8) | Salt/SALT(6) REQ, Elec. Parts/POWR(2) BOOST | Acid/ACID(4), Chlorine/CHLO(4) | no change |
+| Economy   | Current Accept | Rec. Accept                                 | Current Produce                                               | Rec. Produce |
+| --------- | -------------- | ------------------------------------------- | ------------------------------------------------------------- | ------------ |
+| STEELTOWN | Salt/SALT(8)   | Salt/SALT(6) REQ, Elec. Parts/POWR(2) BOOST | Acid/ACID(2), Chlorine/CHLO(2), Lye/LYE_(2), Hydrogen/H2__(2) | no change    |
+| TEMPERATE | Salt/SALT(8)   | Salt/SALT(6) REQ, Elec. Parts/POWR(2) BOOST | Acid/ACID(4), Chlorine/CHLO(4)                                | no change    |
 
 **Reasoning:**
 - Textbook electrolysis of NaCl brine → chlorine + sodium hydroxide + hydrogen. One of the most accurately modeled industries.
@@ -511,11 +513,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.5 Sulphuric Acid Plant — Contact Process
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Sulphur/SULP(5), Nitrogen/N7__(1), Hydrogen/H2__(2) | **Sulphur/SULP(6) REQ, Oxygen/O2__(2) BOOST** | Acid/ACID(8) | no change |
-| TROPIC | Sulphur/SULP(8) | Sulphur/SULP(8) REQ | Sulphuric Acid/SUAC(6) | no change |
-| TEMPERATE | Sulphur/SULP(5), Nitrates/NITR(5), Chemicals/RFPR(2) | **Sulphur/SULP(8) REQ** | Acid/ACID(8) | no change |
+| Economy   | Current Accept                                       | Rec. Accept                                   | Current Produce        | Rec. Produce           |
+| --------- | ---------------------------------------------------- | --------------------------------------------- | ---------------------- | ---------------------- |
+| STEELTOWN | Sulphur/SULP(5), Nitrogen/N7__(1), Hydrogen/H2__(2)  | **Sulphur/SULP(6) REQ, Oxygen/O2__(2) BOOST** | Acid/ACID(8)           | no change              |
+| TROPIC    | Sulphur/SULP(8)                                      | Sulphur/SULP(8) REQ                           | Sulphuric Acid/SUAC(6) | Sulphuric Acid/SUAC(8) |
+| TEMPERATE | Sulphur/SULP(5), Nitrates/NITR(5), Chemicals/RFPR(2) | **Sulphur/SULP(8) REQ**                       | Acid/ACID(8)           | no change              |
 
 **Reasoning:**
 - **STEELTOWN: CHEMICALLY WRONG.** Contact process burns S → SO2, oxidizes to SO3, absorbs in water → H2SO4. Neither nitrogen nor hydrogen is consumed. Replace Nitrogen/N7__ and Hydrogen/H2__ with Oxygen/O2__(2) BOOST (oxygen is the actual co-reactant).
@@ -524,9 +526,9 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.6 Phosphoric Acid Plant — Wet Process
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Phosphate/PHOS(4), Sulphuric Acid/SUAC(4) | Phosphate/PHOS(3) REQ, Sulphuric Acid/SUAC(5) REQ | Phosphoric Acid/PHAC(6), Food Additives/ENUM(2) | no change |
+| Economy | Current Accept                            | Rec. Accept                                       | Current Produce                                 | Rec. Produce |
+| ------- | ----------------------------------------- | ------------------------------------------------- | ----------------------------------------------- | ------------ |
+| TROPIC  | Phosphate/PHOS(4), Sulphuric Acid/SUAC(4) | Phosphate/PHOS(3) REQ, Sulphuric Acid/SUAC(5) REQ | Phosphoric Acid/PHAC(6), Food Additives/ENUM(2) | no change    |
 
 **Reasoning:**
 - Textbook wet process: phosphate rock + sulphuric acid → phosphoric acid + gypsum.
@@ -536,10 +538,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.7 Ammonia Plant — Haber-Bosch Process
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Chemicals/RFPR(2), Nitrogen/N7__(4), Hydrogen/H2__(2) | Chemicals/RFPR(2) BOOST, Nitrogen/N7__(2) REQ, Hydrogen/H2__(4) REQ | Ammonia/NH3_(8) | no change |
-| TEMPERATE | Chemicals/RFPR(2), Nitrates/NITR(4), Biomass/BIOM(2), Acid/ACID(2) | Nitrates/NITR(4) REQ, Chemicals/RFPR(2) REQ, Acid/ACID(2) BOOST | Fertiliser/FERT(5), Explosives/BOOM(3) | no change |
+| Economy   | Current Accept                                                     | Rec. Accept                                                         | Current Produce                        | Rec. Produce |
+| --------- | ------------------------------------------------------------------ | ------------------------------------------------------------------- | -------------------------------------- | ------------ |
+| STEELTOWN | Chemicals/RFPR(2), Nitrogen/N7__(4), Hydrogen/H2__(2)              | Chemicals/RFPR(2) BOOST, Nitrogen/N7__(2) REQ, Hydrogen/H2__(4) REQ | Ammonia/NH3_(8)                        | no change    |
+| TEMPERATE | Chemicals/RFPR(2), Nitrates/NITR(4), Biomass/BIOM(2), Acid/ACID(2) | Nitrates/NITR(4) REQ, Chemicals/RFPR(2) REQ, Acid/ACID(2) BOOST     | Fertiliser/FERT(5), Explosives/BOOM(3) | no change    |
 
 **Reasoning:**
 - STEELTOWN: Swap Nitrogen/N7__ and Hydrogen/H2__ ratios — hydrogen is the expensive/scarce input in Haber-Bosch, nitrogen comes free from atmosphere. Chemicals/RFPR as booster represents hydrocarbon feedstock for steam methane reforming.
@@ -559,10 +561,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.9 Ethylene Cracker — Steam Cracking of Hydrocarbons
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Chemicals/RFPR(5), Coal Tar/CTAR(3) | Chemicals/RFPR(5) REQ, Coal Tar/CTAR(3) REQ | Ethylene/C2H4(5), Petrol/PETR(3) | no change |
-| TEMPERATE | Chemicals/RFPR(4), Coal Tar/CTAR(4) | Chemicals/RFPR(4) REQ, Coal Tar/CTAR(4) REQ | Petrol/PETR(5), Coke/COKE(3), Sulphur/SULP(2) | no change |
+| Economy   | Current Accept                      | Rec. Accept                                 | Current Produce                               | Rec. Produce |
+| --------- | ----------------------------------- | ------------------------------------------- | --------------------------------------------- | ------------ |
+| STEELTOWN | Chemicals/RFPR(5), Coal Tar/CTAR(3) | Chemicals/RFPR(5) REQ, Coal Tar/CTAR(3) REQ | Ethylene/C2H4(5), Petrol/PETR(3)              | no change    |
+| TEMPERATE | Chemicals/RFPR(4), Coal Tar/CTAR(4) | Chemicals/RFPR(4) REQ, Coal Tar/CTAR(4) REQ | Petrol/PETR(5), Coke/COKE(3), Sulphur/SULP(2) | no change    |
 
 **Reasoning:**
 - STEELTOWN: Good. Chemicals/RFPR (naphtha) + Coal Tar/CTAR (coal tar liquids) are valid cracker feeds. Ethylene/C2H4 primary output, Petrol/PETR (pyrolysis gasoline) byproduct.
@@ -570,10 +572,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.10 Fischer-Tropsch Plant — Coal to Liquids
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Coal/COAL(8) | Coal/COAL(6) REQ, Oxygen/O2__(2) BOOST | Chemicals/RFPR(6), Hydrogen/H2__(2) | no change |
-| TEMPERATE | Coal/COAL(8) | Coal/COAL(8) REQ | Chemicals/RFPR(6), Coal Tar/CTAR(2) | no change |
+| Economy   | Current Accept | Rec. Accept                            | Current Produce                     | Rec. Produce |
+| --------- | -------------- | -------------------------------------- | ----------------------------------- | ------------ |
+| STEELTOWN | Coal/COAL(8)   | Coal/COAL(6) REQ, Oxygen/O2__(2) BOOST | Chemicals/RFPR(6), Hydrogen/H2__(2) | no change    |
+| TEMPERATE | Coal/COAL(8)   | Coal/COAL(8) REQ                       | Chemicals/RFPR(6), Coal Tar/CTAR(2) | no change    |
 
 **Reasoning:**
 - STEELTOWN: Add Oxygen/O2__(2) BOOST — oxygen-blown gasifiers are more efficient, creates demand for cryo plant output. Hydrogen/H2__(2) output = excess syngas hydrogen feeding back into Steeltown's hydrogen economy. Clever design.
@@ -581,10 +583,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.11 Polyethylene Plant — Polymer Production
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Ethylene/C2H4(5), Chlorine/CHLO(3) | Ethylene/C2H4(5) REQ, Chlorine/CHLO(3) REQ | Plastics/PLAS(8) | no change |
-| TROPIC | Chemicals/RFPR(6), Acetic Acid/ACET(2) | Chemicals/RFPR(6) REQ, Acetic Acid/ACET(2) BOOST | Plastics/PLAS(5), Rubber/RUBR(3) | no change |
+| Economy   | Current Accept                                    | Rec. Accept                                                       | Current Produce                                        | Rec. Produce                                           |
+| --------- | ------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------ |
+| STEELTOWN | Ethylene/C2H4(5), Chlorine/CHLO(3)                | Ethylene/C2H4(5) REQ, Chlorine/CHLO(3) REQ                        | Plastics/PLAS(8)                                       | no change                                              |
+| TROPIC    | Chemicals/RFPR(6), Acetic Acid/ACET(2)            | Chemicals/RFPR(6) REQ, Acetic Acid/ACET(2) BOOST                  | Plastics/PLAS(5), Rubber/RUBR(3)                       | no change                                              |
 | TEMPERATE | Chemicals/RFPR(6), Chlorine/CHLO(2), Acid/ACID(2) | Chemicals/RFPR(6) REQ, Chlorine/CHLO(2) BOOST, Acid/ACID(2) BOOST | Plastics/PLAS(5), Rubber/RUBR(3), Plant Fibres/FICR(3) | Plastics/PLAS(5), Rubber/RUBR(3), Plant Fibres/FICR(2) |
 
 **Reasoning:**
@@ -594,9 +596,9 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.12 Polypropylene Plant — Synthetic Rubber & Elastomers
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Ethylene/C2H4(5), Acid/ACID(3) | Ethylene/C2H4(5) REQ, Acid/ACID(3) BOOST | Rubber/RUBR(8) | no change |
+| Economy   | Current Accept                 | Rec. Accept                              | Current Produce | Rec. Produce |
+| --------- | ------------------------------ | ---------------------------------------- | --------------- | ------------ |
+| STEELTOWN | Ethylene/C2H4(5), Acid/ACID(3) | Ethylene/C2H4(5) REQ, Acid/ACID(3) BOOST | Rubber/RUBR(8)  | no change    |
 
 **Reasoning:**
 - Ethylene/C2H4 as olefin monomer (proxy for propylene/butadiene), Acid/ACID as Ziegler-Natta catalyst activator. Rubber/RUBR output for synthetic rubber (SBR, EPDM).
@@ -604,11 +606,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.13 Plastics Plant — Injection Molding & Fabrication
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Plastics/PLAS(5), Metal Parts/MPAR(3) | Plastics/PLAS(5) REQ, Metal Parts/MPAR(3) REQ | Plastic Parts/PPAR(6), Packaging/MNSP(5) | no change |
-| TROPIC | Plastics/PLAS(2), Steel/STEL(2), Glass/GLAS(2) | Plastics/PLAS(2) REQ, Steel/STEL(2) REQ, Glass/GLAS(2) BOOST | Packaging/MNSP(6) | Packaging/MNSP(6), Recyclables/RCYC(1) SCALE |
-| TEMPERATE | Plastics/PLAS(5), Metal Parts/MPAR(3) | Plastics/PLAS(5) REQ, Metal Parts/MPAR(3) REQ | Packaging/MNSP(6) | Packaging/MNSP(6), Recyclables/RCYC(1) SCALE |
+| Economy   | Current Accept                                 | Rec. Accept                                                  | Current Produce                          | Rec. Produce                                                            |
+| --------- | ---------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------- | ----------------------------------------------------------------------- |
+| STEELTOWN | Plastics/PLAS(5), Metal Parts/MPAR(3)          | Plastics/PLAS(5) REQ, Metal Parts/MPAR(3) REQ                | Plastic Parts/PPAR(6), Packaging/MNSP(5) | no change                                                               |
+| TROPIC    | Plastics/PLAS(2), Steel/STEL(2), Glass/GLAS(2) | Plastics/PLAS(2) REQ, Steel/STEL(2) REQ, Glass/GLAS(2) BOOST | Packaging/MNSP(6)                        | Packaging/MNSP(6), Recyclables/RCYC(1) SCALE low (1), med (2), high (3) |
+| TEMPERATE | Plastics/PLAS(5), Metal Parts/MPAR(3)          | Plastics/PLAS(5) REQ, Metal Parts/MPAR(3) REQ                | Packaging/MNSP(6)                        | Packaging/MNSP(6), Recyclables/RCYC(1) SCALE low (1), med (2), high (3) |
 
 **Reasoning:**
 - This is a fabrication/molding plant, not polymerization — well differentiated from polyethylene plant.
@@ -617,11 +619,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.14 Paint Factory — Coatings Manufacturing
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Chemicals/RFPR(2), Quicklime/QLME(2), Carbon Black/CBLK(2), Plastics/PLAS(2), Packaging/MNSP(2) | Chemicals/RFPR(2) REQ, Quicklime/QLME(2) REQ, Carbon Black/CBLK(2) BOOST, Plastics/PLAS(2) REQ | Paints/COAT(6), Goods/GOOD(4) | no change |
-| TROPIC | Chemicals/RFPR(2), Quicklime/QLME(2), Acetic Acid/ACET(2), Plastics/PLAS(2) | Chemicals/RFPR(2) REQ, Quicklime/QLME(2) REQ, Acetic Acid/ACET(2) REQ, Plastics/PLAS(2) REQ | Paints/COAT(6), Goods/GOOD(4) | no change |
-| TEMPERATE | Chemicals/RFPR(2), Quicklime/QLME(2), Plastics/PLAS(2), Packaging/MNSP(2) | Chemicals/RFPR(2) REQ, Quicklime/QLME(2) REQ, Plastics/PLAS(2) REQ, Packaging/MNSP(2) BOOST | Paints/COAT(6), Goods/GOOD(4) | no change |
+| Economy   | Current Accept                                                                                  | Rec. Accept                                                                                                    | Current Produce               | Rec. Produce |
+| --------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------------- | ------------ |
+| STEELTOWN | Chemicals/RFPR(2), Quicklime/QLME(2), Carbon Black/CBLK(2), Plastics/PLAS(2), Packaging/MNSP(2) | Chemicals/RFPR(2) REQ, Quicklime/QLME(2) REQ, Carbon Black/CBLK(2) BOOST, Plastics/PLAS(2) REQ, MNSP (2) Boost | Paints/COAT(6), Goods/GOOD(4) | no change    |
+| TROPIC    | Chemicals/RFPR(2), Quicklime/QLME(2), Acetic Acid/ACET(2), Plastics/PLAS(2)                     | Chemicals/RFPR(2) REQ, Quicklime/QLME(2) REQ, Acetic Acid/ACET(2) REQ, Plastics/PLAS(2) REQ                    | Paints/COAT(6), Goods/GOOD(4) | no change    |
+| TEMPERATE | Chemicals/RFPR(2), Quicklime/QLME(2), Plastics/PLAS(2), Packaging/MNSP(2)                       | Chemicals/RFPR(2) REQ, Quicklime/QLME(2) REQ, Plastics/PLAS(2) REQ, Packaging/MNSP(2) BOOST                    | Paints/COAT(6), Goods/GOOD(4) | no change    |
 
 **Reasoning:**
 - Chemicals/RFPR for solvents/binder precursors, Quicklime/QLME for calcium carbonate filler (#1 paint filler by volume), Carbon Black/CBLK for pigment, Plastics/PLAS for polymer binder, Acetic Acid/ACET for solvents.
@@ -630,11 +632,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.15 Solvay Plant — Soda Ash Production
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Salt/SALT(4), Limestone/LIME(2), Ammonia/NH3_(2) | Salt/SALT(4) REQ, Limestone/LIME(2) REQ, Ammonia/NH3_(2) REQ | Soda Ash/SASH(8) | no change |
-| TROPIC | Salt/SALT(4), Limestone/LIME(2), Chemicals/RFPR(2) | Salt/SALT(4) REQ, Limestone/LIME(2) REQ, Chemicals/RFPR(2) BOOST | Soda Ash/SASH(8) | no change |
-| TEMPERATE | Salt/SALT(4), Limestone/LIME(2), Chemicals/RFPR(2) | Salt/SALT(4) REQ, Limestone/LIME(2) REQ, Chemicals/RFPR(2) BOOST | Soda Ash/SASH(8) | no change |
+| Economy   | Current Accept                                     | Rec. Accept                                                    | Current Produce  | Rec. Produce |
+| --------- | -------------------------------------------------- | -------------------------------------------------------------- | ---------------- | ------------ |
+| STEELTOWN | Salt/SALT(4), Limestone/LIME(2), Ammonia/NH3_(2)   | Salt/SALT(4) REQ, Limestone/LIME(2) REQ, Ammonia/NH3_(2) REQ   | Soda Ash/SASH(8) | no change    |
+| TROPIC    | Salt/SALT(4), Limestone/LIME(2), Chemicals/RFPR(2) | Salt/SALT(4) REQ, Limestone/LIME(2) REQ, Chemicals/RFPR(2) REQ | Soda Ash/SASH(8) | no change    |
+| TEMPERATE | Salt/SALT(4), Limestone/LIME(2), Chemicals/RFPR(2) | Salt/SALT(4) REQ, Limestone/LIME(2) REQ, Chemicals/RFPR(2) REQ | Soda Ash/SASH(8) | no change    |
 
 **Reasoning:**
 - Textbook Solvay process: NaCl + CaCO3 + NH3 → Na2CO3. Perfect.
@@ -644,9 +646,9 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.16 Carbon Black Plant — Coal Tar Pyrolysis
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Coal Tar/CTAR(8) | Coal Tar/CTAR(6) REQ, Chemicals/RFPR(2) BOOST | Carbon Black/CBLK(4), Coke/COKE(4) | no change |
+| Economy   | Current Accept   | Rec. Accept                                   | Current Produce                    | Rec. Produce |
+| --------- | ---------------- | --------------------------------------------- | ---------------------------------- | ------------ |
+| STEELTOWN | Coal Tar/CTAR(8) | Coal Tar/CTAR(6) REQ, Chemicals/RFPR(2) BOOST | Carbon Black/CBLK(4), Coke/COKE(4) | no change    |
 
 **Reasoning:**
 - Thermal decomposition of coal tar into carbon black + petroleum coke. Both outputs are real products.
@@ -655,10 +657,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.17 Civil Explosives Facility — Ammonium Nitrate & Explosives
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Ammonia/NH3_(4), Acid/ACID(2), Plastics/PLAS(1), Petrol/PETR(1) | Ammonia/NH3_(4) REQ, Acid/ACID(2) REQ, Plastics/PLAS(1) BOOST, Petrol/PETR(1) BOOST | Ammon. Nitrate/NHNO(6), Eng. Supplies/ENSP(2) | no change |
-| TROPIC | Nitrates/NITR(2), Sulphuric Acid/SUAC(2), Chemicals/RFPR(2) | Nitrates/NITR(2) REQ, Sulphuric Acid/SUAC(2) REQ, Chemicals/RFPR(2) BOOST | Explosives/BOOM(6), Fertiliser/FERT(4) | no change |
+| Economy   | Current Accept                                                  | Rec. Accept                                                                         | Current Produce                               | Rec. Produce |
+| --------- | --------------------------------------------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------- | ------------ |
+| STEELTOWN | Ammonia/NH3_(4), Acid/ACID(2), Plastics/PLAS(1), Petrol/PETR(1) | Ammonia/NH3_(4) REQ, Acid/ACID(2) REQ, Plastics/PLAS(1) BOOST, Petrol/PETR(1) BOOST | Ammon. Nitrate/NHNO(6), Eng. Supplies/ENSP(2) | no change    |
+| TROPIC    | Nitrates/NITR(2), Sulphuric Acid/SUAC(2), Chemicals/RFPR(2)     | Nitrates/NITR(2) REQ, Sulphuric Acid/SUAC(2) REQ, Chemicals/RFPR(2) BOOST           | Explosives/BOOM(6), Fertiliser/FERT(4)        | no change    |
 
 **Reasoning:**
 - STEELTOWN: NH3 + acid → ammonium nitrate. Plastics/PLAS for emulsion explosive packaging, Petrol/PETR for fuel oil (ANFO). Eng. Supplies/ENSP(2) as output = explosives are key mining supplies. Good.
@@ -667,10 +669,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 3.18 Cleaning Products Factory — Soap & Detergent Manufacturing
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Lye/LYE_(2), Soda Ash/SASH(2), Salt/SALT(2), Ammonia/NH3_(2), Packaging/MNSP(2) | Lye/LYE_(3) REQ, Soda Ash/SASH(3) REQ, Ammonia/NH3_(1) BOOST, Packaging/MNSP(1) BOOST | Cleaning Agents/SOAP(6), Goods/GOOD(4) | no change |
-| TROPIC | Soda Ash/SASH(2), Phosphoric Acid/PHAC(2), Acetic Acid/ACET(2), Edible Oil/EOIL(2) | Soda Ash/SASH(2) REQ, Phosphoric Acid/PHAC(2) REQ, Acetic Acid/ACET(2) BOOST, Edible Oil/EOIL(2) BOOST | Cleaning Agents/SOAP(6), Goods/GOOD(6) | Cleaning Agents/SOAP(6), Goods/GOOD(4) |
+| Economy   | Current Accept                                                                     | Rec. Accept                                                                                            | Current Produce                        | Rec. Produce                           |
+| --------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | -------------------------------------- | -------------------------------------- |
+| STEELTOWN | Lye/LYE_(2), Soda Ash/SASH(2), Salt/SALT(2), Ammonia/NH3_(2), Packaging/MNSP(2)    | Lye/LYE_(3) REQ, Soda Ash/SASH(3) REQ, Ammonia/NH3_(1) BOOST, Packaging/MNSP(1) BOOST                  | Cleaning Agents/SOAP(6), Goods/GOOD(4) | no change                              |
+| TROPIC    | Soda Ash/SASH(2), Phosphoric Acid/PHAC(2), Acetic Acid/ACET(2), Edible Oil/EOIL(2) | Soda Ash/SASH(2) REQ, Phosphoric Acid/PHAC(2) REQ, Acetic Acid/ACET(2) BOOST, Edible Oil/EOIL(2) BOOST | Cleaning Agents/SOAP(6), Goods/GOOD(6) | Cleaning Agents/SOAP(6), Goods/GOOD(4) |
 
 **Reasoning:**
 - STEELTOWN: 5 equal inputs is hard for players. Drop Salt/SALT (redundant with Soda Ash/SASH — both are sodium compounds). Raise Lye/LYE_ and Soda Ash/SASH to reflect their dominance in saponification/detergent production.
@@ -682,25 +684,25 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 4.1 Appliance Factory — Household Appliance Manufacturing
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Alloy Steel/STAL(2), Steel Sheet/STSH(2), Glass/GLAS(1), Plastic Parts/PPAR(1), Elec. Parts/POWR(1), Tyres/TYRE(1) | Steel Sheet/STSH(4) REQ, Elec. Parts/POWR(2) REQ, Glass/GLAS(1) BOOST, Plastic Parts/PPAR(1) BOOST | Goods/GOOD(8) | Goods/GOOD(8), Recyclables/RCYC(1) SCALE |
-| TROPIC | Metal Parts/MPAR(4), Glass/GLAS(2), Plastics/PLAS(2), Tyres/TYRE(2) | Metal Parts/MPAR(4) REQ, Plastics/PLAS(2) REQ, Glass/GLAS(2) BOOST | Goods/GOOD(8) | Goods/GOOD(8), Recyclables/RCYC(1) SCALE |
-| TEMPERATE | Metal Parts/MPAR(4), Elec. Parts/POWR(4), Glass/GLAS(2), Plastics/PLAS(2) | Metal Parts/MPAR(4) REQ, Elec. Parts/POWR(2) REQ, Glass/GLAS(2) BOOST, Plastics/PLAS(2) BOOST | Goods/GOOD(8) | Goods/GOOD(8), Recyclables/RCYC(1) SCALE |
+| Economy   | Current Accept                                                                                                     | Rec. Accept                                                                                        | Current Produce | Rec. Produce                             |
+| --------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- | --------------- | ---------------------------------------- |
+| STEELTOWN | Alloy Steel/STAL(2), Steel Sheet/STSH(2), Glass/GLAS(1), Plastic Parts/PPAR(1), Elec. Parts/POWR(1), Rubber Parts/TYRE(1) | Steel Sheet/STSH(4) REQ, Elec. Parts/POWR(2) REQ, Glass/GLAS(1) BOOST, Plastic Parts/PPAR(1) BOOST, Rubber Parts/TYRE(1) BOOST | Goods/GOOD(8)   | Goods/GOOD(8), Recyclables/RCYC(1) SCALE |
+| TROPIC    | Metal Parts/MPAR(4), Glass/GLAS(2), Plastics/PLAS(2), Rubber Parts/TYRE(2)                                                | Metal Parts/MPAR(4) REQ, Plastics/PLAS(2) REQ, Glass/GLAS(2) BOOST, Rubber Parts/TYRE(2) BOOST                                 | Goods/GOOD(8)   | Goods/GOOD(8), Recyclables/RCYC(1) SCALE |
+| TEMPERATE | Metal Parts/MPAR(4), Elec. Parts/POWR(4), Glass/GLAS(2), Plastics/PLAS(2)                                          | Metal Parts/MPAR(4) REQ, Elec. Parts/POWR(2) REQ, Glass/GLAS(2) BOOST, Plastics/PLAS(2) BOOST      | Goods/GOOD(8)   | Goods/GOOD(8), Recyclables/RCYC(1) SCALE |
 
 **Reasoning:**
-- **Remove Tyres/TYRE from all variants** — tyres have nothing to do with washing machines or refrigerators.
+- **Keep Rubber Parts/TYRE** — TYRE represents rubber parts (gaskets, seals, vibration dampeners, rubber feet), not literal tyres/pneumatiky. Valid for appliances.
 - STEELTOWN: Drop Alloy Steel/STAL (redundant with Steel Sheet/STSH — appliance bodies are stamped sheet steel, not alloy bar). Raise Steel Sheet/STSH to 4.
 - TEMPERATE: Elec. Parts/POWR(4) too high — reduce to 2 (electrical components important but metal+plastic are bulk material).
 - All: Recyclables/RCYC(1) SCALE — large appliance factories produce packaging waste, defective parts, foam offcuts.
 
 ### 4.2 Assembly Plant — Vehicle Assembly Line
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Vehicle Parts/VPTS(2), Vehicle Bodies/VBOD(2), Vehicle Engines/VENG(2), Tyres/TYRE(4) | Vehicle Bodies/VBOD(3) REQ, Vehicle Engines/VENG(3) REQ, Vehicle Parts/VPTS(2) REQ, Tyres/TYRE(2) BOOST | Vehicles/VEHI(6), Eng. Supplies/ENSP(1), Farm Supplies/FMSP(1) | Vehicles/VEHI(8), Eng. Supplies/ENSP(1) SCALE, Farm Supplies/FMSP(1) SCALE |
-| TROPIC | Steel/STEL(2), Glass/GLAS(2), Vehicle Parts/VPTS(2), Tyres/TYRE(1), Paints/COAT(1) | Steel/STEL(4) REQ, Vehicle Parts/VPTS(2) REQ, Glass/GLAS(1) BOOST, Tyres/TYRE(1) BOOST, Paints/COAT(1) BOOST | Vehicles/VEHI(6) | Vehicles/VEHI(6), Recyclables/RCYC(1) SCALE |
-| TEMPERATE | Steel/STEL(3), Glass/GLAS(2), Vehicle Parts/VPTS(2), Metal Parts/MPAR(2), Tyres/TYRE(2), Paints/COAT(2) | Steel/STEL(4) REQ, Vehicle Parts/VPTS(3) REQ, Metal Parts/MPAR(2) BOOST, Tyres/TYRE(2) BOOST, Glass/GLAS(1) BOOST, Paints/COAT(1) BOOST | Vehicles/VEHI(6) | Vehicles/VEHI(6), Recyclables/RCYC(1) SCALE |
+| Economy   | Current Accept                                                                                          | Rec. Accept                                                                                                                             | Current Produce                                                | Rec. Produce                                                               |
+| --------- | ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| STEELTOWN | Vehicle Parts/VPTS(2), Vehicle Bodies/VBOD(2), Vehicle Engines/VENG(2), Tyres/TYRE(4)                   | Vehicle Bodies/VBOD(3) REQ, Vehicle Engines/VENG(3) REQ, Vehicle Parts/VPTS(2) REQ, Tyres/TYRE(2) BOOST, Glass/GLAS(1) BOOST            | Vehicles/VEHI(6), Eng. Supplies/ENSP(1), Farm Supplies/FMSP(1) | Vehicles/VEHI(8), Eng. Supplies/ENSP(1) SCALE, Farm Supplies/FMSP(1) SCALE |
+| TROPIC    | Steel/STEL(2), Glass/GLAS(2), Vehicle Parts/VPTS(2), Tyres/TYRE(1), Paints/COAT(1)                      | Steel/STEL(4) REQ, Vehicle Parts/VPTS(2) REQ, Glass/GLAS(1) BOOST, Tyres/TYRE(1) BOOST, Paints/COAT(1) BOOST                            | Vehicles/VEHI(6)                                               | Vehicles/VEHI(6), Recyclables/RCYC(1) SCALE                                |
+| TEMPERATE | Steel/STEL(3), Glass/GLAS(2), Vehicle Parts/VPTS(2), Metal Parts/MPAR(2), Tyres/TYRE(2), Paints/COAT(2) | Steel/STEL(4) REQ, Vehicle Parts/VPTS(3) REQ, Metal Parts/MPAR(2) BOOST, Tyres/TYRE(2) BOOST, Glass/GLAS(1) BOOST, Paints/COAT(1) BOOST | Vehicles/VEHI(6)                                               | Vehicles/VEHI(6), Recyclables/RCYC(1) SCALE                                |
 
 **Reasoning:**
 - STEELTOWN: Tyres/TYRE(4) is way too high — tyres are cheap relative to body+engine. Reduce to 2. Raise Vehicle Bodies/VBOD and Vehicle Engines/VENG (expensive critical parts). Eng. Supplies/ENSP and Farm Supplies/FMSP could be SCALE outputs — equipment assembly at large scale.
@@ -709,9 +711,9 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 4.3 Body Plant — Vehicle Body Stamping & Welding
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Steel Sheet/STSH(4), Paints/COAT(2), Glass/GLAS(2) | Steel Sheet/STSH(5) REQ, Paints/COAT(2) REQ, Zinc/ZINC(1) BOOST | Vehicle Bodies/VBOD(7), Scrap Metal/SCMT(1) | no change |
+| Economy   | Current Accept                                     | Rec. Accept                                                     | Current Produce                             | Rec. Produce |
+| --------- | -------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------- | ------------ |
+| STEELTOWN | Steel Sheet/STSH(4), Paints/COAT(2), Glass/GLAS(2) | Steel Sheet/STSH(5) REQ, Paints/COAT(2) REQ, Zinc/ZINC(1) BOOST | Vehicle Bodies/VBOD(7), Scrap Metal/SCMT(1) | no change    |
 
 **Reasoning:**
 - Drop Glass/GLAS(2) — glass is installed at assembly, not body plant. Body plants produce bare painted shells.
@@ -721,26 +723,26 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 4.4 Component Factory — Automotive/Industrial Component Manufacturing
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Metal Parts/MPAR(2), Plastic Parts/PPAR(2), Alloy Steel/STAL(2), Elec. Parts/POWR(2) | Alloy Steel/STAL(3) REQ, Metal Parts/MPAR(2) REQ, Plastic Parts/PPAR(2) BOOST, Elec. Parts/POWR(1) BOOST | Vehicle Parts/VPTS(8) | Vehicle Parts/VPTS(8), Recyclables/RCYC(1) SCALE |
-| TROPIC | Metal Parts/MPAR(2), Tyres/TYRE(2), Plastics/PLAS(2), Textiles/TEXT(2), Paints/COAT(2) | Metal Parts/MPAR(3) REQ, Plastics/PLAS(2) REQ, Textiles/TEXT(2) BOOST, Paints/COAT(1) BOOST | Vehicle Parts/VPTS(8) | Vehicle Parts/VPTS(8) |
-| TEMPERATE | Metal Parts/MPAR(2), Plastics/PLAS(2), Textiles/TEXT(2), Elec. Parts/POWR(2) | Metal Parts/MPAR(3) REQ, Elec. Parts/POWR(2) REQ, Plastics/PLAS(2) BOOST, Textiles/TEXT(1) BOOST | Vehicle Parts/VPTS(8) | Vehicle Parts/VPTS(8) |
+| Economy   | Current Accept                                                                                | Rec. Accept                                                                                                             | Current Produce       | Rec. Produce                                     |
+| --------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------------------------------------------ |
+| STEELTOWN | Metal Parts/MPAR(2), Plastic Parts/PPAR(2), Alloy Steel/STAL(2), Elec. Parts/POWR(2)          | Alloy Steel/STAL(3) REQ, Metal Parts/MPAR(2) REQ, Plastic Parts/PPAR(2) BOOST, Elec. Parts/POWR(1) BOOST                | Vehicle Parts/VPTS(8) | Vehicle Parts/VPTS(8), Recyclables/RCYC(1) SCALE |
+| TROPIC    | Metal Parts/MPAR(2), Rubber Parts/TYRE(2), Plastics/PLAS(2), Textiles/TEXT(2), Paints/COAT(2) | Metal Parts/MPAR(3) REQ, Plastics/PLAS(2) REQ, Rubber Parts/TYRE(2) BOOST, Textiles/TEXT(2) BOOST, Paints/COAT(1) BOOST | Vehicle Parts/VPTS(8) | Vehicle Parts/VPTS(8) Recyclables/RCYC(1) SCALE  |
+| TEMPERATE | Metal Parts/MPAR(2), Plastics/PLAS(2), Textiles/TEXT(2), Elec. Parts/POWR(2)                  | Metal Parts/MPAR(3) REQ, Elec. Parts/POWR(2) REQ, Plastics/PLAS(2) BOOST, Textiles/TEXT(1) BOOST                        | Vehicle Parts/VPTS(8) | Vehicle Parts/VPTS(8) Recyclables/RCYC(1) SCALE  |
 
 **Reasoning:**
 - STEELTOWN: Alloy Steel/STAL should be primary (precision alloy steel for drivetrain components — shafts, gears). Raise to 3, reduce Elec. Parts/POWR to 1.
-- **TROPIC: Remove Tyres/TYRE(2)** — component factories don't process tyres. Metal Parts/MPAR as dominant.
+- TROPIC: Keep Rubber Parts/TYRE(2) as BOOST — rubber parts (gaskets, seals, bushings, hoses) are valid component factory inputs. Metal Parts/MPAR as dominant.
 - TEMPERATE: Good mix. Metal Parts/MPAR as primary (machined blanks), Elec. Parts/POWR for electrical harnesses.
 - STEELTOWN: Recyclables/RCYC(1) SCALE — machining waste, packaging, defective assemblies.
 
 ### 4.5 Engine Plant — Engine Block Casting & Assembly
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Metal Parts/MPAR(2), Aluminium/ALUM(2), Tyres/TYRE(2), Chemicals/RFPR(2) | Aluminium/ALUM(3) REQ, Metal Parts/MPAR(3) REQ, Chemicals/RFPR(1) BOOST, Alloy Steel/STAL(1) BOOST | Vehicle Engines/VENG(8) | Vehicle Engines/VENG(8), Scrap Metal/SCMT(1) SCALE |
+| Economy   | Current Accept                                                                  | Rec. Accept                                                                                                                    | Current Produce         | Rec. Produce                                       |
+| --------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------- |
+| STEELTOWN | Metal Parts/MPAR(2), Aluminium/ALUM(2), Rubber Parts/TYRE(2), Chemicals/RFPR(2) | Aluminium/ALUM(3) REQ, Metal Parts/MPAR(3) REQ, Rubber Parts/TYRE(1) BOOST, Chemicals/RFPR(1) BOOST, Alloy Steel/STAL(1) BOOST | Vehicle Engines/VENG(8) | Vehicle Engines/VENG(8), Scrap Metal/SCMT(1) SCALE |
 
 **Reasoning:**
-- **Remove Tyres/TYRE(2)** — engines have absolutely nothing to do with tyres.
+- Keep Rubber Parts/TYRE(1) as BOOST — engine gaskets, timing belts, seals, vibration mounts. Reduce from 2 to 1 (minor relative to metal).
 - Aluminium/ALUM(3) REQ — engine blocks and cylinder heads are aluminium castings (heaviest single component).
 - Metal Parts/MPAR(3) REQ — precision machined internals (valves, camshafts, crankshafts).
 - Add Alloy Steel/STAL(1) BOOST — crankshafts and connecting rods are high-strength alloy steel.
@@ -749,25 +751,26 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 4.6 Electrical Works — Motors, Wiring, Panels
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Copper/COPR(2), Sulphuric Acid/SUAC(2), Plastics/PLAS(2), Rare Metals/RAMT(2) | Copper/COPR(3) REQ, Alloy Steel/STAL(2) REQ, Wire Rod/STWR(1) BOOST, Plastic Parts/PPAR(1) BOOST, Chemicals/RFPR(1) BOOST | Elec. Parts/POWR(8) | Elec. Parts/POWR(8) |
-| TROPIC | Alloy Steel/STAL(3), Copper/COPR(2), Chemicals/RFPR(1), Wire Rod/STWR(1), Plastic Parts/PPAR(1) | Copper/COPR(3) REQ, Plastics/PLAS(2) REQ, Rare Metals/RAMT(1) BOOST, Steel/STEL(2) BOOST | Vehicle Parts/VPTS(6), Goods/GOOD(6) | Vehicle Parts/VPTS(6), Goods/GOOD(6) |
-| TEMPERATE | Copper/COPR(2), Tyres/TYRE(2), Plastics/PLAS(2), Rare Metals/RAMT(2) | Copper/COPR(3) REQ, Plastics/PLAS(2) REQ, Rare Metals/RAMT(2) BOOST | Elec. Parts/POWR(6) | Elec. Parts/POWR(6) |
+| Economy   | Current Accept                                                                                  | Rec. Accept                                                                                                               | Current Produce                      | Rec. Produce                         |
+| --------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------------------------------ |
+| STEELTOWN | Copper/COPR(2), Sulphuric Acid/SUAC(2), Plastics/PLAS(2), Rare Metals/RAMT(2)                   | Copper/COPR(3) REQ, Plastic Parts/PPAR(2) REQ, Rare Metals/RAMT(2) BOOST, Steel Sheet/STSH(1) BOOST, Chemicals/RFPR(1) BOOST | Elec. Parts/POWR(8)                  | Elec. Parts/POWR(8)                  |
+| TROPIC    | Alloy Steel/STAL(3), Copper/COPR(2), Chemicals/RFPR(1), Wire Rod/STWR(1), Plastic Parts/PPAR(1) | Copper/COPR(3) REQ, Plastics/PLAS(2) REQ, Rare Metals/RAMT(1) BOOST, Steel/STEL(2) BOOST                                  | Vehicle Parts/VPTS(6), Goods/GOOD(6) | Vehicle Parts/VPTS(6), Goods/GOOD(6) |
+| TEMPERATE | Copper/COPR(2), Rubber Parts/TYRE(2), Plastics/PLAS(2), Rare Metals/RAMT(2)                     | Copper/COPR(3) REQ, Plastics/PLAS(2) REQ, Rare Metals/RAMT(2) BOOST, Rubber Parts/TYRE(1) BOOST                           | Elec. Parts/POWR(6)                  | Elec. Parts/POWR(6)                  |
 
 **Reasoning:**
 - Copper/COPR should be primary in all variants — copper windings are the heart of every motor and transformer.
-- **TEMPERATE: Remove Tyres/TYRE(2)** — motors don't need tyres.
-- STEELTOWN: Needs steel for laminations/motor cores. Wire Rod/STWR for cabling. Plastic Parts/PPAR for housings.
+- TEMPERATE: Keep Rubber Parts/TYRE(1) as BOOST — cable insulation, grommets, vibration mounts. Reduce from 2 to 1.
+- STEELTOWN: Copper/COPR(3) REQ for windings. Plastic Parts/PPAR(2) REQ for housings/connectors/insulation. Rare Metals/RAMT(2) BOOST for permanent magnets. Steel Sheet/STSH(1) BOOST for motor laminations. Chemicals/RFPR(1) BOOST for winding varnish, insulating oils, solder paste.
 - TROPIC: Outputs Vehicle Parts/VPTS + Goods/GOOD (no Elec. Parts/POWR cargo in tropic) — reasonable workaround.
 
 ### 4.7 Tyre Plant — Vulcanization & Tyre Building
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Rubber/RUBR(2), Carbon Black/CBLK(2), Sulphur/SULP(2), Wire Rod/STWR(2) | Rubber/RUBR(4) REQ, Carbon Black/CBLK(2) REQ, Sulphur/SULP(1) BOOST, Wire Rod/STWR(1) BOOST | Tyres/TYRE(8) | no change |
-| TROPIC | Rubber/RUBR(4), Metal Parts/MPAR(2), Sulphur/SULP(2) | Rubber/RUBR(4) REQ, Sulphur/SULP(2) BOOST, Metal Parts/MPAR(1) BOOST | Tyres/TYRE(8), Plastics/PLAS(4) | Tyres/TYRE(8), Plastics/PLAS(2) |
-| TEMPERATE | Rubber/RUBR(4), Metal Parts/MPAR(2), Sulphur/SULP(2) | Rubber/RUBR(4) REQ, Sulphur/SULP(2) BOOST, Metal Parts/MPAR(1) BOOST | Tyres/TYRE(8), Goods/GOOD(4) | Tyres/TYRE(8), Goods/GOOD(2) |
+| Economy   | Current Accept                                                          | Rec. Accept                                                                                 | Current Produce                 | Rec. Produce                    |
+| --------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------- |
+| STEELTOWN | Rubber/RUBR(2), Carbon Black/CBLK(2), Sulphur/SULP(2), Wire Rod/STWR(2) | Rubber/RUBR(4) REQ, Carbon Black/CBLK(2) REQ, Sulphur/SULP(1) BOOST, Wire Rod/STWR(1) BOOST | Tyres/TYRE(8)                   | no change                       |
+| TROPIC    | Rubber/RUBR(4), Metal Parts/MPAR(2), Sulphur/SULP(2)                    | Rubber/RUBR(4) REQ, Sulphur/SULP(2) BOOST, Metal Parts/MPAR(1) BOOST                        | Tyres/TYRE(8), Plastics/PLAS(4) | Tyres/TYRE(8), Plastics/PLAS(2) |
+| TEMPERATE | Rubber/RUBR(4), Metal Parts/MPAR(2), Sulphur/SULP(2)                    | Rubber/RUBR(4) REQ, Sulphur/SULP(2) BOOST, Metal Parts/MPAR(1) BOOST                        | Tyres/TYRE(8), Goods/GOOD(4)    | Tyres/TYRE(8), Goods/GOOD(2)    |
+
 
 **Reasoning:**
 - All: Rubber/RUBR should clearly dominate (70%+ of tyre by weight is rubber compound). Steeltown has all 4 correct ingredients but at equal ratios — raise Rubber/RUBR to 4.
@@ -818,10 +821,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 4.11 Textile Mill — Spinning, Weaving, Finishing
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Plant Fibres/FICR(5), Plastics/PLAS(2), Acetic Acid/ACET(1) | Plant Fibres/FICR(5) REQ, Plastics/PLAS(2) BOOST, Acetic Acid/ACET(1) BOOST | Textiles/TEXT(7), Goods/GOOD(4) | Textiles/TEXT(7), Goods/GOOD(3) |
-| TEMPERATE | Plant Fibres/FICR(4), Paints/COAT(2) | Plant Fibres/FICR(5) REQ, Paints/COAT(1) BOOST, Plastics/PLAS(1) BOOST | Textiles/TEXT(7), Goods/GOOD(4) | Textiles/TEXT(7), Goods/GOOD(3) |
+| Economy   | Current Accept                                              | Rec. Accept                                                                 | Current Produce                 | Rec. Produce                    |
+| --------- | ----------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------- | ------------------------------- |
+| TROPIC    | Plant Fibres/FICR(5), Plastics/PLAS(2), Acetic Acid/ACET(1) | Plant Fibres/FICR(5) REQ, Plastics/PLAS(2) BOOST, Acetic Acid/ACET(1) BOOST | Textiles/TEXT(7), Goods/GOOD(4) | Textiles/TEXT(7), Goods/GOOD(3) |
+| TEMPERATE | Plant Fibres/FICR(4), Paints/COAT(2)                        | Plant Fibres/FICR(5) REQ, Paints/COAT(1) BOOST, Plastics/PLAS(1) BOOST      | Textiles/TEXT(7), Goods/GOOD(4) | Textiles/TEXT(7), Goods/GOOD(3) |
 
 **Reasoning:**
 - Plant Fibres/FICR dominant — raw fibre IS the main input. Plastics/PLAS for synthetic fibre blends. Acetic Acid/ACET or Paints/COAT for chemical finishing/dyeing.
@@ -831,11 +834,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 4.12 Glass Works — Glass Melting, Forming, Annealing
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TEMPERATE | Sand/SAND(6), Soda Ash/SASH(2), Quicklime/QLME(2) | Sand/SAND(6) REQ, Soda Ash/SASH(2) REQ, Quicklime/QLME(2) BOOST | Glass/GLAS(8), Packaging/MNSP(8) | Glass/GLAS(8), Packaging/MNSP(6) |
-| STEELTOWN | Sand/SAND(4), Soda Ash/SASH(2), Quicklime/QLME(1), Plastics/PLAS(1) | Sand/SAND(4) REQ, Soda Ash/SASH(2) REQ, Quicklime/QLME(1) BOOST, Plastics/PLAS(1) BOOST | Glass/GLAS(6), Packaging/MNSP(4) | no change |
-| TROPIC | Sand/SAND(4), Soda Ash/SASH(2), Quicklime/QLME(1), Plastics/PLAS(1) | Sand/SAND(4) REQ, Soda Ash/SASH(2) REQ, Quicklime/QLME(1) BOOST, Plastics/PLAS(1) BOOST | Glass/GLAS(8) | Glass/GLAS(8), Packaging/MNSP(2) |
+| Economy   | Current Accept                                                      | Rec. Accept                                                                             | Current Produce                  | Rec. Produce                     |
+| --------- | ------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | -------------------------------- | -------------------------------- |
+| TEMPERATE | Sand/SAND(6), Soda Ash/SASH(2), Quicklime/QLME(2)                   | Sand/SAND(6) REQ, Soda Ash/SASH(2) REQ, Quicklime/QLME(2) BOOST                         | Glass/GLAS(8), Packaging/MNSP(8) | Glass/GLAS(8), Packaging/MNSP(4) |
+| STEELTOWN | Sand/SAND(4), Soda Ash/SASH(2), Quicklime/QLME(1), Plastics/PLAS(1) | Sand/SAND(4) REQ, Soda Ash/SASH(2) REQ, Quicklime/QLME(1) BOOST, Plastics/PLAS(1) BOOST | Glass/GLAS(6), Packaging/MNSP(4) | no change                        |
+| TROPIC    | Sand/SAND(4), Soda Ash/SASH(2), Quicklime/QLME(1), Plastics/PLAS(1) | Sand/SAND(4) REQ, Soda Ash/SASH(2) REQ, Quicklime/QLME(1) BOOST, Plastics/PLAS(1) BOOST | Glass/GLAS(8)                    | Glass/GLAS(8), Packaging/MNSP(4) |
 
 **Reasoning:**
 - Sand/SAND is the main ingredient (70-75% of glass batch). Soda Ash/SASH (soda ash) is flux (12-15%). Quicklime/QLME is stabilizer (10-12%). All correct.
@@ -855,7 +858,9 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 - Mail/MAIL output for newspapers/periodicals is creative and creates mail demand. Good design.
 - Recyclables/RCYC(1) SCALE — large print shops produce paper waste, ink cartridges, film waste.
 
-### 4.14 Construction Plant — Prefab Construction & Modular Building
+### 4.14 Builders Yard (`builders_yard`) — Construction Supply Distribution
+
+Note: `construction_plant` was an orphaned duplicate (never registered in `__init__.py`) — deleted. Only `builders_yard` is active.
 
 | Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
 |---------|---------------|-------------|-----------------|--------------|
@@ -865,27 +870,16 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 - Cement/CMNT should be dominant — concrete is the bulk material in construction. Raise to 3.
 - Wire Rod/STWR for reinforcement (rebar, mesh) — essential for concrete structures.
 - Glass/GLAS(2→1) — windows are a minor component.
-- Recyclables/RCYC(1) SCALE — construction sites produce recyclable waste (packaging, offcuts, scrap).
-- Note: Nearly identical to Builders Yard — needs differentiation (see below).
-
-### 4.15 Builders Yard — Construction Supply Distribution
-
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Cement/CMNT(2), Metal Parts/MPAR(2), Wire Rod/STWR(2), Glass/GLAS(2) | Cement/CMNT(2) REQ, Glass/GLAS(2) REQ, Packaging/MNSP(2) BOOST, Metal Parts/MPAR(2) BOOST | Goods/GOOD(8) | no change |
-
-**Reasoning:**
-- **Currently identical inputs to Construction Plant** — this is a problem. Two industries in same economy with same cargos creates confusion.
-- Differentiate: This is a distributor (retail/hardware store), not a manufacturer. Replace Wire Rod/STWR with Packaging/MNSP (nails, screws, fixings, tools).
+- Recyclables/RCYC(1) SCALE — construction waste (packaging, offcuts, scrap).
 - Has `prod_multiplier=[0,0]` — zero base production, acts as distribution hub.
 
 ### 4.16 Supply Yard — Engineering & Farm Supply Distribution Hub
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Ammon. Nitrate/NHNO(8), Vehicles/VEHI(8), Petrol/PETR(8), Tyres/TYRE(8) | Vehicles/VEHI(8) REQ, Petrol/PETR(8) REQ, Ammon. Nitrate/NHNO(8) BOOST, Tyres/TYRE(4) BOOST | Eng. Supplies/ENSP(8) | Eng. Supplies/ENSP(6), Farm Supplies/FMSP(4) |
-| TROPIC | Vehicles/VEHI(8), Petrol/PETR(8), Explosives/BOOM(8) | Vehicles/VEHI(8) REQ, Petrol/PETR(8) REQ, Explosives/BOOM(8) BOOST | Eng. Supplies/ENSP(8) | Eng. Supplies/ENSP(6), Farm Supplies/FMSP(4) |
-| TEMPERATE | Vehicles/VEHI(8), Petrol/PETR(8), Explosives/BOOM(8) | Vehicles/VEHI(8) REQ, Petrol/PETR(8) REQ, Explosives/BOOM(8) BOOST | Eng. Supplies/ENSP(8) | Eng. Supplies/ENSP(6), Farm Supplies/FMSP(4) |
+| Economy   | Current Accept                                                          | Rec. Accept                                                                                 | Current Produce       | Rec. Produce                                 |
+| --------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------- | -------------------------------------------- |
+| STEELTOWN | Ammon. Nitrate/NHNO(8), Vehicles/VEHI(8), Petrol/PETR(8), Tyres/TYRE(8) | Vehicles/VEHI(8) REQ, Petrol/PETR(8) REQ, Ammon. Nitrate/NHNO(8) BOOST, Tyres/TYRE(4) BOOST | Eng. Supplies/ENSP(8) | Eng. Supplies/ENSP(8), Farm Supplies/FMSP(4) |
+| TROPIC    | Vehicles/VEHI(8), Petrol/PETR(8), Explosives/BOOM(8)                    | Vehicles/VEHI(8) REQ, Petrol/PETR(8) REQ, Explosives/BOOM(8) BOOST                          | Eng. Supplies/ENSP(8) | Eng. Supplies/ENSP(8), Farm Supplies/FMSP(4) |
+| TEMPERATE | Vehicles/VEHI(8), Petrol/PETR(8), Explosives/BOOM(8)                    | Vehicles/VEHI(8) REQ, Petrol/PETR(8) REQ, Explosives/BOOM(8) BOOST                          | Eng. Supplies/ENSP(8) | Eng. Supplies/ENSP(8), Farm Supplies/FMSP(4) |
 
 **Reasoning:**
 - Distribution hub for heavy equipment and consumables. All-8 ratios mean any single input gives max output — distribution mechanic.
@@ -894,10 +888,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 4.17 Brick Works — Brick Firing & Forming
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Clay/CLAY(4), Sand/SAND(3), Coal/COAL(2) | Clay/CLAY(4) REQ, Coal/COAL(2) REQ, Sand/SAND(1) BOOST | Building Mat./BDMT(6) | no change |
-| TEMPERATE | Clay/CLAY(4), Sand/SAND(3), Coal/COAL(2) | Clay/CLAY(4) REQ, Coal/COAL(2) REQ, Sand/SAND(1) BOOST | Building Mat./BDMT(6) | no change |
+| Economy   | Current Accept                           | Rec. Accept                                            | Current Produce       | Rec. Produce |
+| --------- | ---------------------------------------- | ------------------------------------------------------ | --------------------- | ------------ |
+| TROPIC    | Clay/CLAY(4), Sand/SAND(3), Coal/COAL(2) | Clay/CLAY(4) REQ, Coal/COAL(2) REQ, Sand/SAND(1) BOOST | Building Mat./BDMT(6) | no change    |
+| TEMPERATE | Clay/CLAY(4), Sand/SAND(3), Coal/COAL(2) | Clay/CLAY(4) REQ, Coal/COAL(2) REQ, Sand/SAND(1) BOOST | Building Mat./BDMT(6) | no change    |
 
 **Reasoning:**
 - CLAY is the brick. Coal/COAL is kiln fuel. Both required.
@@ -920,11 +914,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 4.19 Lime Kiln — Limestone Calcination
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| STEELTOWN | Limestone/LIME(6), Petrol/PETR(2) | Limestone/LIME(6) REQ, Petrol/PETR(2) BOOST | Quicklime/QLME(8) | no change |
-| TROPIC | Limestone/LIME(6), Petrol/PETR(2) | Limestone/LIME(6) REQ, Petrol/PETR(2) BOOST | Quicklime/QLME(6), Fertiliser/FERT(2) | no change |
-| TEMPERATE | Limestone/LIME(6), Petrol/PETR(2) | Limestone/LIME(6) REQ, Petrol/PETR(2) BOOST | Quicklime/QLME(6) | Quicklime/QLME(6), Fertiliser/FERT(1) |
+| Economy   | Current Accept                    | Rec. Accept                                 | Current Produce                       | Rec. Produce                                |
+| --------- | --------------------------------- | ------------------------------------------- | ------------------------------------- | ------------------------------------------- |
+| STEELTOWN | Limestone/LIME(6), Petrol/PETR(2) | Limestone/LIME(6) REQ, Petrol/PETR(2) BOOST | Quicklime/QLME(8)                     | no change                                   |
+| TROPIC    | Limestone/LIME(6), Petrol/PETR(2) | Limestone/LIME(6) REQ, Petrol/PETR(2) BOOST | Quicklime/QLME(6), Fertiliser/FERT(2) | Quicklime/QLME(6), scale Fertiliser/FERT(2) |
+| TEMPERATE | Limestone/LIME(6), Petrol/PETR(2) | Limestone/LIME(6) REQ, Petrol/PETR(2) BOOST | Quicklime/QLME(6)                     | Quicklime/QLME(6), scale Fertiliser/FERT(1) |
 
 **Reasoning:**
 - Simple and correct process: heat limestone → quicklime + CO2. Limestone/LIME is required, Petrol/PETR is fuel booster.
@@ -934,10 +928,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 4.20 Sawmill — Log Cutting into Lumber
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Logs/WOOD(6) | Logs/WOOD(6) REQ | Lumber/WDPR(8) | Lumber/WDPR(7), Biomass/BIOM(1) |
-| TEMPERATE | Logs/WOOD(6) | Logs/WOOD(6) REQ | Lumber/WDPR(8) | Lumber/WDPR(7), Biomass/BIOM(1) |
+| Economy   | Current Accept | Rec. Accept      | Current Produce | Rec. Produce                    |
+| --------- | -------------- | ---------------- | --------------- | ------------------------------- |
+| TROPIC    | Logs/WOOD(6)   | Logs/WOOD(8) REQ | Lumber/WDPR(8)  | Lumber/WDPR(7), Biomass/BIOM(1) |
+| TEMPERATE | Logs/WOOD(6)   | Logs/WOOD(8) REQ | Lumber/WDPR(8)  | Lumber/WDPR(7), Biomass/BIOM(1) |
 
 **Reasoning:**
 - Simple single-input process — correct for sawmilling.
@@ -947,10 +941,10 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 4.21 Paper Mill — Wood Pulping & Papermaking
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TROPIC | Logs/WOOD(4), Clay/CLAY(2), Sulphuric Acid/SUAC(2) | Logs/WOOD(4) REQ, Clay/CLAY(2) BOOST, Sulphuric Acid/SUAC(1) BOOST | Goods/GOOD(4), Packaging/MNSP(7) | Goods/GOOD(4), Packaging/MNSP(6) |
-| TEMPERATE | Clay/CLAY(2), Logs/WOOD(4), Sulphur/SULP(2) | Logs/WOOD(4) REQ, Sulphur/SULP(2) BOOST, Clay/CLAY(1) BOOST | Paper/PAPR(6), Packaging/MNSP(8) | Paper/PAPR(6), Packaging/MNSP(5), Recyclables/RCYC(1) SCALE |
+| Economy   | Current Accept                                     | Rec. Accept                                                        | Current Produce                  | Rec. Produce                                                |
+| --------- | -------------------------------------------------- | ------------------------------------------------------------------ | -------------------------------- | ----------------------------------------------------------- |
+| TROPIC    | Logs/WOOD(4), Clay/CLAY(2), Sulphuric Acid/SUAC(2) | Logs/WOOD(4) REQ, Clay/CLAY(2) BOOST, Sulphuric Acid/SUAC(1) BOOST | Goods/GOOD(4), Packaging/MNSP(7) | Goods/GOOD(4), Packaging/MNSP(6)                            |
+| TEMPERATE | Clay/CLAY(2), Logs/WOOD(4), Sulphur/SULP(2)        | Logs/WOOD(4) REQ, Sulphur/SULP(2) BOOST, Clay/CLAY(2) BOOST        | Paper/PAPR(6), Packaging/MNSP(8) | Paper/PAPR(6), Packaging/MNSP(5), Recyclables/RCYC(1) SCALE |
 
 **Reasoning:**
 - Logs/WOOD is the required input — wood pulp is the main ingredient.
@@ -974,11 +968,11 @@ Complete audit of all secondary industries across BASIC_TEMPERATE, BASIC_TROPIC,
 
 ### 4.23 Junk Yard — Scrap Sorting & Processing
 
-| Economy | Current Accept | Rec. Accept | Current Produce | Rec. Produce |
-|---------|---------------|-------------|-----------------|--------------|
-| TEMPERATE | Recyclables/RCYC(6) | Recyclables/RCYC(6) REQ | Scrap Metal/SCMT(3) | Scrap Metal/SCMT(4), Rare Metals/RAMT(1) |
-| TROPIC | Recyclables/RCYC(6) | Recyclables/RCYC(6) REQ | Scrap Metal/SCMT(4), Rare Metals/RAMT(1) | no change |
-| STEELTOWN | Recyclables/RCYC(6) | Recyclables/RCYC(6) REQ | Scrap Metal/SCMT(3) | Scrap Metal/SCMT(4), Rare Metals/RAMT(1) |
+| Economy   | Current Accept      | Rec. Accept             | Current Produce                          | Rec. Produce                             |
+| --------- | ------------------- | ----------------------- | ---------------------------------------- | ---------------------------------------- |
+| TEMPERATE | Recyclables/RCYC(6) | Recyclables/RCYC(6) REQ | Scrap Metal/SCMT(3)                      | Scrap Metal/SCMT(4), Rare Metals/RAMT(1) |
+| TROPIC    | Recyclables/RCYC(6) | Recyclables/RCYC(6) REQ | Scrap Metal/SCMT(4), Rare Metals/RAMT(1) | no change                                |
+| STEELTOWN | Recyclables/RCYC(6) | Recyclables/RCYC(6) REQ | Scrap Metal/SCMT(3)                      | Scrap Metal/SCMT(4), Rare Metals/RAMT(1) |
 
 **Reasoning:**
 - Simple single-input — correct for scrap sorting (low-tech, labor-intensive).

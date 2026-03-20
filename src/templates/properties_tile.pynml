@@ -48,9 +48,9 @@
     }
     </tal:non_warehouse>
 
-    <!--! Warehouse tile: per-economy items with per-economy accepted_cargos.
-          Same tile numeric_id wrapped in if(economy==N) so only one is active per game.
-          Fixes 16-bit cargo_amount_accept limit by having max 3-6 cargos per economy instead of union. -->
+    <!--! Warehouse tile: per-economy items with explicit accepted_cargos.
+          This keeps economy scoping correct. UI will still show acceptance when
+          the warehouse is full because no tile-level amount callback is used. -->
     <tal:warehouse condition="python: getattr(industry, 'base_processing_cap', 0) > 0">
         <tal:economies repeat="economy industry.economies_enabled_for_industry">
     if (economy==${economy.numeric_id}) {
@@ -88,7 +88,6 @@
             		    anim_control: ${tile.id}_anim_control;
                     </tal:block>
         		</tal:anim_control>
-                cargo_amount_accept: ${industry.id}_cargo_amount_accept_${economy.numeric_id};
                 <tal:random_trigger condition="tile.random_trigger is not None">
                     random_trigger: ${tile.random_trigger};
                 </tal:random_trigger>

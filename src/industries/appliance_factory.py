@@ -11,34 +11,40 @@ industry = IndustrySecondary(
     name="string(STR_IND_APPLIANCE_FACTORY)",
     nearby_station_name="string(STR_STATION_INDUSTRY_ESTATE_1)",
     fund_cost_multiplier="95",
+    base_processing_cap=32,
 )
 
 
 industry.economy_variations['STEELTOWN'].enabled = True
 industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
-    ("STAL", 2),
-    ("STSH", 2),  
+    ("STSH", 4),
+    ("POWR", 2),
     ("GLAS", 1),
     ("PPAR", 1),
-    ("POWR", 1),
     ("TYRE", 1),
 ]
+industry.economy_variations["STEELTOWN"].required_input_cargos = ["STSH", "POWR"]
+industry.economy_variations["STEELTOWN"].scale_bonus_cargos = [("RCYC", {"low": 1, "high": 2})]
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].accept_cargos_with_input_ratios = [
     ("MPAR", 4),
-    ("GLAS", 2),
     ("PLAS", 2),
+    ("GLAS", 2),
     ("TYRE", 2),
 ]
+industry.economy_variations["BASIC_TROPIC"].required_input_cargos = ["MPAR", "PLAS"]
+industry.economy_variations["BASIC_TROPIC"].scale_bonus_cargos = [("RCYC", {"low": 1, "high": 2})]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].accept_cargos_with_input_ratios = [
     ("MPAR", 4),
-    ("POWR", 4),
+    ("POWR", 2),
     ("GLAS", 2),
     ("PLAS", 2),
 ]
+industry.economy_variations["BASIC_TEMPERATE"].required_input_cargos = ["MPAR", "POWR"]
+industry.economy_variations["BASIC_TEMPERATE"].scale_bonus_cargos = [("RCYC", {"low": 1, "high": 2})]
 
 industry.add_tile(
     id="appliance_factory_tile_1",
