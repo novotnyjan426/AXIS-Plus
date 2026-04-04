@@ -2282,6 +2282,37 @@ class IndustrySecondary(Industry):
             denom=100 * total_ratio,
         )
 
+    def get_extra_text_help_suffix(self):
+        """Return the help text suffix for the industry window extra_text string.
+        Determined at compile time based on required cargo type and bonus cargo presence."""
+        has_bonus = len(self.scale_bonus_cargos) > 0
+        has_req_all = len(self.required_input_cargos) > 0
+        has_req_any = len(getattr(self, 'required_any_input_cargos', [])) > 0
+
+        parts = []
+        # Required/delivery help
+        if has_req_all:
+            parts.append("{BLACK}Deliver ALL {ORANGE}required{BLACK} cargos to produce. {LTBLUE}Boosters{BLACK} improve rate.")
+        elif has_req_any:
+            parts.append("{BLACK}Deliver ANY {ORANGE}required{BLACK} cargo to produce. {LTBLUE}Boosters{BLACK} and other required improve rate.")
+        else:
+            parts.append("{BLACK}Deliver cargo to produce. More cargos improve rate.")
+        return "{}".join(parts)
+
+    def get_scale_help_text(self):
+        """Return the scale buildings help line with unlock info."""
+        has_bonus = len(self.scale_bonus_cargos) > 0
+        if has_bonus:
+            return "{BLACK}Place scale buildings to boost speed and unlock outputs."
+        else:
+            return "{BLACK}Place scale buildings nearby to boost speed."
+
+    def get_max_production_ratio(self, economy):
+        """Return the maximum possible production ratio for this economy.
+        Sum of all input cargo ratios (what current_production_ratio reaches when all supplied)."""
+        cargos = self.get_property('accept_cargos_with_input_ratios', economy)
+        return sum(r for _, r in cargos)
+
     def get_non_bonus_output_cargos(self, economy):
         """Return list of (label, ratio) for output cargos that are NOT scale bonus cargos."""
         return [(label, ratio) for label, ratio in

@@ -12,6 +12,9 @@ industry = IndustrySecondary(
     fund_cost_multiplier="200",
     name="TTD_STR_INDUSTRY_NAME_OIL_REFINERY",
     nearby_station_name="string(STR_STATION_REFINERY)",
+    base_processing_cap=32,
+    required_input_cargos=["OIL_"],
+    scale_bonus_cargos=[("CTAR", {"medium": 1}), ("SULP", {"low": 1})],
 )
 
 
@@ -23,23 +26,26 @@ industry.economy_variations["STEELTOWN"].accept_cargos_with_input_ratios = [
 industry.economy_variations["STEELTOWN"].prod_cargo_types_with_output_ratios = [
     ("RFPR", 4),
     ("PETR", 2),
-    ("CTAR", 1),
-    ("SULP", 1),
 ]
-
+# CTAR scale medium=1, SULP scale low=1 (both unlocked by scale buildings)
 
 industry.economy_variations["BASIC_TROPIC"].enabled = True
 industry.economy_variations["BASIC_TROPIC"].prod_cargo_types_with_output_ratios = [
     ("RFPR", 6),
     ("PETR", 4),
-    ("SULP", 2),
 ]
+# SULP scale low=1, high=2
+industry.economy_variations["BASIC_TROPIC"].scale_bonus_cargos = [("SULP", {"low": 1, "high": 2})]
 
 industry.economy_variations["BASIC_TEMPERATE"].enabled = True
 industry.economy_variations["BASIC_TEMPERATE"].prod_cargo_types_with_output_ratios = [
     ("RFPR", 6),
     ("PETR", 4),
-    ("CTAR", 4),
+]
+# CTAR scale medium=2, SULP scale low=1 high=2
+industry.economy_variations["BASIC_TEMPERATE"].scale_bonus_cargos = [
+    ("CTAR", {"medium": 2}),
+    ("SULP", {"low": 1, "high": 2}),
 ]
 
 industry.add_tile(

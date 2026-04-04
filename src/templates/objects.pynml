@@ -114,6 +114,69 @@ switch(FEAT_OBJECTS, SELF, ${obj.id}_tile_switch, var[0x40] % 65536) {
     </tal:cases>
     default: ${obj.id}_layout_default;
 }
+
+<!--! Snow variants for tile_grid (auto-detected from sprite_file_snow) -->
+<tal:snow condition="obj.has_snow()">
+<tal:tiles repeat="tile obj.tile_grid_items()">
+<tal:bldg_spritesets repeat="bldg tile.get('buildings', [])">
+<tal:static_bldg condition="python:bldg.get('coords') and not bldg.get('anim_coords')">
+spriteset(${obj.id}_bldg_snow_t${tile['x']}_${tile['y']}_${repeat.bldg.index}, "${obj.sprite_file_snow}") {
+    [${bldg['coords'][0]}, ${bldg['coords'][1]}, ${bldg['coords'][2]}, ${bldg['coords'][3]}, ${bldg['coords'][4]}, ${bldg['coords'][5]}]
+}
+</tal:static_bldg>
+</tal:bldg_spritesets>
+
+spritelayout ${obj.id}_layout_snow_t${tile['x']}_${tile['y']} {
+    ground {
+        sprite: ${obj.ground_sprite};
+    }
+    <tal:bldgs repeat="bldg tile.get('buildings', [])">
+    <tal:spriteset_bldg condition="python:bldg.get('coords') and not bldg.get('anim_coords')">
+    building {
+        sprite: ${obj.id}_bldg_snow_t${tile['x']}_${tile['y']}_${repeat.bldg.index}(0);
+        recolour_mode: RECOLOUR_REMAP;
+        palette: PALETTE_USE_DEFAULT;
+    }
+    </tal:spriteset_bldg>
+    <tal:other_bldg condition="python:bldg.get('anim_coords') or bldg.get('sprite_expr')">
+    <tal:anim condition="python:bldg.get('anim_coords')">
+    building {
+        sprite: ${obj.id}_bldg_t${tile['x']}_${tile['y']}_${repeat.bldg.index}(animation_frame % ${len(bldg['anim_coords'])});
+        recolour_mode: RECOLOUR_REMAP;
+        palette: PALETTE_USE_DEFAULT;
+    }
+    </tal:anim>
+    <tal:expr condition="python:bldg.get('sprite_expr')">
+    building {
+        sprite: ${bldg['sprite_expr']};
+        <tal:hide condition="python:bldg.get('hide_sprite')">
+        hide_sprite: ${bldg['hide_sprite']};
+        </tal:hide>
+        xoffset: ${bldg.get('xoffset', 0)};
+        yoffset: ${bldg.get('yoffset', 0)};
+        zoffset: ${bldg.get('zoffset', 0)};
+        xextent: ${bldg.get('xextent', 16)};
+        yextent: ${bldg.get('yextent', 16)};
+        zextent: ${bldg.get('zextent', 7)};
+    }
+    </tal:expr>
+    </tal:other_bldg>
+    </tal:bldgs>
+}
+</tal:tiles>
+
+switch(FEAT_OBJECTS, SELF, ${obj.id}_tile_switch_snow, var[0x40] % 65536) {
+    <tal:cases repeat="tile obj.tile_grid_items()">
+    ${tile['switch_val']}: ${obj.id}_layout_snow_t${tile['x']}_${tile['y']};
+    </tal:cases>
+    default: ${obj.id}_layout_default;
+}
+
+switch(FEAT_OBJECTS, SELF, ${obj.id}_snow_switch, nearby_tile_terrain_type(0, 0)) {
+    TILETYPE_SNOW: ${obj.id}_tile_switch_snow;
+    ${obj.id}_tile_switch;
+}
+</tal:snow>
 </tal:tiled>
 
 <!--! Slope-aware tree mode: per-slope spritelayouts with base_sprite trees + slope switch -->
@@ -247,6 +310,27 @@ spritelayout ${obj.id}_spritelayout {
         palette: PALETTE_USE_DEFAULT;
     }
 }
+<tal:snow condition="obj.has_snow()">
+spriteset(${obj.id}_spriteset_snow, "${obj.sprite_file_snow}") {
+    [${obj.sprite_coords[0]}, ${obj.sprite_coords[1]}, ${obj.sprite_coords[2]}, ${obj.sprite_coords[3]}, ${obj.sprite_coords[4]}, ${obj.sprite_coords[5]}]
+}
+
+spritelayout ${obj.id}_spritelayout_snow {
+    ground {
+        sprite: ${obj.ground_sprite};
+    }
+    building {
+        sprite: ${obj.id}_spriteset_snow(0);
+        recolour_mode: RECOLOUR_REMAP;
+        palette: PALETTE_USE_DEFAULT;
+    }
+}
+
+switch(FEAT_OBJECTS, SELF, ${obj.id}_snow_switch, nearby_tile_terrain_type(0, 0)) {
+    TILETYPE_SNOW: ${obj.id}_spritelayout_snow;
+    ${obj.id}_spritelayout;
+}
+</tal:snow>
 </tal:single>
 
 <!--! Base sprite mode: numeric base game sprite ID, no spriteset -->
@@ -301,7 +385,12 @@ item(FEAT_OBJECTS, ${obj.id}, ${obj.numeric_id}) {
         <tal:tiled_anim condition="obj.has_animation()">
         anim_control: return CB_RESULT_NEXT_FRAME;
         </tal:tiled_anim>
+        <tal:tiled_snow condition="obj.has_snow()">
+        default: ${obj.id}_snow_switch;
+        </tal:tiled_snow>
+        <tal:tiled_nosnow condition="python:not obj.has_snow()">
         default: ${obj.id}_tile_switch;
+        </tal:tiled_nosnow>
         </tal:tiled_gfx>
         <tal:anim_gfx condition="python:obj.has_animation() and not obj.has_tile_grid()">
         <tal:purchase condition="obj.purchase_sprite is not None">
@@ -315,7 +404,11 @@ item(FEAT_OBJECTS, ${obj.id}, ${obj.numeric_id}) {
         autoslope: return CB_RESULT_AUTOSLOPE;
         default: ${obj.id}_slope_switch;
         </tal:slope_gfx>
-        <tal:normal_gfx condition="python:not obj.has_tile_grid() and not obj.has_animation() and not obj.has_slope_buildings()">
+        <tal:normal_snow_gfx condition="python:not obj.has_tile_grid() and not obj.has_animation() and not obj.has_slope_buildings() and obj.has_snow()">
+        purchase: ${obj.id}_spritelayout;
+        default: ${obj.id}_snow_switch;
+        </tal:normal_snow_gfx>
+        <tal:normal_gfx condition="python:not obj.has_tile_grid() and not obj.has_animation() and not obj.has_slope_buildings() and not obj.has_snow()">
         default: ${obj.id}_spritelayout;
         </tal:normal_gfx>
 

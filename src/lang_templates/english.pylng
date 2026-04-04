@@ -2,3 +2,17 @@ STR_GRF_NAME                                                    :AXIS+ (AXIS Plu
 STR_GRF_DOCS_URL                                                :https://github.com/novotnyjan426/AXIS-Plus
 <!--! empty string is not translated :) -->
 STR_EMPTY                                                       :
+<!--! Per-industry combined extra_text strings (speed + efficiency + help + scale)
+      TEMP: 0x100=speed%, 0x101=efficiency%, 0x102=tile_count, 0x103=threshold
+      Colors: WHITE=values, ORANGE=required, LTBLUE=booster, RED=problems, GRAY=separator
+      {COMMA} reads: NONE=skip,eff,tiles,thresh  MID=speed,eff,tiles,thresh  MAX=speed,eff,tiles,skip -->
+<tal:industries repeat="industry registered_industries">
+<tal:capped condition="python: getattr(industry, 'base_processing_cap', 0) > 0">
+STR_WAREHOUSE_${industry.id}_NONE                               :{BLACK}Production speed: {WHITE}100%{}{GRAY}-------------------------------{}{BLACK}Current efficiency: {WHITE}{SKIP}{SKIP}{COMMA}%{}${industry.get_extra_text_help_suffix()}{}${industry.get_scale_help_text()}{}{BLACK}Nearby: {WHITE}{COMMA}{BLACK}/{WHITE}{COMMA}{BLACK} buildings (~7 tile radius)
+STR_WAREHOUSE_${industry.id}_NONE_SLOW                          :{BLACK}Production speed: {WHITE}100%{}{GRAY}-------------------------------{}{BLACK}Current efficiency: {RED}{SKIP}{SKIP}{COMMA}%{}{BLACK}Output cargo {RED}slowing{BLACK} production. Transport it to increase efficiency.{}${industry.get_extra_text_help_suffix()}{}${industry.get_scale_help_text()}{}{BLACK}Nearby: {WHITE}{COMMA}{BLACK}/{WHITE}{COMMA}{BLACK} buildings (~7 tile radius)
+STR_WAREHOUSE_${industry.id}_MID                                :{BLACK}Production speed: {WHITE}{COMMA}%{}{GRAY}-------------------------------{}{BLACK}Current efficiency: {WHITE}{COMMA}%{}${industry.get_extra_text_help_suffix()}{}${industry.get_scale_help_text()}{}{BLACK}Nearby: {WHITE}{COMMA}{BLACK}/{WHITE}{COMMA}{BLACK} buildings (~7 tile radius)
+STR_WAREHOUSE_${industry.id}_MID_SLOW                           :{BLACK}Production speed: {WHITE}{COMMA}%{}{GRAY}-------------------------------{}{BLACK}Current efficiency: {RED}{COMMA}%{}{BLACK}Output cargo {RED}slowing{BLACK} production. Transport it to increase efficiency.{}${industry.get_extra_text_help_suffix()}{}${industry.get_scale_help_text()}{}{BLACK}Nearby: {WHITE}{COMMA}{BLACK}/{WHITE}{COMMA}{BLACK} buildings (~7 tile radius)
+STR_WAREHOUSE_${industry.id}_MAX                                :{BLACK}Production speed: {WHITE}{COMMA}%{}{GRAY}-------------------------------{}{BLACK}Current efficiency: {WHITE}{COMMA}%{}${industry.get_extra_text_help_suffix()}{}${industry.get_scale_help_text()}{}{BLACK}Nearby: {WHITE}{COMMA}{BLACK} buildings, max (~7 tile radius){SKIP}{SKIP}
+STR_WAREHOUSE_${industry.id}_MAX_SLOW                           :{BLACK}Production speed: {WHITE}{COMMA}%{}{GRAY}-------------------------------{}{BLACK}Current efficiency: {RED}{COMMA}%{}{BLACK}Output cargo {RED}slowing{BLACK} production. Transport it to increase efficiency.{}${industry.get_extra_text_help_suffix()}{}${industry.get_scale_help_text()}{}{BLACK}Nearby: {WHITE}{COMMA}{BLACK} buildings, max (~7 tile radius){SKIP}{SKIP}
+</tal:capped>
+</tal:industries>

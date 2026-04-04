@@ -19,6 +19,8 @@ class ExpansionObject:
         self.ground_sprite = kwargs.get("ground_sprite", "GROUNDSPRITE_CONCRETE")
         # single sprite mode: one spriteset + one building
         self.sprite_file = kwargs.get("sprite_file", None)
+        # snow variant: auto-detected from sprite_file by replacing .png with _snow.png
+        # set to False to explicitly disable snow for an object
         self.sprite_coords = kwargs.get("sprite_coords", None)
         # multi-building mode: list of dicts with file, coords, and world offsets
         # each dict: {file, coords, xoffset, yoffset, zoffset, xextent, yextent, zextent}
@@ -56,6 +58,20 @@ class ExpansionObject:
 
     def has_custom_sprite(self):
         return self.sprite_file is not None and self.sprite_coords is not None
+
+    @property
+    def sprite_file_snow(self):
+        """Auto-detect snow variant: replace _1.png with _1_snow.png etc."""
+        if self.sprite_file is None:
+            return None
+        import os
+        snow_path = self.sprite_file.replace('.png', '_snow.png')
+        if os.path.exists(snow_path):
+            return snow_path
+        return None
+
+    def has_snow(self):
+        return self.sprite_file_snow is not None
 
     def has_multi_buildings(self):
         return self.buildings is not None and len(self.buildings) > 0
